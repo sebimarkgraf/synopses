@@ -41,6 +41,27 @@
 	\end{center}
 	
 	\subsection{Gleitkommazahlen}
+	\textbf{Darstellung}:
+	\begin{itemize}
+		\item Darstellung einer Gleitkommazahl z: $z = a * d^e$
+		\item $d$: Basis, im Zweiersystem eine Zweierpotenz (2, 4, 8 etc.)
+		\item $e$: Exponent, eine ganze Zahl zwischen $e_{min}$ und $e_{max}$
+		\item $a$: Die Mantisse, entweder 0 oder eine Zahl mit $d^{-1} \leq |a| < 1$ der Form $a = v \sum_{i = 1}^{l} a_id^{-i}$ mit dem Vorzeichenbit v und der Mantissenlänge l
+		\item Relative Maschinengenauigkeit: $eps = \frac{d^{(1-l)}}{2}$
+		\item Rundungsfunktion $rd(x)$ rundet die Nachkommastellen auf ein maschinell darstellbares Format
+	\end{itemize}
+	\textbf{Operationen}:
+	\begin{itemize}
+		\item Standard-Operationen verfügbar, Rundung nach Ausführung $\Rightarrow$ Fehlerquelle!
+		\item Aufgrund Rundung sind Operationen nicht assoziativ
+		\item \textbf{Auslöschung}: Verlust der Genauigkeit bei der Subtraktion fast gleich großer Gleitkommazahlen
+		\begin{itemize}
+			\item Bsp.: Ergebnis zweier Operationen ist bis auf Rundungsfehler gleich, Zahlen werden subtrahiert, höherwertige Stellen werden 0 und die übrige Zahl der verfälschten Stellen steigt unverhältnismäßig (enormer relativer Fehler)
+		\end{itemize}
+		\item Es gilt: $1 + |y| = 1,\ falls\ |y| < eps$
+	\end{itemize}
+	
+	
 	\subsection{Matrixnormen}
 	\begin{enumerate}
 		\item{\makebox[13cm]{\textbf{Spaltensummennorm}: Summiere Spalten, wähle Maximalwert\hfill} $\norm{A}_1$}
@@ -51,11 +72,14 @@
 	\subsection{Konditionen}
 	\textbf{Konditionszahl}:
 	\begin{itemize}
+		\item Maß für den Einfluss der Störungen von A und b auf x (wie sensibel ist das LGS?)
 		\item $1 \leq cond(A) := \norm{A}\norm{A^{-1}}$
 		\item $cond(A) = cond(\alpha A), \alpha\in\realnumbers\setminus\{O\}$
 		\item $cond(A) = \frac{max_{\norm{y}=1}\norm{Ay}}{max_{\norm{z}=1}\norm{Az}}$
 	\end{itemize}
 	%TODO
+	
+	\subsection{Householder-Transformationen}
 	
 	\section{Zerlegungen}
 	Falls nicht anders genannt gilt für folgende Abschnitte: $A, R, L, Q \in \realnumbers^{N \times N}, b \in \realnumbers^N$.
@@ -68,7 +92,7 @@
 		\item Forme schrittweise die rechte Matrix zu R um und notiere die Änderungen in der linken Matrix folgendermaßen:
 		\begin{enumerate}
 			\item Jede Operation wird als $Zeile\ A - Faktor * Zeile\ B$ notiert, auch\\
-			Additionen (z.B als \rom{2}$ - (-2)$\rom{1})
+			Additionen (z.B als \rom{2}$ - (-2)$\rom{1}); Zeilen vertauschen ist nicht gestattet!
 			\item Notiere den Vorfaktor an der Stelle, an der in R eine 0 entstanden ist
 		\end{enumerate}
 	\end{enumerate}
