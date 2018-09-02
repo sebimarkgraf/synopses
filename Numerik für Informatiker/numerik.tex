@@ -1,0 +1,93 @@
+\documentclass[10pt,a4paper]{article}
+\author{Jannik Koch}
+\title{Numerik für Informatiker}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+
+\def\realnumbers{{\rm I\!R}}
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+
+\begin{document}
+	\pagenumbering{Roman}
+	{\let\newpage\relax\maketitle}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+
+	\section{Grundlagen}
+	Falls nicht anders genannt gilt für folgende Abschnitte: $A \in \realnumbers^{N \times N}, b \in \realnumbers^N$.
+	
+	\subsection{Vorwärts-/Rückwärtssubstitution}
+	Zugrunde liegendes Problem ist die Lösung des linearen Gleichungssystems: $Ax = b$.\\
+	\textbf{Voraussetzung:} A sei eine rechte obere oder linke untere Dreiecksmatrix.\\\\
+	\textbf{Vorgehen:}
+	\begin{enumerate}
+		\item Lese die Lösung an der Stelle der Dreiecksmatrix ab, wo die Zeile nur einen Wert ungleich Null enthält
+		\item Nutze diese Lösung in der nächsten Zeile um die nächste eindeutige Lösung zu ermitteln
+		\item Wiederhole dies, bis alle Lösungen gefunden sind
+		\item \textbf{Vorwärtssubstitution}:\\Matrix ist eine untere linke Dreiecksmatrix (Lösen von oben nach unten)
+		\item \textbf{Rückwärtssubstitution}:\\Matrix ist eine obere rechte Dreiecksmatrix (Lösen von unten nach oben)
+		\item Aufwand für Vor- bzw. Rückwärtssubstitution: ca. $\frac{N^2}{2}$
+	\end{enumerate}
+
+	\textbf{Bsp.:} Rückwärtssubstitution
+	\begin{center}
+		$\begin{bmatrix} 1 & 1\\0 & 3\\\end{bmatrix}x = \begin{bmatrix}2 \\ 3\end{bmatrix} \Rightarrow
+		x_2 = 1 \Rightarrow x_1 + 1 = 2 \Rightarrow x_1 = 1 \Rightarrow x = \begin{bmatrix}1 \\ 1\end{bmatrix}$
+	\end{center}
+	
+	\subsection{Gleitkommazahlen}
+	\subsection{Matrixnormen}
+	\begin{enumerate}
+		\item{\makebox[13cm]{\textbf{Spaltensummennorm}: Summiere Spalten, wähle Maximalwert\hfill} $\norm{A}_1$}
+		\item{\makebox[13cm]{\textbf{Spektralnorm}: Wurzel des größten Eigenwerts von $A^TA$\hfill} $\norm{A}_2$}
+		\item{\makebox[13cm]{\textbf{Zeilensummennorm}: Summiere Zeilen, wähle Maximalwert\hfill} $\norm{A}_\infty$}
+	\end{enumerate}
+	
+	\subsection{Konditionen}
+	\textbf{Konditionszahl}:
+	\begin{itemize}
+		\item $1 \leq cond(A) := \norm{A}\norm{A^{-1}}$
+		\item $cond(A) = cond(\alpha A), \alpha\in\realnumbers\setminus\{O\}$
+		\item $cond(A) = \frac{max_{\norm{y}=1}\norm{Ay}}{max_{\norm{z}=1}\norm{Az}}$
+	\end{itemize}
+	%TODO
+	
+	\section{Zerlegungen}
+	Falls nicht anders genannt gilt für folgende Abschnitte: $A, R, L, Q \in \realnumbers^{N \times N}, b \in \realnumbers^N$.
+
+	\subsection{LR-Zerlegung}
+	Ziel: Zerlegung von A in eine \textbf{rechte obere Dreiecksmatrix R} und eine \textbf{linke untere Dreiecksmatrix L}, sodass gilt: $Ax = LRx = b$\\\\
+	\textbf{Berechnen der LR-Zerlegung:}
+	\begin{enumerate}
+		\item Schreibe Matrix als Produkt $I_N * A$ mit der Einheitsmatrix $I_N$
+		\item Forme schrittweise die rechte Matrix zu R um und notiere die Änderungen in der linken Matrix folgendermaßen:
+		\begin{enumerate}
+			\item Jede Operation wird als $Zeile\ A - Faktor * Zeile\ B$ notiert, auch\\
+			Additionen (z.B als \rom{2}$ - (-2)$\rom{1})
+			\item Notiere den Vorfaktor an der Stelle, an der in R eine 0 entstanden ist
+		\end{enumerate}
+	\end{enumerate}
+	\textbf{Bsp.:} $2\times2$ LR-Zerlegung
+	\begin{center}
+		$A = 
+		\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix} =
+		\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix} * \begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix} \stackrel{II - 3I}{=}
+		\begin{bmatrix}1 & 0 \\ 3 & 1\end{bmatrix} * \begin{bmatrix}1 & 2 \\ 0 & -2\end{bmatrix} = LR
+		$	
+	\end{center}
+	\textbf{Performantes Lösen einer fertigen LR-Zerlegung:}
+	\begin{enumerate}
+		\item Substituiere $Rx$ mit $y\in\realnumbers^N$ und löse $Ly = b$ per Vorwärtssubstitution
+		\item Löse $Rx = y$ per Rückwärtssubstitution
+	\end{enumerate}
+	\subsection{Cholesky-Zerlegung}
+	%TODO
+
+	\subsection{QR-Zerlegung}
+	%TODO
+\end{document}
