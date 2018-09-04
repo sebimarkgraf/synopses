@@ -7,6 +7,8 @@
 \usepackage[a4paper, total={6in, 8in}]{geometry}
 
 \def\realnumbers{{\rm I\!R}}
+\def\naturalnumbers{{\rm I\!N}}
+
 \newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 \newcommand{\norm}[1]{\lVert#1\rVert}
 
@@ -19,10 +21,88 @@
 	\setcounter{page}{1}
 
 	\section{Jordan Normalform}
+	Seien $A \in \realnumbers^{N\times N}$, $\lambda \in \realnumbers$.
+	
 	\subsection{Berechnung der Normalform}
+	\begin{itemize}
+		\item Berechnung des \textbf{charakteristischen Polynoms} $p_A(\lambda) = |A - \lambda I_N| = 0$
+		\item \textbf{Algebraische Vielfachheit} eines Eigenwerts $r_\lambda$: Potenz des Eigenwerts in $p_A(\lambda)$
+		\item \textbf{Geometrische Vielfachheit} eines Eigenwerts $d_\lambda$: Dimension des zugehörigen Eigenraums
+		\item Hauptdiagonale der Jordan-Normalform $J_A$ entspricht Eigenwerten in beliebiger Reihenfolge, jeder davon jeweils so oft wie $r_\lambda$ vorgibt
+		\item $d_\lambda$ gibt die Anzahl der Jordankästchen an
+		\item Falls die Anzahl der Jordankästchen keine eindeutige Form impliziert
+			\begin{enumerate}
+				\item Hauptraum bilden (Eigenraum verallgemeinern)
+				\item $q$ entspricht der Länge des längsten Jordankästchens
+				\item Ansonsten: Anzahl der Kästchen der Länge k = $dim K_k(\lambda) - dim K_{k - 1}(\lambda¸)$
+			\end{enumerate}
+	\end{itemize}
+	
+	\subsection{Eigenräume verallgemeinern}
+	Annahme: Dimension des Eigenraums ist kleiner als die algebraische Vielfachheit. Für die Jordan-Normalform wird ein Eigenraum zum Hauptraum erweitert.
+	\begin{itemize}
+		\item $K_k(\lambda) = ker(A - \lambda I_N)^k$, d.h. wir bilden $A - \lambda I_N$ jeweils $k$-mal auf sich selber ab und bilden den Kern für $K_k$; der Eigenraum selber entspricht somit $K_1(\lambda)$
+		\item Sobald $K_q(\lambda) = K_{k + 1}(\lambda)$ für ein $q \in \naturalnumbers$ heißt $K_q(\lambda)$ Hauptraum, danach ergeben sich keine neuen Änderungen mehr
+	\end{itemize}
+	
+	\subsection{Minimalpolynom bestimmen}
+	\begin{enumerate}
+		\item Charakteristisches Polynom bestimmen, Eigenwerte ablesen
+		\item Haupträume der Eigenwerte bestimmen
+		\item Exponenten des char. Polynoms anpassen für Minimalpolynom $m_A = (X - \lambda_1)^{q_1} ... (X - \lambda_n)^{q_n}$
+	\end{enumerate}
+	\textbf{Cayley-Hamilton}: $m_A(A) = 0$ und $m_A|p_A$
+
 	\subsection{Jordan-Basis}
+	Ziel: Finden einer Matrix S, sodass $J_A = S^{-1} * A * S$
+	\begin{enumerate}
+		\item Für jeden Eigenwert Vektoren $v \in ker(A - \lambda I_N)^q \setminus ker(A - \lambda I_N)^{q - 1}$ wählen;\\diese bilden die rechteste Spalte in S für das entsprechende Jordankästchen
+		\item Das Kästchen wird nach links aufgefüllt, indem man v immer wieder abbildet:\\$(A - \lambda I_N)^{q - 1}v, (A - \lambda I_N)^{q - 2}v ... (A - \lambda I_N)v$
+		\item Die Reihenfolge muss zur aufgestellten Normalform passen und ist nicht eindeutig!
+	\end{enumerate}
+
+	\subsection{Tricks}
+		\begin{itemize}
+			\item $dim(ker \phi)$ bzw. $dim(ker A)$ impliziert die Dimension des Eigenraumes zum Eigenwert 0
+			\item $Spur(A)$ = Summe der Eigenwerte mit Vielfachheit (z.B Eigenwert mit algebraischer Vielfachheit 2 zählt doppelt)
+		\end{itemize}
+	
 	\section{Skalarprodukte}
+	Sei K ein Körper und V ein K-Vektorraum der Dimension N, $v, v_1, v_2, w, w_1, w_2 \in V$, $\alpha \in K$ sowie
+	\begin{center}
+		$s(\cdot,\cdot) = \langle\cdot,\cdot\rangle: V \times V \rightarrow \realnumbers^N, (v, w) \mapsto \langle v, w\rangle$
+	\end{center}
+	
+	Sei weiter $B = \{b_1, ..., b_n\}$ eine Basis von V.
+	
 	\subsection{Skalarprodukte und Fundamentalmatrizen}
+		Definition einer Fundamentalmatrix:
+		\begin{center}
+			$F(s) = \begin{bmatrix}
+			\langle b_1, b_1\rangle & \langle b_1, b_2\rangle & ... & \langle b_1, b_n\rangle\\
+			\vdots & \vdots & \ddots & \vdots \\
+			\langle b_n, b_1\rangle & \langle b_n, b_2\rangle & ... & \langle b_n, b_n\rangle\\			
+			\end{bmatrix}$
+		\end{center}
+		Voraussetzungen eines Skalarprodukts (dies gelte für beliebig gewählte Vektoren):
+		\begin{itemize}
+			\item Bilinearform
+			\begin{enumerate}
+				\item $\langle \alpha v_1 + v_2, w\rangle = \alpha\langle  v_1, w\rangle + \langle v_2, w\rangle$
+				\item $\langle v, \alpha w_1 + w_2\rangle = \alpha\langle  v, w_1\rangle + \langle v, w_2\rangle$
+			\end{enumerate}
+			\item Symmetrisch
+			\begin{itemize}
+				\item Formal: $\langle v, w\rangle = \langle w, v\rangle$
+				\item Anhand der Fundamentalmatrix: Symmetrisch
+			\end{itemize}
+			\item Positiv-definit
+			\begin{itemize}
+				\item Formal: $\langle v, v\rangle \geq 0$ für alle $v \in V$ und $\langle v, v\rangle = 0 \Leftrightarrow v = 0$
+				\item Anhand der Fundamentalmatrix: Alle Hauptminoren sind $> 0$,\\alternativ: $v^TF(s)v \geq 0$ für alle $v \in V$
+			\end{itemize}
+		\end{itemize}
+	
 	\subsection{Winkel, Längen, Abstände}
 	\section{Orthogonalsysteme}
 	\subsection{Gram-Schmidt-Orthogonalisierung und -normalisierung}
