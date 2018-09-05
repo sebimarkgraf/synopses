@@ -158,9 +158,66 @@
 	\textbf{Unitäre Cauchy-Schwarz-Ungleichung}: $|\langle v, w\rangle|^2 \leq \langle v, v\rangle * \langle w, w\rangle$, Gleichheit genau dann, wenn v und w linear abhängig sind
 	
 	\section{Orthogonalsysteme}
+	Sei K ein Körper und V ein K-Vektorraum mit Basis $B = \{b_1, ..., b_n\}$ sowie einem Skalarprodukt $\langle \cdot, \cdot\rangle$ und einer Norm $|\cdot|$.
+	
 	\subsection{Gram-Schmidt-Orthogonalisierung und -normalisierung}
+	Ziel: Ermittlung einer Basis aus orthogonalen Vektoren bzw. orthonormalen Vektoren (Vektoren haben Länge 1, wie z.B die Standardbasisvektoren bzgl. der Standardmetrik).\\\\
+	\textbf{Vorgehen}:
+	\begin{enumerate}
+		\item Wähle Startvektor $b^*_1 = b_1$ (und normiere diesen für eine Orthonormalbasis mit $c_1 =  \frac{b^*_1}{\norm{b^*`_1}}$)
+		\item Iteriere durch die restlichen Basisvektoren und berechne
+		\begin{enumerate}
+			\item Abziehen der parallelen Teile der vorherigen Basisvektoren für eine Orthogonalbasis:\\$b^*_i = b_i - \sum_{j = 1}^{i - 1} \frac{\langle b_i, c_j\rangle}{\langle c_j, c_j\rangle}c_j$
+			\item ggf. Bilden der Orthonormalbasis durch Normieren: $c_i = \frac{b^*_i}{\norm{b^*_i}}$
+		\end{enumerate}
+	\end{enumerate}
+	Damit ergibt sich die Orthogonalbasis bzgl. des Skalarprodukts und der Norm: $B^* = \{b^*_1, ..., b^*_n\}$ sowie (optional) die Orthonormalbasis $C = \{c_1, ..., c_n\}$.
+	
 	\subsection{Orthogonale Komplemente und Projektionen}
+	\textbf{Allgemein:}
+	\begin{itemize}
+		\item Das \textbf{orthogonale Komplement} einer Teilmenge M des Vektorraums V entspricht:
+		\begin{center}
+			$M^\perp := \{v \in V\ |\ v\perp m\ \forall m\in M\} = \{v\in V\ |\ \langle v, m\rangle = 0\ \forall m\in M\}$
+		\end{center}
+		\item Es gilt für einen Untervektorraum U zu V:
+		\begin{center}
+			$V = U \bigoplus U^\perp$ und $dim V = dim U + dim U^\perp$
+		\end{center}
+		\item Weiter gibt es die \textbf{orthogonale Projektion}, die das orthogonale Komplement unterschlägt:
+		\begin{center}
+			$\Pi_U: V = U \bigoplus U^\perp \rightarrow U, v = u + u^\perp \mapsto u$
+		\end{center}
+		wobei $ker \Pi_U = U^\perp,\ \Pi_{U|U} = id_U$ und $\Pi^2_U = \Pi_U$
+		\item $\Pi_U(v)$ ist der \textbf{Lotfußpunkt} von v auf U und hat in U den kürzesten Abstand zu v
+	\end{itemize}
+	\textbf{Berechnung der orthogonalen Projektion:}
+	\begin{enumerate}
+		\item Berechne die \textbf{Orthonormalbasis} $\{c_1, ..., c_m\}$ \textbf{von U}
+		\item Ergänze diese zu einer \textbf{Orthonormalbasis von V}, d.h. $\{c_1, ..., c_m, c_{m + 1}, ... c_n\}$, der ergänzte Teil ist die Orthonormalbasis zu $U^\perp$
+		\item Damit folgt die orth. Projektion: $\Pi_U: V \rightarrow U, b_i \mapsto
+		\begin{cases}
+			b_i,& falls\ i \in \{1, ..., m\}\\
+			0,& falls\ i \in \{m + 1, ..., n\}\\
+		\end{cases}$
+	\end{enumerate}
+
+	\subsection{Orthogonale und Unitäre Gruppen}
+	\begin{itemize}
+		\item \textbf{Orthogonale Gruppe}: $O(n) := \{A \in \realnumbers^{N\times N}\ |\ A^TA = I_N\}$
+		\item \textbf{Spezielle orthogonale Gruppe}: $SO(n) := \{A \in O(n)\ |\ det A = 1\}$
+		\item \textbf{Unitäre Gruppe}: $U(n) := \{A \in \complexnumbers^{N\times N}\ |\ \overline{A}^TA = I_N\}$
+		\item \textbf{Spezielle unitäre Gruppe}: $SU(n) := \{A \in U(n)\ |\ det A = 1\}$
+	\end{itemize}
+
 	\subsection{Iwasawa-Zerlegung}
+	\textbf{Ziel}: Zerlegen einer Matrix $A \in \realnumbers^{N\times N} (\complexnumbers^{N\times N})$ in das Produkt einer orthogonalen (unitären) Matrix O und einer oberen Dreiecksmatrix R mit positiven reellen Diagonaleinträgen, sodass: $A = OR$.\\\\
+	\textbf{Vorgehen}:
+	\begin{enumerate}
+		\item Bilde eine \textbf{Orthonormalbasis} $C = \{c_1, ..., c_n\}$ aus den Basisvektoren in den Spalten der Matrix A ($A = (a_1 | a_2 | ... | a_n)$)
+		\item O entspricht den \textbf{Basisvektoren der Orthonormalbasis} $c_i$, d.h. $O = (c_1 | c_2 | ... | c_n)$
+		\item Bilde R über \textbf{Gauß-Jordan}, d.h. entwickle A nach O, d.h. löse das LGS $(O | A)$, sodass die linke Matrix $I_N$ entspricht; die \textbf{rechte Matrix entspricht dann R}
+	\end{enumerate}
 	\section{Isometrien}
 	\subsection{Isometrien}
 	\subsection{Isometrie-Normalform}
