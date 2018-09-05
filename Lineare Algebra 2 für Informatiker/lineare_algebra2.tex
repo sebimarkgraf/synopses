@@ -4,10 +4,12 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
 
 \def\realnumbers{{\rm I\!R}}
 \def\naturalnumbers{{\rm I\!N}}
+\def\complexnumbers{{\mathbb{C}}}
 
 \newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 \newcommand{\norm}[1]{\lVert#1\rVert}
@@ -72,7 +74,6 @@
 	\begin{center}
 		$s(\cdot,\cdot) = \langle\cdot,\cdot\rangle: V \times V \rightarrow \realnumbers^N, (v, w) \mapsto \langle v, w\rangle$
 	\end{center}
-	
 	Sei weiter $B = \{b_1, ..., b_n\}$ eine Basis von V.
 	
 	\subsection{Skalarprodukte und Fundamentalmatrizen}
@@ -86,24 +87,76 @@
 		\end{center}
 		Voraussetzungen eines Skalarprodukts (dies gelte für beliebig gewählte Vektoren):
 		\begin{itemize}
-			\item Bilinearform
-			\begin{enumerate}
-				\item $\langle \alpha v_1 + v_2, w\rangle = \alpha\langle  v_1, w\rangle + \langle v_2, w\rangle$
-				\item $\langle v, \alpha w_1 + w_2\rangle = \alpha\langle  v, w_1\rangle + \langle v, w_2\rangle$
-			\end{enumerate}
-			\item Symmetrisch
+			\item \textbf{Bilinearform}
 			\begin{itemize}
-				\item Formal: $\langle v, w\rangle = \langle w, v\rangle$
+				\item $\langle \alpha v_1 + v_2, w\rangle = \alpha\langle  v_1, w\rangle + \langle v_2, w\rangle$ \textbf{und}
+				\item $\langle v, \alpha w_1 + w_2\rangle = \alpha\langle  v, w_1\rangle + \langle v, w_2\rangle$
+			\end{itemize}
+			\item \textbf{Symmetrisch}
+			\begin{itemize}
+				\item Formal: $\langle v, w\rangle = \langle w, v\rangle$ \textbf{oder}
 				\item Anhand der Fundamentalmatrix: Symmetrisch
 			\end{itemize}
-			\item Positiv-definit
+			\item \textbf{Positiv-definit}
 			\begin{itemize}
-				\item Formal: $\langle v, v\rangle \geq 0$ für alle $v \in V$ und $\langle v, v\rangle = 0 \Leftrightarrow v = 0$
+				\item Formal: $\langle v, v\rangle \geq 0$ für alle $v \in V$ und $\langle v, v\rangle = 0 \Leftrightarrow v = 0$ \textbf{oder}
 				\item Anhand der Fundamentalmatrix: Alle Hauptminoren sind $> 0$,\\alternativ: $v^TF(s)v \geq 0$ für alle $v \in V$
 			\end{itemize}
 		\end{itemize}
+	\textbf{Standardskalarprodukt}: $\langle v, w\rangle = v^Tw$\\\\
+	\textbf{Cauchy-Schwarz-Ungleichung}: $\langle v, w\rangle^2 \leq \langle v, v\rangle * \langle w, w\rangle$, Gleichheit genau dann, wenn v und w linear abhängig sind
 	
-	\subsection{Winkel, Längen, Abstände}
+	\subsection{Normen}
+	Sei K $\in \{\realnumbers,\complexnumbers\}$ ein Körper und V ein K-Vektorraum, $v, w \in V$ und $\lambda \in K$ beliebig und eine Abbildung:
+	\begin{center}
+		$|\cdot|: V \rightarrow \realnumbers$
+	\end{center}
+	Dann heißt $|\cdot|$ \textbf{Norm}, wenn folgende Bedingungen gelten:
+	\begin{enumerate}
+		\item \textbf{Positiv definit}: $\norm{v} \geq 0$ und $\norm{v} = 0 \Leftrightarrow v = 0$
+		\item \textbf{Homogen}: $\norm{\lambda v} = \lambda \norm{v}$
+		\item \textbf{Dreiecksungleichung}: $\norm{v + w} \leq \norm{v} + \norm{w}$
+	\end{enumerate}
+	\textbf{Standardnorm}: $\norm{v} := \sqrt{\langle v, v\rangle}$
+	
+	\subsection{Abstandsfunktionen / Metriken}
+	Sei K $\in \{\realnumbers,\complexnumbers\}$ ein Körper und V ein K-Vektorraum, $v, w, z \in V$ beliebig und eine Abbildung:
+	\begin{center}
+		$d: V \rightarrow \realnumbers$
+	\end{center}
+	Dann heißt $d$ \textbf{Metrik}, wenn folgende Bedingungen gelten:
+	\begin{enumerate}
+		\item \textbf{Definitheit}: $d(v, w) > 0$ falls $v \neq w$ und $d(v, w) = 0$ falls $v = w$
+		\item \textbf{Symmetrie}: $d(v, w) = d(w, v)$
+		\item \textbf{Dreiecksungleichung}: $d(v, z) \leq d(v, w) + d(w, z)$
+	\end{enumerate}
+	\textbf{Standardmetrik}: $d(v, w) := \norm{w - v} = \sqrt{\langle w - v, w - v\rangle}$
+		
+	\subsection{Winkel}
+	Sei V ein euklidischer Vektorraum mit Skalarprodukt $\langle \cdot, \cdot\rangle$ und $v, w\in V$ beliebig. So gilt für den Winkel zwischen v und w:
+	\begin{center}
+		$cos(\alpha) := cos(\sphericalangle(v, w)) = \frac{\langle v, w\rangle}{\norm{v}\norm{w}} = \frac{\langle v, w\rangle}{\sqrt{\langle v, v \rangle}\sqrt{\langle w, w\rangle}}$
+	\end{center}
+	Ist das \textbf{Skalarprodukt gleich 0}, so sind die Vektoren \textbf{orthogonal}.
+	\newpage
+	\subsection{Änderungen bei unitären Vektorräumen}
+	Ist der zugrunde liegende Vektorraum unitär (d.h. K ist $\complexnumbers$) so muss für das Skalarprodukt gelten:
+	\begin{itemize}
+		\item Statt einer Bilinearform ist das Skalarprodukt eine \textbf{Sesquilinearform}:
+		\begin{itemize}
+			\item $\langle \alpha v_1 + v_2, w\rangle = \alpha\langle  v_1, w\rangle + \langle v_2, w\rangle$ \textbf{und}
+			\item $\langle v, \alpha w_1 + w_2\rangle = \overline{\alpha}\langle  v, w_1\rangle + \langle v, w_2\rangle$
+		\end{itemize}
+		\item Statt symmetrisch ist das Skalarprodukt \textbf{hermitesch}:
+			\begin{itemize}
+				\item Formal: $\langle v, w\rangle = \overline{\langle w, v\rangle}$ \textbf{oder}
+				\item Anhand der Fundamentalmatrix: $F(s) = \overline{F}^T$
+			\end{itemize}
+		\item Das Skalarprodukt muss weiterhin \textbf{positiv definit} sein wie bisher
+	\end{itemize}
+	\textbf{Standardskalarprodukt}: $\langle v, w\rangle := v^T\overline{w} = \sum_{i = 1}^{n} v_i\overline{w}_i$\\\\
+	\textbf{Unitäre Cauchy-Schwarz-Ungleichung}: $|\langle v, w\rangle|^2 \leq \langle v, v\rangle * \langle w, w\rangle$, Gleichheit genau dann, wenn v und w linear abhängig sind
+	
 	\section{Orthogonalsysteme}
 	\subsection{Gram-Schmidt-Orthogonalisierung und -normalisierung}
 	\subsection{Orthogonale Komplemente und Projektionen}
