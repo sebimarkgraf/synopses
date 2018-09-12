@@ -66,7 +66,7 @@
 	\subsection{Tricks}
 		\begin{itemize}
 			\item $dim(ker \phi)$ bzw. $dim(ker A)$ impliziert die Dimension des Eigenraumes zum Eigenwert 0
-			\item $Spur(A)$ = Summe der Eigenwerte mit Vielfachheit (z.B Eigenwert mit algebraischer Vielfachheit 2 zählt doppelt)
+			\item $Spur(A)$ = Summe der Eigenwerte mit Vielfachheit (z.B Eigenwert mit algebraischer Vielfachheit 2 zählt doppelt) bei diagonalisierbaren Matrizen (z.B bei einer Matrix aus $\complexnumbers$)
 		\end{itemize}
 	
 	\section{Skalarprodukte}
@@ -201,6 +201,15 @@
 			0,& falls\ i \in \{m + 1, ..., n\}\\
 		\end{cases}$
 	\end{enumerate}
+	Für die \textbf{direkte Berechnung} der Orthogonalprojektion eines Vektors v aus V auf U gilt mit der Orthonormalbasis $\{c_1, ..., c_m\}$ von U:
+	\begin{center}
+		$\Pi_U(v) = \sum_{i = 1}^{n} \langle v, c_i \rangle c_i$
+	\end{center}
+	\textbf{Berechnung des Abstands}:
+	\begin{itemize}
+		\item Für den Abstand eines Vektors v zum Untervektorraum U gilt: $d(v, U) = d(v, \Pi_U(v))$
+		\item Damit: Lotfußpunkt ausrechnen und Abstand per gegebener Norm ausrechnen
+	\end{itemize}
 
 	\subsection{Orthogonale und Unitäre Gruppen}
 	\begin{itemize}
@@ -237,7 +246,7 @@
 		\item In einem n-dimensionalen Raum lässt sich jede lineare Isometrie als Verknüpfung von maximal n Spiegelungen schreiben
 	\end{itemize}
 
-	\subsection{Isometrie-Normalform}
+	\subsection{(Euklidische) Isometrie-Normalform}
 	\textbf{Vorgehen}:
 	\begin{enumerate}
 		\item Aufstellen des char. Polynoms, Berechnung der Eigenwerte
@@ -295,7 +304,7 @@
 	\subsection{Selbstadjungierte Homomorphismen}
 	Selbstadjungierte Homomorphismen sind ein Spezialfall von adjungierten Abbildungen. Sei V ein Vektorraum mit Skalarprodukt, dann ist die Abbildung $\phi: V \rightarrow V$ \textbf{selbstadjungiert}, wenn gilt:
 	\begin{center}
-		$\langle \phi(v), w\rangle = \langle v, \phi(w)\rangle\ \forall v\in V$
+		$\langle \phi(v), w\rangle = \langle v, \phi(w)\rangle\ \forall v, w\in V$
 	\end{center}
 	\textbf{Eigenschaften, wenn eine selbstadjungierte Abbildung existiert}:
 	\begin{itemize}
