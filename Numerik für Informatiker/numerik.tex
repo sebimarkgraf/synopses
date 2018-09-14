@@ -79,9 +79,7 @@
 		\item $cond(A) = \frac{max_{\norm{y}=1}\norm{Ay}}{max_{\norm{z}=1}\norm{Az}}$
 	\end{itemize}
 	%TODO
-	
-	\subsection{Householder-Transformationen}
-	
+		
 	\section{Zerlegungen}
 	Falls nicht anders genannt gilt für folgende Abschnitte: $A, R, L, Q \in \realnumbers^{N \times N}, b \in \realnumbers^N$.
 
@@ -138,5 +136,31 @@
 	\end{center}
 		
 	\subsection{QR-Zerlegung}
-	%TODO
+	Ziel: Zerlegung von A in eine \textbf{rechte obere Dreiecksmatrix R} und eine \textbf{orthogonale Matrix Q}, sodass gilt: $A = QR$. Dies ist nützlich, wenn A nicht quadratisch ist, da die LR-Zerlegung dann nicht funktioniert.\\\\
+	\textbf{Berechnen der QR-Zerlegung}:
+	\begin{enumerate}
+		\item Berechne $\alpha = sgn(a_{11})\norm{a_1}$ und damit $v_1 = a_1 + \alpha e_1$ und damit $Q_1 = I - \frac{2vv^T}{v^Tv}$ (Householder-Transformation)
+		\item Berechne $Q_1A$. Das Ergebnis sollte die Elemente unter der ersten Spalte zu 0 reduziert haben. Wähle von diesem Ergebnis eine Untermatrix (ohne erste Zeile und erste Spalte) und wiederhole das Verfahren mit dieser und erhalte $Q_2^*$.
+		\item Bette $Q_2^*$ in eine Einheitsmatrix mit denselben Dimensionen wie A ein und erhalte $Q_2$.
+		\item Wiederhole 2. und 3. bis $Q_n * Q_{n - 1} * ... Q_1A = R$ Dreiecksgestalt hat.
+		\item Multipliziere von links $Q_1^T * Q_2^T * ... Q_n^T = Q$ an beide Seiten.
+	\end{enumerate}
+	\newpage
+	\textbf{Bsp.:}
+	\begin{center}
+		$A = \begin{bmatrix}1 & 1 & 2\\2 & -3 & 0 \\2 & 4 & -4\end{bmatrix}$\\\vspace*{0.5cm}
+		$\Rightarrow \alpha_1 = 1 * \sqrt{1^2 + 2^2 + 2^2} = 3 \Rightarrow v_1 = \begin{bmatrix} 1 \\ 2 \\ 2\end{bmatrix} + 3 * \begin{bmatrix}1 \\ 0 \\ 0\end{bmatrix} = \begin{bmatrix} 4 \\ 2 \\ 2\end{bmatrix}$\\
+		$\Rightarrow Q_1 = \begin{bmatrix}1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{bmatrix} - \frac{2}{24} \begin{bmatrix}16 & 8 & 8 \\ 8 & 4 & 4\\ 8 & 4 & 4\end{bmatrix} = \frac{1}{3} \begin{bmatrix}-1 & -2 & -2 \\ -2 & 2 & -1 \\ -2 & -1 & 2\end{bmatrix}
+		\Rightarrow Q_1A = \begin{bmatrix}-3 & -1 & 2 \\ 0 & -4 & 0 \\ 0 & 3 & -4\end{bmatrix}$\\\vspace*{0.5cm}
+		Wdh. mit $\begin{bmatrix}-4 & 0 \\ 3 & -4\end{bmatrix}$\\
+		$\Rightarrow Q_2^* = \frac{1}{5}\begin{bmatrix}-4 & 3 \\ 3 & 4\end{bmatrix} \Rightarrow Q_2 = \frac{1}{5}\begin{bmatrix}5 & 0 & 0\\0 & -4 & 3\\0 & 3 & 4\end{bmatrix} \Rightarrow Q_2Q_1A = \begin{bmatrix}-3 & -1 & 2 \\ 0 & 5 & -\frac{12}{5} \\ 0 & 0 & -\frac{16}{5}\end{bmatrix} = R$\\\vspace*{0.5cm}
+		$Q_1^TQ_2^TQ_2Q_1A = Q_1^TQ_2^TR \Leftrightarrow A = Q_1^TQ_2^TR$\\
+		$Q := Q_1^TQ_2^T \Rightarrow A = QR$
+	\end{center}
+	\textbf{Performantes Lösen einer fertigen QR-Zerlegung}:
+	\begin{enumerate}
+		\item A sei überbestimmt (keine LR-Zerlegung möglich) und $Ax = QRx = b$
+		\item Multipliziere $A^T$ auf beiden Seiten: $A^TAx = (QR)^TQRx = R^TQ^TQRx = R^TRx = b$
+		\item Löse $R^TRx = b$ analog zum LR-Verfahren per Vorwärts- und Rückwärtssubstitution
+	\end{enumerate}
 \end{document}
