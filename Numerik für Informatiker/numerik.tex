@@ -72,14 +72,14 @@
 	
 	\subsection{Konditionen}
 	\textbf{Konditionszahl}:
+	Sei $f: \realnumbers^N \rightarrow \realnumbers^K$ eine differenzierbare Funktion und $x \in \realnumbers^N$
 	\begin{itemize}
 		\item Maß für den Einfluss der Störungen von A und b auf x (wie sensibel ist das LGS?)
-		\item $1 \leq cond(A) := \norm{A}\norm{A^{-1}}$
-		\item $cond(A) = cond(\alpha A), \alpha\in\realnumbers\setminus\{O\}$
-		\item $cond(A) = \frac{max_{\norm{y}=1}\norm{Ay}}{max_{\norm{z}=1}\norm{Az}}$
+		\item Kondition einer Matrix: $1 \leq cond(A) := \norm{A}\norm{A^{-1}}$, wobei $cond(A) = cond(\alpha A), \alpha\in\realnumbers\setminus\{O\}$
+		\item Absolute Konditionszahl: $\kappa^{kn}_{abs}(x) = |\frac{\delta}{\delta x_n}f_k(x)|$
+		\item Relative Konditionszahl: $\kappa^{kn}_{rel}(x) = |\frac{\delta}{\delta x_n}f_k(x)| \frac{|x_n|}{|f_k(x)|}$ falls $f_k(x) \neq 0$
 	\end{itemize}
-	%TODO
-		
+	\newpage
 	\section{Zerlegungen}
 	Falls nicht anders genannt gilt für folgende Abschnitte: $A, R, L, Q \in \realnumbers^{N \times N}, b \in \realnumbers^N$.
 
@@ -145,7 +145,6 @@
 		\item Wiederhole 2. und 3. bis $Q_n * Q_{n - 1} * ... Q_1A = R$ Dreiecksgestalt hat.
 		\item Multipliziere von links $Q_1^T * Q_2^T * ... Q_n^T = Q$ an beide Seiten.
 	\end{enumerate}
-	\newpage
 	\textbf{Bsp.:}
 	\begin{center}
 		$A = \begin{bmatrix}1 & 1 & 2\\2 & -3 & 0 \\2 & 4 & -4\end{bmatrix}$\\\vspace*{0.5cm}
@@ -163,4 +162,41 @@
 		\item Multipliziere $A^T$ auf beiden Seiten: $A^TAx = (QR)^TQRx = R^TQ^TQRx = R^TRx = b$
 		\item Löse $R^TRx = b$ analog zum LR-Verfahren per Vorwärts- und Rückwärtssubstitution
 	\end{enumerate}
+	\subsection{Aufwand}
+	\begin{itemize}
+		\item QR-Zerlegung mit N = M:\hfill$\frac{4}{3}N^3$ Operationen
+		\item LR-Zerlegung:\hfill$\frac{2}{3}N^3$ Operationen
+		\item Cholesky-Zerlegung:\hfill$\frac{1}{3}N^3$ Operationen
+	\end{itemize}
+	\section{Lineare Ausgleichsrechnung}
+	\textbf{Problem}: Lineare Gleichungssysteme oft nicht oder nicht eindeutig lösbar.\\
+	\textbf{Lösung}: Versuche die bestmögliche Lösung zu finden, sodass gilt: für $x \in \realnumbers^N$ ist $|Ax - b|_2$ minimal
+	\begin{center}
+		Hierbei gilt: $x \in \realnumbers^N$ minimiert $|Ax - b|_2 \Leftrightarrow$ $x \in \realnumbers^N$ löst die Normalengleichung $A^TAx = A^Tb$
+	\end{center}
+	\subsection{Per QR-Zerlegung}
+	Voraussetzung: $A^TA$ ist invertierbar und gut konditioniert\\
+	\textbf{Vorgehen}:
+	\begin{enumerate}
+		\item Berechne QR-Zerlegung: $A = QR$, dann ist $A^TA = R^TR$ (s. Kapitel zu QR-Zerlegung)
+		\item Löse $Rx = Q^Tb$
+	\end{enumerate}
+	
+	\subsection{Per Singulärwertzerlegung}
+	Alternative zum QR-Ansatz falls gilt: $A^TA$ ist singulär (besitzt keine Inverse) oder schlecht konditioniert. Sei für diesen Fall $A \in \realnumbers^{K\times N}$. Zerlege A folgendermaßen $A = V\Sigma U^T$. Sei $R = rang(A)$. Hierbei gilt:
+	\begin{itemize}
+		\item $V \in \realnumbers^{K\times R}$, wobei $V^TV = I_R$
+		\item $U \in \realnumbers^{N\times R}$
+		\item $\Sigma = diag(\sigma_1, ..., \sigma_R) \in \realnumbers^{R\times R}$ mit den Singulärwerten $\sigma_1, ..., \sigma_R > 0$
+	\end{itemize}
+	Die Bestimmung der einzelnen Matrizen ist nicht klausurrelevant.
+	
+	\section{Eigenwertberechnung}
+	\section{Iterationsverfahren für lineare Gleichungssysteme}
+	\section{Iterationsverfahren für nichtlineare Gleichungssysteme}
+	\section{Polynom-Interpolation}
+	\section{Splines}
+	\section{Trigonometrische Interpolation und FFT}
+	\section{Numerische Integration}
+	\section{Integrationsverfahren für gewöhnliche Differentialgleichungen}
 \end{document}
