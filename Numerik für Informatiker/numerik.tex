@@ -3,6 +3,7 @@
 \title{Numerik für Informatiker}
 
 \usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
 \usepackage{multicol}
 \usepackage{amsmath}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
@@ -191,12 +192,52 @@
 	\end{itemize}
 	Die Bestimmung der einzelnen Matrizen ist nicht klausurrelevant.
 	
+	\subsection{(Tikhonov)-Regularisierung}
+	\textbf{Problem}: Eine Aufgabe ist potenziell schlecht konditioniert (sorgt für extreme Datenfehler) oder nicht sachgemäß gestellt (und damit nicht eindeutig lösbar oder nicht stetig abhängig von den Daten).\\
+	\textbf{Lösung}: Regularisiere die Aufgabe, sodass sie gut konditioniert bzw. sachgemäß gestellt ist. Hierzu wird die sog. Tikhonov-Regularisierung ($F_\alpha(x)$) minimiert.
+	
 	\section{Eigenwertberechnung}
+	\textbf{Ziel:} Berechnung von Eigenwerten und Eigenvektoren (z.B für Zwecke der Informatik wie das Lösen des Problems \glqq Welche Seite hat einen Link auf welche Seite?\grqq oder der Technik für Wellengleichungen).\\
+	\textbf{Verfahren}: Vereinfachen der Matrix (z.B zu Hessenberg-Matrix über Householder-Transformationen) oder iterative Verfahren (v.a. QR-Iteration, benötigt $O(N^2)$ Operationen)
+
 	\section{Iterationsverfahren für lineare Gleichungssysteme}
+	\textbf{Ziel}: Iteratives Lösen eines linearen Gleichungssystems.\\\\
+	\textbf{Anwendung}: Graphentheorie z.B zur Bisektion eines Graphen, Berechnung der Auslenkung einer Membran unter einer bestimmten Last in der Technik.
+	\subsection{Jacobi-Verfahren (Gesamtschrittverfahren)}
+	\textbf{Idee}: Approximiere die Lösung $x \in \realnumbers^N$. Wähle x dazu beliebig und setze einen Schwellenwert $\epsilon > 0$ sowie $k = 0$. Solange $|Ax - b|_2 > \epsilon$, berechne
+	\begin{center}
+		$x^{k+1}_m = (b_m - \sum_{n \neq m}^{} A[m, n]x_n^k) / A[m, m]$ für $m = 1, ..., N$
+	\end{center}
+	und erhöhe k um 1. Erweitert man diesen Algorithmus mit der Idee, dass die $x_n$ bei der Berechnung von $x_m$ schon bekannt sind, falls $n < m$, so erhält man das Einzelschrittverfahren.
+	\subsection{Gauß-Seidel-Verfahren (Einzelschrittverfahren)}
+	Vergleiche Jacobi-Verfahren und ändere die Formel für die nächstbeste Approximation von x zu:
+	\begin{center}
+		$x^{k+1}_m = (b_m - \sum_{n = 1}^{m - 1}A[m, n]x^{k+1}_n - \sum_{k = m + 1}^{N}A[m, n]x_n^k) / A[m, m]$ für $m = 1, ..., N$
+	\end{center}
+	
+	\subsection{Iterationsmatrizen}
+	\textbf{Idee}: Stelle Iterationsverfahren in Matrizenschreibweise dar.\\\\
+	\textbf{Vorkonditionierung}: Um die Kondition der Matrix A zu verbessern, wird ein Vorkonditionierer $B \in \realnumbers^{N\times N}$ gewählt. Hierzu zerteilen wir A in eine strikte untere linke Dreiecksmatrix L, eine strikte obere rechte Dreiecksmatrix R und eine Diagonalmatrix D mit $A = L + D + R$. Damit ist der Vorkonditionierer für das Jacobi-Verfahren $B = D^{-1}$ und für das Gauß-Seidel-Verfahren $B = (L + D)^{-1}$. Für die vorkonditionierte Aufgabe gilt damit:
+	\begin{center}
+		$Ax = b \Leftrightarrow BAx = Bb$
+	\end{center}
+	\textbf{Iterationsmatrizen}: TODO (nicht im Skript dokumentiert)\\\\
+	\textbf{Konvergenz}: Das Iterationsverfahren konvergiert genau dann für jeden Startvektor $x_0$, falls der Spektralradius (betragsmäßig größter Eigenwert) der Iterationsmatrix kleiner als 1 ist.
+	
 	\section{Iterationsverfahren für nichtlineare Gleichungssysteme}
+	\subsection{Newton-Verfahren}
+
 	\section{Polynom-Interpolation}
+	\subsection{Neville-Schema}
+	
 	\section{Splines}
+	
 	\section{Trigonometrische Interpolation und FFT}
+	
 	\section{Numerische Integration}
+	\subsection{Quadraturformel}
+	\subsection{Summierte Trapezregel}
+	
 	\section{Integrationsverfahren für gewöhnliche Differentialgleichungen}
+	\subsection{Runge-Kutta-Verfahren}
 \end{document}
