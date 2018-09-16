@@ -56,6 +56,7 @@
 		\item Relative Maschinengenauigkeit: $eps = \frac{d^{(1-l)}}{2}$
 		\item Rundungsfunktion $rd(x)$ rundet die Nachkommastellen auf ein maschinell darstellbares Format
 	\end{itemize}
+	\newpage
 	\textbf{Operationen}:
 	\begin{itemize}
 		\item Standard-Operationen verfügbar, Rundung nach Ausführung $\Rightarrow$ Fehlerquelle!
@@ -265,7 +266,7 @@
         \end{center}
         \textbf{Allgemeine Gleichung für mehrdimensionale Probleme}
         \begin{enumerate}
-        	\item Wähle Startwert $x_0 und \epsilon$
+        	\item Wähle Startwert $x_0$ und $\epsilon$
         	\item Falls $|F(x^k)| < \epsilon$: STOP
         	\item Berechne Newton Korrektur $d^k: F^{\prime}(x^k)d^k = -F(x^k)$
         	\item Setze: $x^{k+1} = x^{k} + d^{k}$
@@ -292,7 +293,7 @@
 		\end{tabular}
 	\end{center}
 	Das Neville-Schema liefert \textbf{nicht das eigentliche Interpolationspolynom}, sondern den \textbf{Funktionswert an einer bestimmten Stelle}! Um das eigentliche Polynom zu erhalten müssen Alternativverfahren wie das Newtonsche verwendet werden. Dieses ist aufwendiger, lohnt sich jedoch, wenn viele Stellen ausgewertet werden müssen. Das Neville-Schema ist gut für wenige Suchen geeignet. Für einen weiteren Stützpunkt wird hier \textbf{eine zusätzliche Zeile berechnet, die alten Ergebnisse bleiben valide!}
-
+	\newpage
 	\section{Splines}
 	\textbf{Idee}: Interpoliere nicht mit einem passenden Polynom sondern setze die Lösung mit mehreren Polynomen stückweise zusammen. Diese Funktion wird als Spline bezeichnet (nicht ein einzelnes Stück davon!). \textbf{Splines sind in der Regel selbst keine Polynome!}. Eine einfache Lösung sind \textbf{lineare Splines}, bei denen zwischen den Stützpunkten linear verbunden wird - diese sind jedoch nicht glatt und an den Stützpunkten nicht differenzierbar.
 	
@@ -319,7 +320,7 @@
 	Weiter seien die \textbf{Momente} $\mu_n = S''(\xi_n)$ eines Interpolationssplines $S \in \mathscr{S}_3(\Xi)$ zu f definiert als $\mu_n = S''(\xi_n)$. Die Momente ergeben sich durch das Lösen von Gleichungssystemen passend zu den Randbedingungen (vgl. Skript, nicht klausurrelevant).\\\\
 	\textbf{Berechnung eines Splines durch 3 Punkte}: TODO\\
 	% TODO
-	
+	\newpage
 	\section{Trigonometrische Interpolation und Fast-Fourier-Transformation (FFT)}
 	\textbf{Anwendung}: Datenkompression (weniger Werte speichern, bei Bedarf interpolieren), Schwingungsanalyse\\
 	\textbf{Aufwand}: O(N log N)
@@ -343,7 +344,7 @@
 	\subsection{Summierte Trapezregel}
 	\textbf{Ansatz (Summierte Quadraturformel)}: Zerlege das Intervall $[a, b]$ in gleich große Stücke und wende die Quadraturformel auf jedem Teilinterval an.\\\\
 	\textbf{Summierte Trapezregel}: Zerlege Flächen unter einer Kurve im gegebenen Intervall in Trapeze. Im Vergleich zu FFT: FFT zerlegt ein Signal in verschiedene Frequenzanteile.
-	
+	\newpage
 	\section{Integrationsverfahren für gewöhnliche Differentialgleichungen}
 	\subsection{Runge-Kutta-Verfahren}
 	\textbf{Ziel}: Numerisches Lösen von Anfangswertproblemen. Definition eines Anfangswertproblems:
