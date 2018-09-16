@@ -7,8 +7,11 @@
 \usepackage{multicol}
 \usepackage{amsmath}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{mathrsfs}
 
 \def\realnumbers{{\rm I\!R}}
+\def\polynomials{{\rm I\!P}}
+
 \newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 \newcommand{\norm}[1]{\lVert#1\rVert}
 \renewcommand{\arraystretch}{1.5}
@@ -284,13 +287,67 @@
 	Das Neville-Schema liefert \textbf{nicht das eigentliche Interpolationspolynom}, sondern den \textbf{Funktionswert an einer bestimmten Stelle}! Um das eigentliche Polynom zu erhalten müssen Alternativverfahren wie das Newtonsche verwendet werden. Dieses ist aufwendiger, lohnt sich jedoch, wenn viele Stellen ausgewertet werden müssen. Das Neville-Schema ist gut für wenige Suchen geeignet. Für einen weiteren Stützpunkt wird hier \textbf{eine zusätzliche Zeile berechnet, die alten Ergebnisse bleiben valide!}
 
 	\section{Splines}
+	\textbf{Idee}: Interpoliere nicht mit einem passenden Polynom sondern setze die Lösung mit mehreren Polynomen stückweise zusammen. Diese Funktion wird als Spline bezeichnet (nicht ein einzelnes Stück davon!). \textbf{Splines sind in der Regel selbst keine Polynome!}. Eine einfache Lösung sind \textbf{lineare Splines}, bei denen zwischen den Stützpunkten linear verbunden wird - diese sind jedoch nicht glatt und an den Stützpunkten nicht differenzierbar.
 	
-	\section{Trigonometrische Interpolation und FFT}
+	\subsection{Kubische Splines}
+	\textbf{Idee}: Nutze kubische Polynome, damit der Spline glatt und auch an den Stützpunkten zweifach stetig differenzierbar ist.\\\\
+	\textbf{Grundlegende Definitionen}:\\
+	\begin{itemize}
+		\item Zu einer Zerlegung $\Xi = \{a = \xi_0 < \xi_1 < ... < \xi_N = b\}$ des Intervalls $[a, b]$ definiere den Raum kubischer Splines:
+		\begin{center}
+			$\mathscr{S}_3(\Xi) = \{S \in C^2[a, b]: S_n = S|_{[\xi_{n-1}, \xi_n]} \in \polynomials_3, n = 1, ..., N\}$
+		\end{center}
+		\item Dabei heißt für $f \in C[a, b]$ der Spline $S \in \mathscr{S}_3(\Xi)$ interpolierender kubischer Spline zu f, wenn gilt:
+		\begin{center}
+			$S(\xi_n) = f(\xi_n)$, $n = 0, ..., N$
+		\end{center}
+	\end{itemize}
+	\textbf{Randbedigungen zur eindeutigen Bestimmung:}\\
+	Mit jeweils einer dieser Randbedingungen ist die Spline-Interpolation $S \in \mathscr{S}_3(\Xi)$ zu f eindeutig lösbar:
+	\begin{itemize}
+		\item Natürliche Randbedingung:\hfill$S''(a) = S''(b) = 0$
+		\item Hermite-Randbedingungen zu $f \in C^1[a, b]$:\hfill$S'(a) = f'(a)$ und $S'(b) = f'(b)$
+		\item Periodische Randbedingungen:\hfill$S'(a) = S'(b)$ und $S''(a) = S''(b)$
+	\end{itemize}
+	Weiter seien die \textbf{Momente} $\mu_n = S''(\xi_n)$ eines Interpolationssplines $S \in \mathscr{S}_3(\Xi)$ zu f definiert als $\mu_n = S''(\xi_n)$. Die Momente ergeben sich durch das Lösen von Gleichungssystemen passend zu den Randbedingungen (vgl. Skript, nicht klausurrelevant).\\\\
+	\textbf{Berechnung eines Splines durch 3 Punkte}: TODO\\
+	% TODO
+	
+	\section{Trigonometrische Interpolation und Fast-Fourier-Transformation (FFT)}
+	\textbf{Anwendung}: Datenkompression (weniger Werte speichern, bei Bedarf interpolieren), Schwingungsanalyse\\
+	\textbf{Aufwand}: O(N log N)
+	% TODO?
 	
 	\section{Numerische Integration}
-	\subsection{Quadraturformel}
+	\textbf{Problem}: Eine Stammfunktion für die reguläre Integration kann nicht immer gefunden werden, deshalb wird auf numerische Verfahren zurückgefallen.\\\\
+	\textbf{Idee}: Approximiere den Wert des Integrals mit dem Wert Q(f) einer Quadraturformel Q. Diese besteht aus einer gewichteten Summe von Funktionswerten (Stützpunkten aus $\Xi$, wobei $\Xi \subset [a, b]$):
+	\begin{center}
+		$Q_\Xi(f) = \sum_{\xi \in \Xi}^{}\omega_\xi f(\xi)$
+	\end{center}
+	\textbf{Berechnung der Gewichte}:\\
+	Für die Quadraturgewichte gilt:
+	\begin{center}
+		$\omega_\xi = \int_{a}^{b}L_\xi(t)dt$ mit $L_\xi(t) = \prod_{\eta \in \Xi \setminus \{\xi\}}^{} \frac{t - \eta}{\xi - \eta} \in \polynomials_N$\\
+		Für Polynome vom Grad N - 1: $Q_\Xi(P) = \int_{a}^{b}P(t)dt, P \in \polynomials_{N - 1}$
+	\end{center}
+	\textbf{Messung der Genauigkeit}: TODO\\
+	% TODO
+	
 	\subsection{Summierte Trapezregel}
+	\textbf{Ansatz (Summierte Quadraturformel)}: Zerlege das Intervall $[a, b]$ in gleich große Stücke und wende die Quadraturformel auf jedem Teilinterval an.\\\\
+	\textbf{Summierte Trapezregel}: Zerlege Flächen unter einer Kurve im gegebenen Intervall in Trapeze. Im Vergleich zu FFT: FFT zerlegt ein Signal in verschiedene Frequenzanteile.
 	
 	\section{Integrationsverfahren für gewöhnliche Differentialgleichungen}
 	\subsection{Runge-Kutta-Verfahren}
+	\textbf{Ziel}: Numerisches Lösen von Anfangswertproblemen. Definition eines Anfangswertproblems:
+	\begin{center}
+		$y'(t) = f(t, y(t)), y(t_0) = y_0, y: \realnumbers \rightarrow \realnumbers^d$
+	\end{center}
+	\textbf{Beispiele}:\\
+	Die verschiedenen Runge-Kutta-Verfahren unterscheiden sich in erster Linie in der Konvergenzordnung R. Mit höherer Konvergenzordnung wächst die Zahl zu lösender Gleichungen schnell an, die Ergebnisse werden dafür jedoch genauer.
+	\begin{itemize}
+		\item Explizites Euler-Verfahren (R = 1)
+		\item Verfahren von Heun (R = 2)
+		\item Klassisches Runge-Kutta-Verfahren (R = 4)
+	\end{itemize}
 \end{document}
