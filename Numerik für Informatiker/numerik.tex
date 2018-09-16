@@ -258,13 +258,20 @@
 			\item etc. (Lösung des Taschenrechners: $x \approx 1.148698355$)
 		\end{enumerate}
 	\end{enumerate}
-	\textbf{Lösen einer Minimierungsaufgabe}:\\
-	Zur Minimierung einer differenzierbaren Funktion $f: \realnumbers^N \rightarrow \realnumbers$ suche $x^* \in \realnumbers^N$ mit\\$f(x^*) \leq f(x) \forall x \in \realnumbers^N$. Dies lässt sich erreichen, indem man das Nullstellenproblem\\$F(x) = grad\ f(x) = 0$ berechnet. Die damit folgende Newton-Iterationsvorschrift lautet:
+	\textbf{Lösen einer Minimierungsaufgabe}:                                                                                        \\
+	Zur Minimierung einer differenzierbaren Funktion $f: \realnumbers^N \rightarrow \realnumbers$ suche $x^* \in \realnumbers^N$ mit \\$f(x^*) \leq f(x) \forall x \in \realnumbers^N$. Dies lässt sich erreichen, indem man das Nullstellenproblem\\$F(x) = grad\ f(x) = 0$ berechnet. Die damit folgende Newton-Iterationsvorschrift lautet:
 	\begin{center}
 		$x_{k + 1} = x_k - F''(x_k)^{-1} grad\ f(x_k)$
-	\end{center}
+        \end{center}
+        \textbf{Allgemeine Gleichung für mehrdimensionale Probleme}
+        \begin{enumerate}
+        	\item Wähle Startwert $x_0 und \epsilon$
+        	\item Falls $|F(x^k)| < \epsilon$: STOP
+        	\item Berechne Newton Korrektur $d^k: F^{\prime}(x^k)d^k = -F(x^k)$
+        	\item Setze: $x^{k+1} = x^{k} + d^{k}$
+        \end{enumerate}
 
-	\section{Polynom-Interpolation}
+        \section{Polynom-Interpolation}
 	\textbf{Problem}: Nur eine endliche Punktmenge einer Funktion ist gegeben. Zur Erschließung der Kurve kann nur zwischen diesen Punkten interpoliert werden. Dies ermöglicht z.B Datenkompression, aber verursacht ebenfalls Interpolationsfehler. Hierbei benötigt \textbf{eine Menge von N Punkten ein Polynom von Grad N-1!}\\\\
 	\textbf{Interpolationsaufgabe nach Lagrange}:\\
 	Zu Stützstellen $\xi_0 < \xi_1 < ... < \xi_N$ und Funktionswerten $f_0, ..., f_N \in \realnumbers$ bestimme ein Polynom P mit $P(\xi_i) = f_i$ für $i = 0, ..., N$
