@@ -11,6 +11,7 @@
 \def\realnumbers{{\rm I\!R}}
 \newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 \newcommand{\norm}[1]{\lVert#1\rVert}
+\renewcommand{\arraystretch}{1.5}
 
 \begin{document}
 	\pagenumbering{Roman}
@@ -104,6 +105,19 @@
 		\begin{bmatrix}1 & 0 \\ 3 & 1\end{bmatrix} * \begin{bmatrix}1 & 2 \\ 0 & -2\end{bmatrix} = LR
 		$	
 	\end{center}
+	\textbf{Berechnung mit Pivot-Suche}:\\
+	\textbf{Idee:} A lässt sich durch Zeilenvertauschungen immer in eine Form bringen, sodass eine LR-Zerlegung sicher existiert (falls A regulär). Hiermit lässt sich auch die Konditionierung der Zerlegung verbessern.\\\\
+	\textbf{Vorgehen}:
+	\begin{enumerate}
+		\item Wähle eine Permutationsmatrix P und zerlege PA, sodass gilt: $PA = LR$
+		\item Löse $LRx = Pbx$
+	\end{enumerate}
+	\textbf{Permutationsmatrix für bessere Konditionierung durch Spaltenpivotsuche}:
+	\begin{enumerate}
+		\item Iteriere über die n Zeilen der Matrix A
+		\item Bestimmte k, sodass $|A[k, n]| \geq |A[j, n]|$ für $j = n, ..., N$, d.h. suche in der aktuellen Spalte nach einem Eintrag unterhalb des aktuellen Eintrags, der betragsmäßig größer oder gleich ist
+		\item Vertausche die Zeilen n und k, falls $k \neq n¸$
+	\end{enumerate}
 	\textbf{Performantes Lösen einer fertigen LR-Zerlegung:}
 	\begin{enumerate}
 		\item Substituiere $Rx$ mit $y\in\realnumbers^N$ und löse $Ly = b$ per Vorwärtssubstitution
@@ -146,6 +160,7 @@
 		\item Wiederhole 2. und 3. bis $Q_n * Q_{n - 1} * ... Q_1A = R$ Dreiecksgestalt hat.
 		\item Multipliziere von links $Q_1^T * Q_2^T * ... Q_n^T = Q$ an beide Seiten.
 	\end{enumerate}
+	\newpage
 	\textbf{Bsp.:}
 	\begin{center}
 		$A = \begin{bmatrix}1 & 1 & 2\\2 & -3 & 0 \\2 & 4 & -4\end{bmatrix}$\\\vspace*{0.5cm}
@@ -169,6 +184,7 @@
 		\item LR-Zerlegung:\hfill$\frac{2}{3}N^3$ Operationen
 		\item Cholesky-Zerlegung:\hfill$\frac{1}{3}N^3$ Operationen
 	\end{itemize}
+	\newpage
 	\section{Lineare Ausgleichsrechnung}
 	\textbf{Problem}: Lineare Gleichungssysteme oft nicht oder nicht eindeutig lösbar.\\
 	\textbf{Lösung}: Versuche die bestmögliche Lösung zu finden, sodass gilt: für $x \in \realnumbers^N$ ist $|Ax - b|_2$ minimal
@@ -216,20 +232,57 @@
 	\end{center}
 	
 	\subsection{Iterationsmatrizen}
-	\textbf{Idee}: Stelle Iterationsverfahren in Matrizenschreibweise dar.\\\\
-	\textbf{Vorkonditionierung}: Um die Kondition der Matrix A zu verbessern, wird ein Vorkonditionierer $B \in \realnumbers^{N\times N}$ gewählt. Hierzu zerteilen wir A in eine strikte untere linke Dreiecksmatrix L, eine strikte obere rechte Dreiecksmatrix R und eine Diagonalmatrix D mit $A = L + D + R$. Damit ist der Vorkonditionierer für das Jacobi-Verfahren $B = D^{-1}$ und für das Gauß-Seidel-Verfahren $B = (L + D)^{-1}$. Für die vorkonditionierte Aufgabe gilt damit:
+	\textbf{Idee}: Stelle Iterationsverfahren in Matrizenschreibweise dar. Diese Iterationsmatrix ergibt sich aus der eigentlichen Funktionsgleichung und kann als gegeben betrachtet werden.\\\\
+	\textbf{Vorkonditionierung}: Um die Kondition der Matrix A zu verbessern, wird ein Vorkonditionierer $B \in \realnumbers^{N\times N}$ gewählt. Hierzu zerteilen wir A in eine strikte untere linke Dreiecksmatrix L, eine strikte obere rechte Dreiecksmatrix R und eine Diagonalmatrix D mit $A = L + D + R$. Damit ist der Vorkonditionierer \textbf{für das Jacobi-Verfahren} $B = D^{-1}$ und für das \textbf{Gauß-Seidel-Verfahren} $B = (L + D)^{-1}$. Für die vorkonditionierte Aufgabe gilt damit:
 	\begin{center}
 		$Ax = b \Leftrightarrow BAx = Bb$
 	\end{center}
-	\textbf{Iterationsmatrizen}: TODO (nicht im Skript dokumentiert)\\\\
 	\textbf{Konvergenz}: Das Iterationsverfahren konvergiert genau dann für jeden Startvektor $x_0$, falls der Spektralradius (betragsmäßig größter Eigenwert) der Iterationsmatrix kleiner als 1 ist.
-	
+	\newpage
 	\section{Iterationsverfahren für nichtlineare Gleichungssysteme}
 	\subsection{Newton-Verfahren}
+	\textbf{Idee}: Zugrunde liegende Gleichung ist nichtlinear (z.B Polynom von mindestens Grad zwei, Bruchgleichungen, Wurzelgleichungen, Exponentialgleichungen etc.). Nähere hierfür die Lösung durch die Newton-Iteration an. Hierbei bestimmt man die Tangente des aktuellen Punkts, wählt die Nullstelle der Tangente und fährt von dieser an fort. Für einen Vektor $x_k$ folgt für eine Funktion $F(x)$ die nächste Näherung durch die Newton-Iteration $x_{k + 1} = x_k - \frac{F(x_k)}{F'(x_k)}$.\\\\
+	\textbf{Das Newton-Verfahren konvergiert nur für einen guten Startwert!}\\\\
+	\textbf{Lösungssuche über Newton-Verfahren}:\\
+	Bsp.: Finden der n-ten Wurzel
+	\begin{enumerate}
+		\item Gesucht: $x = \sqrt[n]{2}$\\formuliere als Nullstellenproblem: $x^n = 2 \Leftrightarrow x^n - 2 = 0 \Rightarrow F(x) = x^n - 2$ und $F'(x) = nx^{n - 1}$
+		\item Iteriere für z.B $n = 5$ folgendermaßen:
+		\begin{enumerate}
+			\item $x_1 = 2$
+			\item $x_2 = 2 - \frac{2^5 - 2}{5 * 2^4} = 2 - \frac{30}{80} = \frac{13}{8}$
+			\item $x_3 = \frac{13}{8} - \frac{(\frac{13}{8})^5 - 2}{5 * (\frac{13}{8})^4} \approx 1.357364938$
+			\item etc. (Lösung des Taschenrechners: $x \approx 1.148698355$)
+		\end{enumerate}
+	\end{enumerate}
+	\textbf{Lösen einer Minimierungsaufgabe}:\\
+	Zur Minimierung einer differenzierbaren Funktion $f: \realnumbers^N \rightarrow \realnumbers$ suche $x^* \in \realnumbers^N$ mit\\$f(x^*) \leq f(x) \forall x \in \realnumbers^N$. Dies lässt sich erreichen, indem man das Nullstellenproblem\\$F(x) = grad\ f(x) = 0$ berechnet. Die damit folgende Newton-Iterationsvorschrift lautet:
+	\begin{center}
+		$x_{k + 1} = x_k - F''(x_k)^{-1} grad\ f(x_k)$
+	\end{center}
 
 	\section{Polynom-Interpolation}
-	\subsection{Neville-Schema}
+	\textbf{Problem}: Nur eine endliche Punktmenge einer Funktion ist gegeben. Zur Erschließung der Kurve kann nur zwischen diesen Punkten interpoliert werden. Dies ermöglicht z.B Datenkompression, aber verursacht ebenfalls Interpolationsfehler. Hierbei benötigt \textbf{eine Menge von N Punkten ein Polynom von Grad N-1!}\\\\
+	\textbf{Interpolationsaufgabe nach Lagrange}:\\
+	Zu Stützstellen $\xi_0 < \xi_1 < ... < \xi_N$ und Funktionswerten $f_0, ..., f_N \in \realnumbers$ bestimme ein Polynom P mit $P(\xi_i) = f_i$ für $i = 0, ..., N$
 	
+	\subsection{Neville-Schema}
+	Über das Neville-Schema kann der Funktionswert an einer nicht gegebenen Stelle rekursiv berechnet werden. Man berechnet hierzu jeweils das eindeutig bestimmte Interpolationspolynom $p(f|\xi_i ... \xi_j)$ k-ten Grades zu den k + 1 Stützpunkten.\\\\ Die Funktionswerte der Stützpunkte sind bereits gegeben, weswegen für alle $\xi_i$ der Wert $p(f|\xi_i)$ durch $f_i$ gegeben ist. Die Rekursionsformel der weiteren Einträge lautet:
+	\begin{center}
+		$p(f|x_i,...,x_j)(x) = \frac{(x - x_i) p(f|x_{i + 1},...,x_j)(x) - (x - x_j)p(f|x_i,...,x_{j-1})(x)}{x_j - x_i}$
+	\end{center}
+	Damit ist ein rekursiver Aufbau folgendermaßen beispielhaft möglich (gesucht ist der Funktionswert an Stelle $x = 4$):\\
+	\begin{center}
+		\begin{tabular}{c | c l c c}
+			$\xi_i$ & $f(\xi_i)$ & & &\\
+			\hline
+			1 & 2 & $\frac{4 - 0}{1 - 0} * 2 + \frac{1 - 4}{1 - 0} * 1 = 5$ & &\\
+			2 & 0 & $\frac{4 - 1}{2 - 1} * 0 + \frac{2 - 4}{2 - 1} * 2 = -4$ & -13 &\\
+			3 & 1 & $\frac{4 - 2}{3 - 2} * 1 + \frac{3 - 4}{3 - 2} * 0 = 2$ & 5 & 11 = $P_3(4)$
+		\end{tabular}
+	\end{center}
+	Das Neville-Schema liefert \textbf{nicht das eigentliche Interpolationspolynom}, sondern den \textbf{Funktionswert an einer bestimmten Stelle}! Um das eigentliche Polynom zu erhalten müssen Alternativverfahren wie das Newtonsche verwendet werden. Dieses ist aufwendiger, lohnt sich jedoch, wenn viele Stellen ausgewertet werden müssen. Das Neville-Schema ist gut für wenige Suchen geeignet. Für einen weiteren Stützpunkt wird hier \textbf{eine zusätzliche Zeile berechnet, die alten Ergebnisse bleiben valide!}
+
 	\section{Splines}
 	
 	\section{Trigonometrische Interpolation und FFT}
