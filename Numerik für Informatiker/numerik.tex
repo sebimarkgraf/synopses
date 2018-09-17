@@ -327,15 +327,9 @@
 	
 	\section{Numerische Integration}
 	\textbf{Problem}: Eine Stammfunktion für die reguläre Integration kann nicht immer gefunden werden, deshalb wird auf numerische Verfahren zurückgefallen.\\\\
-	\textbf{Idee}: Approximiere den Wert des Integrals mit dem Wert Q(f) einer Quadraturformel Q. Diese besteht aus einer gewichteten Summe von Funktionswerten (Stützpunkten aus $\Xi$, wobei $\Xi \subset [a, b]$):
+	\textbf{Idee}: Approximiere den Wert des Integrals mit dem Wert Q(f) einer Quadraturformel Q. Diese schreibt man meist auch als $(b_k, c_k)_{k=1,...,s}$, wobei die $c_k$ Werte von \textbf{Knoten} und $c_k$ deren \textbf{Gewichtung} sind, mit denen sich die Funktion approximieren lässt:
 	\begin{center}
-		$Q_\Xi(f) = \sum_{\xi \in \Xi}^{}\omega_\xi f(\xi)$
-	\end{center}
-	\textbf{Berechnung der Gewichte}:\\
-	Für die Quadraturgewichte gilt:
-	\begin{center}
-		$\omega_\xi = \int_{a}^{b}L_\xi(t)dt$ mit $L_\xi(t) = \prod_{\eta \in \Xi \setminus \{\xi\}}^{} \frac{t - \eta}{\xi - \eta} \in \polynomials_N$\\
-		Für Polynome vom Grad N - 1: $Q_\Xi(P) = \int_{a}^{b}P(t)dt, P \in \polynomials_{N - 1}$
+		$\int_{a}^{b}f(x)dx \approx (b - a)\sum_{k=1}^{s}b_kf(a + c_k(b - a))$
 	\end{center}
   \textbf{Messung der Genauigkeit - Ordnung der Quadraturformel}:\\
   \textit{Eine Quadraturformel $(b_k, c_k)_{k=1,...,s}$ besitzt die Ordnung p, falls sie exakte Lösungen für alle Polynome vom Grad $\leq p - 1$ liefert, wobei p maximal ist.}\\\\
@@ -364,7 +358,6 @@
 	\subsection{Summierte Trapezregel}
 	\textbf{Ansatz (Summierte Quadraturformel)}: Zerlege das Intervall $[a, b]$ in gleich große Stücke und wende die Quadraturformel auf jedem Teilinterval an.\\\\
 	\textbf{Summierte Trapezregel}: Zerlege Flächen unter einer Kurve im gegebenen Intervall in Trapeze. Im Vergleich zu FFT: FFT zerlegt ein Signal in verschiedene Frequenzanteile.
-	\newpage
 	\section{Integrationsverfahren für gewöhnliche Differentialgleichungen}
 	\subsection{Runge-Kutta-Verfahren}
 	\textbf{Ziel}: Numerisches Lösen von Anfangswertproblemen. Definition eines Anfangswertproblems:
@@ -374,8 +367,8 @@
 	\textbf{Beispiele}:\\
 	Die verschiedenen Runge-Kutta-Verfahren unterscheiden sich in erster Linie in der Konvergenzordnung R. Mit höherer Konvergenzordnung wächst die Zahl zu lösender Gleichungen schnell an, die Ergebnisse werden dafür jedoch genauer.
 	\begin{itemize}
-		\item Explizites Euler-Verfahren (R = 1)
-		\item Verfahren von Heun (R = 2)
-		\item Klassisches Runge-Kutta-Verfahren (R = 4)
+		\item Explizites Euler-Verfahren\hfill R = 1
+		\item Verfahren von Heun\hfill R = 2
+		\item Klassisches Runge-Kutta-Verfahren\hfill R = 4
 	\end{itemize}
 \end{document}
