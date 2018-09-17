@@ -321,7 +321,7 @@
 	\textbf{Berechnung eines Splines durch 3 Punkte}:\\
 	Erschließt sich direkt aus den Randbedingungen (ist laut Aussage in der Übung nicht klausurrelevant).
 	\newpage
-	\section{Trigonometrische Interpolation und Fast-Fourier-Transformation (FFT)}
+	\section{Trigonometrische Interpolation und Fast"=Fourier"=Transformation (FFT)}
 	\textbf{Anwendung}: Datenkompression (weniger Werte speichern, bei Bedarf interpolieren), Schwingungsanalyse\\
 	\textbf{Aufwand}: O(N log N)
 	
@@ -339,15 +339,19 @@
 	\end{center}
   \textbf{Messung der Genauigkeit - Ordnung der Quadraturformel}:\\
   \textit{Eine Quadraturformel $(b_k, c_k)_{k=1,...,s}$ besitzt die Ordnung p, falls sie exakte Lösungen für alle Polynome vom Grad $\leq p - 1$ liefert, wobei p maximal ist.}\\\\
-  Die Ordnung charakterisiert, wie gut approximiert wird. Eine Quadraturformel von Grad 2 approximiert z.B Polynome von Grad 1 exakt, von 2 nicht mehr. Für alle Quadraturformeln gilt, dass sie zumindest Integrale \textbf{mit konstantem Integranten exakt berechnen können sollten}.
-
+  Die Ordnung charakterisiert, wie gut approximiert wird. Eine Quadraturformel von Grad 2 approximiert z.B Polynome von Grad 1 exakt, von 2 nicht mehr. Für alle Quadraturformeln gilt, dass sie zumindest Integrale \textbf{mit konstantem Integranten exakt berechnen können sollten}.\\\\
+  Weiter besitzt eine Quadraturformel \textbf{genau dann die Ordnung p}, falls
+  \begin{center}
+  	$\frac{1}{q} = \sum_{k = 1}^{s}b_kc_k^{q-1}$ für alle $q = 1, ..., p$
+  \end{center}
+  aber \textbf{nicht mehr} für q = p + 1 gilt.
+  \newpage
   \subsection{Wichtige Quadraturformeln}
         Trapezregel (Ordnung $p = 2$):\hfill$\int_{a}^{b} f(x) = \frac{b - a}{2} (f(a) + f(b))$ \\
         Simpsonregel (Ordnung $p = 4$):\hfill$\int_{a}^{b} f(x) = \frac{b - a}{6} (f(a) + 4f(\frac{a-b}{2}) + f(b))$ \\
         Newton'sche $\frac{3}{8}$-Regel:\hfill$w_0 = w_3 \frac{b - a}{8}, w_1 = w_2 = \frac{3(b - a)}{8}$ \\
         Milne-Regel:\hfill$w_0 = w_4 = \frac{7(b - a)}{90}, w_1 = w_3 = \frac{32(b - a)}{90}, w_2 = \frac{12(b - a)}{90}$ \\
 
-	
 	\subsection{Summierte Trapezregel}
 	\textbf{Ansatz (Summierte Quadraturformel)}: Zerlege das Intervall $[a, b]$ in gleich große Stücke und wende die Quadraturformel auf jedem Teilinterval an.\\\\
 	\textbf{Summierte Trapezregel}: Zerlege Flächen unter einer Kurve im gegebenen Intervall in Trapeze. Im Vergleich zu FFT: FFT zerlegt ein Signal in verschiedene Frequenzanteile.
