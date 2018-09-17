@@ -337,12 +337,13 @@
 		$\omega_\xi = \int_{a}^{b}L_\xi(t)dt$ mit $L_\xi(t) = \prod_{\eta \in \Xi \setminus \{\xi\}}^{} \frac{t - \eta}{\xi - \eta} \in \polynomials_N$\\
 		Für Polynome vom Grad N - 1: $Q_\Xi(P) = \int_{a}^{b}P(t)dt, P \in \polynomials_{N - 1}$
 	\end{center}
-  \textbf{Messung der Genauigkeit}:\\
-	Der Fehler der Quadratur $E(f)$ kann mit der Formel $E(f) = \int_{a}^{b}f(x)dx - \int_{a}^{b}p_n(x)dx$ bestimmt werden. Hierbei ist f die Funktion und $p_n(x)$ ein approximierendes Interpolationspolynom n-ten Grades.
+  \textbf{Messung der Genauigkeit - Ordnung der Quadraturformel}:\\
+  \textit{Eine Quadraturformel $(b_k, c_k)_{k=1,...,s}$ besitzt die Ordnung p, falls sie exakte Lösungen für alle Polynome vom Grad $\leq p - 1$ liefert, wobei p maximal ist.}\\\\
+  Die Ordnung charakterisiert, wie gut approximiert wird. Eine Quadraturformel von Grad 2 approximiert z.B Polynome von Grad 1 exakt, von 2 nicht mehr. Für alle Quadraturformeln gilt, dass sie zumindest Integrale \textbf{mit konstantem Integranten exakt berechnen können sollten}.
 
   \subsection{Wichtige Quadraturformeln}
-        Trapezregel:\hfill$\int_{a}^{b} f(x) = \frac{b - a}{2} (f(a) + f(b))$ \\
-        Simpsonregel:\hfill$\int_{a}^{b} f(x) = \frac{b - a}{6} (f(a) + 4f(\frac{a-b}{2}) + f(b))$ \\
+        Trapezregel (Ordnung $p = 2$):\hfill$\int_{a}^{b} f(x) = \frac{b - a}{2} (f(a) + f(b))$ \\
+        Simpsonregel (Ordnung $p = 4$):\hfill$\int_{a}^{b} f(x) = \frac{b - a}{6} (f(a) + 4f(\frac{a-b}{2}) + f(b))$ \\
         Newton'sche $\frac{3}{8}$-Regel:\hfill$w_0 = w_3 \frac{b - a}{8}, w_1 = w_2 = \frac{3(b - a)}{8}$ \\
         Milne-Regel:\hfill$w_0 = w_4 = \frac{7(b - a)}{90}, w_1 = w_3 = \frac{32(b - a)}{90}, w_2 = \frac{12(b - a)}{90}$ \\
 
