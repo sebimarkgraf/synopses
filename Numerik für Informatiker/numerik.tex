@@ -342,7 +342,9 @@
 	% TODO
         
         \subsection{Wichtige Quadraturformeln}
-        Simpson Regel: $\int_{a}^{b} f(x) = \frac{1}{6} (f(a) + 4f(\frac{a-b}{2}) + f(b))$
+        Trapezregel: $\int_{a}^{b} f(x) = \frac{b - a}{2} (f(a) + f(b))$ \\
+        Simpsonregel: $\int_{a}^{b} f(x) = \frac{b - a}{6} (f(a) + 4f(\frac{a-b}{2}) + f(b))$ \\
+        
 	
 	\subsection{Summierte Trapezregel}
 	\textbf{Ansatz (Summierte Quadraturformel)}: Zerlege das Intervall $[a, b]$ in gleich große Stücke und wende die Quadraturformel auf jedem Teilinterval an.\\\\
@@ -351,7 +353,7 @@
 	\section{Integrationsverfahren für gewöhnliche Differentialgleichungen}
 	\subsection{Runge-Kutta-Verfahren}
 	\textbf{Ziel}: Numerisches Lösen von Anfangswertproblemen. Definition eines Anfangswertproblems:
-	\begin{center}
+	\begin{center} 
 		$y'(t) = f(t, y(t)), y(t_0) = y_0, y: \realnumbers \rightarrow \realnumbers^d$
 	\end{center}
 	\textbf{Beispiele}:\\
