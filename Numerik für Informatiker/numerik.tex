@@ -85,6 +85,12 @@
 		\item Absolute Konditionszahl: $\kappa^{kn}_{abs}(x) = |\frac{\delta}{\delta x_n}f_k(x)|$
 		\item Relative Konditionszahl: $\kappa^{kn}_{rel}(x) = |\frac{\delta}{\delta x_n}f_k(x)| \frac{|x_n|}{|f_k(x)|}$ falls $f_k(x) \neq 0$
 	\end{itemize}
+        \textbf{Bewertung}:
+        \begin{itemize}
+                \item Für $\kappa \approx 1$ gut konditioniertes Problem
+                \item Für $\kappa > 1$ schlecht konditioniertes Problem
+                \item Für $\kappa \rightarrow \infty$ schlecht gestelltes Problem
+        \end{itemize}
 	\newpage
 	\section{Zerlegungen}
 	Falls nicht anders genannt gilt für folgende Abschnitte: $A, R, L, Q \in \realnumbers^{N \times N}, b \in \realnumbers^N$.
