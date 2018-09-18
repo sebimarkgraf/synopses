@@ -293,9 +293,10 @@
 		\begin{tabular}{c | c l c c}
 			$\xi_i$ & $f(\xi_i)$ & & &\\
 			\hline
-			1 & 2 & $\frac{4 - 0}{1 - 0} * 2 + \frac{1 - 4}{1 - 0} * 1 = 5$ & &\\
-			2 & 0 & $\frac{4 - 1}{2 - 1} * 0 + \frac{2 - 4}{2 - 1} * 2 = -4$ & -13 &\\
-			3 & 1 & $\frac{4 - 2}{3 - 2} * 1 + \frac{3 - 4}{3 - 2} * 0 = 2$ & 5 & 11 = $P_3(4)$
+			0 & 1 & &\\
+			1 & 2 & $\frac{4 - 0}{1 - 0} * 2 - \frac{4 - 1}{1 - 0} * 1 = 5$ & &\\
+			2 & 0 & $\frac{4 - 1}{2 - 1} * 0 - \frac{4 - 2}{2 - 1} * 2 = -4$ & -13 &\\
+			3 & 1 & $\frac{4 - 2}{3 - 2} * 1 - \frac{4 - 3}{3 - 2} * 0 = 2$ & 5 & 11 = $P_3(4)$
 		\end{tabular}
 	\end{center}
 	Das Neville-Schema liefert \textbf{nicht das eigentliche Interpolationspolynom}, sondern den \textbf{Funktionswert an einer bestimmten Stelle}! Um das eigentliche Polynom zu erhalten müssen Alternativverfahren wie das Newtonsche verwendet werden. Dieses ist aufwendiger, lohnt sich jedoch, wenn viele Stellen ausgewertet werden müssen. Das Neville-Schema ist gut für wenige Suchen geeignet. Für einen weiteren Stützpunkt wird hier \textbf{eine zusätzliche Zeile berechnet, die alten Ergebnisse bleiben valide!}
