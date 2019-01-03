@@ -20,7 +20,7 @@
 \def\complexnumbers{{\mathbb{C}}}
 \def\code#1{\texttt{#1}}
 
-\lstset{language=Haskell}
+\lstset{language=Haskell,mathescape=true}
 
 \begin{document}
 	\pagenumbering{Roman}
@@ -101,4 +101,38 @@
           \item leere Liste \code{[]}, oder
           \item List \code{(x:xs)}, Restlist \code{xs} und Listenkopf \code{x}
         \end{itemize}
+        \code{(:)} ist Listenkonstruktor, genannt const.
+        Lässt sich zum Pattern Matching auf Listen verwenden.\\
+        \textbf{Operationen}
+        \begin{itemize}
+          \item \code{null l} - Teste ob leer
+          \item \code{head} und \code{tail} berechnen Kopf und Restliste.
+          \item \code{app left right} - Elemente aus \code{left} gefolgt von Elementen aus \code{right}
+          \item \code{rev list} - Elemente aus \code{list} in umgedrehter Reihenfolge
+          \item \code{take n l} - Erste \code{n} Elemente von \code{l}
+          \item \code{drop n l} - \code{l} ohne erste \code{n} Elemente
+        \end{itemize}
+          
+        \subsection{Pattern Matching}
+        Verwende mehrere Gleichungen zur Definition einer Funktion.\\
+        Jede Gleichung gibt Struktur für Argumente vor. Erstes passendes Muster wird angewandt.
+        Muster sind Konstanten, Variablen oder Konstruktoren.
+        \begin{lstlisting}
+          maximum [] = error 'empty'
+          maximum (x:[]) = x
+          maximum (x:xs) = max x (maximum xs)
+        \end{lstlisting}
+
+
+        \subsection{Funktionen höherer Ordnung}
+        \textbf{Lambda Notation}
+        Schreibe Funktionsparameter auf rechte Seite
+        \begin{lstlisting}
+          f = \x -> x * x - 3*x
+          g = \x y -> x - 2/y
+        \end{lstlisting}
+        Lassen sich auf Parameter anwenden
+        \begin{lstlisting}
+          (\x -> x * x) 3 $\Rightarrow$ 3 * 3
+        \end{lstlisting}
 \end{document}
