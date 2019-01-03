@@ -135,4 +135,33 @@
         \begin{lstlisting}
           (\x -> x * x) 3 $\Rightarrow$ 3 * 3
         \end{lstlisting}
+        \textbf{Defintion}\\
+        Funktionen, die andere Funktionen als Parameter erhalten oder Funktionen als Rückgabewerte liefer, heißen Funktionen höherer Ordnung.
+        Vgl. Mathematik - Ableitung\\\\
+        \textbf{Funktionen als Parameter}\\
+        Funktionsanwendung auf Listen:\\
+        \code{map :: (s -> t) -> [s] -> t}\\
+        Filtern von Listen:\\
+        \code{filter :: (t -> Bool) -> [t] -> [t]}\\\\
+        \textbf{Funktion als Rückgabewert}\\
+        Funktionskomposition: \code{f . g}\\
+        n-fache Anwedung: \code{iter :: (t -> t) -> Integer -> (t -> t)}
+
+        \subsection{Currying}
+        Ersetzung einer mehrstelligen Funktion durch Schachtelung einstelliger Funktionen\\
+        z.B. \(f = \lambda a, b.F(a,b)\) und \(f_c = \lambda a.\lambda b. F(a, b)\)\\
+        \(f_c\) kann unterversorgt werden!\\\\
+        \textbf{Unterversorgung}\\
+        Wende `mehrstellige` Funktionen auf zu wenige Parameter an.
+
+        \subsection{Namensbindung}
+        Bindungskonstrukte legen Bedeutung und Geltungsbereich von Variablen fest.
+        \begin{itemize}
+          \item Globale Bindung durch Defintion
+          \item Parameter im Rumpf gebunden
+          \item x in Lambda Ausdruck gebunden
+        \end{itemize}
+
+        \subsection{Lokale Bindung}
+        
 \end{document}
