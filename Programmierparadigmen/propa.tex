@@ -82,5 +82,17 @@
           \item \(e_1 \Rightarrow^+ e_n \) falls \(e_1 \Rightarrow e_2 \Rightarrow ... \Rightarrow e_n\)
         \end{itemize}
         
+        \subsection{Akkumulatoren}
+        Auswertung von rekursiven Funktionen \(\Rightarrow\) Zwischenausdrücke wachsen mit Eingabegröße.\\
+        Deshalb: Verwende Akkumulatoren\\
+        Idee: Speichere partielle Ergebnisse
+        \begin{lstlisting}
+          fakAcc n acc = if (n==0) then acc else fakAcc (n-1) (n*acc)
+          fak n = fakAcc n 1
+        \end{lstlisting}
+
+        \subsection{Endrekursion}
+        Funktion heiß endrekursiv, falls in jedem Zweig der rekursive Aufruf nicht in einen anderen Aufruf eingebettet ist.
+
         
 \end{document}
