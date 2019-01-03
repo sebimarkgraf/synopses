@@ -13,6 +13,7 @@
 % tracking=true, kerning=true, spacing=true - activate these techniques
 % factor=1100 - add 10% to the protrusion amount (default is 1000)
 % stretch=10, shrink=10 - reduce stretchability/shrinkability (default is 20/20)
+\microtypecontext{spacing=nonfrench}
 
 \def\realnumbers{{\rm I\!R}}
 \def\naturalnumbers{{\rm I\!N}}
@@ -94,5 +95,10 @@
         \subsection{Endrekursion}
         Funktion heiß endrekursiv, falls in jedem Zweig der rekursive Aufruf nicht in einen anderen Aufruf eingebettet ist.
 
-        
+        \subsection{Listen}
+        Liste ist entweder
+        \begin{itemize}
+          \item leere Liste \code{[]}, oder
+          \item List \code{(x:xs)}, Restlist \code{xs} und Listenkopf \code{x}
+        \end{itemize}
 \end{document}
