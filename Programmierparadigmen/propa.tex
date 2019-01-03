@@ -8,6 +8,7 @@
 \usepackage{listings}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
 
+
 \def\realnumbers{{\rm I\!R}}
 \def\naturalnumbers{{\rm I\!N}}
 \def\complexnumbers{{\mathbb{C}}}
@@ -47,13 +48,35 @@
             then 1
             else binom (n-1) (k-1) + binom (n-1) k
         \end{lstlisting}
-
         Oder mit Type Guard Notation:
         \begin{lstlisting}
           binom n k
             | (k == 0) || (k == n) = 1
             | otherwise = binom (n-1) (k-1) + binom (n-1) k
         \end{lstlisting}
-        Vergleichbar mit Mathematischer Notation  
+        Vergleichbar mit Mathematischer Notation
+
+        \subsection{Ausführung}
+        Ausführung mit \code{ghci}\\
+        Programm \code{simple.hs}:
+        \begin{lstlisting}
+          square x = x * x
+          cube x = x * square x
+        \end{lstlisting}
+        
+        Laden und Ausführen:
+        \begin{lstlisting}[language=bash]
+          ghci
+          :l simple.hs
+          cube (1+2)
+        \end{lstlisting}
+
+        \subsection{Auswertung}
+        Schrittweise ausgewertet
+        \begin{itemize}
+          \item \(e_1 \Rightarrow e_2\) für einen Schritt
+          \item \(e_1 \Rightarrow^+ e_n \) falls \(e_1 \Rightarrow e_2 \Rightarrow ... \Rightarrow e_n\)
+        \end{itemize}
+        
         
 \end{document}
