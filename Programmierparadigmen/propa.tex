@@ -5,12 +5,15 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{listings}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
 
 \def\realnumbers{{\rm I\!R}}
 \def\naturalnumbers{{\rm I\!N}}
 \def\complexnumbers{{\mathbb{C}}}
+\def\code#1{\texttt{#1}}
 
+\lstset{language=Haskell}
 
 \begin{document}
 	\pagenumbering{Roman}
@@ -32,5 +35,25 @@
         Es gibt keine Variablen in Haskell, Zustand über Parameter \& Rückgabewert.  
 
         \subsection{Funktionsdefinition}
+        \code{f x = sin x / x}\\
+        Defininiere Funktionen mit Leerzeichen um Parameter zu trennen.\\
+
+        
+        \subsection{Rekursive Definitionen}
+        Definition mit if-else-then:
+        \begin{lstlisting}
+          binom n k =
+            if (k == 0) || (k == n)
+            then 1
+            else binom (n-1) (k-1) + binom (n-1) k
+        \end{lstlisting}
+
+        Oder mit Type Guard Notation:
+        \begin{lstlisting}
+          binom n k
+            | (k == 0) || (k == n) = 1
+            | otherwise = binom (n-1) (k-1) + binom (n-1) k
+        \end{lstlisting}
+        Vergleichbar mit Mathematischer Notation  
         
 \end{document}
