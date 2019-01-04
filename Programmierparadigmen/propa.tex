@@ -233,7 +233,16 @@
           \item struktuierte Typen: Listen, Tupel, ...
         \end{itemize}
 
+        \subsection{Polymorphe Typen}
+        Verwende Typvariablen um Polymorphie auszudrücken.
+        \code{[t]} ist Liste von Typ \code{t} für alle Typen \code{t}.
+        Dementsprechend ist dann \code{s -> t} Typ einer Funktion von Typ \code{s} nach Typ \code{t}.
+
+        \subsection{Infixnotation}
+        Jeder binäre Operator lässt sich mit Hilfe von Backquote-Notation als Infixoperator schreiben.
+        z.B. \code{l `app` r}.\\
+        Außerdem lassen sich Operatoren auch als Infix deklarieren mit \code{infix n s} mit Bindungsstärke \code{n} und Symbol \code{s}.
+
          
-        
         
 \end{document}
