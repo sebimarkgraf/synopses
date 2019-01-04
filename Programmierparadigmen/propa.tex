@@ -196,4 +196,17 @@
         \subsection{List Comprehensions}
         Generierung von Listen \code{\([e | q_1, ..., q_m]\)}, wobei die \code{\(q_i\)} Tests von der Form
         \code{p <- list}, Muster \code{p} und Listenausdruck \code{list}, sind.
+
+        \subsection{Lazy Evaluation}
+        Auswertung von Audrücken geschieht nur dann, wenn sie auch wirklich benötigt wird. Ermöglicht durch \textbf{Sharing}:
+        Ausdrücke werden als Graph repräsentiert.\\
+        Wann ist eine Auswertung nötig?
+        \begin{itemize}
+          \item Vergleichs-Operatoren
+          \item Arithmetische Operatoren
+          \item in Bedingungen
+          \item Beim Pattern-Matching bis Muster gematched
+          \item Boolsche Operatoren -> Short-circuit
+        \end{itemize}
+        
 \end{document}
