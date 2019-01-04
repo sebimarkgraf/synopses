@@ -180,5 +180,17 @@
         \end{lstlisting}
         \code{x} in \code{3 * x} gebunden durch inneres \code{let}
         \(\Rightarrow\) Auswetung terminiert nicht.
+
+        \subsection{Folds}
+        Verallgemeinere Summe und andere Operationen auf Listen zu \textit{Initialwert, Operator}.
+        \begin{lstlisting}
+          foldr op i [] = i
+          foldr op i (x:xs) = op x (foldr op i xs)
+
+          foldl op i [] = i
+          foldl op i (x:xs) = foldl op (op i x) xs
+        \end{lstlisting}
+        Gibt selbes Ergebnis, falls Operation assoziativ.\\
+        Besonders bei Kurzschlussauswertung empfiehlt sich \code{foldr} zu verwenden, obwohl es nicht die Endrekursion ausnutzt.
         
 \end{document}
