@@ -163,5 +163,22 @@
         \end{itemize}
 
         \subsection{Lokale Bindung}
+        \textbf{let} ermöglicht Deklarierung in Block.\\
+        \textbf{where} vor Allem für Hilfsfunktionen.\\
+        \begin{lstlisting}
+          let c = 299792458 in m * c * c
+          energy m = m * c * c
+            where c = 299792458
+        \end{lstlisting}
+
+        \subsection{Verdeckung}
+        Innere Bindungen verdecken äußere.
+        Vorsicht insbesondere bei \code{let} Klauseln!
+        \begin{lstlisting}
+          unknown = let x = 3 in
+                      let x = 3 * x in 4 +x
+        \end{lstlisting}
+        \code{x} in \code{3 * x} gebunden durch inneres \code{let}
+        \(\Rightarrow\) Auswetung terminiert nicht.
         
 \end{document}
