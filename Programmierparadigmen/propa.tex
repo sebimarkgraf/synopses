@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper]{article}
+\documentclass[10pt,a4paper,draft]{article}
 \author{Sebastian Markgraf}
 \title{Programmierparadigmen}
 
@@ -258,6 +258,32 @@
         \subsection{Backtracking}
         Ansatz zum Lösen von Problemen mit Haskell.
         Bestimme mögliche Kombinationen, prüfe ob Kombination zulässig, püfe ob zulässe Lösung.
+
+        \subsection{Algebraische Datentypen}
+        Deklaration mit Hilfe von \code{data}
+        \begin{lstlisting}
+        data Shape = Circle Double --- Radius
+                     | Rectangle Double Double --- Seitenlängen
+      \end{lstlisting}
+        \code{x :: Shape} bedeutet dann, dass \code{x} entweder ein Kreis oder ein Rechteck ist.
+        Einfachste Datentypen sind Aufzählungen.\\
+        Außerdem lassen sich Funktionen auf Datentypen deklarieren. Dabei wird Pattern Matching verwendet.
+        \begin{lstlisting}
+        weather :: Season -> Temp
+        weather Spring = Cold
+        weather Summer = Hot
+        weather Autumn = Cold
+        weather Winter = Cold
+      \end{lstlisting}
+
+        \subsection{Binäre Bäume}
+        Ein binärer Baum ist entweder ein Blatt, oder ein Knoten mit Teilbäumen rechts und links.
+        \begin{lstlisting}
+        data Tree t = Leaf
+                    | Node (Tree t) t (Tree t)
+        someTree = Node (Node Leaf 1 Leaf) 3 Leaf 
+      \end{lstlisting}
         
+
         
 \end{document}
