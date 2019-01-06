@@ -36,3 +36,20 @@ Umbennung der \(\lambda\)-gebundenen Variablen überführt werden kann.
 Gedanke: 2 Terme sind äquivalent, wenn Sie immer das gleiche Ergebnis haben.\\
 Definition: \(\lambda x.\ f\ x\) und \(f\) heißen \(\eta\)-äquivalent(\(\lambda x.\ f \x \etaeq f\)), falls \(x\)
 nicht freie Variable von \(f\).
+
+\subsection{Ausführung von \(\lambda\)-Termen}
+Redex: Von Englisch \textit{Reducable Expression} ein vereinfachbarer \(\lambda\)-Term\\
+\(\beta\)-Reduktion: Ausführen der Funktionsanwendung auf einem Redex \[(\lambda x.\ t_1)\ t_2 \Rightarrow t_1 [x \rightarrow t_2]\]\\
+Substitution: \(t_1 [x \rightarrow t_2]\) ersetze freie Vorkommen von \(x\) in \(t_1\) durch \(t_2\)\\
+Normalform: Termn kann nicht weiter reduziert werden.
+
+\subsection{Auswertungsstrategien}
+Oft mehrere Terme in Ausdruck \(\Rightarrow\) Welchen wertet man zuerst aus?\\
+Volle \(\beta\)-Reduktion: Alle Terme bis zum Ende ausgewertet
+\begin{itemize}
+  \item Normalreihenfolge: Immer der linkeste äußerste Redex - Normalform ist eindeutig
+  \item Call-By-Name: Reduziere linkesten äußeren Redex, falls nicht von \(\lambda\) umgeben
+  \item Call-By-Value: Reduziere linkesten äußeren Redex, falls nicht von \(\lambda\) umgeben und Argument ein Wert
+\end{itemize}
+Die letzten beiden Varianten werten nicht immer zur Normalform aus!
+
