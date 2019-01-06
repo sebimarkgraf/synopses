@@ -34,7 +34,7 @@ Umbennung der \(\lambda\)-gebundenen Variablen überführt werden kann.
 
 \subsection{\(\eta\)-Äquivalenz}
 Gedanke: 2 Terme sind äquivalent, wenn Sie immer das gleiche Ergebnis haben.\\
-Definition: \(\lambda x.\ f\ x\) und \(f\) heißen \(\eta\)-äquivalent(\(\lambda x.\ f \x \etaeq f\)), falls \(x\)
+Definition: \(\lambda x.\ f\ x\) und \(f\) heißen \(\eta\)-äquivalent (\(\lambda x.\ f\ x \etaeq f\)), falls \(x\)
 nicht freie Variable von \(f\).
 
 \subsection{Ausführung von \(\lambda\)-Termen}
@@ -47,9 +47,38 @@ Normalform: Termn kann nicht weiter reduziert werden.
 Oft mehrere Terme in Ausdruck \(\Rightarrow\) Welchen wertet man zuerst aus?\\
 Volle \(\beta\)-Reduktion: Alle Terme bis zum Ende ausgewertet
 \begin{itemize}
-  \item Normalreihenfolge: Immer der linkeste äußerste Redex - Normalform ist eindeutig
+  \item Normalreihenfolge: Immer der linkeste äußerste Redex --- Normalform ist eindeutig
   \item Call-By-Name: Reduziere linkesten äußeren Redex, falls nicht von \(\lambda\) umgeben
   \item Call-By-Value: Reduziere linkesten äußeren Redex, falls nicht von \(\lambda\) umgeben und Argument ein Wert
 \end{itemize}
 Die letzten beiden Varianten werten nicht immer zur Normalform aus!
 
+\subsection{Church-Zahlen}
+Natürliche Zahlen lassen sich als Lambda Terme ausdrücken.
+Idee: Verstehe natürliche Zahlen, als Anzahl der Funktionsanwendungen \code{s}. Dann:
+\begin{lstlisting}
+  $c_0$ = $\lambda$s. $\lambda$z. z
+  $c_1$ = $\lambda$s. $\lambda$z. s z
+  ...
+  $c_n$ = $\lambda$s. $\lambda$z. $s^n$ z
+
+\end{lstlisting}
+Um die nächste Church Zahl zu erhalten wird die Nachfolgerfunktion \coce{succ} definiert.
+Außerdem lassen sich auch Mathematische Operationen definieren.
+\begin{lstlisting}
+  succ = $\lambda$n. $\lambda$s. $\lambda$z. s (n s z)
+  plus = $\lambda$m. $\lambda$n. $\lambda$s. $\lambda$z. m s (n s z)
+  times = $\lambda$m. $\lambda$n. $\lambda$s. n (m s)
+  exp = $\lambda$m. $\lambda$n. n m
+\end{lstlisting}
+Auch Booleans lassen sich so kodieren. Dabei sind diese eine einfache Fallunterscheidung
+\begin{lstlisting}
+  $c_{true}$ = $\lambda$t. $\lambda$f. t
+  $c_{false}$ = $\lambda$t. $\lambda$f. f
+\end{lstlisting}
+Test auf 0
+\begin{lstlisting}
+  isZero = $\lambda$n. n ($\lambda$x. $c_{false}$) $c_{true}$
+\end{lstlisting}
+
+\subsection{Divergenz}
