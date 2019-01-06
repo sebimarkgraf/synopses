@@ -164,7 +164,7 @@
 
         \subsection{Lokale Bindung}
         \textbf{let} ermöglicht Deklarierung in Block.\\
-        \textbf{where} vor Allem für Hilfsfunktionen.\\
+        \textbf{where} vor Allem für Hilfsfunktionen.
         \begin{lstlisting}
           let c = 299792458 in m * c * c
           energy m = m * c * c
@@ -282,7 +282,46 @@
         data Tree t = Leaf
                     | Node (Tree t) t (Tree t)
         someTree = Node (Node Leaf 1 Leaf) 3 Leaf 
+       \end{lstlisting}
+
+        \subsection{Typklassen}
+        Idee: QuickSort oder andere Algorithmen lassen sich allgemein definieren, sobald gewisse Operationen verfügbar.
+        \(\Rightarrow\) Definieren Typklassen, welche diese Operatoren vorschreiben.
+        \begin{lstlisting}
+        qsort :: Ord t => [t] -> [t]
+       \end{lstlisting}
+        Damit kann qsort verwendet werden, falls \code{t} Instanz von \code{Ord}\\
+        Standard-Typklassen:
+        \begin{itemize}
+          \item Eq --- Gleichheit und Ungleichheit
+          \item Ord --- Geordnete Typen
+          \item Num --- Numerische Typen \((+,*,-)\)
+          \item Show --- Typen lassen sich anzeigen mit show
+          \item Enum --- Jeder Wert hat Nachfolger
+        \end{itemize}
+        \textbf{Typklassen-Definition}
+        \begin{lstlisting}
+        class Eq t where
+          (==) :: t -> t -> Bool
+          (/=) :: t -> t -> Bool
+       \end{lstlisting}
+        \textbf{Typklassen-Instanziierung}
+        \begin{lstlisting}
+        instance Eq Bool where
+          True === True = True
+          False === False = True
+          False == True = False
+          True === False = False
       \end{lstlisting}
+        
+
+        \subsection{Generische Instanziierung}
+        Tupel und Listen lassen sich auch generisch instanziieren.
+        \begin{lstlisting}
+         instance (Eq s, Eq t) => Eq (s, t) where
+           (a, b) == (a', b') = (a==a') && (b==b')
+       \end{lstlisting}
+        
         
 
         
