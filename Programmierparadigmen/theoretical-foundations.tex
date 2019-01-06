@@ -99,3 +99,32 @@ Damit erhält man Rekursion in der Form \(Y\ f = f\ (Y\ f)\) da \(f\) Fixpunkt v
 Herleitungen von Konklusionen können durch mehrere Schlusstriche als Bäume dargestellet werden.\\
 \textbf{Syntaktische Herleitbarkeit}\\
 Mit diesen Mitteln lässt sich Syntaktische Herleitbarkeit \(\psi \vdash \varphi\) zeigen.
+
+\subsection{Typen}
+Weise sicheren Programmen Typen zu und lehne unsichere ab
+\begin{itemize}
+  \item Basistypen: bool, int,...
+  \item Funktionstyp: \(\tau_1 \rightarrow \tau_2\) (rechtsassoziativ)
+  \item Typvariablen: \(\alpha, \alpha_1, \beta,...\)
+\end{itemize}
+\textbf{Typsystem}\\
+Typsystem \(\Gamma \vdash t: \tau\) --- im Typkontext \(\Gamma\) hat Term \(t\) Typ \(\tau\). Dabei ordnet \(\Gamma\)
+freien Variablen \(x\) ihren Typ \(\Gamma(x)\) zu.
+Um komplexere Typen zu realisieren werden mehrere Regeln verwendet, mit welchen Herleitungsbäume gebildet werden können:\\
+\begin{align*}
+  \textsc{Const}:& \frac{c \in \mathit{Const}}{\Gamma \vdash c: \tau_c} &
+  \textsc{Var}:&   \frac{\Gamma(x) = \tau}{\Gamma \vdash x: \tau}\\
+  \textsc{Abs}:&   \frac{\Gamma, x: \tau_1 \vdash t: \tau_2}{\Gamma \vdash \lambda x.\ t: \tau_1 \rightarrow \tau_2} &
+  \textsc{App}:&   \frac{\Gamma \vdash t_1: \tau_2 \rightarrow \tau \ \ \ \ \Gamma \vdash t_2: \tau_2}{\Gamma \vdash t_1\ t_2: \tau}                                                                                                                      
+\end{align*}
+\textbf{Untypisierbar}\\
+\(t\) typisierbar im Kontext \(\Gamma\), falls \(\tau\) mit \(\Gamma \vdash t: \tau\) existiert.
+Demnach existieren auch nicht typisierbare Terme, z.B. \((\lambda x.\ x + 42) \mathit{true}\).
+Dies wäre allerdings ein sicherer Term, welcher immer zu \(\mathit{true}\) auswertet. Also ist Typsystem nicht vollständig
+bzgl. \(\beta\)-Reduktion.
+
+\subsection{Korrektheit des Typsystems}
+\textbf{Substitutionslemma}\\
+Wenn \(\Gamma, x: \tau_2 \vdash t_1: \tau_1\) und \(\Gamma \vdash t_2: \tau_2\), dann \(\Gamma \vdash t_1[x \mapsto t_2]: \tau_1\).\\
+\textbf{Typerhaltungstheorem}\\
+Wenn \(\Gamma \vdash t: \tau\) und \(t \Rightarrow t'\), dann \(\Gamma \vdash t': \tau\).
