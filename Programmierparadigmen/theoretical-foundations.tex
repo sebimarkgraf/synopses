@@ -5,3 +5,21 @@
 %%% End:
 
 \section{Theoretische Grundlagen}
+
+\subsection{Kalküle}
+\begin{itemize}
+  \item Minimalistische Programmiersprachen zur Beschreibung von Berechnungen
+  \item Zum Führen von Beweisen
+\end{itemize}
+In dieser Vorlesung \(\lambda\)-Kalkül für sequentielle Sprachen
+
+\subsection{untypisiertes \(\lambda\)-Kalkül}
+\begin{tabular}{l l l}
+  \textbf{Bezeichnung} & \textbf{Notation} & \textbf{Beispiele}\\
+  Variablen & \(x\) & \code{x y}\\
+  Abstraktion & \(\lambda x.t\) & \code{\(\lambda\)y. 0}\\
+  Funktionsanwendung & \(t_1 t_2\) & \code{f 42}
+\end{tabular}\\\\
+Die Funktionsanwendung ist \textit{linksassoziativ}: \code{\(\lamda\)x. f x y = \(\lambda\)x ((f x)y: \code{\(\lamda\)x. f x y = \(\lambda\)x ((f x)y)}
+
+   
