@@ -4,6 +4,9 @@
 %%% TeX-master: "propa"
 %%% End:
 
+\newcommand\alphaeq{\overset{\alpha}{=}}
+\newcommand\etaeq{\overset{\eta}{=}}
+
 \section{Theoretische Grundlagen}
 
 \subsection{Kalküle}
@@ -17,9 +20,19 @@ In dieser Vorlesung \(\lambda\)-Kalkül für sequentielle Sprachen
 \begin{tabular}{l l l}
   \textbf{Bezeichnung} & \textbf{Notation} & \textbf{Beispiele}\\
   Variablen & \(x\) & \code{x y}\\
-  Abstraktion & \(\lambda x.t\) & \code{\(\lambda\)y. 0}\\
-  Funktionsanwendung & \(t_1 t_2\) & \code{f 42}
+  Abstraktion & \(\lambda x.\ t\) & \code{\(\lambda\)y. 0}\\
+  Funktionsanwendung & \(t_1\ t_2\) & \code{f 42}
 \end{tabular}\\\\
-Die Funktionsanwendung ist \textit{linksassoziativ}: \code{\(\lamda\)x. f x y = \(\lambda\)x ((f x)y: \code{\(\lamda\)x. f x y = \(\lambda\)x ((f x)y)}
+Die Funktionsanwendung ist \textit{linksassoziativ}: \code{\(\lambda\)x. f x y = \(\lambda\)x ((f x)y)}
 
-   
+% TODO: Add shadowing?
+
+\subsection{\(\alpha\)-Äquivalenz}
+Gedanke: 2 Terme sind äquivalent, wenn die Variablen in Lambdas des einen Terms in den anderen umbennant werden können.\\
+Definition: \(t_1\) und \(t_2\) heißen \(\alpha\)-äquivalent (\(t_1 \alphaeq t_2\)), wenn \(t_1\) in \(t_2\) durch konsitente
+Umbennung der \(\lambda\)-gebundenen Variablen überführt werden kann.
+
+\subsection{\(\eta\)-Äquivalenz}
+Gedanke: 2 Terme sind äquivalent, wenn Sie immer das gleiche Ergebnis haben.\\
+Definition: \(\lambda x.\ f\ x\) und \(f\) heißen \(\eta\)-äquivalent(\(\lambda x.\ f \x \etaeq f\)), falls \(x\)
+nicht freie Variable von \(f\).
