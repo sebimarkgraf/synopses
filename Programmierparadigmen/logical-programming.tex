@@ -5,3 +5,23 @@
 %%% End:
 
 \section{Logische Programmierung}
+
+\subsection{Prolog Syntax}
+\textbf{Logische Programmierung}\\
+Definiere Objekte und deren Beziehung, wird als Terme einer Termalgebra dargestellt.\\
+\textbf{Fakten in Prolog}\\
+Einzelne Fakten werden per \enquote{.} definiert.
+Programmierer ist verantwortlich für deren Korrektheit.
+\textbf{Termsyntax}
+\begin{itemize}
+  \item Atome: \code{hans, inge,...}
+  \item Zahlen: 3, 4.5
+  \item Variablen: X, Y, _X, Fisch
+  \item Term-Listen: 3,4.5,..
+  \item Zusammengesetzt: liebt(fritz, fisch)
+\end{itemize}
+Atome stehen nur für sich selbst. Variablen sind hingegen Platzhalter für unbekannte Terme.\\
+\textbf{Abfragen}\\
+Alle Fakten in Datenbank zur Laufzeit. Abfragen daran können mit \enquote{?} eingeleitet werden.
+z.B. \code{?liebt(fritz, fisch).}
+
