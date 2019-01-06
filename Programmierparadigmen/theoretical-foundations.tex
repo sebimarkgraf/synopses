@@ -128,3 +128,25 @@ bzgl. \(\beta\)-Reduktion.
 Wenn \(\Gamma, x: \tau_2 \vdash t_1: \tau_1\) und \(\Gamma \vdash t_2: \tau_2\), dann \(\Gamma \vdash t_1[x \mapsto t_2]: \tau_1\).\\
 \textbf{Typerhaltungstheorem}\\
 Wenn \(\Gamma \vdash t: \tau\) und \(t \Rightarrow t'\), dann \(\Gamma \vdash t': \tau\).
+
+\subsection{Polymorpie}
+Verhalten oft unabhängig vom Typ \(\Rightarrow\) Abstrahiere über Typ.\\
+\textbf{Typschemata}\\
+Ein Typ der Gestalt \(\forall \alpha_1. \forall \alpha_2. \ldots \forall \alpha_n.\ \tau\) heißt Typschema.
+Es bindet freie Typvariablen \(\alpha_1,\ldots,\alpha_n\) in \(\tau\).\\
+\textbf{Instanziierung eines Typschemas}\\
+Für Nicht-Schema-Typen \(\tau_2\) ist der Typ \(\tau[\alpha \mapsto \tau_2]\) eine Instanziierung vom
+Typschema \(\forall \alpha.\ \tau\). Schreibweise: \(\forall \alpha.\ \tau \succeq \tau [\alpha \mapsto \tau_2]\)
+
+\subsection{\code{let}-Polymorphismus}
+\code{let}-definierte Funktionen könne polymorph sein, da
+\[\mathbf{let}\ f = t_f\ \mathbf{in}\ t\ \simeq (\lambda f.\ t)\ t_f\]
+und bekannt ist, dass \(f\) in \(t\) an \(t_f\) gebunden ist.\\
+Rein \(\lambda\)-gebundene Variablen \(f\) in \((\lambda f.\ t)\) können nicht polymorph sein, da Bindung von f unbekannt.
+\textbf{Typabstraktion}\\
+Das Typschema \(\mathit{ta}(\tau, \Gamma) = \forall \alpha_1. \forall \alpha_2. \ldots \forall \alpha_n. \tau\) heißt Typabstraktion
+von \(\tau\) relativ zu \(\Gamma\), wobei \(\alpha_i \in \mathbf{FV}(\tau) \setminus \mathbf{FV}(\Gamma)\).\\
+\textbf{Let-Typregel}\\
+\begin{align*}
+  \textsc{Let}: \frac{\Gamma \vdash t_1: \tau_1\ \ \ \ \Gamma, x: \mathit{ta}(\tau_1, \Gamma) \vdash t_2: \tau_2}{\Gamma \vdash \mathbf{let}\ x = t_1\ \mathbf{in}\ t_2: \tau_2}
+\end{align*}
