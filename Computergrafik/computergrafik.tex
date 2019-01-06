@@ -1,0 +1,123 @@
+\documentclass[10pt,a4paper]{article}
+\author{Jannik Koch}
+\title{Computergrafik}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+\usepackage[toc, xindy]{glossaries}
+
+\def\realnumbers{{\rm I\!R}}
+\def\polynomials{{\rm I\!P}}
+
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\renewcommand{\arraystretch}{1.5}
+
+\makenoidxglossaries
+
+\input{glossary.tex}
+
+\begin{document}
+	\pagenumbering{Roman}
+	{\let\newpage\relax\maketitle}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+
+	\section{Bilder, Farbe, Perzeption}
+	\subsection{Rasterbilder}
+	Rasterbilder als hauptsächlicher Fokus (statt z.B Vektorgrafik)
+	\begin{itemize}
+		\item Bild ist rechteckiges Pixelgitter endlicher Pixelzahl
+		\item Digitaler \Gls{framebuffer} als Kopie des Monitorbildes
+		\item Pixel haben bestimmte \Gls{farbtiefe}
+		\begin{itemize}
+			\item Schwarz/Weiß (1 Bit/Pixel), Graustufen (8 Bit/Pixel), True Color (24 Bit/Pixel)
+			\item Farbe mit Farbtabelle (\glqq lookup table, LUT\grqq) und High Dynamic Range (3 x 32 Bit Floating Point/Pixel)
+			\item Farbe wird i.d.R. durch RGB-Wert (Rot-Grün-Blau) charakterisiert
+		\end{itemize}
+	\end{itemize}
+
+	\subsection{Bildtransfer zum Display}
+	Die Umsetzung eines digitalen Bildes zu einem sichtbaren Bild auf einem Display kann als Transferfunktion f betrachtet werden. Displaycharakteristika beeinflussen diese Darstellung, darunter:
+	\begin{itemize}
+		\item Maximale Displayhelligkeit $I_{max}$
+		\item Minimale Displayhelligkeit $I_{min}$ (Helligkeit eines schwarzen Pixels)
+		\item Reflektiertes Umgebungslicht k
+	\end{itemize}
+	womit sich der erreichbare Kontrast $R_d = \frac{I_{max} + k}{I_{min} + k}$ ergibt. Man benötigt eine Transferfunktion, bei welcher der Unterschied zwischen aufeinanderfolgenden Pixelwerten nicht bemerkbar (unter 2\%) ist, um \Gls{color banding} zu vermeiden.
+
+	\subsection{Gamma-Korrektur}
+	\textbf{Problem}: Digitale Pixelwerte befinden sich in einem linearen Raum, d.h. doppelter Wert impliziert doppelte Helligkeit. Displays verhalten sich nicht linear, weshalb die Pixelwerte auf das Display angepasst werden müssen.
+	\\\\
+	Dieses Displayverhalten wird durch einen Gamma-Wert ($\gamma$) charakterisiert, die entsprechende Korrektur heißt \Gls{gamma-korrektur}. Die Intensität wächst nicht proportional zum Farbwert n bei N Schritten, sondern proportional zu $(\frac{n}{N})^{\gamma}$. Zur \Gls{gamma-korrektur} wird entsprechend jeder Farbkanal-Wert mit $\frac{1}{\gamma}$ potenziert.
+
+	\subsection{Alpha-Kanal}
+	Zusätzlich zu RGB-Farbwerten wird oftmals auch ein Alpha-Kanal gespeichert, dessen Inhalt die \Gls{opazitaet} des Pixels ist.
+
+	\subsection{Licht}
+	\begin{itemize}
+		\item Licht ist elektromagnetische Strahlung mit verschiedenen Charakteristika von Strahlen, Wellen und Teilchen
+		\item Licht besitzt eine Wellenlänge $\lambda$, die u.a. eine Spektralfarbe repräsentiert (Lichtfrequenz $v = \frac{c}{\lambda}$)
+		\item Sichtbares Licht: 380nm < $\lambda$ < 700nm
+		\item Licht verschiedener Wellenlängen und verschiedener Intensitäten setzen weitere Farben zusammen
+		\item \Gls{metamerismus}: Unterschiedliche Spektren ergeben dieselbe Farbe
+	\end{itemize}
+
+	\subsection{Farbräume}
+	\textbf{Allgemein}:\\
+	Ein \textbf{\Gls{farbmodell}} ermöglicht die Beschreibung von Farben durch Wertetupel, jedes \Gls{farbmodell} erzeugt einen \textbf{\Gls{farbraum}} aller möglichen Farben und diese können durch entsprechende \textbf{\Gls{tristimuluswerte}} beschrieben werden.
+
+	\begin{itemize}
+		\item Jeder Farbeindruck kann mit 3 Grundgrößen beschrieben werden (Graßmannsche Gesetze)
+		\item Additive Farbmischung (vgl. RGB-\Gls{farbmodell})
+		\begin{itemize}
+			\item Summe der \Gls{tristimuluswerte} Rot, Grün und Blau ergibt finalen Farbwert
+		\end{itemize}
+		\item Subtraktive Farbmischung (vgl. CMY(K)-\Gls{farbmodell})
+		\begin{itemize}
+			\item Statt RGB: Cyan, Magenta, Yellow (und in der Praxis Schwarz als 4. Key-Color, da CMY typischerweise kein Schwarz ergibt)
+			\item Differenz der Farbwerte ergibt finalen Farbwert
+		\end{itemize}
+		\item Weder additiv noch subtraktiv (vgl. HSV-\Gls{farbmodell})
+		\begin{itemize}
+			\item Charakterisierung der finalen Farbe durch Farbton (Hue), Sättigung (Saturation) und Helligkeit (Value)
+		\end{itemize}
+	\end{itemize}
+
+	\subsection{Farbraumkonversion}
+	\textbf{Ziel}: \Gls{farbraum} zur standardisierten Konversion zwischen Farbräumen.\\\\
+	\textbf{Color Matching Funktionen}
+		\begin{itemize}
+			\item Reproduktion von Spektralfarben durch RGB-Primärfarben
+			\item RGB ist kein perfekter \Gls{farbraum}, manche Spektralfarben sind nicht realisierbar!
+		\end{itemize}		
+	\textbf{XYZ-\Gls{farbraum}}
+		\begin{itemize}
+			\item Beschreibt alle wahrnehmbaren Farben (\glqq Gamut der menschlichen Wahrnehmung\grqq) mit rein positiven Color Matching Funktionen
+			\item Primärfarben sind imaginär, übersaturiert und nicht physikalisch realisierbar
+			\item Lineare Abbildung $XYZ \Leftrightarrow RGB$, Transformationsmatrix $M$
+			\item Problem: $M^{-1}$ enthält negative Werte, XYZ kann auf negative, nicht darstellbare RGB Werte abbilden
+		\end{itemize}
+	\textbf{xyY-\Gls{farbraum}}
+		\begin{itemize}
+			\item Beobachtung: $kX, kY, kZ (k > 0)$ repräsentiert dieselbe Farbe mit unterschiedlicher Intensität
+			\item Idee: Normalisierung auf der $X + Y + Z = 1$ Ebene, daraufhin Projektion auf die XY-Ebene (z weglassen)
+			\item Ergebnis: Weiterhin alle Farbtöne und -sättigungen in XY erhalten, neuer xyY \Gls{farbraum} mit Helligkeit Y und Farbe/Chromatizität xy
+		\end{itemize}
+
+	\section{Raytracing}
+	\section{Transformationen}
+	\section{Texturen}
+	\section{Räumliche Datenstrukturen}
+	\section{Rasterisierung und Projektion}
+	\section{OpenGL und Grafik-Hardware}
+
+	\printnoidxglossary
+\end{document}
