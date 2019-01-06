@@ -16,12 +16,26 @@ Programmierer ist verantwortlich für deren Korrektheit.
 \begin{itemize}
   \item Atome: \code{hans, inge,...}
   \item Zahlen: 3, 4.5
-  \item Variablen: X, Y, _X, Fisch
-  \item Term-Listen: 3,4.5,..
+  \item Variablen: X, Y, Fisch
+  \item Term-Listen: 3, 4.5, Fisch,...
   \item Zusammengesetzt: liebt(fritz, fisch)
 \end{itemize}
 Atome stehen nur für sich selbst. Variablen sind hingegen Platzhalter für unbekannte Terme.\\
 \textbf{Abfragen}\\
 Alle Fakten in Datenbank zur Laufzeit. Abfragen daran können mit \enquote{?} eingeleitet werden.
 z.B. \code{?liebt(fritz, fisch).}
+Bei erfolgreich gefunder Lösung wird die Variablenbelegung ausgegeben. Mit \enquote{;} kann nach weiteren Lösungen
+gesucht werden. Keine weiteren Lösungen werden mit \code{no} angegeben.
+Mit \enquote{,} können Anfragen als Logisches Und konjugiert werden.\\
+\textbf{Verarbeitung}\\
+Teilziele werden von links nach rechts erfüllt. Dabei wird nach passenden Instanziierungen gesucht und diese werden
+an das nächste Teilziel weiter vererbt. Falls keine Lösung für Teilziel wird \textit{Backtracking} von vorherigem Teilziel
+durchgeführt, demnach also eine neue Belegung dafür gesucht.\\
+\textbf{Regeln}\\
+Besteht aus \textit{Regelkopf} und \textit{Regelrumpf}. Dabei sind diese als Konklusion und Voraussetzungen zu sehen.
+\code{term :- termlist .}\\
+\textbf{Prädikate}\\
+Eine Gruppe von Fakten/Regeln mit gleichem Funktor und gleicher Argumentzahl im Regelkopf heiß \enquote{Prozedur}
+oder \enquote{Prädikat}.
 
+\subsection{Backtracking}
