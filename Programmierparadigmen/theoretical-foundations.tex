@@ -82,3 +82,12 @@ Test auf 0
 \end{lstlisting}
 
 \subsection{Divergenz}
+Es existieren Terme, welche nicht zu einer Normalform ausführen. Diesen Prozess nennt man Divergenz.
+Dies ist die mathematische Modellierung für unendliche Ausführung, z.B.
+\(\omega = (\lambda x.\ x\ x)(\lambda x.\ x\ x)\)
+
+\subsection{Rekursion}
+\[Y = \lambda f.\ (\lambda x.\ f\ (x\ x))(\lambda x.\ f\ (x\ x))\]
+Damit erhält man Rekursion in der Form \(Y\ f = f\ (Y\ f)\) da \(f\) Fixpunkt von \(Y\) ist.
+
+% TODO: Ergänze Konfluenz?
