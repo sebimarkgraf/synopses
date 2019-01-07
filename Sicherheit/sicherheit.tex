@@ -1,0 +1,179 @@
+\documentclass[10pt,a4paper]{article}
+\author{Sebastian Markgraf}
+\title{Sicherheit}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{mathrsfs}
+\usepackage[colorlinks, linkcolor = black, citecolor = black, filecolor = black, urlcolor = blue]{hyperref} 
+
+\begin{document}
+	\pagenumbering{Roman}
+	{\let\newpage\relax\maketitle}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+
+        \section{Grundlagen}
+        \subsection{Kerckhoffs' Prinzip}
+        Die Sicherheit eines Verfahrens beruht auf der \textbf{Geheimhaltung des Schlüssels}
+        anstatt auf der \textbf{Geheimhaltung des Verschlüsselsungsverfahrens}.
+
+        \subsection{EUF-CMA}
+        Ein Verfahren ist EUF-CMA sicher, wenn für alle PPT-Angreifer \(\mathcal{A}\) die Wahrscheinlichkeit,
+        dass \(\mathcal{A}\) im EUF-CMA Spiel gewinnt, vernachlässigbar (im Sicherheitsparameter) ist.
+
+        \subsection{IND-CPA}
+        Ein symmetrisches Verfahren \((\mathbf{Enc}, \mathbf{Dec})\) heißt \textbf{IND-CPA-sicher}, wenn der Vorteil des
+        PPT-Algorithmus \(\mathcal{A}\) gegenüber dem Raten einer Lösung, also
+        \(\Pr\left[\mathcal{A}\ \text{gewinnt}\right] - \frac{1}{2}\), für alle
+        PPT-Algorithmen \(\mathcal{A}\) vernachlässigbar im Sicherheitsparameter \textit{k} ist.
+
+        \subsection{Vernachlässigbar}
+        Eine vernachlässigbare Funktion „verschwindet“ (d.h. geht gegen Null) also schneller als der
+        Kehrwert jedes Polynoms.
+        \newpage
+
+	\section{Symmetrische Verschlüsselung}
+        \subsection{Betriebsmodi}
+        \begin{itemize}
+        \item ECB - Electronic Code Book Mode - Verschlüssele jeden Block einzeln
+        \item CBC - Cipher Block Chaining Mode - Verknüpfe mit Chiffrat des vorherigen
+        \item CTR - Counter Mode - Verschlüssele IV + i und addiere XOR zur Nachricht
+        \end{itemize}
+        \newpage
+        
+        \section{Asymmetrische Verschlüsselung}
+        \subsection{RSA}
+        \textbf{Schlüsselgenerierung}
+        \begin{itemize}
+          \item Wähle Primzahlen \(P \neq q\) zufällig
+          \item berechne \(N = P \cdot Q, \varphi(N) = (P-1)(Q-1)\)
+          \item wähle \(e\) zufällig aus \(\{3,...,\varphi(N)-1\}\), sodass \(\gcd(e, \varphi(N)) = 1\)
+          \item berechne \(d \coloneqq e^{-1} \bmod \varphi(N)\)
+          \item gib \(\mathit{pk} \coloneqq (N, e)\) und \(\mathit{sk} \coloneqq (N, d)\) aus
+        \end{itemize}
+        \textbf{Standardangreifer}\\
+        \textit{Signatur (EUF-CMA)}:\\
+        Wähle \(\sigma\) und setze \(m = \sigma^e\)
+        \subsection{ElGamal}
+        \textbf{Schlüsselerzeugung}
+        \[\mathit{pk} = (\mathbb{G},g,h)\]
+        \[\mathit{sk} = (\mathbb{G},g,x)\]
+        \textbf{Ver- und Entschlüsselung}
+        \[\textsc{Enc}(\mathit{pk}, M) = (g^y, h^yM)\]
+        \[\textsc{Dec}(\mathit{sk}, g^y, C) = \frac{C}{(g^y)^x}\]
+        \textbf{Informationsdichte}\\
+        Bei optimaler Codierung hat ein ElGamal Chiffrat \(\log_2 | \mathbb{Z}_p^{\times}| = \log_2(p-1)\)
+        Bit Informationen. Da Chiffrat aus 2 Gruppenelementen, ist das Verhältnis von Nutzinformationen zu Chiffratlänge max 1/2. \\
+        \textbf{Signieren}\\
+        Wähle eine zufällige, invertierbare Zahl \(e \in \{1,..., p-1\}\), wobei \(p - 1 = |\mathbb{G}|\)
+        Berechne:
+        \begin{align*}
+          a &\coloneqq g^e \in \mathbb{G} \\
+          b &\coloneqq (M - a \cdot x) \cdot e^{-1} \mod |\mathbb{G}| \Leftrightarrow m = ax + eb\\
+          \textsc{Sig}(sk, M) &\coloneqq (a,b)
+        \end{align*}
+        Verifizieren der Signatur
+        \begin{align*}
+          v_1 &= (g^x)^a \cdot a^b\\
+          v_2 &= g^M\\
+          \textsc{Ver}(pk,\sigma, M) &= 1 \Leftrightarrow v_1 = v_2
+        \end{align*}
+        \textbf{Standardangreifer}\\
+        \textit{Verschlüsselung}:\\
+        Bekanntes \(C \coloneqq (9,1)\) gegeben.\\
+        Berechne \(C* \neq C\) aber \(M* = M\).
+        \begin{enumerate}
+        \item Wähle zufälligegs \(z \in \mathbb{Z}_{11}\), z.B. \(y=1\)
+        \item Berechne \(C'\) von 1: \(C' = (g^y, g^xy \cdot M) = (3^y, 9^y \cdot M)\)
+        \item Multipliziere die Chiffrate: \(C* = C \cdot C' = (5,9)\) von \(1 \cdot M\)
+        \end{enumerate}
+        \textit{Signatur (EUF-CMA)}:
+        \begin{enumerate}
+        \item Nullsignatur: Wähle \((g^x, -g^x)\) als Signatur für \(m=0\)
+          \item Unsinssnachricht: Berechne \(a \coloneqq g^zg^x\) dann \((a, -a)\) Signatur für \(m=-az\)
+        \end{enumerate}
+
+        \subsection{DES}
+        \textbf{Meet-In-The-Middle}
+        % TODO Meet-In-The-Middle allgemein aufschreiben. Wird in 2013(2) und 2014(1) abgefragt 
+        \newpage
+
+        \section{Hashverfahren}
+        \subsection{Kollisionsresistenz}
+        \(H_k\) ist kollisionsresistent, wenn jeder PPT-Algorithmus mit höchstens vernachlässigbarer Wahrscheinlichkeit
+        eine Kollision, also zwei verschiedene Nachrichten \(M \neq M'\) für die \(H(M) = H(M')\) gilt, findet.\\
+        oder\\
+        \(H_k\) ist kollisionsresistent, wenn für alle PPT-Algorithmen \(\mathcal{A}\) gilt:
+        \[\Pr\Big[(M, M') \leftarrow \mathcal{A}(1^k) \Big| M \neq M' \and H_k(M) = H_k(M')\Big]\]
+        ist vernachlässigbar (in k).
+        \subsection{Key-Strenghtening}
+        \begin{itemize}
+        \item Mehrfachanwendung (z.B. 1000 Mal)
+        \item Suche kleinste Zahl i, sodass die ersten z.B. 20 Bits von \(H(m,i)\) gleich 0 sind.
+        \end{itemize}
+        \subsection{Birthday-Angriff}
+        Wahrscheinlichkeit für Kollision steigt mit Quadrat.
+        Vorgehen:
+        \begin{itemize}
+        \item Wähle \(2^{\frac{k}{2}})\) zufällige Urbilder und berechne Hashwert
+        \item Sortiere nach Hashwert
+        \item Suche nach identischen Hashwerten
+        \end{itemize}
+        Laufzeit: \(O(k \cdot 2^{\frac{k}{2}})\) (Grund für k: Sortieren)\\
+        Speicherbedarf: \(O(k \cdot 2^{\frac{k}{2}})\)
+        \subsection{HMAC}
+        kurz für \textbf{Keyed-Hash Message Authentication Code} \\
+        \[\mathit{HMAC}_{K}(M) = H((K \oplus \mathit{opad}) || H((K \oplus \mathit{ipad}) || M))\]
+        \newpage
+
+        \section{Zero-Knowledge}
+        \subsection{Definition}
+        \textbf{Ununterscheidbarkeit}\\
+        Die Verteilungen \(X\) und \(Y\) sind ununterscheidbar, falls für alle PPT-Angreifer
+        \(\mathcal{A}\) die Differenz
+        \(\Pr_{x \leftarrow X}[\mathcal{A}(1^k, x) = 1] - \Pr_{y \leftarrow Y}[\mathcal{A}(1^k, y) = 1]\)
+        vernachlässigbar (in \(k\)) ist.\\
+        \textbf{Zero-Knowledge}\\
+        Das PK-Identifikationsprotokoll \((\mathbf{Gen}, \mathbf{P}, \mathbf{V})\) ist Zero-Knowledge, falls für alle
+        PPT-Angreife \(\mathcal{A}\) ein PPT-Simulator \(\mathcal{S}\) exisitiert, sodass die Verteilungen\\
+        \begin{center}
+          \((\mathit{pk}, \langle\mathcal{P}(\mathit{sk}),\mathcal{A}(1^k, \mathit{pk})\rangle)\)
+          und
+          \((\mathit{pk}, \mathcal{S}(1^k, \mathit{pk}))\)
+        \end{center}
+        ununterscheidbar sind (wobei \(\mathit{pk}, \mathit{sk}\) von \(\mathbf{Gen}(1^k)\) erzeugt wurde).
+        \subsection{Commitments}
+        \textbf{Eigenschaften}
+        \begin{itemize}
+        \item \textit{hiding} - \(\textsc{Com}(M; R)\) verrät zunächst keinerlei Informationen über M
+        \item \textit{binding} - \(\textsc{Com}(M; R)\) legt den Ersteller des Commitment auf \(M\) fest, d.h.
+          der Ersteller der Nachricht kann später nicht glaubhaft behaupten, dass \(M' \neq M\) zur Erstellung
+          Commitment
+        \end{itemize}
+        \newpage
+
+        \section{Sonstiges}
+        \subsection{Modulo Rechentricks}
+        \textbf{Handhabbare Repäsentanten}
+        \[51^2 \bmod 59 = (59-8)^2 \bmod 59 = (-8)^2 \bmod 59 = 64 \bmod 59 = 5 \bmod 59\]
+        \textbf{Reduzierung des Exponenten modulo der Gruppenordnung}
+        \[3^{60} \bmod 59 = 3^{60 \bmod 58} \bmod 59 = 3^2 \bmod 59\]
+        Allgemein: Ordnung ist \(\varphi(N)\)
+        \subsection{Klausur 2018 Aufgabe 1b}
+        Geben Sie eine Formel für \(x\) an, sodass gegeben \(P, Q, a, b\) gilt:\\
+        \(a = x \bmod P\) und \(b = x \bmod Q\)\\
+        Lösung:\\
+        \(x = ( a \cdot Q  \cdot (Q^{-1} \bmod P) + b \cdot P \cdot (P^{-1} \bmod Q)) \mod N\)\\
+        Für die Herleitung sollte der Wikpedia Artikel zum
+        \href{https://de.wikipedia.org/wiki/Chinesischer_Restsatz}{Chinesischen Restsatz}
+        zu Rate gezogen werden.
+\end{document}
