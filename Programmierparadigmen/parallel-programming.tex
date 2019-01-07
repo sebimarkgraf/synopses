@@ -1,0 +1,44 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "propa"
+%%% End:
+
+\section{Parallele Programmierung}
+
+\subsection{Motivation}
+\begin{itemize}
+  \item Moore's law erreicht Grenzen für Anzahl der Schaltkreise / Taktung
+  \item Trotzdem Rechenpower für Medizin, Wetter, \ldots
+  \item Performance durch mehrere Kerne und Parallelverarbeitung
+\end{itemize}
+\(\Rightarrow\) Softwareentwickler müssen Parallelverarbeitung beherrschen
+
+\subsection{Parallelism vs. Concurrency}
+\textbf{Parallelism}: Mindestens 2 Threads werden gleichzeitig ausgeführt.\\
+\textbf{Concurrency}: Mindestens 2 Threads machen Fortschritt.\\
+Concurrency ist die Verallgemeinerung von Parallelism.
+
+\subsection{Ansätze}
+\textbf{Geteilter Speicher}\\
+Jeder Prozess kann jeden Speicher bearbeiten. Auf Mehrkernprozessoren.\\
+\textbf{Verteilter Speicher}\\
+Prozesse schicken sich gegenseitig Nachrichten. Z.B. in Clustern.
+
+\subsection{Flynn's Taxonomy}
+\begin{enumerate}
+  \item SISD: Single Instruction x Single Data - von Neumann
+  \item SIMD: Single Instruction x Multiple Data - Vector Prozessoren
+  \item MIMD: Multiple Instruction x Multiple Data - Mehrkernprozessor
+  \item MISD: Multiple Instruction x Single Data - Pipelines / Redundante Systeme
+\end{enumerate}
+
+\subsection{Aufteilung des Problems}
+\textbf{Task parallelism}: Aufteilung in verschiedene Funktionen.\\
+\textbf{Data prallelism}: Aufteilen der Daten auf verschiedene Prozesse.\\
+
+
+\subsection{Amdahl's Law}
+Berechnung der Beschleunigung \(S(n) = \frac{T(1)}{T(n)} = \frac{\text{Zeit eines Prozessors}}{\text{Zeit von n Prozessoren}}\)\\
+Nach Amdahl's Law kann maximal eine Beschleunigung erreicht werden, bei \(p\) Prozent des Programms parallelisierbar von:
+\[S(n) = \frac{1}{(1-p) + \frac{p}{n}}\]
