@@ -5,3 +5,11 @@
 %%% End:
 
 \section{Typinferenz}
+
+\subsection{Problem}
+\textit{Gegeben}: Term \(t\) mit freien Variablen \(x_1, x_2, \ldots\) und Annahmen \(\Gamma = x_1 : \tau_1, x_2 : \tau_2, \ldots\)\\
+\textit{Gesucht}: \(\tau\), so dass \(\Gamma \vdash t: \tau\) (Typisierung des Terms)
+
+\textit{Lösungsansatz}: Suche rekursiv die Lösung für Subterme von \(t\). Mache dafür vorläufige Annahmen und Substituiere hinterher.
+
+\textit{Typinferenz}: Finde \(\tau\) und Substitution \(\sigma\), so dass \(\sigma \Gamma \vdash t: \tau\)
