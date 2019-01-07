@@ -93,3 +93,24 @@ Negation in Prolog ohne Cut nicht möglich.
   not(X) :- call(X),!,fail.
   not(X).
 \end{lstlisting}
+
+\subsection{Manipulation Terme}
+Untersuche Terme:
+\begin{itemize}
+  \item atom(X)
+  \item integer(X)
+  \item var(X)
+  \item X = Y, unifizere X mit Y
+  \item X == Y, erfolgreich, falls bereits unifiziert
+  \item X =:= Y, arithmetischer Vergleich
+  \item X=..L , Konstruktion/Zerlegung von X, aus/in Liste L
+\end{itemize}
+
+\subsection{Optimierung}
+\textbf{Manuell}\\
+Anstatt alle Variable Werte erst zu generieren und dann zu überprüfen, schiebe Tests so weit nach vorne wie möglich.
+Dadurch Begrenzung der Möglichkeiten.\\
+
+\textbf{Freeze}\\
+Werte Datengetrieben aus, also wird \(T_i\) erst ausgewertet, wenn notwenig.
+In Prolog mit Hilfe von \code{freezeAll([$X_1,X_2,..$], T)}
