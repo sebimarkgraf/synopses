@@ -114,3 +114,62 @@ Dadurch Begrenzung der Möglichkeiten.\\
 \textbf{Freeze}\\
 Werte Datengetrieben aus, also wird \(T_i\) erst ausgewertet, wenn notwenig.
 In Prolog mit Hilfe von \code{freezeAll([$X_1,X_2,..$], T)}
+
+\subsection{Unifikation}
+\textbf{Unifikator}\\
+Eine Substitution \(\sigma\) unifiziert Gleichug \(\theta = \theta'\), falls \(\sigma\theta = \sigma\theta'\).
+\(\sigma\) unifiziert \(C\), falls \(\forall c \in C\) gilt: \(\sigma\) unifiziert \(c\).\\
+\textbf{Allgemeinster Unifikator (mgu)}\\
+\(\sigma\) \textbf{mgu}, falls \(\forall\) Unifikator \(\gamma\ \exists\) Substitution \(\delta\). \( \gamma = \delta\ \circ\ \sigma\).\\
+
+\textbf{Unifikationsalgorithmus}\\
+Informell:
+\begin{enumerate}
+  \item Ziehe Umbenennungen aus der Contraint Menge
+  \item Wende diese auf die Constraint Menge an
+  \item Schreibe Sie als Komposition hinten dran
+  \item Wende Algorithmus erneut auf verbleibende Constraint Menge an
+\end{enumerate}
+Formell:
+\begin{lstlisting}
+  if $C == \varnothing$ then []
+  else let $\{\theta_l == \theta_r\} \cup C' = C$ in
+    if $\theta_l == \theta_r$ then unify($C'$)
+    else if $\theta_l == Y$ and $Y \notin \mathit{FV}(\theta_r)$ then unify ($[Y \mapsto \theta_r]C') \circ [Y \mapsto \theta_r]$
+    else if $\theta_r == Y$ and $Y \notin \mathit{FV}(\theta_l)$ then unify ($[Y \mapsto \theta_l]C') \circ [Y \mapsto \theta_l]$
+    else if $\theta_l == f(\theta_l^1, \ldots, \theta_l^n)$ and $\theta_r == f(\theta_r^1,\ldots,\theta_r^n)$
+         then unify($C' \cup \{\theta_l^1 = \theta_r^1, \ldots, \theta_l^n = \theta_r^n\})$
+    else fail
+\end{lstlisting}
+  
+\textbf{Effiziente Algorithmen}\\
+Klassisicher Algorithmus ggf exponentiell.\\
+Paterson-Wegman-Unifikation: Terme als gerichtete azyklische Graphen.
+Verschmelzung von Variablen und sogar inneren Knoten der Terme mittels union/find.
+
+\subsection{Resolution}
+Regel:
+\[\frac{\tau_1, \tau_2, \ldots, \tau_n \text{Terme;}\quad \alpha \code{ :- } \alpha_, \ldots, \alpha_k \text{ eine Regel;}\quad \sigma \text{ mgu von } \alpha \text{ und } \tau_1}
+  {\sigma(\alpha_1), \ldots, \sigma(\alpha_k), \sigma(\tau_2), \ldots, \sigma(\tau_n)}\]
+
+\textbf{Resolutionsprinzip}\\
+Sei P ein logisches Programm (i.e. eine Liste von Fakten und Regeln). Sei \(\tau_1, \ldots, \tau_n\) eine Liste von
+Zielen (Termen).
+\begin{itemize}
+  \item Die Schreibweise \( P \vdash \tau_1, \ldots, \tau_n\) bedeutet: Die Ziele \(\tau_1, \ldots, \tau_n\) lassen sich
+  mittels Resolution abarbeiten (mittels der Fakten und Regeln von \(P\) in die leere Zielliste verwandeln)
+\item Die Schreibweise \( P \vDash \tau, \ldots, \tau_n \) beudetet: Die Zielliste \(\tau_1, \ldots, \tau_n\) ist die
+  logische Konsequenz aus den Fakten und Regeln des Programms \(P\).
+\end{itemize}
+Die Resolutionsregel ist vollständig + korrekt.
+
+
+
+
+\subsection{Vollständigkeit}
+Prolog ist nicht vollständig da es deterministisch arbeitet. Beweis kann leicht mit Gegenbeispiel erbracht werden:
+\begin{lstlisting}
+  aua(X) :- aua(X).
+  aua(5).
+\end{lstlisting}
+Herleitbar mit Resolutionsregel aber nicht mit Prolog.
