@@ -13,6 +13,7 @@ Diese befinden sich auf eigenen Branches bis zur Fertigstellung der 1. Fassung
 * Computergrafik
 * Programmierparadigmen
 * Sicherheit
+* Robotik I
 
 ## Mitarbeit
 Fehlerkorrekturen und Erweiterungen der bestehenden Zusammenfassungen sind gerne als Pull Request gesehen.
