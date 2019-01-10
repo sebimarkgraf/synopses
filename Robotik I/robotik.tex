@@ -5,6 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{xspace}
 \usepackage[german]{babel}
 \usepackage[autostyle]{csquotes}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
@@ -18,8 +19,8 @@
 
 \setlength{\parindent}{0cm}
 
-\def\realnumbers{{\rm I\!R}}
-\def\naturalnumbers{{\rm I\!N}}
+\def\realnumbers{\ensuremath{\mathbb{R}}\xspace}
+\def\naturalnumbers{\ensuremath{\mathbb{N}}\xspace}
 \def\complexnumbers{{\mathbb{C}}}
 
 
@@ -30,5 +31,7 @@
 	\newpage
 	\pagenumbering{arabic}
 	\setcounter{page}{1}
+
+        \include{mathematical-basics}
 
 \end{document}

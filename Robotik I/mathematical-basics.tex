@@ -1,0 +1,85 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "robotik"
+%%% End:
+
+\section{Mathematische Grundlagen}
+
+\newcommand{\SO}{\ensuremath{\mathit{SO}(3)}\xspace}
+\newcommand{\SE}{\ensuremath{\mathit{SE}(3)}\xspace}
+
+\subsection{Definitionen}
+\textbf{Kinematik} analysiert die Geometrie eines Manipulators oder Roboters. Das essentielle Konzept ist die Position.\\
+\textbf{Statik} behandelt Kräfte und Momente, die sich auf den ruhenden Mechanismus auswirken. Dass essentielle Konzept
+ist die Steifigkeit.\\
+\textbf{Dynamik} analysiert die Kräfte und Momente, die durch Bewegung und Beschleunigung eines Mechanismus und einer
+zusätzlichen Last entstehen.\\
+\textbf{Kinematische Kette} ist ein Satz an Gliedern die durch Gelenke verbunden sind.\\
+\textbf{Freiheitsgrade} ist eine Anzahl unabhängiger Parameter, die zur kompletten Spezifikation der Position eines
+Mechanismus/Objekts benötigt werden. (degrees of freededom DoF)
+
+\subsection{\SO und \SE}
+\SO ist die Spezielle Orthogonale Gruppe und repräsentiert Rotationen.\\
+Elemente: 3x3 Matrizen und \(R^TR = I\ \text{mit}\ \det(R) = 1\)\\
+\SE ist die Spezielle Euklidische Gruppe und repräsentiert Bewegungen von Starrkörpern.\\
+Elemente: \((p, R)\ \text{mit}\ p \in \realnumbers^3\ \text{und}\ R \in \SO\)
+
+\subsection{Euklidischer Raum}
+Ist der Vektorraum \(\realnumbers^3\) mit dem Standardskalarprodukt.
+
+\subsection{Koordinatensysteme}
+Es existieren rechtsdrehende und linksdrehende Koordinatensysteme. Lässt sich einfach mit der rechten-Hand-Regel herausfinden:\\
+\begin{itemize}
+  \item Daumen in z-Richtung
+  \item Zeigefinger in x-Richtung
+  \item Mittelfinger in y-Richtung
+\end{itemize}
+\(\Rightarrow\) Koordinatensystem rechtsdrehend.\\
+
+\textbf{Typen von Koordinatensystemen}\\
+\begin{itemize}
+  \item BKS: Basiskoordinatensystem, initialias Bezugssystem
+  \item OKS: Objektkoordinatensystem
+  \item EKS: Endeffektorkoordinatensystem
+  \item SKS: Sensorkoordinatensystem
+\end{itemize}
+
+\subsection{Lineare Abbildungen}
+\textbf{Endomorphismus} - Lineare Abbildung des euklidischen Raums auf sich selbst\\
+\textbf{Isomorhpismus} - Bijektive Endomorphismen. Spezielle Art von Isomorphismus ist \SO
+
+\subsection{Rotation}
+\textbf{in 2D}\\
+Abbildung mit Matrix \(R_\alpha(x) = \begin{pmatrix} \cos \alpha & -\sin\alpha \\ \sin \alpha & \cos \alpha\end{pmatrix}\)
+Ist nur eine lineare Transformation wenn um \(c=(0,0)\) rotiert wird.\\
+Sonst muss erst vorher zum Ursprung und hinterher wieder zurück verschoben werden.\\
+\textbf{Affine Transformationen}\\
+\(T(x) = A(x) + b\) werden affine Transformtionen genannt.\\
+
+\textbf{in 3D}\\
+Rotationen um Achsen identisch mit 2D Fall + eine weitere 1.
+
+\subsection{Rotations Operationen}
+\textbf{Inverse}\\
+Inverse wird durch transponieren der Rotationsmatrix erreicht. \(R^{-1} = R^T\)\\
+\textbf{Verkettung}\\
+\(\phi_{z, \theta_3}(\phi_{y, \theta_2}(\phi_{x, \theta_1}(a))), a \in \realnumbers^3\)\\
+Lesen von links nach rechts: Rotation um lokale Achsen\\
+Lesen von rechts nach links: Rotation um globale Achsen\\
+
+\textbf{Probleme mit Rotationsmatrizen}\\
+Redundanz und keine einfache Erzeugung durch maschinelles Lernen
+
+\subsection{Eulerwinkel}
+Lege Rotation um Achsen fest. In \textbf{Euler-Konvention} \(z, x', z''\).
+Gebe Rotation in Winkeln \(\alpha, \beta\) und \(\gamma\) an.
+\[ R_s = R_z R_{x'} R_{z''}\]
+
+\textbf{Roll, Pitch, Yaw}\\
+Andere Konvention, verwendet \(x, y, z\).\\
+Drehung um jeweils unveränderte Achsen.
+Kann zum Gimbal Lock führen.\\
+
+\textbf{Gimbal Lock}\\
+Verlust eines Freiheitsgrades, da bei bestimmten Winkeln 2 Achsen voneinaner abhängig werden.
