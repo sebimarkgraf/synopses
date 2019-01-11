@@ -27,10 +27,10 @@ Prozesse schicken sich gegenseitig Nachrichten. Z.B. in Clustern.
 
 \subsection{Flynn's Taxonomy}
 \begin{enumerate}
-  \item SISD: Single Instruction x Single Data - von Neumann
-  \item SIMD: Single Instruction x Multiple Data - Vector Prozessoren
-  \item MIMD: Multiple Instruction x Multiple Data - Mehrkernprozessor
-  \item MISD: Multiple Instruction x Single Data - Pipelines / Redundante Systeme
+  \item SISD:\@ Single Instruction x Single Data --- von Neumann
+  \item SIMD:\@ Single Instruction x Multiple Data --- Vector Prozessoren
+  \item MIMD:\@ Multiple Instruction x Multiple Data --- Mehrkernprozessor
+  \item MISD:\@ Multiple Instruction x Single Data --- Pipelines / Redundante Systeme
 \end{enumerate}
 
 \subsection{Aufteilung des Problems}
@@ -42,3 +42,96 @@ Prozesse schicken sich gegenseitig Nachrichten. Z.B. in Clustern.
 Berechnung der Beschleunigung \(S(n) = \frac{T(1)}{T(n)} = \frac{\text{Zeit eines Prozessors}}{\text{Zeit von n Prozessoren}}\)\\
 Nach Amdahl's Law kann maximal eine Beschleunigung erreicht werden, bei \(p\) Prozent des Programms parallelisierbar von:
 \[S(n) = \frac{1}{(1-p) + \frac{p}{n}}\]
+
+\subsection{MPI}
+Kommunikation von Prozession durch Nachrichten.
+MPI ist ein offenes Interface, welches Wert auf best practices legt.\\
+Grundlegend wird SIMD verwendet.\\
+
+\textbf{Communicators}\\
+Ist eine Gruppe von Prozessen. Der Standard ist \code{MPI\_COMM\_WORLD}, die Sammlung aller Prozesse.\\
+Jeder Prozess ist durch seinen Rang \(R_j\ (0 \leq R_j \leq N) \) eindeutig identifiziert. Wird durch \code{MPI\_Comm\_rank} erhalten.
+\code{MPI\_Comm\_size} gibt die Anzahl aller Prozesse zurück.
+\begin{lstlisting}
+int size, my_rank;
+int MPI_Comm_size(MPI_COMM_WORLD, &size);
+int MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+\end{lstlisting}
+
+\textbf{Kommunikation}\\
+Baut auf send und receive Operationen auf. Diese sind für Kommunikation zwischen einzelnen Prozessen.
+Für Kommunikation mit allen anderen spezifiziert MPI Broadcast Operationen.
+\begin{lstlisting}
+int MPI_Send(void* buffer, int count, MPI_Datatype datatype, int dest,
+             int tag, MPI_Comm comm)
+int MPI_Recv(void* buffer, int count, MPI_Datatype datatype, int source,
+             int tag, MPI_Comm comm, MPI_Stats* status)
+\end{lstlisting}
+
+\textbf{Synchronization}\\
+Barriere blockt alle Prozesse bis alle am selben Punkt sind.
+\begin{lstlisting}
+int MPI_Barrier(MPI_COMM_WORLD);
+\end{lstlisting}
+
+\textbf{Temporal Sorting}\\
+Nachrichten sind non-overtaking. Also erste Nachricht eines Senders kommt auch als erstes an. Setzt vorraus, das auch ein
+Empfänger dafür verfügbar ist.\\
+
+\textbf{Kommunikationsmodi}\\
+Sending:
+\begin{itemize}
+  \item Synchronous
+  \item Buffered
+  \item Ready
+  \item Standard
+  \end{itemize}
+  
+\textbf{Blocking Send}
+\begin{lstlisting}
+  MPI_Send
+  MPI_Bsend
+  MPI_Ssend
+  MPI_Rsend
+\end{lstlisting}
+
+\textbf{Non-blocking Send}
+\begin{lstlisting}
+  int MPI_Isend(void* buf, int count MPI_Datatype type, int dest, int tag, 
+                MPI_Comm comm, MPI_Request* request)
+  int MPI_Irecv(void* buf, int count, MPI_Datatype type, int src, int tag, 
+                MPI_Comm comm, MPI_Request* request)
+  int MPI_Test(MPI_Request* r, int* flag, MPI_Status* s)
+  int MPI_Wait(MPI_Request* r, MPI_Status* s)
+\end{lstlisting}
+
+\textbf{Data Distribution}\\
+Kann durch Broadcast erreicht werden. Root versendet Daten an alle.
+\begin{itemize}
+  \item Broadcast
+  \item Scatter
+  \item Gather
+  \item Allgather = Gather + Broadcast
+  \item Alltoall
+  \item Multi-Broadcast = Gather + Broadcast
+\end{itemize}
+Vektorvarianten sind mit angehängtem v verfügbar\\
+
+\textbf{Reduce}\\
+Verschiedene Reduce Varianten, wenden Gather an und berechnen aus Werten einen Wert durch Funktion.
+Verschiedene Varianten verfügbar:
+\begin{itemize}
+  \item Reduce
+  \item Allreduce
+  \item Reduce-scatter
+  \item Scan
+\end{itemize}
+
+
+\textbf{MapReduce}\\
+Programmiermodell von Google entwickelt.
+Besteht aus 3 Schritten: Map, Shuffle und Reduce.
+
+
+  
+
