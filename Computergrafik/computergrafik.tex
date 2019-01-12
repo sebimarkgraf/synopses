@@ -26,12 +26,16 @@
 	\setcounter{page}{1}
 
 	\section{Bilder, Farbe, Perzeption}
+	\label{sec:bilder_farbe_perzeption}
+	
 	\subsection{Rasterbilder}
+	\label{sub:rasterbilder}
+
 	Rasterbilder als hauptsächlicher Fokus (statt z.B Vektorgrafik)
 	\begin{itemize}
 		\item Bild ist rechteckiges Pixelgitter endlicher Pixelzahl
-		\item Digitaler Framebuffer als Kopie des Monitorbildes
-		\item Pixel haben bestimmte Farbtiefe
+		\item Digitaler \textbf{Framebuffer} als Kopie des Monitorbildes
+		\item Pixel haben bestimmte \textbf{Farbtiefe}
 		\begin{itemize}
 			\item Schwarz/Weiß (1 Bit/Pixel), Graustufen (8 Bit/Pixel), True Color (24 Bit/Pixel)
 			\item Farbe mit Farbtabelle (lookup table, \glqq LUT\grqq) und High Dynamic Range (3 x 32 Bit Floating Point/Pixel)
@@ -40,7 +44,9 @@
 	\end{itemize}
 
 	\subsection{Bildtransfer zum Display}
-	Die Umsetzung eines digitalen Bildes zu einem sichtbaren Bild auf einem Display kann als Transferfunktion f betrachtet werden. Displaycharakteristika beeinflussen diese Darstellung, darunter:
+	\label{sub:bildtransfer_zum_display}
+
+	Die Umsetzung eines digitalen Bildes zu einem sichtbaren Bild auf einem Display kann als \textbf{Transferfunktion f} betrachtet werden. Displaycharakteristika beeinflussen diese Darstellung, darunter:
 	\begin{itemize}
 		\item Maximale Displayhelligkeit $I_{max}$
 		\item Minimale Displayhelligkeit $I_{min}$ (Helligkeit eines schwarzen Pixels)
@@ -49,39 +55,47 @@
 	womit sich der erreichbare Kontrast $R_d = \frac{I_{max} + k}{I_{min} + k}$ ergibt. Man benötigt eine Transferfunktion, bei welcher der Unterschied zwischen aufeinanderfolgenden Pixelwerten nicht bemerkbar (unter 2\%) ist, um Color Banding zu vermeiden.
 
 	\subsection{Gamma-Korrektur}
+	\label{sub:gamma_korrektur}
+
 	\textbf{Problem}:\\
-	Digitale Pixelwerte befinden sich in einem linearen Raum, d.h. doppelter Wert impliziert doppelte Helligkeit. Displays verhalten sich nicht linear, weshalb die Pixelwerte auf das Display angepasst werden müssen.
+	Digitale Pixelwerte befinden sich in einem \textbf{linearen Raum}, d.h. doppelter Wert impliziert doppelte Helligkeit. Displays verhalten sich nicht linear, weshalb die Pixelwerte auf das Display angepasst werden müssen.
 	\\\\
-	Dieses Displayverhalten wird durch einen Gamma-Wert ($\gamma$) charakterisiert, die entsprechende Korrektur heißt Gamma-Korrektur. Die Intensität wächst nicht proportional zum Farbwert n bei N Schritten, sondern proportional zu $(\frac{n}{N})^{\gamma}$. Zur Gamma-Korrektur wird entsprechend jeder Farbkanal-Wert mit $\frac{1}{\gamma}$ potenziert.
+	Dieses Displayverhalten wird durch einen \textbf{Gamma-Wert} ($\gamma$) charakterisiert, die entsprechende Korrektur heißt \textbf{Gamma-Korrektur}. Die Intensität wächst nicht proportional zum Farbwert n bei N Schritten, sondern proportional zu $(\frac{n}{N})^{\gamma}$. Zur Gamma-Korrektur wird entsprechend jeder Farbkanal-Wert mit $\frac{1}{\gamma}$ potenziert.
 
 	\subsection{Alpha-Kanal}
-	Zusätzlich zu RGB-Farbwerten wird oftmals auch ein Alpha-Kanal gespeichert, dessen Inhalt die Opazität des Pixels ist.
+	\label{sub:alpha_kanal}
+	
+	Zusätzlich zu RGB-Farbwerten wird oftmals auch ein \textbf{Alpha-Kanal} gespeichert, dessen Inhalt die \textbf{Opazität} (Gegenteil von Transparenz) des Pixels ist.
 
 	\subsection{Licht}
+	\label{sub:licht}
+
 	\begin{itemize}
 		\item Licht ist elektromagnetische Strahlung mit verschiedenen Charakteristika von Strahlen, Wellen und Teilchen
-		\item Licht besitzt eine Wellenlänge $\lambda$, die u.a. eine Spektralfarbe repräsentiert (Lichtfrequenz $v = \frac{c}{\lambda}$)
+		\item Licht besitzt eine \textbf{Wellenlänge} $\lambda$, die u.a. eine Spektralfarbe repräsentiert\\(Lichtfrequenz $f = \frac{c}{\lambda}$)
 		\item Sichtbares Licht: $380nm < \lambda < 700nm$
 		\item Licht verschiedener Wellenlängen und verschiedener Intensitäten setzen weitere Farben zusammen
-		\item \textbf{Metamerismus}: Unterschiedliche Spektren ergeben dieselbe Farbe
+		\item \textbf{Metamerismus}: Unterschiedliche Spektren ergeben \textbf{dieselbe Farbe}
 	\end{itemize}
 
 	\subsection{Farbräume}
+	\label{sub:farbraeume}
+
 	\textbf{Allgemein}:\\
 	Ein \textbf{Farbmodell} ermöglicht die Beschreibung von Farben durch Wertetupel, jedes Farbmodell erzeugt einen \textbf{Farbraum} aller möglichen Farben und diese können durch entsprechende \textbf{Tristimuluswerte} beschrieben werden.
 
 	\begin{itemize}
-		\item Jeder Farbeindruck kann mit 3 Grundgrößen beschrieben werden (Graßmannsche Gesetze)
-		\item Additive Farbmischung (vgl. RGB-Farbmodell)
+		\item Jeder Farbeindruck kann mit 3 Grundgrößen beschrieben werden (\textbf{Graßmannsche Gesetze})
+		\item \textbf{Additive Farbmischung} (vgl. RGB-Farbmodell)
 		\begin{itemize}
 			\item Summe der Tristimuluswerte Rot, Grün und Blau ergibt finalen Farbwert
 		\end{itemize}
-		\item Subtraktive Farbmischung (vgl. CMY(K)-Farbmodell)
+		\item \textbf{Subtraktive Farbmischung} (vgl. CMY(K)-Farbmodell)
 		\begin{itemize}
 			\item Statt RGB: Cyan, Magenta, Yellow (und in der Praxis Schwarz als 4. Key-Color, da CMY typischerweise kein Schwarz ergibt)
 			\item Differenz der Farbwerte ergibt finalen Farbwert
 		\end{itemize}
-		\item Weder additiv noch subtraktiv (vgl. HSV-Farbmodell)
+		\item \textbf{Weder additiv noch subtraktiv} (vgl. HSV-Farbmodell)
 		\begin{itemize}
 			\item Charakterisierung der finalen Farbe durch Farbton (Hue), Sättigung (Saturation) und Helligkeit (Value)
 		\end{itemize}
@@ -89,6 +103,8 @@
 
 	\newpage
 	\subsection{Farbraumkonversion}
+	\label{sub:farbraumkonversion}
+
 	\textbf{Ziel}: Farbraum zur standardisierten Konversion zwischen Farbräumen.\\\\
 	\textbf{Color Matching Funktionen}
 		\begin{itemize}
@@ -104,17 +120,20 @@
 		\end{itemize}
 	\textbf{xyY-Farbraum}
 		\begin{itemize}
-			\item Beobachtung: $kX, kY, kZ (k > 0)$ repräsentiert dieselbe Farbe mit unterschiedlicher Intensität
-			\item Idee: Normalisierung auf der $X + Y + Z = 1$ Ebene, daraufhin Projektion auf die XY-Ebene (z weglassen)
-			\item Ergebnis: Weiterhin alle Farbtöne und -sättigungen in XY erhalten, neuer xyY Farbraum mit Helligkeit Y und Farbe/Chromatizität xy
+			\item \textbf{Beobachtung}: $kX, kY, kZ (k > 0)$ repräsentiert dieselbe Farbe mit unterschiedlicher Intensität
+			\item \textbf{Idee}: Normalisierung auf der $X + Y + Z = 1$ Ebene, daraufhin Projektion auf die XY-Ebene (z weglassen)
+			\item \textbf{Ergebnis}: Weiterhin alle Farbtöne und -sättigungen in XY erhalten, neuer xyY Farbraum mit Helligkeit Y und Farbe/Chromatizität xy
 		\end{itemize}
 
 	\newpage
 	\section{Raytracing}
+	\label{sec:raytracing}
 
 	\subsection{Grundlagen}
+	\label{sub:grundlagen}
+
 	\begin{itemize}
-		\item Bildsynthese durch Simulation des Lichttransports
+		\item Bildsynthese durch \textbf{Simulation des Lichttransports}
 		\item System ähnlich einer Lochkamera, definiert durch Position, Blickrichtung und vertikaler Orientierung (up-Vektor)
 		\item Emittieren von \glqq Lichtstrahlen\grqq\ durch jeden Pixel, zurückverfolgen von der Kamera aus
 		\item Prüfen auf Intersektion mit vorhandener Geometrie; sollte eine Intersektion gefunden werden:
@@ -125,56 +144,69 @@
 	\end{itemize}
 
 	\subsection{Ray Generation - Mathematische Aspekte}
-		\begin{itemize}
-			\item Strahl wird durch eine Startposition und eine normierte Richtung modelliert, die um $t \in \realnumbers$ skaliert wird
-			\item Allgemein für einen Strahl $r$: $r = e + t * d$ mit der Startposition e und der Richtung d
-			\item Bei der Suche nach einem Schnittpunkt wird i.d.R. ein passendes t ausgerechnet, sodass r auf den Schnittpunkt zeigt
-		\end{itemize}
+	\label{sub:ray_generation_mathematische_aspekte}
+
+	\begin{itemize}
+		\item Strahl wird durch eine Startposition und eine normierte Richtung modelliert, die um $t \in \realnumbers$ skaliert wird
+		\item Allgemein für einen Strahl $r$: $r = e + t * d$ mit der Startposition e und der Richtung d
+		\item Bei der Suche nach einem Schnittpunkt wird i.d.R. ein passendes t ausgerechnet, sodass r auf den Schnittpunkt zeigt
+	\end{itemize}
 
 	\subsubsection{Baryzentrische Koordinaten}
-		Annahme:
-		\begin{itemize}
-			\item Es existieren k Punkte $P_1, ..., P_k \in \realnumbers^n, k \leq n + 1$
-			\item Existiert dann ein Punkt Q der Form $Q = \lambda_1P_1 + \lambda_2P_2 + ... + \lambda_kP_k, \lambda_1 + \lambda_2 + ... + \lambda_k = 1$ (\glqq Affinkombination\grqq)
-		\end{itemize}
+	\label{ssub:baryzentrische_koordinaten}
 
-		Dann definiert man $(\lambda_1, \lambda_2, ..., \lambda_k)$ als die baryzentrischen Koordinaten von Q bzgl. der Basispunkte $P_1, ..., P_k$. Hiermit lässt sich z.B ein Punkt innerhalb eines Dreiecks anhand der Eckpunkte beschreiben (z.B um zu testen ob ein Punkt in einem Dreieck liegt).
+	\textbf{Annahme:}
+	\begin{itemize}
+		\item Es existieren k Punkte $P_1, ..., P_k \in \realnumbers^n, k \leq n + 1$
+		\item Existiert dann ein Punkt Q der Form $Q = \lambda_1P_1 + \lambda_2P_2 + ... + \lambda_kP_k, \lambda_1 + \lambda_2 + ... + \lambda_k = 1$ (\glqq Affinkombination\grqq)
+	\end{itemize}
+	Dann definiert man $(\lambda_1, \lambda_2, ..., \lambda_k)$ als die baryzentrischen Koordinaten von Q bzgl. der Basispunkte $P_1, ..., P_k$. Hiermit lässt sich z.B ein Punkt innerhalb eines Dreiecks anhand der Eckpunkte beschreiben (z.B um zu testen ob ein Punkt in einem Dreieck liegt).
 
 	\newpage
 	\subsection{Ray Casting - Schnittpunktberechnung}
+	\label{sub:ray_casting_schnittpunktberechnung}
+
 	\subsubsection{Strahl-Kugel}
+	\label{ssub:strahl_kugel}
+
+	\begin{itemize}
+		\item Implizite Darstellung einer Kugel: $|x - c|^2 - r^2 = 0$ mit Radius r und Mittelpunkt c
+		\item Damit lassen sich Werte für $t_{1,2}$ (vgl. Mathematische Aspekte) anhand der Mitternachtsformel berechnen, wenn man die Variablen folgendermaßen wählt
 		\begin{itemize}
-			\item Implizite Darstellung einer Kugel: $|x - c|^2 - r^2 = 0$ mit Radius r und Mittelpunkt c
-			\item Damit lassen sich Werte für $t_{1,2}$ (vgl. Mathematische Aspekte) anhand der Mitternachtsformel berechnen, wenn man die Variablen folgendermaßen wählt
-			\begin{itemize}
-				\item $a = d * d$
-				\item $b = 2d * (e - c)$
-				\item $c = (e - c) * (e - c) - r^2$
-			\end{itemize}
-			\item Kein Schnitt: Diskriminante kleiner 0
-			\item Kugel wird gestriffen: Beide t-Werte sind identisch
-			\item Sonst: Kugelschnitt, zwei verschiedene t-Werte
-			\item Hinweis: Nur $t > 0$ sind relevant!
+			\item $a = d * d$
+			\item $b = 2d * (e - c)$
+			\item $c = (e - c) * (e - c) - r^2$
 		\end{itemize}
+		\item \textbf{Kein Schnitt}: Diskriminante kleiner 0
+		\item \textbf{Kugel wird gestriffen}: Beide t-Werte sind identisch
+		\item \textbf{Sonst}: Kugelschnitt, zwei verschiedene t-Werte
+		\item \textbf{Hinweis}: Nur $t > 0$ sind relevant!
+	\end{itemize}
 
 	\subsubsection{Strahl-Ebene}
-		\begin{itemize}
-			\item Implizite Darstellung einer Ebene: $x * n - d_U = 0$ mit dem Normalenvektor n und dem Abstand vom Ursprung $d_U$
-			\item Damit lassen sich Werte für $t$ (vgl. Mathematische Aspekte) anhand der Formel $t = \frac{d_U - e * n}{d * n}$
-			\item Achtung: Ist der Nenner $d * n = 0$ sind Strahl und Ebene parallel!
-			\item Hinweis: Nur $t > 0$ sind relevant!
-		\end{itemize}
+	\label{ssub:strahl_ebene}
+	
+	\begin{itemize}
+		\item Implizite Darstellung einer Ebene: $x * n - d_U = 0$ mit dem Normalenvektor n und dem Abstand vom Ursprung $d_U$
+		\item Damit lassen sich Werte für $t$ (vgl. Mathematische Aspekte) anhand der Formel $t = \frac{d_U - e * n}{d * n}$
+		\item \textbf{Achtung}: Ist der Nenner $d * n = 0$ sind Strahl und Ebene \textbf{parallel}!
+		\item \textbf{Hinweis}: Nur $t > 0$ sind relevant!
+	\end{itemize}
 
 	\subsubsection{Strahl-Dreieck}
-		\begin{itemize}
-			\item Baryzentrische Darstellung eines Punktes in einem Dreieck bestehend aus Punkten $P_1, P_2, P_3: Q = P_1 + \lambda_2(P_2 - P_1) + \lambda_3(P_3 - P_1)$
-			\item Anmerkung: $\lambda_1$ ist kein Faktor, die baryzentrischen Koordinaten spannen quasi ein schiefwinkliges Koordinatensystem auf mit dem Ursprung $P_1$
-			\item Damit lassen sich Werte für $t$ (vgl. Mathematische Aspekte) durch Lösen der Gleichung $e + t * d = P_1 + \lambda_2(P_2 - P_1) + \lambda_3(P_3 - P_1)$ nach t finden
-			\item Achtung: Ist die Gleichung lösbar, so liegt der Schnittpunkt \textbf{in der Ebene des Dreiecks}, damit der Schnittpunkt im Dreieck liegt muss gelten: $\lambda_2, \lambda_3 \geq 0$ und $\lambda_2 + \lambda_3 \leq 1$
-			\item Hinweis: Nur $t > 0$ sind relevant!
-		\end{itemize}
+	\label{ssub:strahl_dreieck}
+	
+	\begin{itemize}
+		\item Baryzentrische Darstellung eines Punktes in einem Dreieck bestehend aus Punkten $P_1, P_2, P_3: Q = P_1 + \lambda_2(P_2 - P_1) + \lambda_3(P_3 - P_1)$
+		\item \textbf{Anmerkung}: $\lambda_1$ ist kein Faktor, die baryzentrischen Koordinaten spannen quasi ein schiefwinkliges Koordinatensystem auf mit dem Ursprung $P_1$
+		\item Damit lassen sich Werte für $t$ (vgl. Mathematische Aspekte) durch Lösen der Gleichung $e + t * d = P_1 + \lambda_2(P_2 - P_1) + \lambda_3(P_3 - P_1)$ nach t finden
+		\item \textbf{Achtung}: Ist die Gleichung lösbar, so liegt der Schnittpunkt \textbf{in der Ebene des Dreiecks}, damit der Schnittpunkt im Dreieck liegt muss gelten: $\lambda_2, \lambda_3 \geq 0$ und $\lambda_2 + \lambda_3 \leq 1$
+		\item \textbf{Hinweis}: Nur $t > 0$ sind relevant!
+	\end{itemize}
 
 	\subsection{Shading}
+	\label{sub:shading}
+
 	\begin{itemize}
 		\item Wörtlich "Schattierung"
 		\item Simulation von Oberflächeneigenschaften
@@ -182,105 +214,125 @@
 	\end{itemize}
 
 	\subsubsection{Materialien}
+	\label{ssub:materialien}
+
 	\begin{itemize}
 		\item Beschreibt Oberflächeneigenschaften
 		\item Dadurch: Einfluss auf die Reaktion bei Lichteinfall
 		\begin{itemize}
-			\item Mattes Material wirkt in erster Linie diffus (keine klare Spiegelung, sehr weich, Licht wird in viele Richtungen gestreut)
-			\item Glänzendes/Imperfekt spiegelndes Material besitzt weiche, verschwommene Spiegelungen (\glqq glossy\grqq, zwischen diffus und spekular)
-			\item Perfekt spiegelndes Material spiegelt ähnlich wie ein gewöhnlicher Spiegel (\glqq specular\grqq, kaum Streuung)
+			\item Mattes Material wirkt in erster Linie \textbf{diffus} (keine klare Spiegelung, sehr weich, Licht wird in viele Richtungen gestreut)
+			\item Glänzendes/Imperfekt spiegelndes Material besitzt weiche, verschwommene Spiegelungen (\textbf{\glqq glossy\grqq}, zwischen diffus und spekular)
+			\item Perfekt spiegelndes Material spiegelt ähnlich wie ein gewöhnlicher Spiegel (\textbf{\glqq specular\grqq}, kaum Streuung)
 		\end{itemize}
-		\item Reflexionen beschreibt man durch Bidirektionale Reflektanzverteilungsfunktionen (BRDF)
+		\item Reflexionen beschreibt man durch Bidirektionale \textbf{Reflektanzverteilungsfunktionen} (BRDF)
 		\begin{itemize}
 			\item Generiert durch reale Materialproben sowie Modelle aus Physik und Phänomenologie
 			\item Beschreibt Verhältnis von einfallendem zu ausfallendem Licht
-			\item Erweiterung auf Transmission (ins Material eindringendes Licht): Bidirectional Transmission Distribution Function (BTDF)
-			\item BRDF + BTDF = BSDF (Bidirectional Scattering Distribution Function)
+			\item Erweiterung auf Transmission (ins Material eindringendes Licht): \textbf{Bidirectional Transmission Distribution Function} (BTDF)
+			\item BRDF + BTDF = BSDF (\textbf{Bidirectional Scattering Distribution Function})
 		\end{itemize}
 	\end{itemize}
 
 	\subsubsection{Phong-Beleuchtungsmodell}
+	\label{ssub:phong_beleuchtungsmodell}
+	
 	\begin{itemize}
 		\item Phänomenologisches Modell, modelliert Beleuchtung anhand dreier Komponenten, die aufsummiert den Lichteinfluss ergeben
 		\begin{itemize}
-			\item Ambient: Grundhelligkeit durch indirekte Beleuchtung
-			\item Diffus: Grobe Beleuchtung nach dem Lambertschen Gesetz (beschreibt die Intensitätsabschwächung je nach Material)
-			\item Spekular: Imperfekte Spiegelung, \glqq Highlights\grqq
+			\item \textbf{Ambient}: Grundhelligkeit durch indirekte Beleuchtung
+			\item \textbf{Diffus}: Grobe Beleuchtung nach dem Lambertschen Gesetz (beschreibt die Intensitätsabschwächung je nach Material)
+			\item \textbf{Spekular}: Imperfekte Spiegelung, \glqq Highlights\grqq
 		\end{itemize}
-		\item Ambientes Licht ist grundsätzlich immer vorhanden
+		\item Ambientes Licht ist meist grundsätzlich vorhanden
 		\item Diffuses Licht ergibt sich aus dem diffusen Materialfaktor, der Lichtintensität und dem Punktprodukt von Lichtrichtung und Oberflächennormale
 		\item Spekulares Licht ergibt sich aus dem spekularen Materialfaktor, der Lichtintensität und dem Punktprodukt von Lichtreflektionsrichtung und Blickrichtung der Kamera hoch \glqq Phong-Exponent\grqq\ n
-		\item Die Lichtintensität nimmt mit zunehmender Entfernung zur Lichtquelle ab!
-		\item In der Regel werden die Punktprodukte auf 0 und größer \glqq geclampt\grqq, damit z.B Licht von der Rückseite nicht die Vorderseite beleuchtet
+		\item Die Lichtintensität \textbf{nimmt mit zunehmender Entfernung zur Lichtquelle ab}!
+		\item In der Regel werden die Punktprodukte auf 0 und größer \textbf{\glqq geclampt\grqq}, damit z.B Licht von der Rückseite nicht die Vorderseite beleuchtet
 	\end{itemize}
 
 	\subsection{Schattierung von Dreiecksnetzen}
+	\label{sub:schattierung_von_dreiecksnetzen}
+	
 	\begin{itemize}
-		\item Objekt soll kantig erscheinen $\Rightarrow$ jedes Dreieck besitzt eine Normale, die für das Shading des kompletten Dreiecks genutzt wird
-		\item Objekt soll glatt erscheinen $\Rightarrow$ Interpolation; berechne gewichtete Summe der Normalen angrenzender Dreiecke für jeden Pixel
+		\item Objekt soll kantig erscheinen $\Rightarrow$ jedes Dreieck besitzt \textbf{eine Normale}, die für das Shading des kompletten Dreiecks genutzt wird
+		\item Objekt soll glatt erscheinen $\Rightarrow$ \textbf{Interpolation}; berechne gewichtete Summe der Normalen angrenzender Dreiecke für jeden Pixel
 	\end{itemize}
 
 	\subsection{Sekundärstrahlen}
+	\label{sub:sekundaerstrahlen}
+	
 	\begin{itemize}
-		\item Sekundärstrahlen für Reflexion:
+		\item Sekundärstrahlen für \textbf{Reflexion}:
 			\begin{itemize}
-				\item z.B Spiegelnde Metallkugel
-				\item Bei Intersektion: Trace einen Reflexionsstrahl in die Reflexionsrichtung ab der Position $\epsilon$ Längeneinheiten vor der Intersektion (Vermeidung von erneutem Schneiden derselben Oberfläche) und addiere die resultierende Farbe gewichtet hinzu
+				\item z.B spiegelnde Metallkugel
+				\item Bei Intersektion: Verfolge einen Reflexionsstrahl in die Reflexionsrichtung ab der Position $\epsilon$ Längeneinheiten vor der Intersektion (Vermeidung von erneutem Schneiden derselben Oberfläche) und addiere die resultierende Farbe gewichtet hinzu
 			\end{itemize}
-		\item Sekundärstrahlen für Transmission:
+		\item Sekundärstrahlen für \textbf{Transmission}:
 			\begin{itemize}
-				\item z.B Durchsichtige Glaskugel
-				\item Bei Intersektion: Trace einen Transmissionsstrahl in die Transmissionsrichtung $\epsilon$ Längeneinheiten von der zweiten Intersektion der Kugel entfernt (Vermeidung von erneutem Schneiden derselben Oberfläche) und addiere die resultierende Farbe gewichtet hinzu
+				\item z.B durchsichtige Glaskugel
+				\item Bei Intersektion: Verfolge einen Transmissionsstrahl in die Transmissionsrichtung $\epsilon$ Längeneinheiten von der zweiten Intersektion der Kugel entfernt (Vermeidung von erneutem Schneiden derselben Oberfläche) und addiere die resultierende Farbe gewichtet hinzu
 			\end{itemize}
 	\end{itemize}
 
 	\subsection{Aliasing}
+	\label{sub:aliasing}
+	
 	\begin{itemize}
-		\item Problem: Scharfe, stufige Kanten (\glqq jaggies\grqq), da nur grob abgetastet wird
+		\item Problem: Scharfe, stufige Kanten (\glqq jaggies\grqq), da nur \textbf{grob abgetastet} wird
 		\item Lösung: Anti-Aliasing
 		\begin{itemize}
-			\item Überabtastung (mehrfaches Abtasten desselben Pixels mit leichten Offsets vom Pixelzentrum), dann gewichtete Summe für den Farbwert wählen
+			\item Überabtastung (\textbf{Supersampling}, mehrfaches Abtasten desselben Pixels mit leichten Offsets vom Pixelzentrum), dann gewichtete Summe für den Farbwert wählen
 			\item Performance-intensiv! Für jeden Pixel müssen nun mehrere Strahlen verfolgt werden, u.U. mit Sekundärstrahlen
 		\end{itemize}
 	\end{itemize}
 
 	\newpage
 	\section{Transformationen}
+	\label{sec:transformationen}
+	
 	\begin{itemize}
 		\item Transformationen bilden einen Punkt x auf einen Punkt x' ab
 		\item Lineare Transformationen sind Abbildungen mit Transformationsmatrizen $A \in \realnumbers^{mxn}$
-		\item Bekannte Transformationen: Translation (Verschiebung), Rotation, uniforme/isotrope Skalierung
+		\item Bekannte Transformationen: \textbf{Translation (Verschiebung), Rotation, uniforme/isotrope Skalierung}
 		\item Transformationen können durch Multiplikation der Transformationsmatrizen kombiniert werden, hierbei macht die Reihenfolge \textbf{einen Unterschied}; die Transformationen werden \textbf{von rechts nach links angewandt}
 		\item Die inverse Transformatinsmatrix führt die entsprechende inverse Transformation durch (Ausnahme: Skalierung um Faktor 0)
 	\end{itemize}
 
 	\subsection{Affiner Raum}
+	\label{sub:affiner_raum}
+
 	\begin{itemize}
 		\item Abbildungen, die teilverhältnistreu sind und parallele Linien erhalten, nennt man \textbf{affin}
 		\item Abbildungen, die Geraden auf Geraden abbilden, nennt man \textbf{projektiv}
-		\item Alle affinen Abbildungen sind projektive Abbildungen
+		\item \textbf{Alle affinen Abbildungen sind projektive Abbildungen}
 		\item Identität, Translation, Rotation, (nicht zwingend isotrope) Skalierung, Spiegelung, Scherung sind affine Abbildungen/Transformationen
 	\end{itemize}
 
 	\subsection{Homogene Koordinaten}
-		\begin{itemize}
-			\item Bisher: Zum Beschreiben eines n-dimensionalen Körpers nutzen wir einen n-dimensionalen Raum (z.B einen dreidimensionalen Raum für einen Würfel)
-			\item Problem: Parallele Geraden im affinen Raum schneiden sich nicht, bei einer Projektion aber schon
-			\item Lösung: Ergänze zusätzliche Dimension zur Formalisierung
-			\item \textbf{Homogenisierung von Ortsvektoren}: $(x, y, z)_{3D} \rightarrow (x', y', z', w)_h$ sodass $(\frac{x}{w}, \frac{y}{w}, \frac{z}{w}) = (x, y, z)$ (einfachste Homogenisierung: wähle $x' = x, y' = y, z' = z, w = 1$)
-			\item \textbf{Homogenisierung von Richtungsvektoren}: $(x, y, z)_{3D} \rightarrow (x, y, z, w)_h$ mit $w = 0$
-			\item \textbf{Dehomogenisierung von Ortsvektoren}: $(x, y, z, w)_h \rightarrow (\frac{x}{w}, \frac{y}{w}, \frac{z}{w})$
-		\end{itemize}
+	\label{sub:homogene_koordinaten}
+	
+	\begin{itemize}
+		\item \textbf{Bisher}: Zum Beschreiben eines n-dimensionalen Körpers nutzen wir einen n-dimensionalen Raum (z.B einen dreidimensionalen Raum für einen Würfel)
+		\item \textbf{Problem}: Parallele Geraden im affinen Raum schneiden sich nicht, bei einer Projektion aber schon
+		\item \textbf{Lösung}: Ergänze zusätzliche Dimension zur Formalisierung
+		\item \textbf{Homogenisierung von Ortsvektoren}: $(x, y, z)_{3D} \rightarrow (x', y', z', w)_h$ sodass $(\frac{x}{w}, \frac{y}{w}, \frac{z}{w}) = (x, y, z)$ (einfachste Homogenisierung: wähle $x' = x, y' = y, z' = z, w = 1$)
+		\item \textbf{Homogenisierung von Richtungsvektoren}: $(x, y, z)_{3D} \rightarrow (x, y, z, w)_h$ mit $w = 0$
+		\item \textbf{Dehomogenisierung von Ortsvektoren}: $(x, y, z, w)_h \rightarrow (\frac{x}{w}, \frac{y}{w}, \frac{z}{w})$
+	\end{itemize}
 
 	\subsection{Transformation von Normalen}
+	\label{sub:transformation_von_normalen}
+
 	\begin{itemize}
 		\item Normalen sind Bivektoren, d.h. sie stehen senkrecht auf der Tangentialfläche und sind nicht durch Differenz zweier Ortsvektoren definiert
 		\item Lineare und affine Transformationen sind nicht winkeltreu $\rightarrow$ Normalen können nicht einfach mittransformiert werden
-		\item \textbf{Stattdessen}: Nicht Normalenvektor, sondern Tangentenebene zur Normale transformieren; praktisch gesehen: transformiere Normalenvektor mit transponiertem Inversen der Transformationsmatrix M des Modells: $N' = (M^{-1})^T N$
+		\item \textbf{Stattdessen}: Nicht Normalenvektor, sondern Tangentenebene zur Normale transformieren; praktisch gesehen: transformiere Normalenvektor mit \textbf{transponiertem Inversen der Transformationsmatrix M} des Modells: $N' = (M^{-1})^T N$
 	\end{itemize}
 
 	\newpage
 	\subsection{Translation}
+	\label{sub:translation}
+	
 	Translation funktioniert nur mit homogenisierten Koordinaten. Zur Translation um den Vektor $(t_x, t_y)$ bzw. $(t_x, t_y, t_z):$
 	\begin{center}
 		$A_{2D_h} = \begin{pmatrix} 1 & 0 & t_x\\0 & 1 & t_y \\ 0 & 0 & 1\end{pmatrix}$\hspace*{1cm}
@@ -288,6 +340,8 @@
 	\end{center}
 
 	\subsection{Rotation}
+	\label{sub:rotation}
+	
 	Sei $\phi$ im Folgenden der Rotationswinkel.\\\\
 	\textit{Anmerkung:\\Die folgenden Matrizen beschreiben sog. Euler-Rotationen. Diese sind anfällig für Probleme wie den Gimbal Lock, jedoch intuitiver als Quaternions, welche in der Vorlesung nicht besprochen werden.}\\\\
 	\textbf{Zweidimensional (Rotation um die y-Achse)}:
@@ -308,6 +362,8 @@
 
 	\newpage
 	\subsection{Skalierung}
+	\label{sub:skalierung}
+	
 	Sei $(s_x, s_y)$ bzw. $(s_x, s_y, s_z)$ im Folgenden der Vektor, der entlang der entsprechenden Achsen um den entsprechenden Betrag skaliert.
 
 	\begin{center}
@@ -318,6 +374,8 @@
 	\end{center}
 
 	\subsection{Scherung/Transvektion}
+	\label{sub:scherung_transvektion}
+	
 	\textbf{Zweidimensional}:
 	\begin{center}
 		$A_{x} = \begin{pmatrix}1 & s \\ 0 & 1\end{pmatrix}$\hfill
@@ -327,9 +385,13 @@
 	\end{center}	
 
 	\subsection{Spiegelung}
+	\label{sub:spiegelung}
+	
 	Spiegelungen sind realisierbar als negative Skalierungen.\\\textbf{Bsp.:} Spiegelung an der x-Achse ist eine x-Skalierung um den Faktor -1.
 
 	\subsection{Koordinatensysteme}
+	\label{sub:koordinatensysteme}
+	
 	\begin{itemize}
 		\item Objekte innerhalb einer Szene werden in ihrem eigenen \textbf{Objektkoordinatensystem} angegeben
 		\item Durch eine Modelltransformation (Translation, Skalierung, ...) werden Objekte im \textbf{Weltkoordinatensystem} platziert
@@ -337,6 +399,8 @@
 	\end{itemize}
 
 	\subsection{Szenengraphen}
+	\label{sub:szenengraphen}
+	
 	\begin{itemize}
 		\item Modelltransformationen sind üblicherweise zusammengesetzte Transformationen
 		\item Transformation von Geometrie ist oftmals leichter relativ zu anderer Geometrie definierbar (z.B Lenkrad relativ zu Auto-Modell)
@@ -346,13 +410,149 @@
 
 	\newpage
 	\section{Texturen}
+	\label{sec:texturen}
+
+	\subsection{Texture Mapping}
+	\label{sub:texture_mapping}
+	
+	\begin{itemize}
+		\item Textur ist meist ein Rasterbild aus sog. \textbf{Texels} (Pixel der Textur)
+		\item Textur-Ebene definiert durch einen Punkt p und zwei aufspannende Vektoren \textbf{s, t bzw. u, v}
+		\item Texturkoordinate eines Punktes x: $s = (x - p) * s, t = (x - p) * t$ bzw. analog mit u, v
+		\item $u, v \in [0, 1]^2$, \textbf{unabhängig} von der tatsächlichen Auflösung, s und t hingegen auf die Texturmaße skaliert (je nach Definition auch anders herum, diese entspricht den Übungsblättern)
+		\item 1D Texturen funktionieren analog, nur dass der Vektor t bzw. v wegfällt
+		\item Mögliches Mapping je nach Körper per Berechnungsvorschrift:
+		\begin{itemize}
+			\item Kugel-Mapping über Polarkoordinaten: $(s, t) = (\phi / 2 \pi, \theta / \pi)$
+			\item Zylinder-Mapping über Zylinderkoordinaten: $(s, t) = (\phi / 2 \pi, y / h)$
+			\item ggf. Mapping eines komplexen Objekts über einfacheren Hilfskörper (Würfel, Kugel...)
+		\end{itemize}
+		\item Oft auch: Speichern von \textbf{Texturkoordinaten in Vertices}, Generierung z.B manuell beim Modellieren oder nach Berechnungsvorschrift
+	\end{itemize}
+	
+	\subsection{Texture Wrapping}
+	\label{sub:texture_wrapping}
+	
+	\begin{itemize}
+		\item Problem: Wie handhabt man Textur-Koordinaten die über die Textur hinaus gehen?\\($u, v \notin [0, 1]$)?
+		\item Lösung: \textbf{Wrap-Modi}
+		\begin{itemize}
+			\item \textbf{Repeat/Wrapping}: Fortsetzen/Kacheln der Textur über die eigentliche Größe hinaus
+			\item \textbf{Clamp}: Clampt alle Koordinaten zwischen den Grenzen
+			\item Variationen von clamp oder repeat (z.B eine feste Farbe wählen)
+		\end{itemize}
+	\end{itemize}
+
+	\subsection{Texture Filtering}
+	\label{sub:texture_filtering}
+	
+	\begin{itemize}
+		\item \textbf{Problem}: Aliasing tritt auch bei Texturen auf
+		\item Lösungen für Aliasing beim Vergrößern (Magnification, zur Textur hinbewegen, wenige Texel fallen auf viele Pixel)
+		\begin{itemize}
+			\item \textbf{Nearest Neighbor Filterung}: Nächstliegender Texel wird verwendet
+			\item \textbf{Bilineare Interpolation}: Interpolation der 4 nächsten Texel (Glättung)
+		\end{itemize}
+		\item Lösungen für Aliasing beim Verkleinern (Minification, von der Textur wegbewegen, viele Texel fallen auf wenige Pixel)
+		\begin{itemize}
+			\item Überabtastung (\textbf{Supersampling}), gewichteter Mittelwert der Texel
+			\item Vorfilterung der Textur (\textbf{Mip-Mapping})
+		\end{itemize}
+	\end{itemize}
+
+	\subsubsection{Mip-Mapping}
+	\label{subs:mip_mapping}
+	
+	\begin{itemize}
+		\item Einfache \textbf{Vorfilterung} von Texturen um Aliasing zu vermeiden
+		\item Textur wird rekursiv jeweils in der Größe geviertelt und gefiltert (meistens per Mittelwert über 2x2 Texel)
+		\item Nur 33\% höherer Speicherbedarf
+		\item Regel für Mip-Map-Stufe n (Rekursionstiefe, 0 entspricht der höchsten Auflösungsstufe):\\Texelgröße(n) $\leq$ Größe Pixelfootprint auf Textur $<$ Texelgröße(n + 1)
+		\item \textbf{Pixelfootprint}: Wie viele Texel werden auf einen Pixel abgebildet? Ermittlung durch gefundene Texturkoordinaten, wenn man Strahlen durch die Ecken des Pixels verfolgt
+		\item Endgültiger Farbwert mit Mip-Maps per trilinearer Interpolation
+		\begin{itemize}
+			\item Bilineare Interpolation von Stufe n und n + 1
+			\item Lineare Interpolation zwischen den beiden bilinear interpolierten Farben
+		\end{itemize}
+	\end{itemize}
+
+	\subsection{Alternative Texturnutzung}
+	\label{sub:alternative_texturnutzung}
+
+	\textbf{Bump- und Normalmaps}:
+	\begin{itemize}
+		\item \textbf{Idee}: Speichere zusätzliche Oberflächennormalen in einer Textur
+		\item \textbf{Ergebnis}: Höheres Detailreichtum (v.a. durch Beleuchtung) ohne zusätzliche Geometrie
+	\end{itemize}
+	\textbf{Gloss-Maps}:
+	\begin{itemize}
+		\item \textbf{Idee}: Speichere zusätzliche spekulare Koeffizienten für Phong-Beleuchtung in Texturen
+		\item \textbf{Ergebnis}: Höhere Kontrolle der Stärke und Streuung der spekularen Reflexion
+	\end{itemize}
+	\textbf{Displacement-Maps}:
+	\begin{itemize}
+		\item \textbf{Idee}: Speichere Verschiebung der Oberfläche und Änderung der Normalen in Texturen
+		\item \textbf{Ergebnis}: Tatsächliche neue Geometrie statt nur Änderung der Beleuchtung
+		\item Anmerkung: Vor allem nützlich mit GPU-unterstützter Tesselierung (Subdivision von Geometrie in weitere Dreiecke)
+	\end{itemize}
+	\textbf{Vorgenerierte Ambient Occlusion}
+	\begin{itemize}
+		\item \textbf{Idee}: Speichere vorgeneriertes Umgebungslicht (ambienter Koeffizient im Phong-Modell) in Texturen (meist wird auch der diffuse Koeffizient modifiziert)
+		\item \textbf{Ergebnis}: Simple Ambient Occlusion (Umgebungsverdeckung) ohne rechenintensive globale Beleuchtungsmethoden
+	\end{itemize}
+	\newpage
+	\textbf{Alpha-/Opacity-Maps}:
+	\begin{itemize}
+		\item \textbf{Idee}: Speichere zusätzlich zur Farbe einen Transparenzwert, der die Durchsichtigkeit des Pixels beschreibt
+		\item \textbf{Ergebnis}: Höheres Detailreichtum ohne zusätzliche Geometrie (z.B einzelne Blätter eines Palmenblattes sind so realisierbar ohne jedes Blatt einzeln durch Dreiecke darzustellen)
+		\item Analog zum Alpha-Farbkanal der Textur, kann aber ggf. eine separate Textur sein
+	\end{itemize}
+	\textbf{Texture-Atlases}:
+	\begin{itemize}
+		\item \textbf{Idee}: Zerschneide das Dreiecksnetz eines Objektes und rolle es flach zu einer Textur aus
+		\item \textbf{Ergebnis}: 1:1 Mapping von Textur zu Oberfläche (ermöglicht z.B Malen einer Textur direkt auf dem Objekt in Grafikprogrammen)
+	\end{itemize}
+
+	\subsection{3D Texturen}
+	\label{sub:3d_texturen}
+	
+	\begin{itemize}
+		\item \textbf{Problem}: 2D-Texturen haben manchmal erkennbare Tapeten-Effekte, Mapping ist für komplexe Objekte schwer etc.
+		\item \textbf{Lösung}: 3D-Texturen (Solid-Textures)
+		\begin{itemize}
+			\item \textbf{Vorteil}: Kein Parametrisierungsproblem
+			\item \textbf{Nachteil}: Sehr speicherintensiv, schwer zu gewinnen (oft prozedural)
+		\end{itemize}
+	\end{itemize}
+
+	\subsection{Environment Mapping}
+	\label{sub:environment_mapping}
+
+	\begin{itemize}
+		\item \textbf{Idee}: Speichere Bild der Umgebung in einer Textur
+		\item \textbf{Ergebnis}: Darstellung reflektierender Objekte ohne geometrische Repräsentation, approximiert Reflexion ohne Raytracing
+		\item \textbf{Modell}: Textur auf einer virtuellen Kugel um ein Objekt / die Szene
+		\item \textbf{Spezialfall}: Sphere Mapping
+		\begin{itemize}
+			\item Texturgewinnung durch Fotografieren einer kleinen Spiegelkugel mit einem Teleobjektiv
+		\end{itemize}
+		\item \textbf{Spezialfall}: Cube Environment Maps
+		\begin{itemize}
+			\item Abbilden der Umgebung auf einen Würfel um den Betrachter
+			\item \textbf{Vorteil}: Ermöglicht normale Texturfilterung wie bei Mip-Mapping
+		\end{itemize}
+	\end{itemize}
+	
 
 	\newpage
 	\section{Räumliche Datenstrukturen}
+	\label{sec:raeumliche_datenstrukturen}
 
 	\newpage
 	\section{Rasterisierung und Projektion}
+	\label{sec:rasterisierung_und_projektion}
 
 	\newpage
 	\section{OpenGL und Grafik-Hardware}
+	\label{sec:opengl_und_grafik_hardware}
 \end{document}
