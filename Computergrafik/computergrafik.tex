@@ -26,10 +26,10 @@
 	\setcounter{page}{1}
 
 	\section{Bilder, Farbe, Perzeption}
-	\label{sec:bilder_farbe_perzeption}
+	\label{bfp:sec:bilder_farbe_perzeption}
 	
 	\subsection{Rasterbilder}
-	\label{sub:rasterbilder}
+	\label{bfp:sub:rasterbilder}
 
 	Rasterbilder als hauptsächlicher Fokus (statt z.B Vektorgrafik)
 	\begin{itemize}
@@ -44,7 +44,7 @@
 	\end{itemize}
 
 	\subsection{Bildtransfer zum Display}
-	\label{sub:bildtransfer_zum_display}
+	\label{bfp:sub:bildtransfer_zum_display}
 
 	Die Umsetzung eines digitalen Bildes zu einem sichtbaren Bild auf einem Display kann als \textbf{Transferfunktion f} betrachtet werden. Displaycharakteristika beeinflussen diese Darstellung, darunter:
 	\begin{itemize}
@@ -55,7 +55,7 @@
 	womit sich der erreichbare Kontrast $R_d = \frac{I_{max} + k}{I_{min} + k}$ ergibt. Man benötigt eine Transferfunktion, bei welcher der Unterschied zwischen aufeinanderfolgenden Pixelwerten nicht bemerkbar (unter 2\%) ist, um Color Banding zu vermeiden.
 
 	\subsection{Gamma-Korrektur}
-	\label{sub:gamma_korrektur}
+	\label{bfp:sub:gamma_korrektur}
 
 	\textbf{Problem}:\\
 	Digitale Pixelwerte befinden sich in einem \textbf{linearen Raum}, d.h. doppelter Wert impliziert doppelte Helligkeit. Displays verhalten sich nicht linear, weshalb die Pixelwerte auf das Display angepasst werden müssen.
@@ -63,12 +63,12 @@
 	Dieses Displayverhalten wird durch einen \textbf{Gamma-Wert} ($\gamma$) charakterisiert, die entsprechende Korrektur heißt \textbf{Gamma-Korrektur}. Die Intensität wächst nicht proportional zum Farbwert n bei N Schritten, sondern proportional zu $(\frac{n}{N})^{\gamma}$. Zur Gamma-Korrektur wird entsprechend jeder Farbkanal-Wert mit $\frac{1}{\gamma}$ potenziert.
 
 	\subsection{Alpha-Kanal}
-	\label{sub:alpha_kanal}
+	\label{bfp:sub:alpha_kanal}
 	
 	Zusätzlich zu RGB-Farbwerten wird oftmals auch ein \textbf{Alpha-Kanal} gespeichert, dessen Inhalt die \textbf{Opazität} (Gegenteil von Transparenz) des Pixels ist.
 
 	\subsection{Licht}
-	\label{sub:licht}
+	\label{bfp:sub:licht}
 
 	\begin{itemize}
 		\item Licht ist elektromagnetische Strahlung mit verschiedenen Charakteristika von Strahlen, Wellen und Teilchen
@@ -79,7 +79,7 @@
 	\end{itemize}
 
 	\subsection{Farbräume}
-	\label{sub:farbraeume}
+	\label{bfp:sub:farbraeume}
 
 	\textbf{Allgemein}:\\
 	Ein \textbf{Farbmodell} ermöglicht die Beschreibung von Farben durch Wertetupel, jedes Farbmodell erzeugt einen \textbf{Farbraum} aller möglichen Farben und diese können durch entsprechende \textbf{Tristimuluswerte} beschrieben werden.
@@ -103,7 +103,7 @@
 
 	\newpage
 	\subsection{Farbraumkonversion}
-	\label{sub:farbraumkonversion}
+	\label{bfp:sub:farbraumkonversion}
 
 	\textbf{Ziel}: Farbraum zur standardisierten Konversion zwischen Farbräumen.\\\\
 	\textbf{Color Matching Funktionen}
@@ -127,10 +127,10 @@
 
 	\newpage
 	\section{Raytracing}
-	\label{sec:raytracing}
+	\label{rt:sec:raytracing}
 
 	\subsection{Grundlagen}
-	\label{sub:grundlagen}
+	\label{rt:sub:grundlagen}
 
 	\begin{itemize}
 		\item Bildsynthese durch \textbf{Simulation des Lichttransports}
@@ -144,7 +144,7 @@
 	\end{itemize}
 
 	\subsection{Ray Generation - Mathematische Aspekte}
-	\label{sub:ray_generation_mathematische_aspekte}
+	\label{rt:sub:ray_generation_mathematische_aspekte}
 
 	\begin{itemize}
 		\item Strahl wird durch eine Startposition und eine normierte Richtung modelliert, die um $t \in \realnumbers$ skaliert wird
@@ -153,7 +153,7 @@
 	\end{itemize}
 
 	\subsubsection{Baryzentrische Koordinaten}
-	\label{ssub:baryzentrische_koordinaten}
+	\label{rt:ssub:baryzentrische_koordinaten}
 
 	\textbf{Annahme:}
 	\begin{itemize}
@@ -164,10 +164,10 @@
 
 	\newpage
 	\subsection{Ray Casting - Schnittpunktberechnung}
-	\label{sub:ray_casting_schnittpunktberechnung}
+	\label{rt:sub:ray_casting_schnittpunktberechnung}
 
 	\subsubsection{Strahl-Kugel}
-	\label{ssub:strahl_kugel}
+	\label{rt:ssub:strahl_kugel}
 
 	\begin{itemize}
 		\item Implizite Darstellung einer Kugel: $|x - c|^2 - r^2 = 0$ mit Radius r und Mittelpunkt c
@@ -184,7 +184,7 @@
 	\end{itemize}
 
 	\subsubsection{Strahl-Ebene}
-	\label{ssub:strahl_ebene}
+	\label{rt:ssub:strahl_ebene}
 	
 	\begin{itemize}
 		\item Implizite Darstellung einer Ebene: $x * n - d_U = 0$ mit dem Normalenvektor n und dem Abstand vom Ursprung $d_U$
@@ -194,7 +194,7 @@
 	\end{itemize}
 
 	\subsubsection{Strahl-Dreieck}
-	\label{ssub:strahl_dreieck}
+	\label{rt:ssub:strahl_dreieck}
 	
 	\begin{itemize}
 		\item Baryzentrische Darstellung eines Punktes in einem Dreieck bestehend aus Punkten $P_1, P_2, P_3: Q = P_1 + \lambda_2(P_2 - P_1) + \lambda_3(P_3 - P_1)$
@@ -205,7 +205,7 @@
 	\end{itemize}
 
 	\subsection{Shading}
-	\label{sub:shading}
+	\label{rt:sub:shading}
 
 	\begin{itemize}
 		\item Wörtlich "Schattierung"
@@ -214,7 +214,7 @@
 	\end{itemize}
 
 	\subsubsection{Materialien}
-	\label{ssub:materialien}
+	\label{rt:ssub:materialien}
 
 	\begin{itemize}
 		\item Beschreibt Oberflächeneigenschaften
@@ -234,7 +234,7 @@
 	\end{itemize}
 
 	\subsubsection{Phong-Beleuchtungsmodell}
-	\label{ssub:phong_beleuchtungsmodell}
+	\label{rt:ssub:phong_beleuchtungsmodell}
 	
 	\begin{itemize}
 		\item Phänomenologisches Modell, modelliert Beleuchtung anhand dreier Komponenten, die aufsummiert den Lichteinfluss ergeben
@@ -251,7 +251,7 @@
 	\end{itemize}
 
 	\subsection{Schattierung von Dreiecksnetzen}
-	\label{sub:schattierung_von_dreiecksnetzen}
+	\label{rt:sub:schattierung_von_dreiecksnetzen}
 	
 	\begin{itemize}
 		\item Objekt soll kantig erscheinen $\Rightarrow$ jedes Dreieck besitzt \textbf{eine Normale}, die für das Shading des kompletten Dreiecks genutzt wird
@@ -259,7 +259,7 @@
 	\end{itemize}
 
 	\subsection{Sekundärstrahlen}
-	\label{sub:sekundaerstrahlen}
+	\label{rt:sub:sekundaerstrahlen}
 	
 	\begin{itemize}
 		\item Sekundärstrahlen für \textbf{Reflexion}:
@@ -275,7 +275,7 @@
 	\end{itemize}
 
 	\subsection{Aliasing}
-	\label{sub:aliasing}
+	\label{rt:sub:aliasing}
 	
 	\begin{itemize}
 		\item Problem: Scharfe, stufige Kanten (\glqq jaggies\grqq), da nur \textbf{grob abgetastet} wird
@@ -288,7 +288,7 @@
 
 	\newpage
 	\section{Transformationen}
-	\label{sec:transformationen}
+	\label{tf:sec:transformationen}
 	
 	\begin{itemize}
 		\item Transformationen bilden einen Punkt x auf einen Punkt x' ab
@@ -299,7 +299,7 @@
 	\end{itemize}
 
 	\subsection{Affiner Raum}
-	\label{sub:affiner_raum}
+	\label{tf:sub:affiner_raum}
 
 	\begin{itemize}
 		\item Abbildungen, die teilverhältnistreu sind und parallele Linien erhalten, nennt man \textbf{affin}
@@ -309,7 +309,7 @@
 	\end{itemize}
 
 	\subsection{Homogene Koordinaten}
-	\label{sub:homogene_koordinaten}
+	\label{tf:sub:homogene_koordinaten}
 	
 	\begin{itemize}
 		\item \textbf{Bisher}: Zum Beschreiben eines n-dimensionalen Körpers nutzen wir einen n-dimensionalen Raum (z.B einen dreidimensionalen Raum für einen Würfel)
@@ -321,7 +321,7 @@
 	\end{itemize}
 
 	\subsection{Transformation von Normalen}
-	\label{sub:transformation_von_normalen}
+	\label{tf:sub:transformation_von_normalen}
 
 	\begin{itemize}
 		\item Normalen sind Bivektoren, d.h. sie stehen senkrecht auf der Tangentialfläche und sind nicht durch Differenz zweier Ortsvektoren definiert
@@ -331,7 +331,7 @@
 
 	\newpage
 	\subsection{Translation}
-	\label{sub:translation}
+	\label{tf:sub:translation}
 	
 	Translation funktioniert nur mit homogenisierten Koordinaten. Zur Translation um den Vektor $(t_x, t_y)$ bzw. $(t_x, t_y, t_z):$
 	\begin{center}
@@ -340,7 +340,7 @@
 	\end{center}
 
 	\subsection{Rotation}
-	\label{sub:rotation}
+	\label{tf:sub:rotation}
 	
 	Sei $\phi$ im Folgenden der Rotationswinkel.\\\\
 	\textit{Anmerkung:\\Die folgenden Matrizen beschreiben sog. Euler-Rotationen. Diese sind anfällig für Probleme wie den Gimbal Lock, jedoch intuitiver als Quaternions, welche in der Vorlesung nicht besprochen werden.}\\\\
@@ -362,7 +362,7 @@
 
 	\newpage
 	\subsection{Skalierung}
-	\label{sub:skalierung}
+	\label{tf:sub:skalierung}
 	
 	Sei $(s_x, s_y)$ bzw. $(s_x, s_y, s_z)$ im Folgenden der Vektor, der entlang der entsprechenden Achsen um den entsprechenden Betrag skaliert.
 
@@ -374,7 +374,7 @@
 	\end{center}
 
 	\subsection{Scherung/Transvektion}
-	\label{sub:scherung_transvektion}
+	\label{tf:sub:scherung_transvektion}
 	
 	\textbf{Zweidimensional}:
 	\begin{center}
@@ -385,12 +385,12 @@
 	\end{center}	
 
 	\subsection{Spiegelung}
-	\label{sub:spiegelung}
+	\label{tf:sub:spiegelung}
 	
 	Spiegelungen sind realisierbar als negative Skalierungen.\\\textbf{Bsp.:} Spiegelung an der x-Achse ist eine x-Skalierung um den Faktor -1.
 
 	\subsection{Koordinatensysteme}
-	\label{sub:koordinatensysteme}
+	\label{tf:sub:koordinatensysteme}
 	
 	\begin{itemize}
 		\item Objekte innerhalb einer Szene werden in ihrem eigenen \textbf{Objektkoordinatensystem} angegeben
@@ -399,7 +399,7 @@
 	\end{itemize}
 
 	\subsection{Szenengraphen}
-	\label{sub:szenengraphen}
+	\label{tf:sub:szenengraphen}
 	
 	\begin{itemize}
 		\item Modelltransformationen sind üblicherweise zusammengesetzte Transformationen
@@ -410,10 +410,10 @@
 
 	\newpage
 	\section{Texturen}
-	\label{sec:texturen}
+	\label{tex:sec:texturen}
 
 	\subsection{Texture Mapping}
-	\label{sub:texture_mapping}
+	\label{tex:sub:texture_mapping}
 	
 	\begin{itemize}
 		\item Textur ist meist ein Rasterbild aus sog. \textbf{Texels} (Pixel der Textur)
@@ -431,7 +431,7 @@
 	\end{itemize}
 	
 	\subsection{Texture Wrapping}
-	\label{sub:texture_wrapping}
+	\label{tex:sub:texture_wrapping}
 	
 	\begin{itemize}
 		\item Problem: Wie handhabt man Textur-Koordinaten die über die Textur hinaus gehen?\\($u, v \notin [0, 1]$)?
@@ -444,7 +444,7 @@
 	\end{itemize}
 
 	\subsection{Texture Filtering}
-	\label{sub:texture_filtering}
+	\label{tex:sub:texture_filtering}
 	
 	\begin{itemize}
 		\item \textbf{Problem}: Aliasing tritt auch bei Texturen auf
@@ -461,7 +461,7 @@
 	\end{itemize}
 
 	\subsubsection{Mip-Mapping}
-	\label{subs:mip_mapping}
+	\label{tex:subs:mip_mapping}
 	
 	\begin{itemize}
 		\item Einfache \textbf{Vorfilterung} von Texturen um Aliasing zu vermeiden
@@ -477,7 +477,7 @@
 	\end{itemize}
 
 	\subsection{Alternative Texturnutzung}
-	\label{sub:alternative_texturnutzung}
+	\label{tex:sub:alternative_texturnutzung}
 
 	\textbf{Bump- und Normalmaps}:
 	\begin{itemize}
@@ -514,7 +514,7 @@
 	\end{itemize}
 
 	\subsection{3D Texturen}
-	\label{sub:3d_texturen}
+	\label{tex:sub:3d_texturen}
 	
 	\begin{itemize}
 		\item \textbf{Problem}: 2D-Texturen haben manchmal erkennbare Tapeten-Effekte, Mapping ist für komplexe Objekte schwer etc.
@@ -526,7 +526,7 @@
 	\end{itemize}
 
 	\subsection{Environment Mapping}
-	\label{sub:environment_mapping}
+	\label{tex:sub:environment_mapping}
 
 	\begin{itemize}
 		\item \textbf{Idee}: Speichere Bild der Umgebung in einer Textur
@@ -545,12 +545,120 @@
 	
 
 	\newpage
-	\section{Räumliche Datenstrukturen}
-	\label{sec:raeumliche_datenstrukturen}
+	\section{Räumliche Datenstrukturen / Beschleunigungsstrukturen}
+	\label{ds:sec:raeumliche_datenstrukturen_beschleunigungsstrukturen}
+
+	\subsection{Motivation}
+	\label{ds:sub:motivation}
+	
+	\begin{itemize}
+		\item Raytracing ist aufwendiger Prozess, großer Optimierungsbedarf
+		\item Großer Teil der Geometrie in einer Szene wird von einem Strahl nicht getroffen
+		\item Nötige Intersektionstests sollen auf ein Minimum reduziert werden
+		\item \textbf{Idee}: Räumliche Datenstrukturen (Beschleunigungsstrukturen), mit denen Geometrie frühzeitig ignoriert werden kann
+		\item \textbf{Anmerkung}: Die Effizient einer bestimmten räumlichen Datenstruktur ist \textbf{immer szenenabhängig!}
+	\end{itemize}
+
+	\subsection{Bounding Volumes}
+	\label{ds:sub:bounding_volumes}
+
+	\begin{itemize}
+		\item \textbf{Idee}: Umhülle komplexe Geometrie mit approximierender, simpler Geometrie; überprüfe umhüllte Geometrie \textbf{erst dann, wenn das Bounding Volume geschnitten wird}
+		\item \textbf{Vorteil}: Einfache Intersektionstests (vgl. Mesh aus tausenden Dreiecken vs. Würfel)
+		\item \textbf{Nachteil}: Nur grobe Approximation, manchmal false positives
+		\item Kugel
+		\begin{itemize}
+			\item meist unpassend, da zu groß
+		\end{itemize}
+		\item \textbf{Achsenparallele Box (axis-aligned bounding box, AABB)}
+		\begin{itemize}
+			\item Sehr einfache Intersektionsberechnung, 6 Ebenengleichungen (Kollision zwischen AABBs noch simpler über Achsen)
+			\item Muss bei Rotation des Objektes ggf. skaliert werden
+			\item Einfach optimierbar (auch: SIMD)
+			\item Standardoption
+		\end{itemize}
+		\item Orientierte Bounding Box (OBB)
+		\begin{itemize}
+			\item Aufwendiger als AABBs
+			\item Besser approximierend, da nicht achsenorientiert
+		\end{itemize}
+		\item Slabs
+	\end{itemize}
+	
+	\newpage
+	\subsection{Bounding Volume Hierarchies}
+	\label{ds:sub:bounding_volume_hierarchies}
+
+	\begin{itemize}
+		\item \textbf{Idee}: Baue Hierarchie von Bounding Volumes (umhülle Bounding Volumes mit Bounding Volumes) für weitere Approximation; wird ein Volumen geschnitten, so prüft man daraufhin alle Kindvolumen etc.
+		\item \textbf{Vorteil}: Adaptivität, noch schnellere Suche, leicht zu traversieren und konstruieren
+		\item \textbf{Nachteil}: Unterteilung muss sinnvoll gewählt sein, Overhead von zusätzlichen Bounding Volumes summiert sich auf
+		\item \textbf{Aufbaustrategie}: Umhülle alle Objekte mit einem Bounding Volume und teile dieses dann rekursiv auf
+		\item \textbf{Unterteilungskriterien}:
+		\begin{itemize}
+			\item Mittiges Unterteilen an der Achse mit der größten Ausdehnung
+			\item Rotation durch Achsen (unterteile entlang x, dann y, dann z, dann x ...)
+			\item Objektzahl in beiden Child-Volumes gleich groß halten
+			\item Szenengraph bzw. Modellhierarchie verwenden
+			\item Minimieren einer Kostenfunktion (z.B Surface Area Heuristic)
+		\end{itemize}
+	\end{itemize}
+	
+	\subsection{Reguläre Gitter}
+	\label{ds:sub:regulaere_gitter}
+	
+	\begin{itemize}
+		\item \textbf{Idee}: Statt einzelnen Volumen um Geometrie, unterteile kompletten Raum in gleich große Zellen (quasi AABBs); Objekte über mehrere Zellen hinweg werden in jeder dieser Zellen eingetragen
+		\item \textbf{Vorteil}: Sehr simpel, einfach zu konstruieren und traversieren, gut geeignet für Szenen mit gleichmäßig verteilter Geometrie
+		\item \textbf{Nachteil}: Richtige Gittergröße ggf. schwer zu finden, ungeeignet für komplexe Szenen mit viel Geometrie in wenigen Zellen, nicht adaptiv
+		\item \textbf{Mailboxing}: Vermeidung von mehreren Schnitttests mit demselben Objekt, welches sich über mehrere Zellen erstreckt, durch Markieren des Objektes als getestet; Schnittpunkt wird gespeichert
+	\end{itemize}
+
+	\subsection{Octrees}
+	\label{ds:sub:octrees}
+	
+	\begin{itemize}
+		\item \textbf{Idee}: Adaptive Gitter; baue reguläres Gitter und unterteile Zellen rekursiv, falls zu viele Primitive enthalten sind (Unterteilung in gleich große Achtelblöcke in 3D, in Viererblöcke in 2D für einen Quadtree)
+		\item \textbf{Vorteil}: Adaptiv, feine Unterteilung nur dort wo die Geometrie ist, leicht zu konstruieren und traversieren
+		\item \textbf{Nachteil}: Häufige Vertikalbewegung (auf und ab in der Hierarchie), Traversierungskosten zweier Strahlen können stark variieren (Problem bei Parallelität)
+	\end{itemize}
+
+	\subsection{BSP-trees / kd-trees}
+	\label{ds:sub:bsp_trees_kd_trees}
+	
+	\begin{itemize}
+		\item \textbf{Idee}: Rekursives binäres Unterteilen des Raumes durch Ebenen (k-dimensionale Binärbäume, kd-trees)
+		\item \textbf{Unterschied}: Binary-Space-Partitioning-Trees (BSP-trees) verwenden beliebig orientierte Ebenen, kd-Bäume sind ein Spezialfall mit Ebenen senkrecht zur x-, y- oder z-Achse; kd-trees werden öfter genutzt, da BSPs aufgrund des größeren Suchraums für Teilungsebenen \textbf{schwerer zu konstruieren} sind
+		\item \textbf{Aufbaustrategie}: Initialisiere Wurzelknoten um alle Objekte, unterteile dann rekursiv bis Unterteilungskriterium erfüllt
+		\begin{itemize}
+			\item Primitivenzahl unterschreitet Threshold
+			\item Feste maximale Rekursionstiefe ist erreicht
+		\end{itemize}
+		\item \textbf{Kriterien für die Position der Teilungsebene}:
+		\begin{itemize}
+			\item Räumliches Mittel (\textbf{spatial median}) entlang der Achse mit der größten Ausdehnung \textbf{oder} rotierend x, dann y, dann z, dann wieder x etc.
+			\item Objektmittel (\textbf{object median}): Primitivzahl in beiden Kindknoten soll sich höchstens um 1 unterscheiden
+			\item Kostenfunktion (z.B \textbf{Surface Area Heuristic}): Unterteilung nach Oberfläche der Primitiven
+		\end{itemize}
+		\item \textbf{Vorteil}: Adaptiv, leicht zu traversieren, manchmal performanter als BVHs
+		\item \textbf{Nachteil}: Konstruktion aufwendig
+	\end{itemize}
+
+	\subsection{Praktische Anwendung}
+	\label{ds:sub:praktische_anwendung}
+
+	\begin{itemize}
+		\item Oftmals \textbf{Kombination} von verschiedenen Beschleunigungstechniken (z.B kd-trees mit BVHs)
+		\item BVHs sehr gut für Szenen die sich \textbf{bewegen} (Alternativen nicht adaptiv genug oder müssen für gute Approximation oft neu generiert werden)
+		\item kd-tree wird BSP-tree oft vorgezogen, da Konstruktionskosten den möglichen Performancegewinn selten rechtfertigen
+		\item Gitter eher selten, hierarchische Gitter und Octrees eher für Simulationen
+		\item \textbf{Anmerkung}: Auch Verwendung \textbf{abseits von Beschleunigung} für Raytracing, z.B Culling, Sortierung, 3D Texturen, Physiksimulation, Robotik
+	\end{itemize}
+	
 
 	\newpage
 	\section{Rasterisierung und Projektion}
-	\label{sec:rasterisierung_und_projektion}
+	\label{rp:sec:rasterisierung_und_projektion}
 
 	\begin{itemize}
 		\item Bildsynthese (\textbf{Rendering}) erzeugt ein Rasterbild aus einer Szenenbeschreibung
@@ -567,7 +675,7 @@
 	\end{itemize}
 
 	\subsection{Rasterisierungsverfahren}
-	\label{sub:rasterisierungsverfahren}
+	\label{rp:sub:rasterisierungsverfahren}
 	
 	\begin{itemize}
 		\item \textbf{Scanline-Verfahren}:
@@ -581,14 +689,14 @@
 	\end{itemize}
 
 	\subsection{Clipping}
-	\label{sub:clipping}
+	\label{rp:sub:clipping}
 	
 	\begin{itemize}
 		\item Abschneiden von Polygon-Teilen außerhalb des gewünschten Bildbereichs
 	\end{itemize}
 
 	\subsection{Tiefenpuffer/Z-Buffering}
-	\label{sub:tiefenpuffer_z_buffering}
+	\label{rp:sub:tiefenpuffer_z_buffering}
 	
 	\begin{itemize}
 		\item Z-Buffer/Tiefenpuffer zusätzlich zum Farbpuffer für Tiefenwerte
@@ -599,7 +707,7 @@
 	\end{itemize}
 
 	\subsection{Kameratransformation}
-	\label{sub:kameratransformation}
+	\label{rp:sub:kameratransformation}
 	
 	\begin{itemize}
 		\item Transformation verschiebt alle Szenenobjekte relativ zur virtuellen Kamera
@@ -607,7 +715,7 @@
 	\end{itemize}
 
 	\subsection{Projektionstransformation}
-	\label{sub:projektionstransformation}
+	\label{rp:sub:projektionstransformation}
 	
 	\begin{itemize}
 		\item Transformation, die das Sichtvolumen auf den Einheitswürfel abbildet (\textbf{Normalized Device Coordinates})
@@ -624,5 +732,5 @@
 
 	\newpage
 	\section{OpenGL und Grafik-Hardware}
-	\label{sec:opengl_und_grafik_hardware}
+	\label{gl:sec:opengl_und_grafik_hardware}
 \end{document}
