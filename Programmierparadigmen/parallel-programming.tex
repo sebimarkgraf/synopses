@@ -133,5 +133,66 @@ Programmiermodell von Google entwickelt.
 Besteht aus 3 Schritten: Map, Shuffle und Reduce.
 
 
-  
+\subsection{Java Parallel}
+Grundlagen sollten aus SWTI bekannt sein. Demnach werden hier nur die erweiterten Konzepte vorgestellt.\\
 
+\textbf{Atomic Types}\\
+Typen in Java welche Thread-safe verwendet können, da sie sich selbst synchronisieren.
+Befinden sich in \code{java.util.concurrent.atomic}\\
+Durch \code{volatile} lässt sich auch die Synchronisierung von anderen Typen erzwingen.\\
+
+\textbf{Locks}\\
+Java stellt das \code{ReentrantLock} und \code{ReentrantReadWriteLock} zur Verfügung. Diese können fair oder unfair sein.
+Außerdem stellt Java auch Counting Semaphores und Barriers bereit.\\
+
+\textbf{Executor}\\
+Eine Executor abstrahiert von der Erstellung eines Threads. Dabei ist Executor ein Interface, welches Dienst Threads zu erstellen
+oder vorhandene Threads wieder zu verwenden.\\
+
+\textbf{ExecutorService}\\
+Ein Subinterface von Executor welches einfaches Erstellen von Threadpools ermöglicht.\\
+
+\textbf{Callable}\\
+Interface welches es ermöglicht Ergebnisse von Threads zurück zu geben.
+Definiert die Methode \code{public String call()}\\
+
+\textbf{Futures}\\
+Vergleichbar mit Promises in JavaScript ermöglichen Futures den Zukünftigen Rückgabewert zur Verfügung zu stellen.
+Die \code{get}-Methode blockt, bis der Thread abgeschlossen ist.\\
+
+\textbf{Fork-Join}\\
+Effektiv für divide-and-conquer Algorithmen. Erstelle ForkJoinTask und führe Ihn mit ForkJoinPool aus.\\
+
+\textbf{Thread-Safe Classes}\\
+BlockingQuee inklusive einiger Implementierungen.\\
+
+\textbf{Streams}\\
+Jede Collection kann durch \code{collection.stream()} als Stream verwendet werden.
+Dabei können häufige Operationen wie filter, map, reduce und andere verwendet werden.
+Diese werden vergleichbar mit Haskell Lazy ausgewertet.
+Streams existieren auch als Int/Double/...-Stream. Diese erhält man durch mapToInt/Double/...
+Nur auf Zahlenstreams existieren Operationen wie average.
+
+\subsection{Actor Model}
+Konzeptuelles Model für paralleles Rechnen. Basiert auf Aktoren und Nachrichten.\\
+Aktoren können nur auf Ihren eigenen Zustand und eigenen Speicher zugreifen. Kommunikation mit anderen Aktoren geschieht
+durch Austausch von Nachrichten. \\
+Ein Aktor kann entweder durch die Umgebung erstellt werden (Root Aktor),
+oder durch einen anderen Aktor. In diesem Fall wird der andere Aktor sein Supervisor und delegiert Arbeit an Ihn und
+kann ihn im Zweifel eines Crashes neustarten.\\
+Das Modell ermöglicht gute Skalierbarkeit, da es egal ist auf welcher Instanz andere Aktoren laufen.\\
+\textbf{Implementierungen}
+\begin{itemize}
+  \item Erlang
+  \item Akka (Java/Scala)
+  \item Akka.NET
+\end{itemize}
+\textbf{Akka Java}\\
+Kreiren eines Aktors \code{extends AbstractActor} und implementiere \code{Receive createReceive();}\\
+Dabei hilft \code{receiveBuilder()} und \code{match(Class<P> type, UnitApply<P> apply)}
+Alternativ noch \code{match} und \code{matchAny}.\\
+Aktoren werden durch Props erstellt. \code{Props Props.create(Class<?> actorType, Object... parameters)}.
+Und durch die ActorRefFactory instanziiert \code{ActorRef actorOf(Props props)}.\\
+Nachrichten werden mit \code{void tell(Object message, ActorRef sender)} und \code{Future<?> Patterns.ask(ActorRef target, Object msg, Timeout timeout)}
+versandt.\\
+Stoppen von Akoren erfolgt durch \code{void stop(ActorRef actorToStop)} oder \code{PoisonPill.getInstance} und senden dieser.
