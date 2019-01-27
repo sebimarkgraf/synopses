@@ -6,3 +6,45 @@
 
 
 \section{Design by Contract}
+\subsection{Software Korrektheit}
+Software ist korrekt, wenn die Spezifikation erfüllt ist.\\
+Idee: Spezifiziere Verhalten von Methoden mit Contracts + Teste / Beweise das Verhalten
+
+\subsection{Contract}
+Definieren:
+\begin{itemize}
+  \item P Precondition: Was muss der Client garantieren
+  \item C Statements: Was passiert
+  \item Q Postcondition: Was kann der Client erwarten
+\end{itemize}
+Formal stellt dies ein \textit{Hoare Tripel} \(\{P\} C \{Q\}\) der Hoare Logik dar.
+
+\subsection{Java Modeling Language (JML)}
+Formale Definition von Interface für Java. Basiert auf Design by Contract. Definiton mit \code{@requires} und
+\code{@ensures}.\\
+Syntax:
+\begin{itemize}
+  \item \(a ==> b\) --- a implziert b
+  \item \(a <==> b\) --- a iff b
+  \item \(a <=!=> b\) --- \(!(a<==>b)\)
+  \item \(\backslash result\) --- Ergebnis der Methode
+  \item \(\backslash old(E)\) --- Wert von E im Status vor der Methodenausführung
+\end{itemize}
+Auch möglich \(\backslash forall\) oder \(\backslash exists\) zu verwenden.\\
+Ermöglicht außerdem Klassen invarianten anzugeben.\\
+Methoden können als \(@pure\) annotiert werden \(\Rightarrow\) keine Seiteneffekte erlaubt.
+
+\subsection{Liskov Substitution Principle}
+Für überschreibende Methoden gilt:\\
+Precondition darf nicht strenger sein.\\
+Postcondition muss mindestens so streng sein.\\
+
+\subsection{Precondition Availability}
+Alle Precondition Variablen müssen allen möglichen Callern auch zur Verfügung stehen. Dafür müssen ggf. getter / setter
+eingeführt werden.
+
+\subsection{Checking Contracts}
+Können statisch / dynamisch oder durch Testcases gecheckt werden.
+In Java auch Assertion möglich, allerdings sollten Assertions nicht als Kontrollstruktur verwendet werden.
+  
+    
