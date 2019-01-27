@@ -24,3 +24,28 @@ z.B. C/C++, Fortran (Compiler)\\
 Übersetze zur Laufzeit bei Bedarf. Ist schneller als reine Interpretation.\\ gs
 z.B. .NET
 
+\subsection{SIMPLE}
+Einfache Programmiersprache zum Verdeutlichen der Konzepte.
+Stark eingeschränkte Syntax.\\
+Compiler nach Java-Bytecode auf Vorlesungshomepage.\\
+
+Nur Prozeduren, startet mit \code{void main()}. Nur \code{int, boolean}.
+\code{int read()} und \code{void println(int value)} in Standardbibliothek.
+
+\subsection{Phasen des Compilers}
+\textbf{Lexikalische Analyse}\\
+Erkenne bedeutungstragende Zeichengruppen: Tokens.\\
+Fasse in Stringtabelle zusammen.\\
+
+\textbf{Syntaktische Analyse}\\
+Überprüfe ob in kontextfreier Sprache und erstelle Abstrakten Syntaxbaum.\\
+
+\textbf{Semantische Analyse}\\
+Kontextsensitive Analyse nach Deklaration und Verwendung, Typanalyse und Konsistenzprüfung.\\
+Erstellt attributierten Syntaxbaum.\\
+
+\textbf{Zwischencodegenerator, Optimierung}\\
+Bringt Code in sprach- und zielunabhängige Zwischensprache. Wende Optimierungstechniken an.\\
+
+\textbf{Codegenerierung}\\
+Erzeuge Code angepasst auf Zielsystem / Codeauswahl / Scheduling / Register.
