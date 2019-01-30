@@ -65,3 +65,62 @@ Regeln
 Code
 \end{lstlisting}
 
+\subsection{Syntaktische Analyse}
+Aufgebaut durch Grammatiken. Gewünschte Eigenschaften:
+\begin{itemize}
+  \item Deterministisch --- Nicht gegeben
+  \item Operatorprioritäten --- Baum entsprechend Prioritäten
+\end{itemize}
+Deshalb Faustregeln:
+\begin{itemize}
+  \item Ein Nichtterminal pro Prioritätsebene
+  \item nicht zweimal dasselbe Nichtterminal auf rechter Seite
+  \item Assoziativität durch Links / Rechtsrekursive Regeln
+\end{itemize}
+
+\textbf{Parserkonstruktion}\\
+Viele Techniken, nur \textit{LL} und \textit{LR} lesen einmal und erkennen Fehler bei erstem Zeichen t.\\
+Parser rekonstruiert für Grammatik schrittweise die Ableitung.
+
+\textbf{First und Follow}\\
+\begin{align*}
+  \mathit{First}_k(\xeta) &= \{\beta \in \Sigma^k | \exists \tau \in \Sigma^*: \chi \Rightarrow^* \tau
+  \and \beta = k : \tau \}\\
+  \mathit{Follow}_k(\chi) &= \{\beta \in \Sigma^k | \exists \alpha, \omega \in {(V \cup \Sigma)}^* : S \Rightarrow^*
+                             \alpha \chi \omega \land \beta \in \mathit{First}_k(\omega)\}
+\end{align*}
+
+
+\textbf{SLL(k)-Bedingung}\\
+Eine (kontextfreie) Grammatik ist genau dann eine SLL(k)-Grammatik, wenn für alle Paare von Produktionen
+\(A \rightarrow \alpha|\beta, \alpha \neq \beta\), gilt:
+\[\mathit{First}_k(\alpha\mathit{Follow}_k(A)) \cap \mathit{First}_k(\beta\mathit{Follow}_k(A)) = \varnothing\]
+
+In der Praxis werden die 2 getrennten für Spezialfall \(k=1, \alpha \not \implies^* \epsilon, \beta \not \implies^* \epsilon\)
+\begin{align*}
+  \mathit{First}(\alpha) &\cap \mathit{First}(\beta) = \varnothing \\
+  \mathit{Follow}(A) &\cap \mathit{First}(\beta) = \varnothing
+\end{align*}
+
+\textbf{Linksrekursive Grammatiken}\\
+Linksrekursive Grammatiken sind nie SLL-Grammatiken, aber für jede linksrekursive Grammatik existiert
+eine entsprechende nicht-linksrekursive Grammatik\\
+Bei Produktion \(X \rightarrow \gamma\alpha | \gamma\beta\) mit gemeinsamen Anfang \(\gamma\) einfach den gemeinsamen
+Anfang ausklammern:
+\begin{align*}
+  X \rightarrow \gamma X'\\
+  X' \rightarrow \alpha | \beta
+\end{align*}
+
+\textbf{SLL(1)-Parser mit rekursivem Abstieg}\\
+\begin{itemize}
+ \item Eingabe: Sequenz von Tokens
+ \item eine Prozedur pro Nichtterminal
+ \item Prozeduranfang: erstes Token der Phrase in aktuellem Token t
+ \item Ergebnis von Prozeduraufruf:
+   \begin{itemize}
+   \item erstes Token folgender Phrase ist aktuelles Token
+   \item Rückgabe: abstrakter Syntaxbaum
+   \end{itemize}
+ \item alternative Produktionen: Fallunterscheidung nach aktuellem Token stets eindeutig wegen SLL(1)
+\end{itemize}
