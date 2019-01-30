@@ -124,3 +124,30 @@ Anfang ausklammern:
    \end{itemize}
  \item alternative Produktionen: Fallunterscheidung nach aktuellem Token stets eindeutig wegen SLL(1)
 \end{itemize}
+
+
+\subsection{Semantische Analyse}
+\textbf{Namensanalse}\\
+Analysiere Beziehung zwischen Definition und Verwendung.
+Probleme:
+\begin{itemize}
+\item Namensbereiche verschachtelt
+\item getrennte Namensräume
+\item Verwendung von Definitionen
+\end{itemize}
+
+\textbf{Vorgehen}\\
+Durchlaufe AST + sammle Informationen in Symboltabelle.
+
+\textbf{Symboltabelle}\\
+Zentrale Datenstruktur außerhalb von AST. Zugriff sollte in \(O(1)\) erfolgen.\\
+Ansatz:
+\begin{itemize}
+\item Eintrag in Stringtabelle auf aktuelle Definition
+\item Stack von Namensbereichen
+\item Merken von vorherigen Definitionen, bei verlassen des Bereiches widerherstellen
+\end{itemize}
+
+\textbf{Traversierung}\\
+Bei Definitionen vor Verwendung nur 1 Durchlauf. Sonst muss Visitor Pattern für Eintragen in Symboltabelle verwendet werden.
+
