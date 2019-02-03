@@ -1,0 +1,846 @@
+\documentclass[10pt,a4paper]{article}
+\author{Jannik Koch}
+\title{Algorithmen 2}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{csquotes}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+\def\realnumbers{{\rm I\!R}}
+\def\polynomials{{\rm I\!P}}
+
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\renewcommand{\arraystretch}{1.5}
+\newcommand{\quotestyle}[1]{\enquote{#1}}
+
+\begin{document}
+	\pagenumbering{Roman}
+	{\let\newpage\relax\maketitle}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+
+	\section{Prioritätslisten}
+	\label{pl:sec:prioritaetslisten}
+	
+	\begin{itemize}
+		\item \textbf{Prioritätsliste (priority queue):}
+		\begin{itemize}
+			\item Queue, deren Elemente zusätzlich einen Schlüssel besitzen, der die Reihenfolge der Abarbeitung bestimmt
+			\item Grundlegende Operationen: \texttt{build, size, insert, min, deleteMin}
+		\end{itemize}
+		\item \textbf{Adressierbarkeit}:
+		\begin{itemize}
+			\item Zugriff auf einzelne Elemente per Handle
+			\item Wichtig für Algorithmen, bei denen sich die Schlüssel innerhalb der Queue ändern (v.a. Greedy-Algorithmen)
+			\item Neue Operationen: \texttt{remove, decreaseKey, merge}
+		\end{itemize}
+		\item \textbf{Verwendung}: Dijkstra, Jarnik-Prim, Graphpartitionierung, Disk Scheduling uvm.
+		\item \textbf{Aufbau}:
+		\begin{itemize}
+			\item Wald heap-geordneter Bäume (Verallgemeinerung eines Binary Heaps mit einem Wald statt einem Baum und beliebigen Knotengraden)
+			\item Wälder lassen sich per \texttt{cut} trennen und per \texttt{link} vereinen
+			\item Grundlegender Heap kann variieren, z.B Pairing Heap, Fibonacci Heap (folgt)
+		\end{itemize}
+ 	\end{itemize}
+
+ 	\subsection{Pairing Heaps}
+ 	\label{pl:sub:pairing_heaps}
+
+ 	\begin{itemize}
+ 		\item Jedes neue Element ergibt einen neuen Baum, der zum Wald hinzugefügt wird (ggf. wird der minPtr aktualisiert)
+ 		\item \texttt{decreaseKey} aktualisiert den Key des Elements sowie ggf. den minPtr; ist das Element keine Baumwurzel, so wird der Teilbaum per \texttt{cut} herausgeschnitten und als neuer Baum hinzugefügt
+ 		\item \texttt{deleteMin} entfernt das Minimum, aktualisiert den minPtr, macht aus jeden Kindknoten einen neuen Baum und führt paarweise \texttt{union} auf allen Bäumen im Wald aus
+ 		\item \texttt{merge} fügt die Wälder zusammen, aktualisiert den minPtr und leert die zweite Prioritätsliste
+ 		\item \textbf{Nur bei deleteMin wird tatsächlich paarweise union aufgerufen!}
+ 		\item \textbf{Aufbau} als doppelt verkettete Liste
+  	\end{itemize}
+
+  	\newpage
+  	\subsection{Fibonacci Heaps}
+  	\label{pl:sub:fibonacci_heaps}
+  	
+  	\begin{itemize}
+		\item \textbf{Rang}: Anzahl direkter Kinder (\textbf{Zweck}: \texttt{union} nur für gleichrangige Wurzeln)
+		\item \textbf{Kaskadierende Schnitte}: Knoten, die ein Kind verloren haben, werden markiert; markierte Knoten werden geschnitten
+		\item \textbf{Aufbau} als doppelt verkettete Liste; zusätzliche Felder in Elementen für Rang und Markierung
+		\item \texttt{insert} und \texttt{merge} wie bei Pairing Heaps
+		\item \texttt{deleteMin} per \textbf{Union-by-Rank}:
+		\begin{enumerate}
+			\item Entferne Minimum, mache aus jedem Kind-Teilbaum einen neuen Baum im Wald
+			\item Bilde \texttt{union} für alle gleichrangigen Bäume bis nicht mehr möglich (vereinte Bäume mit neuem, höheren Rang sind u.U. erneut vereinbar)
+			\item Aktualisiere den minPtr
+		\end{enumerate}
+		\item \texttt{decreaseKey} mit \textbf{kaskadierenden Schnitten} aktualisiert den Schlüssen und ruft \texttt{cascadingCut} auf dem Element auf
+		\item \texttt{cascadingCut}:
+		\begin{enumerate}
+			\item Entferne die Markierung des Elements, rufe \texttt{cut} auf dem Element auf
+			\item Falls der Elternknoten markiert ist, rufe \texttt{cascadingCut} auf dem Elternknoten auf, ansonsten markiere den Elternknoten
+			\item \textbf{Zweck}: Hält \texttt{maxRank}-Funktion für \textbf{Union-by-Rank} logarithmisch, verbessert also die Laufzeit
+		\end{enumerate}
+		\item Fibonacci-Heap, da eine Wurzel $v$ mit $rank(v) = i$ mindestens $F_{i + 2}$ Elemente enthält, wobei $F_i$ die i-te Stelle der Fibonacci-Folge ist
+  	\end{itemize}
+
+  	\subsection{Bucket Queues}
+  	\label{pl:sub:bucket_queues}
+  	
+  	\begin{itemize}
+  		\item \textbf{Idee}: Prioritätsliste dem ein zyklisches Array zugrunde liegt; Elemente gleicher Priorität teilen sich dieselbe Arrayzelle
+  		\item \textbf{Funktionsweise}:
+  		\begin{itemize}
+  			\item Zyklisches Array $B$ von $C + 1$ doppelt verketteten Listen (Buckets)
+  			\item \texttt{insert}: Füge Element mit Priorität $p$ in Zelle $p mod (C + 1)$ ein
+  			\item \texttt{decreaseKey}: Entferne Element aus seiner Liste und füge es mit der geänderten Priorität wieder ein
+  			\item \texttt{deleteMin}: Beginne bei Bucket $min$; falls dieser leer ist, inkrementiere $min$ und wiederhole
+  		\end{itemize}
+  		\item Nützlich für \textbf{Dijkstras Algorithmus}
+  	\end{itemize}
+
+  	\subsection{Radix Heaps}
+  	\label{sub:radix_heaps}
+  	
+  	\begin{itemize}
+  		\item \textbf{Idee}: Bucket Queues, bei denen nicht alle Buckets dieselbe Größe haben
+  		\item \textbf{Funktionsweise}:
+  		\begin{itemize}
+  			\item Verwende Buckets $-1$ bis $K = 1 + \floor{log C}$
+  			\item Wähle $min$ als das zuletzt aus der Queue entfernte Element
+  			\item \texttt{insert}: Betrachte binäre Repräsentation des Elements; speichere das Element $v$ in $B(i)$, falls sich $v$ und $min$ zuerst an der i-ten Stelle unterscheiden
+  			\begin{itemize}
+  				\item Beginne von rechts ab $0$ zu zählen; falls identisch, ist das Ergebnis $-1$
+  				\item Beispiel: $1010100$ und $1010110 \Rightarrow$ Unterschied an Stelle $1$
+  				\item Beispiel: $11001010$ und $11000101 \Rightarrow$ Unterschied an Stelle $3$
+  			\end{itemize}
+  			\item \texttt{deleteMin}:
+  			\begin{itemize}
+  				\item Falls die Liste an Stelle $-1$ leer ist:
+  				\begin{enumerate}
+  					\item Finde den kleinsten Index $i$ an dem eine nicht-leere Liste steht
+  					\item Bewege das Minimum dieser Liste zu $B(-1)$ und zu $min$
+  					\item Rufe für alle übrigen Elemente aus $B(i)$ \texttt{insert} auf
+  				\end{enumerate}
+  				\item Entferne und gebe das erste Element der Liste bei Index $-1$ zurück
+  			\end{itemize}
+  		\end{itemize}
+  	\end{itemize}
+
+	\newpage
+	\section{Shortest Path Algorithms}
+	\label{sp:sec:shortest_path_algorithms}
+	
+	\begin{itemize}
+		\item \textbf{Ziel}: Finden des kürzesten Weges auf einem Graphen von einem Knoten zum anderen
+		\item \textbf{Eingabe}: Graph $G = (V,E)$, Kostenfunktion $c: E \rightarrow \realnumbers$, Anfangsknoten $s$
+		\item \textbf{Ausgabe}: $\forall v \in V$: Länge $\mu(v)$ des kürzesten Pfades von $s$ nach $v$ (kürzester Pfad = Summe der Kantenkosten minimal)
+		\item \textbf{Breitensuche (BFS)}: Untersuche zuerst alle Nachbarn des Knotens statt einen einzelnen Nachbarn tiefer zu verfolgen
+		\item \textbf{Knotenarrays}: Für jeden Knoten $v$ definiere für den Prozess der Pfadsuche:
+		\begin{itemize}
+			\item die vorläufige Distanz von s nach v als \texttt{d[v]}
+			\item den Vorgänger von v im vorläufigen kürzesten Pfad von s nach v als \texttt{parent[v]}
+			\item \textbf{Die Inhalte beider Knotenarrays können sich mehrfach bei der Pfadsuche ändern!}
+		\end{itemize}
+		\item \textbf{Relaxierung}: Aktualisieren von \texttt{d[v]} und \texttt{parent[v]} eines Knotens $v$, wenn nötig
+		\item \textbf{Laufzeit}: Abhängig von der zugrundeliegenden Prioriätsliste!
+	\end{itemize}
+
+	\subsection{Dijkstras Algorithmus}
+	\label{sp:sub:dijkstras_algorithmus}
+	
+	\begin{enumerate}
+		\item Initialisiere beide Knotenarrays (i.d.R. mit $\infty$), alle Knoten seien ungescannt
+		\item Solange ein nicht gescannter Knoten $u$ mit \texttt{d(u)} $< \infty$ existiert
+		\begin{enumerate}
+			\item Wähle den besagten Knoten $u$ mit \texttt{d(u)} $< \infty$
+			\item Relaxiere alle Kanten ausgehend von $u$, $u$ gilt nun als gescannt
+		\end{enumerate}
+	\end{enumerate}
+
+	\subsection{All-Pairs Shortest Paths}
+	\label{sp:sub:all_pairs_shortest_paths}
+
+	\begin{itemize}
+		\item \textbf{Frage}: Wie findet man die kürzesten Pfade für alle Möglichen Start- und Zielpaare?
+		\item \textbf{Voraussetzung}: Keine negativen Kreise, aber negative Pfade sind erlaubt
+		\item \textbf{Bellman-Ford}: Bei n-facher Ausführung Laufzeit von $O(n^2m) \Rightarrow zu langsam$
+		\item \textbf{Knotenpotenziale}:
+		\begin{itemize}
+			\item Lege für jeden Knoten ein \textbf{Potenzial} \texttt{pot(v)} fest
+			\item $pot(v)$ ergibt sich aus $\mu(v) \forall v \in V$
+			\item $\mu(v)$ ergibt sich durch \textbf{Hinzufügen eines Hilfsknotens} mit Kanten zu jedem Knoten mit Kantengewicht $0$, danach Bellman-Ford um die Potenziale zu bestimmen
+			\item Definiere reduzierte Kosten für eine Kante $(u,v)$ als $\overline{c}(e) = pot(u) + c(e) - pot(v)$
+			\item \textbf{Führe Dijkstra auf reduzierten Kosten aus} (sind nun alle nicht negativ) und rechne sich ergebende Kosten wieder in ursprüngliche Kostenfunktion um
+			\item Laufzeit von $O(nm + n^2log(n))) \Rightarrow$ deutlich besser
+		\end{itemize}
+	\end{itemize}
+
+	\subsection{Bidirektionale Suche}
+	\label{sp:sub:bidirektionale_suche}
+	
+	\begin{itemize}
+		\item Alternativer Ansatz für Routenplanung zwischen zwei Knoten $s$ und $t$
+		\item \textbf{Idee}: Abwechselnd Vorwärtssuche auf normalem Graph $G = (V,E)$ und Rückwärtsgraph $G^r = (V,E^r)$
+		\item Vorläufige kürzeste Distanz wird in jedem Schritt aktualisiert:\\$d(s,t) = min(d(s,t), d_{forward}(u) + d_{backward}(u))$
+		\item \textbf{Abbruchkriterium}: Suche scannt Knoten, der in anderer Richtung bereits gescannt wurde
+	\end{itemize}
+
+	\subsection{A*-Suche}
+	\label{sp:sub:a_suche}
+	
+	\begin{itemize}
+		\item \textbf{Idee}: Suche \quotestyle{in die Richtung von t}
+		\item \textbf{Annahme}: Wir kennen eine Funktion $f(v)$ die $\mu(v,t)$ schätzt $\forall v$
+		\item \textbf{Vorgehen}:
+		\begin{itemize}
+			\item Definiere $pot(v) = f(v)$ und $\overline{c}(u,v) = c(u,v) + f(v) - f(u)$
+			\item Danach: analog zu Knotenpotenziale wie oben beschrieben
+		\end{itemize}
+		\item In der Praxis muss $f(v)$ mit Heuristiken wie z.B dem euklidischen Abstand oder Landmarks (vorberechneten kürzesten Pfaden) approximiert werden
+	\end{itemize}
+
+	\newpage
+	\section{Depth-First-Search (DFS, Tiefensuche)}
+	\label{dfs:sec:depth_first_search}
+	
+	\begin{itemize}
+		\item \textbf{Idee}: Verfolge einen einzelnen Pfad vollständig, bevor abzweigende Pfade betrachtet werden (statt direkt alle benachbarten Knoten zu beschreiten)
+		\item \textbf{Vorgehen}:
+		\begin{enumerate}
+			\item Initialisiere alle Knoten als nicht markiert
+			\item Für alle Startknoten: Markiere den Startknoten und benutze ihn als Wurzel für einen neuen Tiefensuche-Baum; starte die Tiefensuche
+			\item \textbf{Tiefensuche}: Verfolge die erstbeste Kante, markiere ggf. den Zielknoten der Kante und beginne die Tiefensuche von dort erneut; sobald es keine Kanten mehr gibt, nutze \textbf{Backtracking} bis es wieder passende Kanten gibt
+		\end{enumerate}
+		\item \textbf{Übliche Funktionen}:
+		\begin{itemize}
+			\item \texttt{init} zur Initialisierung
+			\item \texttt{root(s)} zur Erstellung eines neuen Tiefensuche-Baumes
+			\item \texttt{traverseNonTreeEdge(v,w)} beim Traversieren zu einem bereits markierten Knoten, ansonsten \texttt{traverseTreeEdge(v,w)}
+			\item \texttt{backtrack(u,v)} für Backtracking
+		\end{itemize}
+	\end{itemize}
+
+	\subsection{Starke Zusammenhangskomponenten}
+	\label{dfs:sub:starke_zusammenhangskomponenten}
+	
+	\begin{itemize}
+		\item \textbf{Beobachtung}: Es existiert eine Äquivalenzrelation, deren Äquivalenzklassen alle Knoten sind, die paarweise direkt oder indirekt über Kanten erreichbar sind
+		\begin{center}
+			\textit{\quotestyle{Kommt man irgendwie von A nach B und von B nach A, so sind A und B in derselben Äquivalenzklasse.}}
+		\end{center}
+		\item Die Äquivalenzklassen werden als \textbf{starke Zusammenhangskomponenten (strongly connected components, SCCs)} bezeichnet
+		\item \textbf{Schrumpfgraph}: Graph, der die SCCs seines Supergraphs als Knoten zusammenfasst. Wir beobachten:
+		\begin{itemize}
+			\item Schrumpfgraphen sind \textbf{azyklisch}
+			\item Hinzufügen einer neuen Kante \textbf{innerhalb eines SCCs}:\\$\Rightarrow$ Schrumpfgraph unverändert
+			\item Hinzufügen einer neuen Kante \textbf{zwischen zwei SCCs}, die \textbf{keinen} Kreis erzeugt:\\$\Rightarrow$ \textbf{neue Kante im Schrumpfgraph}
+			\item Hinzufügen einer neuen Kante \textbf{zwischen zwei SCCs}, die \textbf{einen} Kreis erzeugt:\\$\Rightarrow$ SCCs auf dem Kreis \textbf{kollabieren}
+		\end{itemize}
+	\end{itemize}
+	
+	\subsection{Bestimmung starker Zusammenhangskomponenten über DFS}
+	\label{dfs:sub:bestimmung_starker_zusammenhangskomponenten_ueber_dfs}
+	
+	\textbf{Definitionen}:
+	\begin{itemize}
+		\item $V_C$ sind die \textbf{markierten Knoten}, $E_C$ sind die \textbf{bisher explorierten Kanten}
+		\item Unmarkierte Knoten gelten als \textbf{nicht erreicht}
+		\item \textbf{Offene Komponenten} haben aktive Knoten, andernfalls gelten diese als \textbf{abgeschlossen}
+		\item \texttt{component[w]} gibt Repräsentanten einer SCC an
+		\item \texttt{oReps} ist ein Stapel von Repräsentanten offener Komponenten
+		\item \texttt{oNodes} ist ein Stapel aller offenen Knoten
+	\end{itemize}
+	\textbf{Vorgehen bei der Tiefensuche}:
+	\begin{enumerate}
+		\item \textbf{Initialisierung}:\\\texttt{oReps}, \texttt{oNodes} und das \texttt{component}-Array werden geleert
+		\item \textbf{Festlegen einer neuen Wurzel - root(s)}:\\Schiebe die neue Wurzel auf die \texttt{oReps} und \texttt{oNodes} Stapel
+		\item \textbf{Traversieren zu einem nicht-markierten Knoten - traverseTreeEdge(v,w)}:\\Schiebe den Zielknoten $w$ auf die \texttt{oReps} und \texttt{oNodes} Stapel
+		\item \textbf{Traversieren zu einem markierten Knoten - traverseTreeEdge(v,w)}:\\Falls der Zielknoten $w$ nicht in \texttt{oNodes} liegt, passiert nichts. Falls doch, entferne per \texttt{pop} alle Stapelelemente von \texttt{oReps} bis das oberste Element nicht mehr äquivalent zu $w$ ist
+		\item \textbf{Backtracking - backtrack(u,v)}:\\Falls der Zielknoten nicht der \texttt{top} von \texttt{oReps} entspricht, passiert nichts. Falls doch, entferne per \texttt{pop} das oberste Element von \texttt{oReps} und führe \texttt{component[w] = v} solange aus, bis $w = v$ gilt.
+	\end{enumerate}
+	$\Rightarrow$ \textbf{am Ende sollten beide Stapel leer sein, anhand von component[w] kann man nun die SCCs ablesen}
+
+	\newpage
+	\section{Maximum Flows \& Matchings}
+	\label{mfm:sec:maximum_flows_matchings}
+	
+	\begin{itemize}
+		\item \textbf{Networks}:
+		\begin{itemize}
+			\item Gerichtete, gewichtete Graphen mit einer \textbf{Source Node s} (Quelle) und einer \textbf{Sink Node t} (Senke)
+			\item In die \textbf{Source Node} gehen keine Kanten \textbf{ein}, von der \textbf{Sink Node} gehen keine Kanten \textbf{aus}
+			\item Kantengewichte bezeichnet man auch als \textbf{Kapazität} einer Kante
+		\end{itemize}
+		\item \textbf{Flows}:
+		\begin{itemize}
+			\item Funktion $f$, die jeder Kante einen Wert \textbf{zwischen 0 und der Kapazität} zuordnet
+			\item Wert eines Flows \textbf{val(f)} entspricht dem gesamten ausgehenden Flow der aus $s$ kommt und in $t$ mündet
+			\item \textbf{Metapher}: Netzwerk als Rohrsystem zum Wassertransport
+			\item Existiert auf einem Pfad von s zu t jeweils eine Kante, deren Kapazität komplett ausgereizt wird, so handelt es sich um einen \textbf{Blocking Flow}
+			\item \textbf{Flow Conservation} bedeutet, dass \textbf{nur die Quelle Flow erzeugt} und \textbf{nur die Senke Flow aufnimmt}
+			\item \textbf{Ziel}: Flow mit maximalem Wert finden (Transportmaximierung)
+		\end{itemize}
+		\item \textbf{s-t Cuts}
+		\begin{itemize}
+			\item Partitionierung der Knoten in Teilmengen $S$ und $T$ mit $s \in S, t \in T$
+			\item Die \textbf{Kapazität des Cuts} entspricht der Summe der Kantengewichte aller Kanten die in einem S-Knoten starten und in einem T-Knoten münden
+			\item Die minimale Kapazität eines s-t Cuts entspricht dem Wert eines s-t \textbf{Max Flows}
+		\end{itemize}
+	\end{itemize}
+
+	\subsection{Maximierung von Flow-Werten}
+	\label{mfm:sub:maximierung_von_flow_werten}
+	
+	\begin{itemize}
+		\item \textbf{Linear Programming}: Möglich, aber geht besser
+		\item \textbf{Ford Fulkerson Algorithmus (Augmenting Paths)}:
+		\begin{itemize}
+			\item \textbf{Idee}: Finde einen Pfad von Quelle zu Senke, entlang dessen der Fluss vergrößert werden kann, ohne die Kapazitäten zu überschreiten (augmentierender Pfad)
+			\item \textbf{Vorgehen}:
+			\begin{enumerate}
+				\item Finde (per BFS) einen möglichen Pfad von s zu t (keine Kante reizt ihre Kapazität komplett aus)
+				\item Sende einen Flow durch den Pfad und füge diesen dem Gesamtflow hinzu
+				\item Passe die Kapazitäten aller Kanten an (erzeugt \textbf{Residualgraph}) und wiederhole den Prozess mit dem neuen Graph
+				\item Sobald es keinen augmentierenden Pfad mehr gibt, ist der Gesamtflow der \textbf{Max Flow}
+			\end{enumerate}
+		\end{itemize}
+		\newpage
+		\item \textbf{Dinitz Algorithmus}
+		\begin{itemize}
+			\item \textbf{Idee}: Sende so lange Flows, bis ein \textbf{Blocking Flow} erreicht wurde
+			\item \textbf{Vorgehen}:
+			\begin{enumerate}
+				\item Generiere (per BFS) einen \textbf{Level Graph} (Graph, der jedem Knoten einen Level zuteilt, welcher der kürzesten Distanz zur Quelle entspricht) und teste, ob mehr Flow möglich ist
+				\item Falls mehr Flow möglich ist, finde einen \textbf{Blocking Flow} im \textbf{Level Graph} und füge diesen dem Gesamtflow hinzu, dann wiederhole 1.; ansonsten \texttt{return}
+			\end{enumerate}
+		\end{itemize}
+	\end{itemize}
+
+	\subsection{Berechnung von Blocking Flows}
+	\label{mfm:sub:berechnung_von_blocking_flows}
+	
+	\begin{itemize}
+		\item \textbf{Idee}: Wiederholte Tiefensuche
+		\item \textbf{Vorgehen}:
+		\begin{enumerate}
+			\item Starte eine Tiefensuche bei der Quelle
+			\item Ist der nächste Knoten die Senke, so berechne den Flow und falls irgendeine Kante komplett ausgereizt wird
+			\begin{enumerate}
+				\item füge den \textbf{Blocking Flow} zur Liste hinzu
+				\item \textbf{entferne} die Kante
+				\item starte den Prozess \textbf{von vorne}
+			\end{enumerate}
+			\item Ist eine unbesuchte Kante verfügbar, gehe weiter (\texttt{extend})
+			\item Ist keine unbesuchte Kante verfügbar, gehe eine Kante zurück (\texttt{retreat})
+			\item Sobald ein \texttt{retreat} zum Startknoten stattgefunden hat, ist die Suche beendet
+		\end{enumerate}
+	\end{itemize}
+
+	\subsection{Matching}
+	\label{mfm:sub:matching}
+
+	\begin{itemize}
+		\item \textbf{Definition}: Eine Teilmenge $M$ der Kantenmenge ist ein \textbf{Matching}, wenn $(V, M)$ maximal Grad 1 hat
+		\item Ein Matching ist \textbf{maximal}, wenn das Hinzufügen einer beliebigen weitere Kante aus der restlichen Kantenmenge die Matching-Eigenschaft verletzen würde
+		\item Ein Matching hat \textbf{maximale Kardinalität}, wenn es kein Matching mit einer größeren Kardinalität gibt
+	\end{itemize}
+
+	\newpage
+	\subsection{Preflow-Push Algorithmen}
+	\label{mfm:sub:preflow_push_algorithmen}
+	
+	\begin{itemize}
+		\item \textbf{Definition}: Ein Preflow ist ein Flow mit gelockerter \textbf{Flow Conservation} - Knoten dürfen \textbf{Teile des Flows verbrauchen} (\textbf{Exzess)} und gelten, falls sie dies tun, als \textbf{aktiv}
+		\item \textbf{Ziel}: Finden eines \textbf{Max Flows}
+		\item \textbf{Push-Funktion}: \quotestyle{Verschieben des Exzesses in Richtung von t}
+		\begin{itemize}
+			\item Nimmt eine Kante $(v,w)$ und einen Wert $\delta$, der höchstens dem Exzess von $v$ entspricht
+			\item Zieht $\delta$ vom Exzess von $v$ ab und addiert ihn auf den Exzess von $w$
+			\item Falls die Kante \textbf{entgegen dem Flow} läuft, wird $\delta$ von diesem abgezogen, ansonsten \textbf{auf diesen aufaddiert}
+		\end{itemize}
+		\item \textbf{Level-Funktion}:
+		\begin{itemize}
+			\item $d(v)$ enthält eine Approximation der Distanz von $v$ zu $t$
+			\item $d(s) = n$ und $d(t) = 0$ und $d(v) \leq d(w) + 1 \forall$ Kanten $(v,w)$
+			\item Die Level-Funktion ordnet Kanten $(v,w)$ eine Richtungseigenschaft zu:
+			\begin{itemize}
+				\item \texttt{steep}: $d(w) < d(v) - 1$
+				\item \texttt{downward}: $d(w) < d(v)$
+				\item \texttt{horizontal}: $d(w) = d(v)$
+				\item \texttt{upward}: $d(w) > d(v)$
+			\end{itemize}
+		\end{itemize}
+		\item \textbf{Preflow-Flush}:
+		\begin{enumerate}
+			\item Pushe alle Kanten mit der Kapazität der Kante als $\delta$
+			\item Setze $d(v)$ auf $0$ für alle Knoten außer $s$, setze $d(s) = n$
+			\item Solange ein Knoten mit Exzess existiert, der nicht $s$ oder $t$ ist
+			\begin{itemize}
+				\item Falls die Kante \texttt{downward} verläuft: Verschiebe Exzess per \texttt{push} mit $\delta \leq min\{excess(v), c_e^f\}$
+				\item Ansonsten: Inkrementiere $d(v)$ (\texttt{relabel})
+			\end{itemize}
+		\end{enumerate}
+	\end{itemize}
+
+	\newpage
+	\section{Randomized Algorithms}
+	\label{ra:sec:randomized_algorithms}
+	
+	\begin{itemize}
+		\item \textbf{Idee}: Verwende Zufall(sbits) zur Beschleunigung/Vereinfachung von Algorithmen
+		\item Unterscheidung verschiedener Typen randomisierter Algorithmen:
+		\begin{itemize}
+			\item \textbf{Las Vegas Algorithmus}: Ergebnis am Ende immer korrekt (quicksort, hashing), Laufzeit entspricht der Zufallsvariable
+			\item \textbf{Monte Carlo Algorithmus}: Ergebnis mit Wahrscheinlichkeit $p$ inkorrekt, $k$-fache Wiederholung macht die Fehlerwahrscheinlichkeit exponentiell klein ($p^k$)
+		\end{itemize}
+	\end{itemize}
+
+	\subsection{Randomisiertes Hashing}
+	\label{ra:sub:randomisiertes_hashing}
+	
+	\begin{itemize}
+		\item \textbf{Perfektes Hashing} mit $\Omega(n)$ benötigtem Platzverbrauch
+		\item \textbf{Fast Space Efficient Hashing}:
+		\begin{itemize}
+			\item Platzverbrauch von $(1 + \epsilon)n$
+			\item Effiziente Implementierungen von \texttt{insert}, \texttt{delete}, \texttt{lookup}
+			\item Hashfunktion ist \textbf{zufällig}
+		\end{itemize}
+		\item \textbf{Cuckoo Hashing}:
+		\begin{itemize}
+			\item Platzverbrauch von $(2 + \epsilon)n$, jedes Element $x$ hat zwei mögliche Slots $h_1(x), h_2(x)$
+			\item \texttt{insert} in konstanter Zeit, \texttt{delete} und \texttt{lookup} ebenfalls sehr schnell
+			\item \texttt{insert} verschiebt möglicherweise Elemente, \texttt{rebuild} falls \texttt{insert} fehlschlägt
+			\item \textbf{Prüfen, ob insert fehlschlägt}:
+			\begin{itemize}
+				\item Generiere Graph, bei dem \textbf{jede Zelle ein Knoten} ist
+				\item \textbf{Ungerichtete Kanten} verbinden die zwei leeren Hashzellen eines Wertes
+				\item Ist eine Zelle gefüllt, so zeigt stattdessen eine \textbf{gerichtete Kante} vom Knoten der gefüllten Zelle zur Alternative
+				\item \texttt{insert} ist erfolgreich, \textbf{falls die Komponente, die $h_1(x)$, $h_2(x)$ enthält, nicht mehr Kanten als Knoten besitzt}
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+	\newpage
+	\section{External Algorithms}
+	\label{ea:sec:external_algorithms}
+	
+	\begin{itemize}
+		\item \textbf{Ziel}: Nutzung von schnellem Sekundärspeicher, auf den blockweise zugegriffen werden kann
+		\item Minimieren von I/O ist wichtig für Performance
+	\end{itemize}
+
+	\subsection{Externe Stapel}
+	\label{ea:sub:externe_stapel}
+
+	\begin{itemize}
+		\item Datei mit Blöcken und zwei interne Puffer sind gegeben
+		\item \texttt{push}: Schiebe, wenn möglich, in Puffer, ansonsten schreibe Puffer \textbf{eins} in Datei, tausche Puffer und schiebe dann
+		\item \texttt{pop}: Falls vorhanden, \texttt{pop} aus Puffer, ansonsten lese Puffer \textbf{eins} aus Datei
+	\end{itemize}	
+
+	\subsection{Externes Sortieren}
+	\label{ea:sub:externes_sortieren}
+
+	\begin{itemize}
+		\item \textbf{Externes binäres Mergen}: Lese zwei Eingabedateien und wiederhole: Entferne das kleinere vorderste Element und schreibe es in den Output; benötigt 3 Pufferblöcke
+		\item \textbf{Run Formation}: Portioniere die Eingabe in Chunks der Größe des Sekundärspeichers
+		\item \textbf{Sortierungsalgorithmus}:
+		\begin{enumerate}
+			\item Run Formation der Eingabe
+			\item Paarweises Mergen der Runs
+			\item Ausgabe des übrigen Runs
+		\end{enumerate}
+		\item \textbf{External Multiway Merging}:
+		\begin{itemize}
+			\item Analog zu binärem Mergen, nur mit $k > 2$ Inputs; benötigt $k + 1$ Pufferblöcke
+			\item Interne Prioritätsliste zur Bestimmung des Minimums aller Frontelemente
+			\item \textbf{Sortierung}: Analog zu oben, nur mit \textbf{Multi Merge} statt paarweisem binären Merge
+		\end{itemize}
+	\end{itemize}	
+
+	\subsection{Externe Prioritätslisten}
+	\label{ea:sub:externe_prioritaetslisten}
+	
+	\begin{itemize}
+		\item \textbf{Problem}: Binary Heaps benötigen zu viel I/O, effizienterer Umgang mit externem Speicher nötig
+		\item \textbf{Lösung}:
+		\begin{itemize}
+			\item Mehrere mittelgroße Prioritätslisten, sodass $k$ Queues der Größe $m$ deutlich kleiner sind als die Größe des externen Speichers zum Quadrat geteilt durch die Blockgröße
+			\item Prioritätsliste ergibt sich durch \textbf{Multiway Merging} der Teillisten
+			\item \texttt{insert}: \textbf{Insertion Buffer}, der beim Überlauf sortiert und zu den Teillisten hinzugefügt wird
+			\item \texttt{deleteMin}: Führe \texttt{deleteMin} auf der Prioritätsliste mit dem kleinsten $min$ aus
+		\end{itemize}
+	\end{itemize}
+
+	\newpage
+	\section{Approximation Algorithms}
+	\label{aa:sec:approximation_algorithms}
+	
+	\begin{itemize}
+		\item \textbf{Ziel}: Näherungsweises Lösen von NP-schweren Problemen (fast alle interessanten Optimierungsprobleme sind NP-schwer)
+		\item \textbf{Lösungsansätze}: Spezialisierung des Problems, Heuristiken, Approximationsalgorithmen
+		\item \textbf{Approximationsfaktor}: Obere Schranke $\rho$ für das Verhältnis von gefundener Lösung zu optimaler Lösung bei beliebiger Eingabe
+	\end{itemize}
+
+	\subsection{List Scheduling}
+	\label{aa:sub:list_scheduling}
+	
+	\begin{itemize}
+		\item Teile Problem in \textbf{unabhängige, gewichtete Jobs} und führe diese auf parallelen Maschinen aus
+		\item \textbf{List Scheduling}: Liste an Jobs, Maschine wählt einen aus und streicht diesen von der Liste, berechnet das Ergebnis und wiederholt dies, bis die Liste leer ist
+	\end{itemize}
+
+	\subsection{Nichtapproximierbarkeit}
+	\label{aa:sub:nichtapproximierbarkeit}
+	
+	\begin{itemize}
+		\item \textbf{Es ist NP-schwer das Traveling-Salesman-Problem (TSP) innerhalb irgendeines Faktors a zu approximieren}
+		\item Beweis: Transformation von Hamilton-Kreis-Problem zu a-Approximation von TSP
+	\end{itemize}
+
+	\subsection{Pseudopolynomielle Algorithmen}
+	\label{aa:sub:pseudopolynomielle_algorithmen}
+	
+	\begin{itemize}
+		\item Ein pseudopolynomieller Algorithmus ist \textbf{polynomiell} bei \textbf{unär kodierten Eingaben}
+	\end{itemize}
+
+	\newpage
+	\section{Fixed-Parameter Algorithms}
+	\label{fpa:sec:fixed_parameter_algorithms}
+	
+	\begin{itemize}
+		\item \textbf{Beobachtung}: Für \textbf{einfache Instanzen NP-schwerer Probleme} lassen sich u.U. exakte Lösungen finden
+		\item \textbf{Einfachheit}: Charaketerisierung eines Problems anhand eines weiteren Parameters \textbf{k (Ausgabegröße)}
+		\item \textbf{Fixed Parameter Tractable (FPT)}: Menge berechenbarer Sprachen bzgl. Parameter $k$, für die ein Algorithmus mit Laufzeit $O(f(k) * p(n))$ existiert
+		\item \textbf{Entwurfstechniken zur Algorithmenentwicklung anhand von Vertex Cover}:
+		\begin{itemize}
+			\item \textbf{Systematische Suche mit beschränkter Tiefe}:
+		 	\begin{itemize}
+		 		\item Wähle \textbf{beliebige Kante} und füge beliebige Kanten aus dem Graph ohne die erste Kante hinzu, bis die \textbf{Maximaltiefe} erreicht oder \textbf{keine Kante mehr verfügbar} ist
+		 	\end{itemize}
+		 	\item \textbf{Kernbildung}: Reduzieren des Problems auf Größe $O(f(k))$
+		 	\begin{itemize}
+		 		\item \textbf{Beobachtung}: $\forall v \in V: degree(v) > k \Rightarrow v \in$ Lösung $\lor$ unlösbar
+		 		\item \textbf{Erzeugen des Kerns}: Entferne solang Knoten $v$ mit $degree(v) > k$ und dekrementiere $k$ bis keine mehr existieren oder $k = 0$, entferne die isolierten Knoten
+		 		\item Hat der Kern mehr Kanten als $k^2$, so existiert keine Lösung, ansonsten nutze die oben beschriebene \textbf{Tiefensuche} auf dem neuen Graph für die Lösung
+		 	\end{itemize}
+		 \end{itemize} 
+	\end{itemize}
+
+	\section{Parallel Algorithms}
+	\label{pa:sec:parallel_algorithms}
+	
+	\begin{itemize}
+		\item \textbf{Gründe für parallele Verarbeitung}: Geschwindigkeit, Energieersparnis, Speicherbeschränkung von Einzelprozessoren, Kommunikationsersparnis
+		\item \textbf{Nachrichtenaustausch}: Vollduplex, gleichzeitig eine Nachricht empfangen und versenden
+		\item Kein \textbf{Shared Memory Multicore-Modell}, da zu viel Unklarheit bzgl. Speicherzugriffskonflikte und Skalierbarkeit; verteilter Speicher deckt Smartphone bis Supercomputer, Cloud, P2P-Netze etc. einigermaßen kompetent ab
+		\item \textbf{Single Program Multiple Data (SPMD)}: Gleicher Pseudocode wie immer, Prozessorindex berechnet Symmetrie
+		\item \textbf{Laufzeitanalyse}: Zusätzlicher Parameter $p$, Bedeutung je nach Interpretation
+		\item \textbf{Brent's Prinzip}: Ineffiziente Algorithmen werden durch \textbf{Verringerung der Prozessorzahl effizient} (weniger ist mehr)
+		\item \textbf{Quicksort}:
+		\begin{itemize}
+			\item Einfache Parallelisierung: Parallelisiere jeden \textbf{rekursiven Aufruf} (speedup sehr begrenzt, schlecht für verteilten Speicher)
+			\item \textbf{Besser}: Aufteilung parallelisieren
+		\end{itemize}
+	\end{itemize}
+
+	\newpage
+	\section{Stringology / Zeichenkettenalgorithmen}
+	\label{str:sec:stringology}
+	
+	\subsection{Sortierung}
+	\label{str:sub:sortierung}
+	
+	\begin{itemize}
+		\item \textbf{Eingabe}: n Strings mit N Zeichen insgesamt
+		\item \textbf{Ziel}: Sortierung der Strings; Strings mit gleichen Anfangsbuchstaben anhand des nächsten Buchstabens sortieren etc.
+		\item \textbf{Multikey Quicksort / Ternäres Quicksort}: Gegeben sei eine Menge an Strings und eine natürliche Zahl $l$
+		\begin{itemize}
+			\item Ist die übergebene Stringmenge höchstens von Kardinalität 1, gebe die Menge zurück
+			\item Wähle  ein Pivot-Element $p$
+			\item Berechne rekursiv ternäres Quicksort für alle Elemente die an der Stelle $l$ lexikographisch
+			\begin{enumerate}
+				\item vor $p[l]$ kommen, l bleibt gleich
+				\item $p[l]$ entsprechen, l wird inkrementiert
+				\item nach $p[l]$ kommen, l bleibt gleich
+			\end{enumerate}
+			\item Konkateniere die drei Sortierten Mengen für das Ergebnis
+		\end{itemize}
+		\item \textbf{MKG ohne Endzeichen}; Wie bisher, nur verschiebe vor jeder Rekursion alle Elemente der Länge $l$ in eine eigene Menge und konkateniere diese vorne an statt sie weiter mit zu sortieren
+		\item \textbf{Most Significant Digit Radix Sort}: Ähnliches Verhalten wie MKQ, aber partitioniert in $\sigma$ Teile statt 3, wobei $\sigma$ die Anzahl verschiedener vorkommender Buchstaben ist
+	\end{itemize}
+
+	\subsection{Pattern Matching}
+	\label{str:sub:pattern_matching}
+	
+	\begin{itemize}
+		\item \textbf{Eingabe}: String $T$ der Länge $n$, Pattern $P$ der Länge $m$
+		\item \textbf{Ziel}: Finde alle Vorkommen von $P$ in $T$
+		\item \textbf{Naiv}: Iteriere über $T$ bis ein Buchstabe dem Anfang von $T$ entspricht; \textbf{beginne Vergleiche} zu P bei der Iteration; sollte bis zum Ende von $P$ alles gleich sein, ist ein Treffer gefunden, ansonsten beginne erneut \textbf{eine Stelle nach} dem letzten begonnenen Vergleich
+		\item \textbf{Knuth-Morris-Pratt}:
+		\begin{itemize}
+			\item \textbf{Idee}: Setze nicht immer zurück zu einer Stelle nach dem letzten begonnenen Vergleich
+			\item \textbf{Verfahren}:
+			\begin{itemize}
+				\item \textbf{Präfixfunktion}: Erstelle \textbf{Border Array} der Länge $|P|$. Für T speichert das Border Array an Position $i$ die Länge des längsten Suffixes von T, das auch ein echtes Präfix von T ist.
+				\item \textbf{Matching}: Verfahren wie bisher, Änderung nur beim Zurücksetzen: springe anhand des \textbf{Border Arrays} bis zum ersten erneuten Vorkommen des Präfixes
+			\end{itemize}
+		\end{itemize}
+		\item \textbf{Invertierter Index}: Speichere für jedes Wort in einem Text eine Liste an Positionen
+		\newpage
+		\item \textbf{Volltextsuche}:
+		\begin{itemize}
+			\item Pattern-Matching in Text (String-Array) mittels \textbf{Suffix-Tabelle} (sortierte Tabelle aller Suffixe eines Wortes)
+			\item Binäre Suche (ggf. mit vorberechneten längsten gemeinsamen Präfixen)
+			\item Alternativ: \textbf{Suffix-Baum} (hoher Platzverbrauch, kompliziert, aber mächtig und erzeugt Ergebnisse in linearer Zeit; stattdessen eher Suffixtabellen bzw. \textbf{Suffix Arrays})
+		\end{itemize}
+		\item \textbf{Lexikographische Namen}: Rang eines Suffixes in einer sortierten Liste aller möglichen Suffixe
+	\end{itemize}
+
+	\subsection{Suffix Array Konstruktion}
+	\label{str:sub:suffix_array_konstruktion}
+	
+	\begin{itemize}
+		\item \textbf{Idee}: Sortiere separat alle geraden und ungeraden Suffixe und mische dann die sortierten Ergebnisse
+		\item \textbf{Problem}: Mischen ist zu schwer
+		\item \textbf{Lösung}: \textbf{Asymmetrisches Divide-and-Conquer}, sortiere alle Suffixe mit einer Länge die ein Vielfaches von 3 ist separat von allen anderen
+	\end{itemize}
+
+	\begin{enumerate}
+		\item Sortiere alle Suffixe, deren Länge kein Vielfaches von $3$ ist in die Menge $SA^{12}$
+		\begin{enumerate}
+			\item Lasse das erste Zeichen weg, bilde Dreiergruppen (fülle hinten mit $0$ auf), sortiere und übersetze in lexikographische Namen
+			\item Rekursion % TODO: Eigentliche Rekursion erklären
+			\item Übersetze lexikographische Namen wieder zu Suffixen
+		\end{enumerate}
+		\item Sortiere alle Suffixe, deren Länge ein Vielfaches von $3$ ist in die Menge $SA^0$ per LSD-Radix-Sort
+		\item Mische $SA^{12}$ und $SA^0$
+	\end{enumerate}
+
+	\subsection{Textkompression}
+	\label{str:sub:textkompression}
+	
+	\begin{itemize}
+		\item \textbf{Wörterbuchbasiert}: Baue Wörterbuch aus Zeichenkombinationen und ersetze Text durch kürzere Worte des Wörterbuchs
+		\item \textbf{Lempel-Ziv Kompression (LZ)}: Wörterbuchgenerierung bei Codierung und Decodierung ohne explizite Speicherung
+	\end{itemize}
+
+	\newpage
+	\section{Burrows-Wheeler-Transform}
+	\label{bwt:sec:burrows_wheeler_transform}
+	
+	\begin{itemize}
+		\item \textbf{Reversible} Transformation eines Textes $T$ in \textbf{Runs von Zeichen mit gleichem Kontext} $T^{BWT}$ zur Optimierung für \textbf{Kompression} (z.B Lauflängenkodierung) und Textindizierung
+		\item \textbf{Transformation}:
+		\begin{itemize}
+			\item \textbf{Vorgehen}:
+			\begin{enumerate}
+				\item Bilde alle \textbf{möglichen Rotationen} von $T$ durch Verschieben des hintersten Zeichens nach vorne
+				\item Schreibe alle Rotationen in eine Tabelle und \textbf{sortiere} diese lexikographisch
+				\item Die \textbf{letzten Zeichen jeder Zeile} ergeben \textbf{von oben nach unten gelesen} den codierten Text
+			\end{enumerate}
+			\item \textbf{Beobachtungen}: Zeilen enthalten sortierte Suffixe, Zeichen in letzter Spalte entspricht Zeichen vor Suffix in Eingabetext $T$
+		\end{itemize}
+		\item \textbf{Rücktransformation}:
+		\begin{enumerate}
+			\item Schreibe $T^{BWT}$ in Spaltenform
+			\item Sortiere zeilenweise
+			\item Schreibe $T^{BWT}$ in Spaltenform davor
+			\item Wiederhole bis $|T^{BWT}|$ mal sortiert, es sind \textbf{keine Zusatzinformationen notwendig}
+		\end{enumerate}
+		% TODO: Vielleicht last to front mapping?
+	\end{itemize}
+
+	\subsection{Move-To-Front Kodierung}
+	\label{bwt:sub:move_to_front_kodierung}
+	
+	Wähle Alphabet $Y$ zu $T^{BWT}$ und durchlaufe $T^{BWT}$, generiere $R[1..n]$:
+	\begin{enumerate}
+		\item $R[i] = $ Position von $T^{BWT}[i]$ in $Y$
+		\item Schiebe $T^{BWT}[i]$ an den Anfang von $Y$
+	\end{enumerate}
+
+	\subsection{Huffman Kodierung}
+	\label{bwt:sub:huffman_kodierung}
+
+	\begin{itemize}
+		\item Erzeuge \textbf{binären Baum} von unten nach oben
+		\item Funktioniert bei \textbf{präfixfreien Codes variabler Länge}
+		\item \textbf{Ablauf}:
+		\begin{enumerate}
+			\item Wähle seltenste zwei Zeichen(-gruppen)
+			\item Erzeuge neuen Knoten, der beide Zeichen(-gruppen) repräsentiert
+		\end{enumerate}
+	\end{itemize}
+
+	\newpage
+	\section{Geometric Algorithms}
+	\label{ga:sec:geometric_algorithms}
+	
+	\begin{itemize}
+		\item \textbf{Streckenschnitt per Plane-Sweeping}:
+		\begin{itemize}
+			\item Waagrechte \textbf{Sweep-Line} $l$ läuft von oben nach unten
+			\item Speichere Segmente, die $l$ schneiden und finde deren Schnittpunkte mit den bisherigen Segmenten
+		\end{itemize}
+		\item \textbf{2D Konvexe Hülle}: Finde ein konvexes Polygon was eine Menge aus Punkten an den äußersten Punkten umschließt
+		\begin{enumerate}
+			\item \textbf{Sortiere} Punkte nach Abstand; fortan wird nur die Hülle der Punkte oberhalb der Strecke zwischen dem \textbf{ersten und dem letzten} Punkt berechnet
+			\item Wähle einen \textbf{Stack} der den letzten sowie die ersten beiden Punkte enthält
+			\item Iteriere über alle Punkte; bei jeder Iteration:
+			\begin{enumerate}
+				\item Entferne so lange das vorderste Element des Stacks bis die Strecke vom vorletzten zum letzten zum nächsten Punkt keine Rechtskurve mehr beschreibt
+				\item Füge den nächsten Punkt hinzu
+			\end{enumerate}
+			\item Verfahre analog für die Hülle unterhalb der Strecke
+		\end{enumerate}
+		\item \textbf{Kleinste einschließende Kugel}: Finde eine Kugel mit minimalem Radius die eine Punktmenge umschließt; rekursiv mit Parametern $P$ und $Q$:
+		\begin{enumerate}
+			\item \textbf{Rekursionsbremse}: Ist $|P| = 0$ oder $|Q| = d + 1$, dann gebe die Kugel um $Q$ zurück
+			\item Wähle einen zufälligen Punkt $x$ und rufe die Funktion rekursiv mit $P = P$ ohne $x$ auf. Falls die zurückgegebene Kugel $x$ enthält, gebe diese Kugel zurück, ansonsten führe die Funktion mit $P = P$ ohne $x$ und $Q$ vereint mit $x$ aus und gebe das Ergebnis davon zurück.
+		\end{enumerate}
+		\item \textbf{2D Bereichssuche}: Finde alle Punkte einer Punktmenge die in einem gegebenen \textbf{achsenparallelen Rechteck} liegen
+		\begin{itemize}
+			\item \textbf{Eindimensionaler Fall}: Sortierung, Suchbaum
+			\item \textbf{Zweidimensionaler Fall}: Sortierung, binäre Suche
+		\end{itemize}
+	\end{itemize}
+
+	\section{Online Algorithms}
+	\label{oa:sec:online_algorithms}
+
+	\begin{itemize}
+		\item \textbf{Online Algorithmen} erhalten Informationen in Teilen, bearbeiten diese bevor sie den nächsten erhalten und haben keine Informationen über die Zukunft
+		\item \textbf{Beispiele}: Paging, Routing, Scheduling, Ad Placement
+		\item \textbf{Analyse}:
+		\begin{itemize}
+			\item Vergleiche Online-Algorithmus mit optimalem Offline-Algorithmus
+			\item $C_{ALG}$ ist die schlechtmöglichste relative Performance
+		\end{itemize}
+	\end{itemize}
+
+	\newpage
+	\section{Laufzeitübersicht}
+	\label{lz:sec:laufzeituebersicht}
+	\textbf{Es gelte allgemein für Graphen: $n = |V|$ und $m = |E|$}
+	\subsection{Adressierbare Prioritätslisten}
+	\label{lz:sub:adressierbare_prioritaetslisten}
+	
+	\begin{itemize}
+		\item \texttt{deleteMin}: Untere Schranke ist $\Omega(log (n))$
+	\end{itemize}
+
+	\subsection{Pairing Heaps}
+	\label{lz:sub:pairing_heaps}
+	
+	\begin{itemize}
+		\item \texttt{insert}, \texttt{merge}: $O(1)$
+		\item \texttt{deleteMin}, \texttt{remove}: $O(log (n))$ amortisiert
+		\item \texttt{decreaseKey}: zwischen $O(log (log (n)))$ und $O(log (n))$ amortisiert
+	\end{itemize}
+	
+	\subsection{Fibonacci Heaps}
+	\label{lz:sub:fibonacci_heaps}
+	
+	\begin{itemize}
+		\item \texttt{deleteMin}, \texttt{remove}: $O(log (n))$ amortisiert
+		\item Alle anderen Operationen: $O(1)$ amortisiert
+	\end{itemize}
+
+	\subsection{Bucket Queue}
+	\label{lz:sub:bucket_queue}
+	
+	\begin{itemize}
+		\item \texttt{insert}, \texttt{decreaseKey}: $O(1)$
+		\item \texttt{deleteMin}: $O(nC)$
+	\end{itemize}
+
+	\subsection{Radix Heaps}
+	\label{lz:sub:radix_heaps}
+	
+	\begin{itemize}
+		\item \texttt{insert}, \texttt{deleteMin}: $O(K)$
+		\item \texttt{decreaseKey}: $O(1)$
+	\end{itemize}
+
+	\subsection{Dijkstras Algorithmus}
+	\label{lz:sub:dijkstras_algorithmus}
+	
+	\begin{itemize}
+		\item \textbf{Allgemein}: $T_{Dijkstra} = O(m * T_{decreaseKey}(n) + n * (T_{deleteMin}(n) + T_{insert}(n))$
+		\item Mit Fibonacci-Heap-Prioritätslisten: $T_{DijkstraFib} = O(m + n * log (n))$
+		\item Mit Radix-Heap-Prioritätslisten: $T_{DijkstraRadix} = O(m + n * log (C))$
+	\end{itemize}
+
+	\subsection{All-Pairs Shortest Paths}
+	\label{lz:sub:all_pairs_shortest_paths}
+	
+	\begin{itemize}
+		\item \textbf{Bellman-Ford}: $O(n^2m)$
+		\item \textbf{Knotenpotenziale}: $O(nm + n^2log(n)))$
+	\end{itemize}
+
+	\subsection{Max Flow Problem}
+	\label{lz:sub:max_flow_problem}
+	
+	\begin{itemize}
+		\item \textbf{Ford Fulkerson/Edmond Karp}: $O(n * m^2)$
+		\item \textbf{Dinitz}: $O(n^2 * m)$
+		\item \textbf{Finden von Blocking Flows}: $O(nm)$
+	\end{itemize}
+
+	\subsection{Hashing-Funktionen}
+	\label{lz:sub:hashing_funktionen}
+	
+	\begin{itemize}
+		\item \textbf{Cuckoo-Hashing}: \texttt{insert}: $O(1)$
+	\end{itemize}
+
+	\subsection{External Algorithms}
+	\label{lz:sub:external_algorithms}
+	
+	\begin{itemize}
+		\item \textbf{Multiway Merging}: $O(n * log (n))$
+		\item \textbf{Externe Prioritätslisten}:
+		\begin{itemize}
+			\item \texttt{deleteMin}: $O(log (m))$
+			\item \texttt{insert}: $O(log (km))$ amortisiert
+		\end{itemize}
+	\end{itemize}
+
+	\subsection{Stringology}
+	\label{lz:sub:stringology}
+	
+	\begin{itemize}
+		\item \textbf{MSD Radix Sort}: $O(d + r\sigma + n * log (\sigma))$
+		\item \textbf{Multikey Quicksort}: $O(|S| * log(|S|) + d)$, d ist Summe der eindeutigen Präfixe
+		\item \textbf{Naives Pattern Matching}: $O(nm)$
+		\item \textbf{Knuth-Morris-Pratt}: $O(n + m)$
+		\item \textbf{Binäre Volltextsuche}: $O(m * log (n))$, mit LCP $O(m + log (n))$
+		\item \textbf{Volltextsuche mit Suffix-Baum}: $O(n)$
+		\item \textbf{Berechnung Suffix-Array}: $O(n)$
+		\item \textbf{Berechnung LCP-Array}: naiv $O(n^2)$
+		\item \textbf{Burrows-Wheeler-Transformation}: $O(n)$ hin und zurück
+	\end{itemize}
+
+	\subsection{Geometric Algorithms}
+	\label{lz:sub:geometric_algorithms}
+	
+	\begin{itemize}
+		\item \textbf{Streckenschnitt per Plane Sweeping}: $O((n + k) log (n))$ mit $n$ Strecken und $k$ Schnitten
+		\item \textbf{2D Konvexe Hülle}: $O(sort(n))$
+		\item \textbf{Kleinste einschließende Kugel}: $O(n)$
+		\item \textbf{2D Bereichssuche}: $O(log (n))$ für Anzahl der Punkte, mindestens $O(k * log (n))$ für Finden der Punkte
+	\end{itemize}
+\end{document}
