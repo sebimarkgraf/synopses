@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{hyperref}
 
 \def\realnumbers{{\rm I\!R}}
 \def\naturalnumbers{{\rm I\!N}}
@@ -23,9 +24,13 @@
 	\setcounter{page}{1}
 
 	\section{Jordan Normalform}
+	\label{jd:sec:jordan_normalform}
+
 	Seien $A \in \realnumbers^{N\times N}$, $\lambda \in \realnumbers$.
 	
 	\subsection{Berechnung der Normalform}
+	\label{jd:sub:berechnung_der_normalform}
+	
 	\begin{itemize}
 		\item Berechnung des \textbf{charakteristischen Polynoms} $p_A(\lambda) = |A - \lambda I_N| = 0$
 		\item \textbf{Algebraische Vielfachheit} eines Eigenwerts $r_\lambda$: Potenz des Eigenwerts in $p_A(\lambda)$
@@ -36,11 +41,13 @@
 			\begin{enumerate}
 				\item Hauptraum bilden (Eigenraum verallgemeinern)
 				\item $q$ entspricht der Länge des längsten Jordankästchens
-				\item Ansonsten: Anzahl der Kästchen der Länge k = $dim K_k(\lambda) - dim K_{k - 1}(\lambda¸)$
+				\item Ansonsten: Anzahl der Kästchen der Länge k = $dim K_k(\lambda) - dim K_{k - 1}(\lambda)$
 			\end{enumerate}
 	\end{itemize}
 	
 	\subsection{Eigenräume verallgemeinern}
+	\label{jd:sub:eigenraeume_verallgemeinern}
+	
 	Annahme: Dimension des Eigenraums ist kleiner als die algebraische Vielfachheit. Für die Jordan-Normalform wird ein Eigenraum zum Hauptraum erweitert.
 	\begin{itemize}
 		\item $K_k(\lambda) = ker(A - \lambda I_N)^k$, d.h. wir bilden $A - \lambda I_N$ jeweils $k$-mal auf sich selber ab und bilden den Kern für $K_k$; der Eigenraum selber entspricht somit $K_1(\lambda)$
@@ -48,6 +55,8 @@
 	\end{itemize}
 	
 	\subsection{Minimalpolynom bestimmen}
+	\label{jd:sub:minimalpolynom_bestimmen}
+	
 	\begin{enumerate}
 		\item Charakteristisches Polynom bestimmen, Eigenwerte ablesen
 		\item Haupträume der Eigenwerte bestimmen
@@ -55,21 +64,33 @@
 	\end{enumerate}
 	\textbf{Cayley-Hamilton}: $m_A(A) = 0$ und $m_A|p_A$
 
+	\newpage
 	\subsection{Jordan-Basis}
+	\label{jd:sub:jordan_basis}
+	
 	Ziel: Finden einer Matrix S, sodass $J_A = S^{-1} * A * S$
 	\begin{enumerate}
-		\item Für jeden Eigenwert Vektoren $v \in ker(A - \lambda I_N)^q \setminus ker(A - \lambda I_N)^{q - 1}$ wählen;\\diese bilden die rechteste Spalte in S für das entsprechende Jordankästchen
-		\item Das Kästchen wird nach links aufgefüllt, indem man v immer wieder abbildet:\\$(A - \lambda I_N)^{q - 1}v, (A - \lambda I_N)^{q - 2}v ... (A - \lambda I_N)v$
+		\item Für jeden Eigenwert Vektoren $v \in ker(A - \lambda I_N)^q \setminus ker(A - \lambda I_N)^{q - 1}$ wählen;\\diese bilden die am weitesten links liegende Spalte in S für das entsprechende Jordankästchen
+		\item Das Kästchen wird nach rechts aufgefüllt, indem man v immer wieder abbildet:\\$(A - \lambda I_N)^{q - 1}v, (A - \lambda I_N)^{q - 2}v ... (A - \lambda I_N)v$
+		\item \textbf{Achtung}: Die Wahl des ersten Vektors für ein Jordankästchen ist nicht trivial! Die Vektoren aller Jordankästchen desselben Jordanblocks müssen eine Basis zu $ker(A - \lambda I_N)$ ergeben!
 		\item Die Reihenfolge muss zur aufgestellten Normalform passen und ist nicht eindeutig!
 	\end{enumerate}
 
-	\subsection{Tricks}
-		\begin{itemize}
-			\item $dim(ker \phi)$ bzw. $dim(ker A)$ impliziert die Dimension des Eigenraumes zum Eigenwert 0
-			\item $Spur(A)$ = Summe der Eigenwerte mit Vielfachheit (z.B Eigenwert mit algebraischer Vielfachheit 2 zählt doppelt) bei diagonalisierbaren Matrizen (z.B bei einer Matrix aus $\complexnumbers$)
-		\end{itemize}
+	\subsection{Tricks \& Hinweise}
+	\label{jd:sub:tricks}
 	
+	\begin{itemize}
+		\item $dim(ker \phi)$ bzw. $dim(ker A)$ impliziert die Dimension des Eigenraumes zum Eigenwert 0
+		\item $Spur(A)$ = Summe der Eigenwerte mit Vielfachheit (z.B Eigenwert mit algebraischer Vielfachheit 2 zählt doppelt) bei diagonalisierbaren Matrizen (z.B bei einer Matrix aus $\complexnumbers$)
+		\item Zwei Matrizen sind genau dann ähnlich, wenn sie (bis auf die Reihenfolge der Jordanblöcke) dieselbe Jordan-Normalform besitzen
+		\item (Bei linearer Abbildung, für $A \in K^{N\times N}$:)\\Rang(A) = dim(Bild(A)) und damit dim(ker(A)) = N - dim(Bild(A)) = N - Rang(A)
+		\item Die Abbildung ist injektiv, wenn 0 kein Eigenwert ist
+	\end{itemize}
+	
+	\newpage
 	\section{Skalarprodukte}
+	\label{sp:sec:skalarprodukte}
+	
 	Sei K ein Körper und V ein K-Vektorraum der Dimension N, $v, v_1, v_2, w, w_1, w_2 \in V$, $\alpha \in K$ sowie
 	\begin{center}
 		$s(\cdot,\cdot) = \langle\cdot,\cdot\rangle: V \times V \rightarrow \realnumbers^N, (v, w) \mapsto \langle v, w\rangle$
@@ -77,36 +98,40 @@
 	Sei weiter $B = \{b_1, ..., b_n\}$ eine Basis von V.
 	
 	\subsection{Skalarprodukte und Fundamentalmatrizen}
-		Definition einer Fundamentalmatrix:
-		\begin{center}
-			$F(s) = \begin{bmatrix}
-			\langle b_1, b_1\rangle & \langle b_1, b_2\rangle & ... & \langle b_1, b_n\rangle\\
-			\vdots & \vdots & \ddots & \vdots \\
-			\langle b_n, b_1\rangle & \langle b_n, b_2\rangle & ... & \langle b_n, b_n\rangle\\			
-			\end{bmatrix}$
-		\end{center}
-		Voraussetzungen eines Skalarprodukts (dies gelte für beliebig gewählte Vektoren):
+	\label{sp:sub:skalarprodukte_und_fundamentalmatrizen}
+	
+	Definition einer Fundamentalmatrix:
+	\begin{center}
+		$F(s) = \begin{bmatrix}
+		\langle b_1, b_1\rangle & \langle b_1, b_2\rangle & ... & \langle b_1, b_n\rangle\\
+		\vdots & \vdots & \ddots & \vdots \\
+		\langle b_n, b_1\rangle & \langle b_n, b_2\rangle & ... & \langle b_n, b_n\rangle\\			
+		\end{bmatrix}$
+	\end{center}
+	Voraussetzungen eines Skalarprodukts (dies gelte für beliebig gewählte Vektoren):
+	\begin{itemize}
+		\item \textbf{Bilinearform}
 		\begin{itemize}
-			\item \textbf{Bilinearform}
-			\begin{itemize}
-				\item $\langle \alpha v_1 + v_2, w\rangle = \alpha\langle  v_1, w\rangle + \langle v_2, w\rangle$ \textbf{und}
-				\item $\langle v, \alpha w_1 + w_2\rangle = \alpha\langle  v, w_1\rangle + \langle v, w_2\rangle$
-			\end{itemize}
-			\item \textbf{Symmetrisch}
-			\begin{itemize}
-				\item Formal: $\langle v, w\rangle = \langle w, v\rangle$ \textbf{oder}
-				\item Anhand der Fundamentalmatrix: Symmetrisch
-			\end{itemize}
-			\item \textbf{Positiv-definit}
-			\begin{itemize}
-				\item Formal: $\langle v, v\rangle \geq 0$ für alle $v \in V$ und $\langle v, v\rangle = 0 \Leftrightarrow v = 0$ \textbf{oder}
-				\item Anhand der Fundamentalmatrix: Alle Hauptminoren sind $> 0$,\\alternativ: $v^TF(s)v \geq 0$ für alle $v \in V$
-			\end{itemize}
+			\item $\langle \alpha v_1 + v_2, w\rangle = \alpha\langle  v_1, w\rangle + \langle v_2, w\rangle$ \textbf{und}
+			\item $\langle v, \alpha w_1 + w_2\rangle = \alpha\langle  v, w_1\rangle + \langle v, w_2\rangle$
 		\end{itemize}
+		\item \textbf{Symmetrisch}
+		\begin{itemize}
+			\item Formal: $\langle v, w\rangle = \langle w, v\rangle$ \textbf{oder}
+			\item Anhand der Fundamentalmatrix: Symmetrisch
+		\end{itemize}
+		\item \textbf{Positiv-definit}
+		\begin{itemize}
+			\item Formal: $\langle v, v\rangle \geq 0$ für alle $v \in V$ und $\langle v, v\rangle = 0 \Leftrightarrow v = 0$ \textbf{oder}
+			\item Anhand der Fundamentalmatrix: Alle Hauptminoren sind $> 0$,\\alternativ: $v^TF(s)v \geq 0$ für alle $v \in V$
+		\end{itemize}
+	\end{itemize}
 	\textbf{Standardskalarprodukt}: $\langle v, w\rangle = v^Tw$\\\\
 	\textbf{Cauchy-Schwarz-Ungleichung}: $\langle v, w\rangle^2 \leq \langle v, v\rangle * \langle w, w\rangle$, Gleichheit genau dann, wenn v und w linear abhängig sind
 	
 	\subsection{Normen}
+	\label{sp:sub:normen}
+	
 	Sei K $\in \{\realnumbers,\complexnumbers\}$ ein Körper und V ein K-Vektorraum, $v, w \in V$ und $\lambda \in K$ beliebig und eine Abbildung:
 	\begin{center}
 		$|\cdot|: V \rightarrow \realnumbers$
@@ -120,6 +145,8 @@
 	\textbf{Standardnorm}: $\norm{v} := \sqrt{\langle v, v\rangle}$
 	
 	\subsection{Abstandsfunktionen / Metriken}
+	\label{sp:sub:abstandsfunktionen_metriken}
+
 	Sei K $\in \{\realnumbers,\complexnumbers\}$ ein Körper und V ein K-Vektorraum, $v, w, z \in V$ beliebig und eine Abbildung:
 	\begin{center}
 		$d: V \rightarrow \realnumbers$
@@ -133,13 +160,17 @@
 	\textbf{Standardmetrik}: $d(v, w) := \norm{w - v} = \sqrt{\langle w - v, w - v\rangle}$
 		
 	\subsection{Winkel}
-	Sei V ein euklidischer Vektorraum mit Skalarprodukt $\langle \cdot, \cdot\rangle$ und $v, w\in V$ beliebig. So gilt für den Winkel zwischen v und w:
+	\label{sp:sub:winkel}
+	
+	Sei V ein euklidischer Vektorraum (Vektorraum über $\realnumbers$ mit Skalarprodukt); das Skalarprodukt sei $\langle \cdot, \cdot\rangle$ und $v, w\in V$ beliebig. So gilt für den Winkel zwischen v und w:
 	\begin{center}
 		$cos(\alpha) := cos(\sphericalangle(v, w)) = \frac{\langle v, w\rangle}{\norm{v}\norm{w}} = \frac{\langle v, w\rangle}{\sqrt{\langle v, v \rangle}\sqrt{\langle w, w\rangle}}$
 	\end{center}
 	Ist das \textbf{Skalarprodukt gleich 0}, so sind die Vektoren \textbf{orthogonal}.
-	\newpage
+
 	\subsection{Änderungen bei unitären Vektorräumen}
+	\label{sp:sub:aenderungen_bei_unitaeren_vektorraeumen}
+	
 	Ist der zugrunde liegende Vektorraum unitär (d.h. K ist $\complexnumbers$) so muss für das Skalarprodukt gelten:
 	\begin{itemize}
 		\item Statt einer Bilinearform ist das Skalarprodukt eine \textbf{Sesquilinearform}:
@@ -157,10 +188,28 @@
 	\textbf{Standardskalarprodukt}: $\langle v, w\rangle := v^T\overline{w} = \sum_{i = 1}^{n} v_i\overline{w}_i$\\\\
 	\textbf{Unitäre Cauchy-Schwarz-Ungleichung}: $|\langle v, w\rangle|^2 \leq \langle v, v\rangle * \langle w, w\rangle$, Gleichheit genau dann, wenn v und w linear abhängig sind
 	
+	\subsection{Tricks \& Hinweise}
+	\label{sp:sub:tricks_hinweise}
+	
+	\begin{itemize}
+		\item \textbf{Fourierformel}: B Orthonormalbasis, $v \in V \Rightarrow v = \sum_{b \in B} \langle v, b\rangle * b$
+		\item Für eine quadratische Matrix A gilt: $|det(A)|^2 = det(A) * \overline{det(A)} = det(A) * det(\overline{A})$ sowie $det(A) = det(A^T)$
+		\item Eine Bilinearform heißt nicht ausgeartet, wenn
+		\begin{itemize}
+			\item für alle $v \in V$ ein $w \in W$ existiert mit $\langle v, w\rangle \neq 0$
+			\item für alle $w \in W$ ein $v \in V$ existiert mit $\langle v, w\rangle \neq 0$
+		\end{itemize}
+	\end{itemize}
+
+	\newpage
 	\section{Orthogonalsysteme}
+	\label{os:sec:orthogonalsysteme}
+	
 	Sei K ein Körper und V ein K-Vektorraum mit Basis $B = \{b_1, ..., b_n\}$ sowie einem Skalarprodukt $\langle \cdot, \cdot\rangle$ und einer Norm $|\cdot|$.
 	
-	\subsection{Gram-Schmidt-Orthogonalisierung und -normalisierung}
+	\subsection{Gram-Schmidt Orthogonalisierung und -normalisierung}
+	\label{os:sub:gram_schmidt_orthogonalisierung_und_normalisierung}
+	
 	Ziel: Ermittlung einer Basis aus orthogonalen Vektoren bzw. orthonormalen Vektoren (Vektoren haben Länge 1, wie z.B die Standardbasisvektoren bzgl. der Standardmetrik).\\\\
 	\textbf{Vorgehen}:
 	\begin{enumerate}
@@ -168,12 +217,14 @@
 		\item Iteriere durch die restlichen Basisvektoren und berechne
 		\begin{enumerate}
 			\item Abziehen der parallelen Teile der vorherigen Basisvektoren für eine Orthogonalbasis:\\$b^*_i = b_i - \sum_{j = 1}^{i - 1} \frac{\langle b_i, c_j\rangle}{\langle c_j, c_j\rangle}c_j$
-			\item ggf. Bilden der Orthonormalbasis durch Normieren: $c_i = \frac{b^*_i}{\norm{b^*_i}}$
+			\item Normierung: $c_i = \frac{b^*_i}{\norm{b^*_i}}$
 		\end{enumerate}
 	\end{enumerate}
 	Damit ergibt sich die Orthogonalbasis bzgl. des Skalarprodukts und der Norm: $B^* = \{b^*_1, ..., b^*_n\}$ sowie (optional) die Orthonormalbasis $C = \{c_1, ..., c_n\}$.
 	
 	\subsection{Orthogonale Komplemente und Projektionen}
+	\label{sub:orthogonale_komplemente_und_projektionen}
+	
 	\textbf{Allgemein:}
 	\begin{itemize}
 		\item Das \textbf{orthogonale Komplement} einer Teilmenge M des Vektorraums V entspricht:
@@ -191,7 +242,9 @@
 		wobei $ker \Pi_U = U^\perp,\ \Pi_{U|U} = id_U$ und $\Pi^2_U = \Pi_U$
 		\item $\Pi_U(v)$ ist der \textbf{Lotfußpunkt} von v auf U und hat in U den kürzesten Abstand zu v
 	\end{itemize}
-	\textbf{Berechnung der orthogonalen Projektion:}
+
+	\newpage
+	\noindent\textbf{Berechnung der orthogonalen Projektion:}
 	\begin{enumerate}
 		\item Berechne die \textbf{Orthonormalbasis} $\{c_1, ..., c_m\}$ \textbf{von U}
 		\item Ergänze diese zu einer \textbf{Orthonormalbasis von V}, d.h. $\{c_1, ..., c_m, c_{m + 1}, ... c_n\}$, der ergänzte Teil ist die Orthonormalbasis zu $U^\perp$
@@ -207,11 +260,16 @@
 	\end{center}
 	\textbf{Berechnung des Abstands}:
 	\begin{itemize}
-		\item Für den Abstand eines Vektors v zum Untervektorraum U gilt: $d(v, U) = d(v, \Pi_U(v))$
+		\item Für den Abstand eines Vektors v zum Untervektorraum U gilt:
+		\begin{center}
+			$d(v, U) = d(v, \Pi_U(v)) = ||v - \Pi_U(v)||$
+		\end{center}
 		\item Damit: Lotfußpunkt ausrechnen und Abstand per gegebener Norm ausrechnen
 	\end{itemize}
 
 	\subsection{Orthogonale und Unitäre Gruppen}
+	\label{os:sub:orthogonale_und_unitaere_gruppen}
+	
 	\begin{itemize}
 		\item \textbf{Orthogonale Gruppe}: $O(n) := \{A \in \realnumbers^{N\times N}\ |\ A^TA = I_N\}$
 		\item \textbf{Spezielle orthogonale Gruppe}: $SO(n) := \{A \in O(n)\ |\ det A = 1\}$
@@ -220,6 +278,8 @@
 	\end{itemize}
 
 	\subsection{Iwasawa-Zerlegung}
+	\label{os:sub:iwasawa_zerlegung}
+	
 	\textbf{Ziel}: Zerlegen einer Matrix $A \in \realnumbers^{N\times N} (\complexnumbers^{N\times N})$ in das Produkt einer orthogonalen (unitären) Matrix O und einer oberen Dreiecksmatrix R mit positiven reellen Diagonaleinträgen, sodass: $A = OR$.\\\\
 	\textbf{Vorgehen}:
 	\begin{enumerate}
@@ -227,15 +287,19 @@
 		\item O entspricht den \textbf{Basisvektoren der Orthonormalbasis} $c_i$, d.h. $O = (c_1 | c_2 | ... | c_n)$
 		\item Bilde R über \textbf{Gauß-Jordan}, d.h. entwickle A nach O, d.h. löse das LGS $(O | A)$, sodass die linke Matrix $I_N$ entspricht; die \textbf{rechte Matrix entspricht dann R}
 	\end{enumerate}
+	
+	\newpage
 	\section{Isometrien}
 	Seien V, W euklidische (unitäre) Vektorräume und $\{c_1, ..., c_n\}$ eine Orthonormalbasis von V sowie $\phi: V \rightarrow W$ eine lineare Abbildung und $v, w \in V$ beliebig.
 	
 	\subsection{Isometrien}
+	\label{os:sub:isometrien}	
+
 	\textbf{Definition}: Längenerhaltende Abbildung zwischen metrischen Räumen; folgende Aussagen zu Isometrien sind äquivalent:
 	\begin{itemize}
 		\item $\phi$ ist eine Isometrie
 		\item $\langle v, w\rangle = \langle \phi(v), \phi(w)\rangle$
-		\item $\langle \phi(e), phi(e)\rangle = 1$ für alle Einheitsvektoren $e \in V$
+		\item $\langle \phi(e), \phi(e)\rangle = 1$ für alle Einheitsvektoren $e \in V$
 		\item $\{\phi(c_1), \phi(c_2), ..., \phi(c_n)\}$ ist eine Orthonormalbasis von W
 		\item Falls V = W: Die Abbildungsmatrix $D_{CC}(\phi)$ ist orthogonal (unitär)
 	\end{itemize}
@@ -247,6 +311,8 @@
 	\end{itemize}
 
 	\subsection{(Euklidische) Isometrie-Normalform}
+	\label{os:sub:euklidische_isometrie_normalform}
+
 	\textbf{Vorgehen}:
 	\begin{enumerate}
 		\item Aufstellen des char. Polynoms, Berechnung der Eigenwerte
@@ -261,25 +327,30 @@
 				$cos(\omega) + isin(\omega)$
 			\end{center}
 			und eintragen als Drehkästchen D mit:
-			\begin{center}
-				$D = \begin{bmatrix}
-					cos(\omega) & -sin(\omega)\\
-					sin(\omega) & cos(\omega)\\
-				\end{bmatrix}
-				\overrightarrow{Normalform} \begin{bmatrix}
-					-1 & 0 & 0 \\
-					0 & cos(\omega) & -sin(\omega)\\
-					0 & sin(\omega) & cos(\omega)\\
-				\end{bmatrix}$
-			\end{center}
 		\end{itemize}
-
 	\end{enumerate}
+		\begin{center}
+		$D = \begin{bmatrix}
+			cos(\omega) & -sin(\omega)\\
+			sin(\omega) & cos(\omega)\\
+		\end{bmatrix}
+	\overrightarrow{Normalform}
+		\begin{bmatrix}
+			-1 & 0 & 0 \\
+			0 & cos(\omega) & -sin(\omega)\\
+			0 & sin(\omega) & cos(\omega)\\
+		\end{bmatrix}$
+	\end{center}
 	
+	\newpage
 	\section{Adjungierte und normale Abbildungen}
+	\label{aa:sec:adjungierte_und_normale_abbildungen}
+	
 	Sei $K \in \{\realnumbers, \complexnumbers\}$, V, W seien K-Vektorräume sowie $\phi: V \rightarrow W$ eine lineare Abbildung. Die Vektorräume haben Skalarprodukte $\langle \cdot, \cdot\rangle_V$ und $\langle \cdot, \cdot\rangle_W$ sowie Orthonormalbasen $C_V, C_W$.
 	
 	\subsection{Adjungierte Abbildungen}
+	\label{aa:sub:adjungierte_abbildungen}
+
 	Eine Abbildung $\phi^*: W \rightarrow V$ heißt \textbf{adjungiert} zu $\phi$, falls für alle $v, w \in V$ gilt:
 	\begin{center}
 		$\langle \phi(v), w\rangle = \langle v, \phi^*(w)\rangle$
@@ -289,10 +360,7 @@
 		\item Existiert eine zu $\phi$ adjungierte Abbildung, so ist diese \textbf{eindeutig}
 		\item Sind V und W endlichdimensional, so existiert $\phi^*$
 		\item Es gilt: $D_{C_VC_W}(\phi^*) = \overline{D_{C_VC_W}(\phi)}^T$ sowie $(\phi^*)^* = \phi$
-		\item Für einen weiteren K-Vektorraum Z mit Skalarprodukt und einer linearen Abbildung\\ $\psi: W \rightarrow Z$ mit adjungierter Abbildung $\phi^*$ gilt:
-		\begin{center}
-			$(\psi \circ \phi)^* = \phi^* \circ \psi^*$
-		\end{center}
+		\item Für einen weiteren K-Vektorraum Z mit Skalarprodukt und einer linearen Abbildung\\ $\psi: W \rightarrow Z$ mit adjungierter Abbildung $\phi^*$ gilt: $(\psi \circ \phi)^* = \phi^* \circ \psi^*$
 		\item Für jeden Eigenwert $\lambda$ von $\phi$ ist $\overline{\lambda}$ ein Eigenwert von $\phi^*$
 	\end{itemize}
 	\textbf{Berechnung der adjungierten Abbildung}:\\
@@ -302,6 +370,8 @@
 	\end{center}
 	
 	\subsection{Selbstadjungierte Homomorphismen}
+	\label{aa:sub:selbstadjungierte_homomorphismen}
+
 	Selbstadjungierte Homomorphismen sind ein Spezialfall von adjungierten Abbildungen. Sei V ein Vektorraum mit Skalarprodukt, dann ist die Abbildung $\phi: V \rightarrow V$ \textbf{selbstadjungiert}, wenn gilt:
 	\begin{center}
 		$\langle \phi(v), w\rangle = \langle v, \phi(w)\rangle\ \forall v, w\in V$
@@ -314,6 +384,8 @@
 	$\phi$ ist genau dann selbstadjungiert, wenn $\phi$ \textbf{nur reelle Eigenwerte} und eine \textbf{Orthonormalbasis aus Eigenvektoren} besitzt.
 
 	\subsection{Normale Homomorphismen}
+	\label{aa:sub:normale_homomorphismen}
+
 	Sei V ein Vektorraum mit Skalarprodukt und $\phi: V \rightarrow V$ eine lineare Abbildung. $\phi$ heißt \textbf{normal}, falls $\phi^*$ existiert und eine der folgenden Bedingungen erfüllt ist:
 	\begin{itemize}
 		\item $\phi \circ \phi^* = \phi^* \circ \phi$
