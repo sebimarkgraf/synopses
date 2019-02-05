@@ -8,6 +8,8 @@
 
 \newcommand{\SO}{\ensuremath{\mathit{SO}(3)}\xspace}
 \newcommand{\SE}{\ensuremath{\mathit{SE}(3)}\xspace}
+\newcommand{\myMatrix}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\myVector}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
 
 \subsection{Definitionen}
 \textbf{Kinematik} analysiert die Geometrie eines Manipulators oder Roboters. Das essentielle Konzept ist die Position.\\
@@ -83,3 +85,21 @@ Kann zum Gimbal Lock führen.\\
 
 \textbf{Gimbal Lock}\\
 Verlust eines Freiheitsgrades, da bei bestimmten Winkeln 2 Achsen voneinaner abhängig werden.
+
+
+\subsection{Affine Transformationen}
+Affiner Raum ist Erweiterung des euklidischen Raums.
+\begin{equation}
+  b &= Ax + t
+    \Leftrightarrow
+    b = \myVector{b \\ 1} = \myMatrix{A & o \\ o^T & 1} \myVector{x \\ 1} + \myVector{t \\ 0} =
+    \myMatrix{A & t \\ o^T & 1}\myVector{x \\ 1}
+\end{equation}
+Kombiniere Translation und Rotation in einer Matrix. Dann Standardmatrix:
+\(T = \myMatrix{A & \mathbf{t} \\ \mathbf{o}^T & 1}\)\\
+
+\textbf{Nachteile}\\
+\begin{itemize}
+\item Redundant
+\item Schwierige Interpolation
+\end{itemize}
