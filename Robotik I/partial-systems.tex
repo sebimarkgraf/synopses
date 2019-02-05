@@ -51,3 +51,50 @@ Geradeaus- \& Kurvenfahrten, Vorwärts/Rückwärts identisch, Plattform dreht ni
 + Uneingeschränkte Beweglichkeit\\
 - Mechanisch komplex\\ 
 - Aufwendige Regelung\\
+
+\subsection{Antriebe}
+\subsubsection{Fluidische Antriebe}
+\textbf{Linearantrieb}\\
+Bewege Kolben durch Flüssigkeit.\\
+Geschwindigkeit \(v(t) = \frac{Q(t)}{A}\).\\
+Kraft \(F(t) = p(t) \cdot A\) mit \(p(t)\) Druck des Mediums.\\
+
+\textbf{Schaufelrad}\\
+Bewegen einer Schaufel in einem Zylinder.\\
+Winkelgeschwindigkeit \(\omega (t) = \frac{2 \cdot Q(t)}{h \cdot (R^2 - r^2)}\)\\
+Drehmoment \(T(t) = p(t) \cdot h \cdot (R - r) \cdot \frac{ R + r} {2}\)
+
+\subsubsection{Muskelartige Antriebe}
+\textbf{Pneumatik}\\
+Komprimierte Luft bewegt Kolben\\
+Vorteile: billig, einfach, schnell\\
+Nachteile: Laut, keine Steuerung der Geschwindigkeit\\
+Einsatz: Kleine Roboter, wenig Kraft, schnell\\
+
+\textbf{Hydraulik}\\
+Öldruckpumpe und steuerbare Ventile\\
+Vorteil: Große Kraft, mittelschnell\\
+Nachteil: Laut, viel Platz, Ölverlust\\
+Einsatz: Große Roboter
+
+\subsubsection{Elektrische Antriebe}
+Schritt- oder Servomotoren\\
+Vorteil: wenig Platz, kompakt, leise, gut Regelbar\\
+Nachteil: Wenig kraft, langsam\\
+Einsatz: Kleine Roboter für Präzision
+
+\subsection{Getriebe}
+\subsubsection{Stirnradgetriebe}
+Standardgetriebe mit Getrieberad + Ritzel.\\
+Übersetzung: \(i = \frac{N_2}{N_1}\) mit \(N_i\) Anzahl der Zähne\\
+Drehmoment: \(T_2 = T_1 \cdot i\)
+
+\subsubsection{Schrauben- \& Spindelgetriebe}
+Schraube/Spindel dreht sich in Richtung.\\
+Lineargeschwindigkeit \(v(t) = p \cdot \omega(t)\)
+
+\subsubsection{Harmonic Drive}
+Bestehe aus Wavegenerator, Flexible Spine und Circular Spine.\\
+Auch \enquote{Spannungswellengetriebe}\\
+Hohes Übersetzungsverhältnis in einer Stufe, sehr genau\\
+Gutes Getriebe für Leichtbauroboter
