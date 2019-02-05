@@ -10,6 +10,7 @@
 \newcommand{\SE}{\ensuremath{\mathit{SE}(3)}\xspace}
 \newcommand{\myMatrix}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
 \newcommand{\myVector}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\quaternionen}{\ensuremath{\mathbb{H}}\xspace}
 
 \subsection{Definitionen}
 \textbf{Kinematik} analysiert die Geometrie eines Manipulators oder Roboters. Das essentielle Konzept ist die Position.\\
@@ -31,7 +32,7 @@ Elemente: \((p, R)\ \text{mit}\ p \in \realnumbers^3\ \text{und}\ R \in \SO\)
 Ist der Vektorraum \(\realnumbers^3\) mit dem Standardskalarprodukt.
 
 \subsection{Koordinatensysteme}
-Es existieren rechtsdrehende und linksdrehende Koordinatensysteme. Lässt sich einfach mit der rechten-Hand-Regel herausfinden:\\
+Es existieren rechtsdrehende und linksdrehende Koordinatensysteme. Lässt sich einfach mit der rechten-Hand-Regel herausfinden:
 \begin{itemize}
   \item Daumen in z-Richtung
   \item Zeigefinger in x-Richtung
@@ -39,7 +40,7 @@ Es existieren rechtsdrehende und linksdrehende Koordinatensysteme. Lässt sich e
 \end{itemize}
 \(\Rightarrow\) Koordinatensystem rechtsdrehend.\\
 
-\textbf{Typen von Koordinatensystemen}\\
+\textbf{Typen von Koordinatensystemen}
 \begin{itemize}
   \item BKS: Basiskoordinatensystem, initialias Bezugssystem
   \item OKS: Objektkoordinatensystem
@@ -90,7 +91,7 @@ Verlust eines Freiheitsgrades, da bei bestimmten Winkeln 2 Achsen voneinaner abh
 \subsection{Affine Transformationen}
 Affiner Raum ist Erweiterung des euklidischen Raums.
 \begin{equation}
-  b &= Ax + t
+  b = Ax + t
     \Leftrightarrow
     b = \myVector{b \\ 1} = \myMatrix{A & o \\ o^T & 1} \myVector{x \\ 1} + \myVector{t \\ 0} =
     \myMatrix{A & t \\ o^T & 1}\myVector{x \\ 1}
@@ -98,8 +99,45 @@ Affiner Raum ist Erweiterung des euklidischen Raums.
 Kombiniere Translation und Rotation in einer Matrix. Dann Standardmatrix:
 \(T = \myMatrix{A & \mathbf{t} \\ \mathbf{o}^T & 1}\)\\
 
-\textbf{Nachteile}\\
+\textbf{Nachteile}
 \begin{itemize}
 \item Redundant
 \item Schwierige Interpolation
 \end{itemize}
+
+\subsection{Quaternionen}
+Erweiterung der komplexen Zahlen \complexnumbers durch William Rowan Hamilton.\\
+Menge der Quaternionen \quaternionen als \( \quaternionen = \complexnumbers + \complexnumbers j\)\\
+Also ist ein Quaterionen \(q \in \quaternionen\) durch \(q = \myVector{a \\ u} = a + u_1 i + u_2 j + u_3 k\) 
+mit \(a \in \realnumbers, u \in \realnumbers^3\) und \( k = i \cdot j\) gegeben.
+
+\textbf{Rechenregeln}\\
+Quaternionen \(q = {(a, u)}^T,\ r = {(b,v)}^T\).
+\begin{itemize}
+\item Addition --- \(q + r = {(a + b, u + b)}^T\)
+\item Skalarprodukt --- \(\langle q \lvert r\rangle = a \cdot b + \langle v \lvert u \rangle = a \cdot b + v_1 \cdot u_1 + v_2 \cdot u_2 + v_3 \cdot u_3\)
+\item Multiplikation --- \(q \cdot r = (a + u_1i + u_2j + u_3k) \cdot (b + v_1 i + v_2 j + v_3 k)\)
+\item Konjugation --- \(q^* = {(a, -u)}^T\)
+\item Norm --- \( \lvert q \lvert = \sqrt{q \cdot q^*} = \sqrt{q^* \cdot q} = \sqrt{a^2 + u_1^2 + u_2^2 + u_3^2}\)
+\item Inverse --- \( q^{-1} = \frac{q^*}{{\lvert q \lvert}^2}\)
+\end{itemize}
+
+\textbf{Rotationen}\\
+Dafür werden Einheitsquaternionen \(\mathbb{S}^3 = \{q \in \quaternionen\ \lvert\ {\|{q}\|}^2 = 1\}\) definiert.\\
+Definiere Rotation um Achse \(a,\ \|a\| = 1\) und Winkel \(\phi\) durch \(q = (\cos \frac{\phi}{2}, a \sin \frac{\phi}{2})\)\\
+Dann Rotatoin des Punkes \(v\) mit \(v' = qvq^{-1} = qvq^*\).\\
+Vorgehen: (an \(p = (1, 0, 9)^T,\ a = (1, 0, 0)^T,\ \phi = 90°\))
+\begin{enumerate}
+\item Darstellung von \(p\) als Quaternion \(v\) --- \(v = 0 + 1i + 0j + 9k\)
+\item Rotationsquaternion \(q\) --- \( q = \cos \frac{\phi}{2} + 1i \cdot \sin \frac{phi}{2} + 0j + 0k\)
+\item Konjugiertes Quaternion \(q^*\) --- \(q^* = \cos \frac{\phi}{2} - 1i \cdot \sin \frac{\phi}{2} - 0j -0k\)
+\item Rotation von \(v\) um \(q\) --- \(v_r = qvq^*\)
+\item Darstellung als Punkt \(p_r\) --- \(p_r = (1, -9, 0)^T\)
+\end{enumerate}\\
+
+\textbf{Interpolation SLERP}\\
+Interpoliere mit Hilfe von \(t \in [0, 1]\) und \(\langle q_1 \lvert q_2 \rangle = \cos \theta\)
+\[ \mathit{Slerp}(q_1, q_2, t) = \frac{\sin(1-t)\theta}{\sin \theta} \cdot q_1 + \frac{\sin t\theta}{\sin \theta} \cdot q_2 \]
+
+\textbf{Duale Quaternionen}\\
+Ergänze Quaternionen um Duale Zahlen um Translation des Objektes auszudrücken.
