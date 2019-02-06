@@ -1,0 +1,87 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "robotik"
+%%% End:
+
+\section{Kinematik}
+\subsection{Kinematisches Modell}
+Beschreibt die Zusammenhänge zwsichen dem Raum der Gelenkwinkel und dem Raum der Lage des Endeffektors in
+Weltkoordinaten.\\
+
+\textbf{Vorwärtskinematik}\\
+Bestimme Endeffektor Position aus Winkeln.\\
+
+\textbf{Inverse Kinematik}\\
+Bestimme Winkel zu gewünschter Position.\\
+
+\subsubsection{Kinematische Kette}
+Wird von mehreren Körpern gebildet, die durch Gelenke kinematisch verbunden sind.\\
+Mit allen Endpunkten fest \(\rightarrow\) geschlossen, sonst offen.\\
+
+\textbf{Konvetionen}
+\begin{itemize}
+\item Jedes Armelement entspricht einem starren Körper
+\item Jedes Armgelenk durch Gelenk zu nächstem
+\item Schub-/Rotationsgelenke nur 1 DoF
+\end{itemize}
+
+\textbf{Kinematische Parameter}\\
+Jedes Glied 3 Rotations- und 3 Translationsparameter \(\rightarrow\) 6 Parameter pro Glied.
+
+\subsubsection{Denavit-Hartenberg (DH) Konvention}
+Koordinatensystem bestimmen durch
+\begin{enumerate}
+\item \(z_{i-1}\)-Achse liegt entlang der Bewegungsachse des \(i\)-ten Gelenks.
+\item \(x_i\)-Achse verläuft entlang der gemeinsamen Normalen von \(z_{i-1}\) und \(z_i\). Dabei zeigt sie weg von \(z_{i-1}\)
+\item Die \(y_i\)-Achse vervollständigt das Koordinatensystem entsprechend der Rechte-Hand-Regel.
+\item Armelementlänge \(a_i\) beschreibt Abstand von \(z_{i-1}\) zu \(z_i\)
+\item Armelementverwinding \(\alpha_i\) beschreibt Winkel von \(z_{i-1}\) zu \(z_i\) um \(x_i\)
+\item Gelenkabstand \(d_i\) ist Abstand zwischen \(x_{i-1}\) und \(x_i\)-Achse entlang der \(z_{i-1}\)-Achse
+\item Gelenkwinkel \(\theta_i\) ist Winkel von \(x_{i-1}\) zu \(x_i\) um \(z_{i-1}\)
+\end{enumerate}
+
+\subsubsection{Direktes Kinematisches Problem}
+Bestimme aus DH-Parametern \& Gelenkwinkeln die Stellung des Endeffektors.
+\[S_{\mathit{Basis},\ \mathit{Greifer}} = A_{0,1}(\theta_1) \cdot A_{1,2}(\theta_2) \cdot \ldots
+  \cdot A_{n-2,n-1}(\theta_{n-1}) \cdot A_{n-1, n}(\theta_n)\]
+
+\textbf{Jacobi-Matrix}\\
+Die Jacobi-Matrix setzt kartesische End-Effektor-Geschwindigkeiten in Relation zu Gelenkwinkelgeschwindigkeiten.
+\[\dot{x}(t)=J_f(\theta(t)) \cdot \dot{\theta}(t)\]
+Die Jacobi-Matrix setzt Kräfte und Momente am End-Effektor in Relation zu Drehmomenten in den Gelenken
+\[\tau(t) = J_f^T(\theta(t)) \cdot F(t)\]
+
+\subsubsection{Singularitäten}
+Singuläre Konfiguration liegt vor, wenn die Jacobi-Matrix nicht vollen Rang hat.\\
+Dann ist sie nicht invertierbar und damit bestimmte Bewegungen unmöglich. Ggf. große Gelenkgeschwindigkeiten
+für End-Effektor-Geschwindigkeit notwendig.\\
+
+\textbf{Manipulierbarkeit}\\
+Definiere \(A(\theta) = J(\theta){J(\theta)}^T \in R^{nxn}\) und betrachte Eigenwerte \(\lambda\).
+Definiere Singulärwerte \(\sigma_i = \sqrt{\lambda_i}\).\\
+Daraus Maße:
+\begin{itemize}
+\item Kleinster Wert \(\mu_1 (\theta) = \sigma_{\min}(A(\theta))\)
+\item Inverse Kondition \(\mu_2(\theta) = \frac{\sigma_{\min}(A(\theta))}{\sigma_{\max}(A(\theta))}\)
+\item Determinante \(\mu_3(\theta) = \det A(\theta)\)
+\end{itemize}
+
+\subsubsection{Erreichbarkeit}
+Durch offline Abtastung in Gitter. Ermöglicht schnell Griff oder andere Erreichbarkeitsanalysen durchzuführen.
+
+\subsection{Geometrisches Modell}
+Zur Kollisions- / Abstands- / Kraftbestimmung\\
+Zur Darstellung von Körpern.\\
+
+\textbf{Blockwelt}\\
+Darstellung durch einhüllende Quader. 2,5D Volumen bzw. Flächen\\
+Erster Schritt der Kollisionsvermeidung\\
+
+\textbf{Kantenmodell}\\
+Darstellung durch Polygonzüge. 3D, Kanten bzw. Flächen\\
+Schnelle Visualisierung\\
+
+\textbf{Volumenmodell}\\
+Genaue Darstellung. 3D, Volumen\\
+Genaue Kollisionserkennung, Animationen
