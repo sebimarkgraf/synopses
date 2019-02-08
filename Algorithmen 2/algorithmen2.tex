@@ -17,6 +17,7 @@
 
 \def\realnumbers{{\rm I\!R}}
 \def\polynomials{{\rm I\!P}}
+\def\naturalnumbers{{\rm I\!N}}
 
 \newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 \newcommand{\norm}[1]{\lVert#1\rVert}
@@ -435,7 +436,7 @@
 	\label{ea:sec:external_algorithms}
 	
 	\begin{itemize}
-		\item \textbf{Ziel}: Nutzung von schnellem Sekundärspeicher, auf den blockweise zugegriffen werden kann
+		\item \textbf{Ziel}: Nutzung von schnellem oder großem Sekundärspeicher, auf den blockweise zugegriffen werden kann
 		\item Minimieren von I/O ist wichtig für Performance
 	\end{itemize}
 
@@ -475,10 +476,10 @@
 		\item \textbf{Problem}: Binary Heaps benötigen zu viel I/O, effizienterer Umgang mit externem Speicher nötig
 		\item \textbf{Lösung}:
 		\begin{itemize}
-			\item Mehrere mittelgroße Prioritätslisten, sodass $k$ Queues der Größe $m$ deutlich kleiner sind als die Größe des externen Speichers zum Quadrat geteilt durch die Blockgröße
-			\item Prioritätsliste ergibt sich durch \textbf{Multiway Merging} der Teillisten
-			\item \texttt{insert}: \textbf{Insertion Buffer}, der beim Überlauf sortiert und zu den Teillisten hinzugefügt wird
-			\item \texttt{deleteMin}: Führe \texttt{deleteMin} auf der Prioritätsliste mit dem kleinsten $min$ aus
+			\item \textbf{Zwei Prioritätslisten} im \textbf{Hauptspeicher}, eine \texttt{insertion queue} und eine \texttt{deletion queue}
+			\item k sortierte Sequenzen im \textbf{Sekundärspeicher}
+			\item \texttt{insert}: Füge in die \texttt{insertion queue} ein; sobald diese voll ist, verschiebe sie als neue sortierte Sequenz in den \textbf{Hauptspeicher}
+			\item \texttt{deleteMin}: Die \texttt{deletion queue} hält die \textbf{kleinsten Elemente jeder Sequenz}; das kleinste Element der \texttt{deletion queue} oder der \texttt{insertion queue}, welches \textbf{immer im Hauptspeicher gehalten wird}, wird entfernt und zurückgegeben; \textbf{amortisiert quasi \quotestyle{umsonst}}
 		\end{itemize}
 	\end{itemize}
 
@@ -489,7 +490,11 @@
 	\begin{itemize}
 		\item \textbf{Ziel}: Näherungsweises Lösen von NP-schweren Problemen (fast alle interessanten Optimierungsprobleme sind NP-schwer)
 		\item \textbf{Lösungsansätze}: Spezialisierung des Problems, Heuristiken, Approximationsalgorithmen
-		\item \textbf{Approximationsfaktor}: Obere Schranke $\rho$ für das Verhältnis von gefundener Lösung zu optimaler Lösung bei beliebiger Eingabe
+		\item \textbf{Approximationsfaktor}: Obere Schranke $\rho$ für das Verhältnis von gefundener Lösung zu optimaler Lösung bei beliebiger Eingabe (\quotestyle{Güte})
+		\item \textbf{APX (\quotestyle{approximable})}: Approximationsalgorithmus, der in \textbf{polynomieller Zeit} in der Eingabegröße eine Approximation mit \textbf{konstantem Approximationsfaktor} berechnet
+		\item \textbf{PTAS (\quotestyle{polynomial time approximation scheme})}: Approximationsalgorithmus, der eine $(1 \pm \epsilon)$-Approximation in \textbf{polynomieller Zeit} in der Eingabegröße berechnet
+		\item \textbf{FPTAS (\quotestyle{fully PTAS})}: PTAS Algorithmus, welcher zusätzlich \textbf{polynomiell} in $\frac{1}{\epsilon}$ ist
+		\item Jeder \textbf{FPTAS} Algorithmus ist ein \textbf{PTAS} Algorithmus ist ein \textbf{APX} Algorithmus!
 	\end{itemize}
 
 	\subsection{List Scheduling}
@@ -521,8 +526,8 @@
 	
 	\begin{itemize}
 		\item \textbf{Beobachtung}: Für \textbf{einfache Instanzen NP-schwerer Probleme} lassen sich u.U. exakte Lösungen finden
-		\item \textbf{Einfachheit}: Charaketerisierung eines Problems anhand eines weiteren Parameters \textbf{k (Ausgabegröße)}
-		\item \textbf{Fixed Parameter Tractable (FPT)}: Menge berechenbarer Sprachen bzgl. Parameter $k$, für die ein Algorithmus mit Laufzeit $O(f(k) * p(n))$ existiert
+		\item \textbf{Einfachheit}: Charakterisierung eines Problems anhand eines weiteren Parameters \textbf{k (Ausgabegröße)}
+		\item \textbf{Fixed Parameter Tractable (FPT)}: Menge berechenbarer Sprachen bzgl. Parameter $k$, für die ein Algorithmus mit Laufzeit $O(f(k) * p(n))$ existiert, wobei \textbf{f eine Funktion ist die nur von k abhängt und p ein Polynom}
 		\item \textbf{Entwurfstechniken zur Algorithmenentwicklung anhand von Vertex Cover}:
 		\begin{itemize}
 			\item \textbf{Systematische Suche mit beschränkter Tiefe}:
@@ -615,6 +620,7 @@
 		\item \textbf{Idee}: Sortiere separat alle geraden und ungeraden Suffixe und mische dann die sortierten Ergebnisse
 		\item \textbf{Problem}: Mischen ist zu schwer
 		\item \textbf{Lösung}: \textbf{Asymmetrisches Divide-and-Conquer}, sortiere alle Suffixe mit einer Länge die ein Vielfaches von 3 ist separat von allen anderen
+		\item \textbf{Klausur}: Suffix Array aus Suffix Tree \textbf{von Hand}: \textbf{Nummerierte Tabelle der Suffixe in lexikographischer Ordnung} aus dem Suffix Tree
 	\end{itemize}
 
 	\begin{enumerate}
@@ -633,7 +639,16 @@
 	
 	\begin{itemize}
 		\item \textbf{Wörterbuchbasiert}: Baue Wörterbuch aus Zeichenkombinationen und ersetze Text durch kürzere Worte des Wörterbuchs
-		\item \textbf{Lempel-Ziv Kompression (LZ)}: Wörterbuchgenerierung bei Codierung und Decodierung ohne explizite Speicherung
+		\item \textbf{Lempel-Ziv Kompression (LZ)}:
+		\begin{itemize}
+			\item Wörterbuchgenerierung bei Codierung und Decodierung ohne explizite Speicherung
+			\item \textbf{Verfahren}:
+			\begin{itemize}
+				\item Initialisiere den Anfang des Wörterbuches mit einem \textbf{grundlegendem Alphabet} (z.B einzelne Groß- und Kleinbuchstaben, sodass ein einzelnes a direkt kodiert werden kann)
+			 	\item Wähle den \textbf{längstmöglichen passenden Code} aus dem Wörterbuch, kodiere damit die entsprechenden Zeichen und speichere daraufhin den Code konkateniert mit dem nächsten folgenden Zeichen als \textbf{neues Wort im Wörterbuc}
+			 	\item \textbf{Beispiel}: Sei AA im Wörterbuch vorhanden, AAB nicht - kodiere das AA von AAB mit dem passenden Code und speichere AAB als neues Wort im Wörterbuch
+			 \end{itemize} 
+		\end{itemize}
 	\end{itemize}
 
 	\newpage
@@ -691,7 +706,7 @@
 	\begin{itemize}
 		\item \textbf{Streckenschnitt per Plane-Sweeping}:
 		\begin{itemize}
-			\item Waagrechte \textbf{Sweep-Line} $l$ läuft von oben nach unten
+			\item Waagrechte \textbf{Sweep-Line} $l$ läuft von oben nach unte
 			\item Speichere Segmente, die $l$ schneiden und finde deren Schnittpunkte mit den bisherigen Segmenten
 		\end{itemize}
 		\item \textbf{2D Konvexe Hülle}: Finde ein konvexes Polygon was eine Menge aus Punkten an den äußersten Punkten umschließt
@@ -725,8 +740,8 @@
 		\item \textbf{Beispiele}: Paging, Routing, Scheduling, Ad Placement
 		\item \textbf{Analyse}:
 		\begin{itemize}
-			\item Vergleiche Online-Algorithmus mit optimalem Offline-Algorithmus
-			\item $C_{ALG}$ ist die schlechtmöglichste relative Performance
+			\item Vergleiche Online-Algorithmus mit \textbf{optimalem Offline-Algorithmus}, $C_{ALG}$ ist die schlechtmöglichste Performance \textbf{relativ zum Optimum}
+			\item \textbf{Bsp.:} Man hat den Sommer über ein Schiff gemietet und muss es entweder \textbf{vor jeder Fahrt 1h} lang vorbereiten oder es \textbf{einmalig 24h} lang überholen, sodass die Vorbereitung danach nur 15 Minuten dauert. Die schlechtmöglichste relative Performance im Falle der Überholung hat man, wenn man das Schiff \textbf{nie nutzt}, d.h: $C_{ALG} = \frac{24h}{0h} = \infty$
 		\end{itemize}
 	\end{itemize}
 
