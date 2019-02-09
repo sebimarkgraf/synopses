@@ -6,12 +6,6 @@
 
 \section{Mathematische Grundlagen}
 
-\newcommand{\SO}{\ensuremath{\mathit{SO}(3)}\xspace}
-\newcommand{\SE}{\ensuremath{\mathit{SE}(3)}\xspace}
-\newcommand{\myMatrix}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
-\newcommand{\myVector}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
-\newcommand{\quaternionen}{\ensuremath{\mathbb{H}}\xspace}
-
 \subsection{Definitionen}
 \textbf{Kinematik} analysiert die Geometrie eines Manipulators oder Roboters. Das essentielle Konzept ist die Position.\\
 \textbf{Statik} behandelt Kräfte und Momente, die sich auf den ruhenden Mechanismus auswirken. Dass essentielle Konzept
@@ -126,14 +120,14 @@ Quaternionen \(q = {(a, u)}^T,\ r = {(b,v)}^T\).
 Dafür werden Einheitsquaternionen \(\mathbb{S}^3 = \{q \in \quaternionen\ \lvert\ {\|{q}\|}^2 = 1\}\) definiert.\\
 Definiere Rotation um Achse \(a,\ \|a\| = 1\) und Winkel \(\phi\) durch \(q = (\cos \frac{\phi}{2}, a \sin \frac{\phi}{2})\)\\
 Dann Rotatoin des Punkes \(v\) mit \(v' = qvq^{-1} = qvq^*\).\\
-Vorgehen: (an \(p = (1, 0, 9)^T,\ a = (1, 0, 0)^T,\ \phi = 90°\))
+Vorgehen: (an \(p = (1, 0, 9)^T,\ a = (1, 0, 0)^T,\ \phi = \ang{90}\))
 \begin{enumerate}
 \item Darstellung von \(p\) als Quaternion \(v\) --- \(v = 0 + 1i + 0j + 9k\)
 \item Rotationsquaternion \(q\) --- \( q = \cos \frac{\phi}{2} + 1i \cdot \sin \frac{phi}{2} + 0j + 0k\)
 \item Konjugiertes Quaternion \(q^*\) --- \(q^* = \cos \frac{\phi}{2} - 1i \cdot \sin \frac{\phi}{2} - 0j -0k\)
 \item Rotation von \(v\) um \(q\) --- \(v_r = qvq^*\)
 \item Darstellung als Punkt \(p_r\) --- \(p_r = (1, -9, 0)^T\)
-\end{enumerate}\\
+\end{enumerate}
 
 \textbf{Interpolation SLERP}\\
 Interpoliere mit Hilfe von \(t \in [0, 1]\) und \(\langle q_1 \lvert q_2 \rangle = \cos \theta\)
