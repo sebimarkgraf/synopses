@@ -388,24 +388,40 @@
 	\textbf{Vorteile}:\\Explizite Darstellung der Lösung\\\\
 	\textbf{Nachteile}:\\Für große N \textbf{numerisch instabil}, Auswertung des Polynoms in $O(N^2)$, für neuen Wert muss alles \textbf{neu berechnet} werden
 	
-	\subsection{Hermite-Interpolation}
+	\subsection{Newton-Interpolation}
 	\textbf{Newton-Basis}:\\Zu den Stützstellen sei die Newton-Basis definiert als: $$\omega_0 \equiv 1,\ \omega_k(t) = (t - \xi_{k-1})\omega_{k-1}(t)$$
-	\textbf{Dividierte Differenzen}:\\Definiere rekursiv für alle $f[\xi_n] = f_n$:
+	\textbf{Polynom}:\\Polynom durch Interpolation besteht aus Newton-Basis und passenden Koeffizienten: $$p(x) = a_0 + a_1 * \omega_1 + ... + a_n * \omega_n$$
+	Berechnung der Koeffizienten erfolgt über \textbf{Dividierten Differenzen}.
+	\newpage
+	\noindent\textbf{Dividierten Differenzen}:\\
+	Seien folgende Funktionswerte an Stützstellen gegeben:
 	\begin{center}
-		$f[\xi_k,...,\xi_n] =
-		\begin{cases}
-			\frac{f[\xi_{k+1},...,\xi_n] - f[\xi_k,...,\xi_{n-1}]}{\xi_n - \xi_k} & \text{falls}\ \xi_k < \xi_n\\[8pt]
-			\frac{1}{(n-k)!}(\frac{d}{dt})^{n-k}f(\xi_n) & \text{falls}\ \xi_k = ... = \xi_n
-		\end{cases}$
+		\begin{tabular}{c | c c c}
+			n & 0 & 1 & 2\\
+			\hline
+			x & 1 & $\frac{3}{2}$ & 2\\
+			y & -1 & 0 & $\frac{1}{2}$
+		\end{tabular}
 	\end{center}
-	Das \textbf{Polynom} aus den \textbf{dividierten Differenzen} und der \textbf{Newton-Basis} ist damit: $$P_N(t) = \sum^N_{n=0}f[\xi_0,...,\xi_n]\omega_n(t)$$
+	Berechne paarweise nach folgendem Schema:
+	\begin{center}
+		\begin{tabular}{l l l}
+			$y[1] = -1$ 				&																		&\\
+										& $y[1, \frac{3}{2}] = \frac{0 - (-1)}{\frac{3}{2} - 1} = 2$ 			&\\
+			$y[\frac{3}{2}] = 0$		& 																		& $y[1, \frac{3}{2}, 2] = \frac{1 - 2}{2 - 1} = -1$\\
+										& $y[\frac{3}{2}, 2] = \frac{\frac{1}{2} - 0}{2 - \frac{3}{2}} = 1$		&\\
+			$y[2] = \frac{1}{2}$		&																		&
+		\end{tabular}
+	\end{center}
+	Das \textbf{oberste Ergebnis jeder Spalte} ergibt einen \textbf{Koeffizienten}, d.h.: $a_0 = -1, a_1 = 2, a_2 = -1$. Damit:
+	$$p(x) = -1 + 2(x - 1) -1(x - 1)(x - \frac{3}{2})$$
 
 	\subsection{Neville-Schema}
-	Über das Neville-Schema kann der Funktionswert an einer nicht gegebenen Stelle rekursiv berechnet werden. Man berechnet hierzu jeweils das eindeutig bestimmte Interpolationspolynom $p(f|\xi_i ... \xi_j)$ k-ten Grades zu den k + 1 Stützpunkten.\\\\ Die Funktionswerte der Stützpunkte sind bereits gegeben, weswegen für alle $\xi_i$ der Wert $p(f|\xi_i)$ durch $f_i$ gegeben ist. Die Rekursionsformel der weiteren Einträge lautet:
+	\textbf{Alternativ zum Newton-Schema}:\\Berechnung \textbf{eines Funktionswertes} einer bestimmten Stelle \textbf{statt des kompletten expliziten Polynoms}. \textbf{Rekursionsformel} für den Funktionswert des Interpolationspolynoms an einer bestimmten Stelle mit \textbf{Berücksichtigung der Stützstellen} $i$ bis $j$:
 	\begin{center}
-		$p(f|x_i,...,x_j)(x) = \frac{(x - x_i) p(f|x_{i + 1},...,x_j)(x) - (x - x_j)p(f|x_i,...,x_{j-1})(x)}{x_j - x_i}$
+		$p[x_i,...,x_j](x) = \frac{(x - x_i) p[x_{i + 1},...,x_j](x) - (x - x_j)p[x_i,...,x_{j-1}](x)}{x_j - x_i}$
 	\end{center}
-	Damit ist ein rekursiver Aufbau folgendermaßen beispielhaft möglich (gesucht ist der Funktionswert an Stelle $x = 4$):\\
+	Rekursives Schema (gesucht ist der Funktionswert an Stelle $x = 4$):\\
 	\begin{center}
 		\begin{tabular}{c | c l c c}
 			$\xi_i$ & $f(\xi_i)$ & & &\\
@@ -416,7 +432,7 @@
 			3 & 1 & $\frac{4 - 2}{3 - 2} * 1 - \frac{4 - 3}{3 - 2} * 0 = 2$ & 5 & 11 = $P_3(4)$
 		\end{tabular}
 	\end{center}
-	Das Neville-Schema liefert \textbf{nicht das eigentliche Interpolationspolynom}, sondern den \textbf{Funktionswert an einer bestimmten Stelle}! Um das eigentliche Polynom zu erhalten müssen Alternativverfahren wie das Newtonsche verwendet werden. Dieses ist aufwendiger, lohnt sich jedoch, wenn viele Stellen ausgewertet werden müssen. Das Neville-Schema ist gut für wenige Suchen geeignet. Für einen weiteren Stützpunkt wird hier \textbf{eine zusätzliche Zeile berechnet, die alten Ergebnisse bleiben valide!}
+	Das Newton-Schema ist aufwendiger, lohnt sich jedoch, wenn viele Stellen ausgewertet werden müssen. Das Neville-Schema ist gut für wenige Suchen geeignet. Für einen weiteren Stützpunkt wird hier \textbf{eine zusätzliche Zeile berechnet, die alten Ergebnisse bleiben valide!}
 	\newpage
 	\section{Splines}
 	\textbf{Idee}:\\Interpoliere nicht mit einem passenden Polynom sondern setze die Lösung mit mehreren Polynomen stückweise zusammen. Diese Funktion wird als Spline bezeichnet (nicht ein einzelnes Stück davon!).\\\\\textbf{Splines sind in der Regel selbst keine Polynome!} Eine einfache Lösung sind \textbf{lineare Splines}, bei denen zwischen den Stützpunkten linear verbunden wird - diese sind jedoch nicht glatt und an den Stützpunkten nicht differenzierbar.
@@ -443,11 +459,9 @@
 	\end{itemize}
 	Weiter seien die \textbf{Momente} $\mu_n = S''(\xi_n)$ eines Interpolationssplines $S \in \mathscr{S}_3(\Xi)$ zu f definiert als $\mu_n = S''(\xi_n)$. Die Momente ergeben sich durch das Lösen von Gleichungssystemen passend zu den Randbedingungen (vgl. Skript, nicht klausurrelevant).\\\\
 	\textbf{Berechnung eines Splines durch 3 Punkte}:\\
-	Erschließt sich direkt aus den Randbedingungen (ist laut Aussage in der Übung nicht klausurrelevant).
-	\section{Trigonometrische Interpolation und Fast"=Fourier"=Transformation (FFT)}
-	\textbf{Anwendung}:\\Datenkompression (weniger Werte speichern, bei Bedarf interpolieren), Schwingungsanalyse\\\\
-	\textbf{Aufwand}:\\O(N log N)
-	
+	\textbf{Gegeben}:\\Spline-Polynom vor und nach dem \textbf{mittleren Stützpunkt} mit variablen Koeffizienten.\\\\
+	\textbf{Vorgehen}:\\Berechne für beide Spline-Polynome den \textbf{Funktionswert}, die \textbf{erste Ableitung} und die \textbf{zweite Ableitung} an der mittleren Stützstelle, setze die entsprechenden Ergebnisse gleich und \textbf{löse das LGS für die Koeffizienten}.
+
 	\section{Numerische Integration}
 	\textbf{Problem}:\\Eine Stammfunktion für die reguläre Integration kann nicht immer gefunden werden, deshalb wird auf numerische Verfahren zurückgefallen.\\\\
 	\textbf{Idee}:\\Approximiere den Wert des Integrals mit dem Wert Q(f) einer Quadraturformel Q.
