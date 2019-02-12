@@ -1,0 +1,67 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "robotik"
+%%% End:
+
+\section{Bahnsteuerung}
+
+\subsection{Grundproblem}
+Gegeben:
+\begin{itemize}
+\item \(S_{\mathit{Start}}\): Zustand zum Startzeitpunkt
+\item \(S_{\mathit{Ziel}}\): Zustand zum Zielzeitpunkt
+\end{itemize}
+Gesucht:
+\begin{itemize}
+\item \(S_i\): Zwischenzustände, damit die Trajektorie \enquote{glatt} wird.
+\end{itemize}
+
+Zustände können in 2 Räumen dargestellt werden:
+\begin{itemize}
+\item Konfigurationsraum: \(\realnumbers^n\) nahe an der Ansteuerung der Teilsysteme
+\item Arbeitsraum: \(\realnumbers^3\), \SE näher an der zu lösenden Aufgabe
+\end{itemize}
+
+
+\subsection{Bahnsteuerung}
+\textbf{Konfigurationsraum}\\
+Funktion der Gelenkwinkelzustände. Werden entweder synchron oder asynchron abgefahren.\\
+
+\textbf{Arbeitsraum}\\
+Funktion der Zustände des Roboters. Continuous Path: Endeffektor folgt Lage und Orientierung einer Bahn.\\
+
+
+
+\subsection{Programmierung der Schlüsselpunkte}
+Anfahren markanter Punkte der Bahn mit manueller Steuerung
+
+
+\subsection{Interpolationsarten}
+\textbf{Punkt-zu-Punkt (PTP)}\\
+Roboter führt Punkt zu Punkt Bewegung aus. Einfache Berechnung\\
+
+\textbf{PTP mit Rampenprofil}\\
+Einfache Art der Berechnung. Aufschaltung der Beschleunigung kann zu Eigenschwingungen führen.\\
+
+\textbf{PTP mit Sinoidenprofil}\\
+Weichere Bewegung und geringere Beanspruchung. Dauert aber länger.\\
+
+\textbf{Linearinterpolation}\\
+Interpolation zwischen je 2 Teiltrajektorien.\\
+
+\textbf{Zirkularinterpolation}\\
+Benötigt Stützpunkt und interpoliert zu Kreisbahn.\\
+
+\textbf{Segementweise Bahninterpolation}\\
+Gleiche Endbedingungen der Teiltrajektorien aneinander an.\\
+z.B. mit Splines
+
+
+\subsection{Approximation}
+\textbf{Bézierkurven}\\
+Verlaufen nicht durch Punkte, sondern werden nur von diesen beeinflusst.\\
+
+\textbf{De-Casteljau-Algorithmus}\\
+Annäherung an die Bézierkurve\\
+Teile Bézierkurve und stelle sie durch 2 aufeinanderfolgende dar.
