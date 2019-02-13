@@ -337,12 +337,18 @@
 	\end{center}
 	
 	\subsection{Iterationsmatrizen}
-	\textbf{Idee}:\\Stelle Iterationsverfahren in Matrizenschreibweise dar. Diese Iterationsmatrix ergibt sich aus der eigentlichen Funktionsgleichung und kann als gegeben betrachtet werden.\\\\
-	\textbf{Vorkonditionierung}:\\Um die Kondition der Matrix A zu verbessern, wird ein Vorkonditionierer $B \in \realnumbers^{N\times N}$ gewählt. Hierzu zerteilen wir A in eine strikte untere linke Dreiecksmatrix L, eine strikte obere rechte Dreiecksmatrix R und eine Diagonalmatrix D mit $A = L + D + R$. Damit ist der Vorkonditionierer \textbf{für das Jacobi-Verfahren} $B = D^{-1}$ und für das \textbf{Gauß-Seidel-Verfahren} $B = (L + D)^{-1}$. Für die vorkonditionierte Aufgabe gilt damit:
-	\begin{center}
-		$Ax = b \Leftrightarrow BAx = Bb$
-	\end{center}
-	\textbf{Konvergenz}:\\Das Iterationsverfahren konvergiert genau dann für jeden Startvektor $x_0$, falls der Spektralradius (betragsmäßig größter Eigenwert) der Iterationsmatrix kleiner als 1 ist.
+	Iterationsverfahren können für Beweise bzgl. des Konvergenzverhaltens in Matrixform geschrieben werden. Hierzu zerteilen wir A in eine \textbf{strikte untere linke Dreiecksmatrix} $L$, eine \textbf{strikte obere rechte Dreiecksmatrix} $R$ und eine \textbf{Diagonalmatrix} $D$ mit $$A = L + D + R$$
+	Die \textbf{Iterationsmatrizen} für die einzelnen Verfahren werden auch als \textbf{Vorkonditionierer} bezeichnet und entsprechen im \textbf{Jacobi-Verfahren} $D^{-1}$ und im \textbf{Gauß-Seidel-Verfahren} $(D + L)^{-1}$.\\\\
+
+	\noindent\textbf{Für das Jacobi-Verfahren gilt damit}:
+	$$x^{k+1} = x^k + D^{-1}(b - Ax^k)$$
+
+	\noindent\textbf{Für das Gauß-Seidel-Verfahren gilt damit}:
+	$$x^{k+1} = x^k + (D + L)^{-1}(b - Ax^k)$$
+
+	\subsection{Konvergenz}
+	Das Iterationsverfahren konvergiert genau dann für jeden Startvektor $x_0$, falls der Spektralradius (betragsmäßig größter Eigenwert) der Iterationsmatrix kleiner als 1 ist.
+
 	\newpage
 	\section{Iterationsverfahren für nichtlineare Gleichungssysteme}
 	\subsection{Newton-Verfahren}
@@ -473,8 +479,8 @@
 
 	\subsection{Fehler einer Quadratur}
 	Der \textbf{Fehler einer Quadratur} $Q_\Xi(f)$ ist definiert als $$|Q_\Xi(f) - \int^b_af(t)dt|$$
-	Für jede Quadratur die für Polynome $P \in \polynomials_{K-1}$ exakt ist, existiert mit $C > 0$ eine \textbf{obere Schranke des Fehlers}:
-	$$|Q_\Xi(f) - \int^b_af(t)dt| \leq C(b - a)^{K+1}||(\frac{d}{dt})^Kf||$$
+	Für jede Quadratur die für Polynome $P \in \polynomials_{K-1}$ exakt ist, existiert mit $C > 0$ eine \textbf{obere Schranke des Fehlers} für $f \in C^{K+1}[a,b]$:
+	$$|Q_\Xi(f) - \int^b_af(t)dt| \leq C(b - a)^{K+1}\max_{t\in[a,b]}||(\frac{d}{dt})^{K+1}f||$$
 
 	\subsection{Wichtige Quadraturformeln}
         Trapezregel (Ordnung $p = 2$):\hfill$\int_{a}^{b} f(x) = \frac{b - a}{2} (f(a) + f(b))$ \\
@@ -484,7 +490,7 @@
 
 	\subsection{Summierte Trapezregel}
 	\textbf{Ansatz (Summierte Quadraturformel)}:\\Zerlege das Intervall $[a, b]$ in gleich große Stücke und wende die Quadraturformel auf jedem Teilinterval an.\\\\
-	\textbf{Summierte Trapezregel}:\\Zerlege Flächen unter einer Kurve im gegebenen Intervall in Trapeze. Im Vergleich zu FFT: FFT zerlegt ein Signal in verschiedene Frequenzanteile.
+	\textbf{Summierte Trapezregel}:\\Zerlege Flächen unter einer Kurve im gegebenen Intervall in Trapeze.
 
 	\newpage
 	\section{Integrationsverfahren für gewöhnliche Differentialgleichungen}
