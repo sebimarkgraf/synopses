@@ -1,0 +1,119 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "robotik"
+%%% End:
+
+\section{Greifplanung}
+
+\subsection{Grifftaxonomie}
+\begin{itemize}
+\item Vereinfachung der Griffsynthese
+\item Benchmark für die Evaluierung von Roboterhänden
+\item Grundlagen für das Design von Roboterhänden
+\item Einsatz bei autonomer Greifplanung
+\end{itemize}
+
+\textbf{Cutkosky Grifftaxanomie}\\
+16 Grifftypen, unterschieden in Form des Objekts und Fingerstellung\\
+Hierarchisch\\
+Oberste Unterscheidung: Kraft und Präzisionsgriffe
+
+\subsection{Greifanalyse und Greifsynthese}
+\textbf{Griff}\\
+Eine Menge von Kontaktpunkten auf der Oberfläche eines Objekts, die potentielle Bewegungen des Objekts unter dem
+Einfluss externer Kräfte einschränken bzw. kompensieren\\
+
+\textbf{Greifanalyse}\\
+Gegeben: Objekt und ein Griff als Menge von Kontaktpunkten\\
+Gesucht: Aussagen zur Stabilität des Griffs unter Berücksichtigung von Nebenbedingungen\\
+
+\textbf{Greifsynthese}\\
+Gegeben: Objekt und eine Menge von Nebenbedingungen\\
+Gesucht: Eine Menge von Kontaktpunkten
+
+\subsection{Griffmodelle}
+\subsubsection{Wrenchvektor}
+In Kontaktpunkt \(p_i\) wirkenden Kräfte \(f_i\) und Momente \(\tau_i\) mit \(i \in \{x, y, z\}\) in einem Vektor,
+genannt Wrenchvektor, \(w\) zusammengefasst.
+
+\subsubsection{Greifmatrix}
+Darstellung eines räumlichen Griffes durch Wrenchvektoren mit \(m\) Kontaktpunkten
+\[G = \left[ {}^1w_n, {}^1w_t, {}^1w_{\theta}, \ldots, {}^mw_n, {}^mw_t, {}^mw_{\theta}\right] \in \realnumbers^{6\times3m}\]
+
+\subsubsection{Fingerspitzengriff}
+Greifen nur durch geeignete Anordnung der Kontaktpunkte\\
+Arten der Kontakte:
+\begin{itemize}
+\item Punktkontakt ohne Reibung --- Kraft normal zur Oberfläche
+\item Starrer Punktkontakt mit Reibung --- Kraft normal und tangential zur Fläche
+\item Nicht starrer Punktkontakt mit Reibung --- Kraft normal und tangential zur Fläche, sowie axiale Momente
+\end{itemize}
+
+\subsubsection{Gleichgewichtsgriff}
+Griff ist ein Gleichgewichtsgriff, wenn die Summe aller Kräfte \(f_i\) und Momente \(\tau_i\), die auf das gegriffene
+Objekt wirken, gleich Null ist.
+
+\subsubsection{Kraftgeschlossene Griffe}
+Ausgleichen von nicht bekannten externen Einflüssen durch Kräfte der Finger.\\
+mathematisch
+\begin{align}
+  \forall e = (f_x, f_y, f_z, \tau_x, \tau_y, \tau_z)^T \in \realnumbers^6 \\
+  \exists c \in \realnumbers^{3m}, \quad c \neq 0: \quad G \cdot c + e = 0
+\end{align}
+
+\subsubsection{Formgeschlossene Griffe}
+Stärkere Einschränkungen als kraftgeschlossender Griff\\
+Nur von der Position der Kontaktpunkte auf der Oberfläche abhängig\\
+Keine Berücksichtigung von Normal-/Tangentialkräften oder Drehmomenten
+
+\subsubsection{Stabile Griffe}
+Nachgiebigkeit von Fingern und Kräften mit Hilfe von Potentialfunktion \(V\)
+\[V : \realnumbers^6 \rightarrow \realnumbers^6\]
+Potentielle Energie in Abhängigkeit von Lage und Orientierung des Objektes
+
+Griff stabil, falls für kleine Änderungen \(\delta q = (\delta_x, \delta_y, \delta_z, \delta_\alpha,\delta_\beta, \delta_\gamma) \in
+\realnumbers^6 \neq 0\) der Lage
+\[\forall \delta q \in \realnumbers^6: \quad \delta V > 0\]
+
+
+\subsection{Objektklassen}
+\begin{itemize}
+\item Bekannte Objekte
+\item Bekannte Objektklassen
+\item Unbekannte Objekte
+\end{itemize}
+
+\subsection{Griffsynthese}
+\subsubsection{Durch Vorwärtsplanung}
+Plane in Simulation, bestimme Anfahrspunkt und Anfahrtsrichtung\\
+Hand nähert sich, bis Kontakt und Finger schließen sich\\
+Evaluation des Kontaktes\\
+
+
+\subsubsection{Zufallsbasierte Vorwärts-Greifplanung}
+Erzeuge Zufällig Griffe\\
+Ermittle Kontakt\\
+Evaluiere Hypothesen\\
+
+\subsubsection{Griffsynthese auf Objektteilen}
+Bei komplexer Geometrie schwierig einen Griff zu berechnen\\
+Also berechne Kandidaten auf Teilen eines Objekts\\
+
+\textbf{Mit Formprimitiven}\\
+Bestimme Formprimitive aus Objektdimensionen und finde dadurch Griffe\\
+
+\textbf{Box-basiert}\\
+Approximiere Objektgeometrie durch Boxen\\
+Erzeuge Hypothesen für Boxen\\
+
+\textbf{Mit Superquadriken}\\
+Parametrisierte Funktionen, die die Form des geometrischen Objektes definieren\\
+Griffhypothese für jede Superquadrik\\
+
+\textbf{Mit medialen Achsen}\\
+Untersuche nur \enquote{geometrisch sinnvolle} Griffe\\
+Mediale Achse ist Vereinigung der Mittelpunkte aller enthaltenen Kugeln\\
+Beschreibt topologisches Skelett des Objekts\\
+
+
