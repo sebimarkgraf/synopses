@@ -101,9 +101,9 @@
   		\item \textbf{Funktionsweise}:
   		\begin{itemize}
   			\item Zyklisches Array $B$ von $C + 1$ doppelt verketteten Listen (Buckets)
-  			\item \texttt{insert}: Füge Element mit Priorität $p$ in Zelle $p mod (C + 1)$ ein
+  			\item \texttt{insert}: Füge Element mit Priorität $p$ in Zelle $p\ mod (C + 1)$ ein
   			\item \texttt{decreaseKey}: Entferne Element aus seiner Liste und füge es mit der geänderten Priorität wieder ein
-  			\item \texttt{deleteMin}: Beginne bei Bucket $min$; falls dieser leer ist, inkrementiere $min$ und wiederhole
+  			\item \texttt{deleteMin}: Beginne bei Bucket $min$; falls dieser leer ist, inkrementiere $min$ und wiederhole; entferne ein beliebiges Element aus dem ersten nicht-leeren Bucket
   		\end{itemize}
   		\item Nützlich für \textbf{Dijkstras Algorithmus}
   	\end{itemize}
@@ -119,9 +119,12 @@
   			\item Wähle $min$ als das zuletzt aus der Queue entfernte Element
   			\item \texttt{insert}: Betrachte binäre Repräsentation des Elements; speichere das Element $v$ in $B(i)$, falls sich $v$ und $min$ zuerst an der i-ten Stelle unterscheiden
   			\begin{itemize}
+  				\item Die gesuchte Stelle ist das \textbf{höchstwertige unterschiedliche} Bit!
   				\item Beginne von rechts ab $0$ zu zählen; falls identisch, ist das Ergebnis $-1$
-  				\item Beispiel: $1010100$ und $1010110 \Rightarrow$ Unterschied an Stelle $1$
-  				\item Beispiel: $11001010$ und $11000101 \Rightarrow$ Unterschied an Stelle $3$
+  				\item Beispiel: $$\begin{array}{c c c c c c c c}
+  					1&1&0&0&1&0&0&0\\
+  					1&1&0&0&0&1&1&1
+  				\end{array}$$ $\Rightarrow$ Unterschied an Stelle $3$
   			\end{itemize}
   			\item \texttt{deleteMin}:
   			\begin{itemize}
@@ -286,7 +289,7 @@
 			\item Funktion $f$, die jeder Kante einen Wert \textbf{zwischen 0 und der Kapazität} zuordnet
 			\item Wert eines Flows \textbf{val(f)} entspricht dem gesamten ausgehenden Flow der aus $s$ kommt und in $t$ mündet
 			\item \textbf{Metapher}: Netzwerk als Rohrsystem zum Wassertransport
-			\item Existiert auf einem Pfad von s zu t jeweils eine Kante, deren Kapazität komplett ausgereizt wird, so handelt es sich um einen \textbf{Blocking Flow}
+			\item Reizt ein Flow auf einem Pfad von s zu t jede Kapazität aus, so handelt es sich um einen \textbf{Blocking Flow}
 			\item \textbf{Flow Conservation} bedeutet, dass \textbf{nur die Quelle Flow erzeugt} und \textbf{nur die Senke Flow aufnimmt}
 			\item \textbf{Ziel}: Flow mit maximalem Wert finden (Transportmaximierung)
 		\end{itemize}
@@ -313,6 +316,7 @@
 				\item Passe die Kapazitäten aller Kanten an (erzeugt \textbf{Residualgraph}) und wiederhole den Prozess mit dem neuen Graph
 				\item Sobald es keinen augmentierenden Pfad mehr gibt, ist der Gesamtflow der \textbf{Max Flow}
 			\end{enumerate}
+			\item \textbf{Anmerkung}: Beim Finden eines möglichen Pfades darf auch Flow \textbf{entgegen einer Kante fließen}, wodurch der Flow auf dieser Kante \textbf{reduziert} wird
 		\end{itemize}
 		\newpage
 		\item \textbf{Dinitz Algorithmus}
@@ -645,7 +649,7 @@
 			\item \textbf{Verfahren}:
 			\begin{itemize}
 				\item Initialisiere den Anfang des Wörterbuches mit einem \textbf{grundlegendem Alphabet} (z.B einzelne Groß- und Kleinbuchstaben, sodass ein einzelnes a direkt kodiert werden kann)
-			 	\item Wähle den \textbf{längstmöglichen passenden Code} aus dem Wörterbuch, kodiere damit die entsprechenden Zeichen und speichere daraufhin den Code konkateniert mit dem nächsten folgenden Zeichen als \textbf{neues Wort im Wörterbuc}
+			 	\item Wähle den \textbf{längstmöglichen passenden Code} aus dem Wörterbuch, kodiere damit die entsprechenden Zeichen und speichere daraufhin den Code konkateniert mit dem nächsten folgenden Zeichen als \textbf{neues Wort im Wörterbuch}
 			 	\item \textbf{Beispiel}: Sei AA im Wörterbuch vorhanden, AAB nicht - kodiere das AA von AAB mit dem passenden Code und speichere AAB als neues Wort im Wörterbuch
 			 \end{itemize} 
 		\end{itemize}
@@ -749,6 +753,15 @@
 	\section{Laufzeitübersicht}
 	\label{lz:sec:laufzeituebersicht}
 	\textbf{Es gelte allgemein für Graphen: $n = |V|$ und $m = |E|$}
+
+	\subsection{Verschiedenes}
+	\label{lz:sub:verschiedenes}
+	
+	\begin{itemize}
+		\item \textbf{Breitensuche}: $O(|V| + |E|)$
+		\item \textbf{Tiefensuche}: $O(|V| + |E|)$
+	\end{itemize}
+
 	\subsection{Adressierbare Prioritätslisten}
 	\label{lz:sub:adressierbare_prioritaetslisten}
 	
