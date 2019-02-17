@@ -338,13 +338,13 @@
 	
 	\subsection{Iterationsmatrizen}
 	Iterationsverfahren können für Beweise bzgl. des Konvergenzverhaltens in Matrixform geschrieben werden. Hierzu zerteilen wir A in eine \textbf{strikte untere linke Dreiecksmatrix} $L$, eine \textbf{strikte obere rechte Dreiecksmatrix} $R$ und eine \textbf{Diagonalmatrix} $D$ mit $$A = L + D + R$$
-	Die \textbf{Iterationsmatrizen} für die einzelnen Verfahren werden auch als \textbf{Vorkonditionierer} bezeichnet und entsprechen im \textbf{Jacobi-Verfahren} $D^{-1}$ und im \textbf{Gauß-Seidel-Verfahren} $(D + L)^{-1}$.\\\\
+	Die einzelnen Verfahren besitzen \textbf{Vorkonditionierer B} und damit \textbf{Iterationsmatrizen T}.\\\\
 
-	\noindent\textbf{Für das Jacobi-Verfahren gilt damit}:
-	$$x^{k+1} = x^k + D^{-1}(b - Ax^k)$$
+	\noindent\textbf{Für das Jacobi-Verfahren gilt}:
+	$$B = D^{-1}, T = D^{-1}(D - A)$$$$x^{k+1} = x^k + D^{-1}(b - Ax^k)$$
 
 	\noindent\textbf{Für das Gauß-Seidel-Verfahren gilt damit}:
-	$$x^{k+1} = x^k + (D + L)^{-1}(b - Ax^k)$$
+	$$B = (D + L)^{-1}, T = -(D + L)^{-1}R$$$$x^{k+1} = x^k + (D + L)^{-1}(b - Ax^k)$$
 
 	\subsection{Konvergenz}
 	Das Iterationsverfahren konvergiert genau dann für jeden Startvektor $x_0$, falls der Spektralradius (betragsmäßig größter Eigenwert) der Iterationsmatrix kleiner als 1 ist.
