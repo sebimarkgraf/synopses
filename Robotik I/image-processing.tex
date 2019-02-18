@@ -1,0 +1,117 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "robotik"
+%%% End:
+
+\section{Bildverarbeitung}
+Durch Sehen dem Roboter die Wahrnehmung der Umwelt wahrnehmen\\
+Bilderfassung: Hardware\\
+Bildverarbeitung: überwiegend Software\\
+
+\subsection{Bildrepräsentation}
+Bildkoordinaten
+\begin{itemize}
+\item \(u\) horizontal
+\item \(v\) vertikal
+\item Ursprung oben links
+\item Einheit: Pixel
+\end{itemize}
+
+Monochrombild: \(\mathit{Img}: [0 \cdots n - 1] \times [0 \cdots m-1] \rightarrow [0\dots q\)\\
+Farbbild: \(\mathit{Img}(u,v) = (r,g,b)^T \in \realnumbers^3\)
+
+\subsection{Kameramodell}
+Einfachstes Modell: Lochkamera\\
+\textbf{Koordinatensysteme}\\
+\begin{itemize}
+\item Hauptachse: Gerade durch das Projektionszentrum, rechtwinklig zur Bildebene
+\item Hauptpunkt: Schnitt der Hauptachse mit der Bildebene
+\item Bildkoordinaten: 2D-Koordinaten \((u, v)\) eines Punktes im Bild. Einheit: Pixel
+\item Kamerakoordinatensystem: 3D-Koordinaten \((x, y, z)\) eines Punktes relativ zur Kamera.
+\item Weltkoordinatensystem: 3D-Basiskoordinatensystem der Weltkoordinaten
+\end{itemize}
+
+\textbf{Bildgenerierung}\\
+\[\myVector{u \\ v} = \frac{f}{z}\myVector{x \\ y}\]
+
+\textbf{Erweiterung zu unabhängigen Brennweiten}\\
+\[\myVector{u \\ v} = \myVector{c_x \\ c_y} + \frac{1}{z}\myVector{f_x \cdot x \\ f_y \cdot y}\]
+
+\textbf{Erweiterung mit Kalibriermatrix}\\
+\[\myVector{u \cdot z\\ v \cdot z\\ z} = K \myVector{x \\ y \\ z}, \qquad K = \myMatrix{f_x & 0 & c_x\\ 0 & f_y & c_y \\ 0 & 0 & 1}\]
+
+\subsection{Filteroperation}
+Operation auf einer Menge benachbarter Pixel, wird auf alle Pixel angewendet
+
+\subsection{Segmentierung}
+Aufteilung eines Bildes in aussagekräftige Segmente\\
+Jeder Pixel mindestens einem Segment zugeordnet
+
+\subsubsection{Schwellwertfilter}
+Definiere Schwellwert um Grauwertbild in binäres Bild zu segmentieren\\
+Alternativ Intervallschranken für Farbton
+
+\subsection{Morphologische Operatoren}
+\begin{itemize}
+\item Dilatation --- Vergrößere Pixel zu größeren Bereichen
+\item Erosion --- Entfernt vereinzelte Pixel und schwach zusammenhängende Pixelgruppen
+\end{itemize}
+
+\textbf{Öffnen}: Erosion danach Dilatation, entferne dünne Linien, außenliegende Objekte\\
+\textbf{Schließen}: Diltatation danach Erosion: Überbrückung kleiner Distanzen und Schließung von Löchern\\
+
+\subsection{Canny-Kantendetektor}
+Ziel: optimaler Kantendetektor
+\begin{itemize}
+\item Gute Detektion
+\item Gute Lokalisierung
+\item Minimale Antwort
+\end{itemize}
+
+Algorithmus:
+\begin{enumerate}
+\item Gauß-Filter \(\rightarrow\) Rauschunterdrückung
+\item Berechnung der Intensitätsgradienten
+\item Non-Maximum Suppression
+\item Double Threshold
+\item Kantenverfolgung mit Hystere
+\end{enumerate}
+
+Intensitätsgradienten mit Prewitt- oder Sobel-Filter
+
+
+\subsection{Visual Servoing}
+Visuelle Eingabedaten nutzen, um Bewegungen zu steuern, z.B. auf Grund von Modellfehlern oder anderen Ungenauigkeiten\\
+
+\textbf{Kamera-in-Hand}\\
+Kamera an Manipulator, Bewegungen des Manipulators beeinflussen Kamera\\
+
+\textbf{Externe (feste) Kamera}\\
+Beobachten der Bewegung (meist roter Ball)\\
+
+\textbf{Bildmerkmal}\\
+Ein Bildmerkmal \(s = (u,v)^T\) ist die Projektion eines 3D Punktes \(P (x, y, z)^T\) im Kamerabild\\
+Geschwindigkeiten direkt aus aktuellen und gewünschten Bildmerkmalen\\
+
+
+
+\subsection{Punktwolken}
+Diskrete Menge von 3D Punkten \(P = \{(X, C)\ |\ X \in \realnumbers^3,\ C \in [0 \ldots 255]^3 \subset \naturalnumbers^3_0\}\)
+\begin{itemize}
+\item \(X = (x, y, z)\) Ortsinformationen
+\item \(C = (r, g, b)\) Farbinformationen
+\end{itemize}
+Repräsentiert als 2D Array oder Vektor\\
+
+\textbf{Normalenschätzung}\\
+Kovarianzmatrix der k-Nachbarschaft erstellen \(C = \frac{1}{k} \sum_1^k (p_i - \bar{p}) \cdot (p_i - \bar{p})^T\)
+und berechne Eigenvektoren\\
+
+\textbf{Registrierung}\\
+Zusammenführen von Punktwolken aus verschiedenen Ansichten für das selbe Objekt
+z.B. mit iterative Closest Point\\
+Berechne Transformationen, sodass Punkte von B transformiert möglichst nahe an nächsten Punkten ovn A \\
+
+oder RANSAC
+
