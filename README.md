@@ -11,12 +11,12 @@ Dabei wird der Inhalt auf den Klausur relevanten Stoff beschränkt.
 ## In Erstfassung verfügbar
 * Algorithmen 2
 * Computergrafik
+* Robotik I
 
 ## Fassungen in Arbeit
 Diese befinden sich auf eigenen Branches bis zur Fertigstellung der Erstfassung
 * Programmierparadigmen
 * Sicherheit
-* Robotik I
 
 ## Mitarbeit
 Fehlerkorrekturen und Erweiterungen der bestehenden Zusammenfassungen sind gerne als Pull Request gesehen.
