@@ -1,0 +1,102 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "robotik"
+%%% End:
+
+\section{Roboterprogrammierung}
+Komplexe Umgebung \& viele Bewegungsfreiheitsgrade \(\rightarrow\) Programmierung?\\
+Klassische Roboterprogrammierung erfordert Experten + hohen Aufwand\\
+Besser: interaktiv oder durch beobachten des Menschen
+
+\subsection{Klassische Verfahren}
+\textbf{Kategorien}\\
+\begin{tabular}{lcc}
+  Ort & on-line & off-line\\
+      & Direkt am Roboter & Mit graphischer oder interaktiver Modelle\\
+  \\
+  Abstraktionsgrad & explizit & implizit\\
+      & Bewegungen direkt in Programmiersprache & Durch Aufgaben\\
+\end{tabular}\\
+
+\textbf{Arten}\\
+\begin{itemize}
+\item direkt
+\item textuell
+\item graphisch
+\item gemischte
+\end{itemize}
+
+\subsubsection{Direkte}
+\textbf{Direkte Programmierung}\\
+Durch Stopper an den Gelenkwinkeln \enquote{Bang-Bang}\\
+
+\textbf{Teach-in}\\
+Anfahren wichtiger Punkte mit Teachbox\\
+
+\textbf{Play-back}\\
+Einstellen des Roboters auf Zero-Force-Control und Speichern der Gelenkwinnkel\\
+
+\textbf{Master-Slave}\\
+Programmierung schwerer Roboter durch bewegen eines kleineren Roboters \(\rightarrow\) synchrone Ausführung\\
+
+\textbf{Sensorunterstützt}\\
+Erfassen der Werksstücke oder anzufahrender Punkte\\
+
+\subsubsection{Textuelle}
+Programmierung mittels erweiterter höherer Programmiersprachen wie PASRO, VAl, V+
+
+
+\subsubsection{Hybride Verfahren}
+Graphische Programmierung basierend auf sensorieller Erfassung der Benutzervorführung \(\rightarrow\) Simulation
+
+\subsubsection{Graphische Programmierung}
+Virtuelles Teach-in oder graphische Modellierung
+
+
+\subsection{Statecharts}
+Graphischer Formalismus zum Entwurf komplexer Systeme\\
+States mit hierarchischer, nacheinander, parallel Ausführung.\\
+Original: Kein Datenfluss\\
+
+\textbf{Erweiterung am \(H^2T\)}
+Datenfluss Transitionsbasiert\\
+Keine Inter-level Transitionen\\
+Erfolgs- und MIsserfolgszustände in jedem Zustand
+
+
+\subsection{Symbolische Planung}
+Repräsentation des Weltzustandes durch Booleschen Prädikten um Aktionssequenzen zu planen.\\
+
+\textbf{STRIPS}\\ 
+einfache, eingeschränkte Sprache\\
+Funktionsfreie Sprache erster Ordnunge (Prädikatenlogik erster Stufe)
+\begin{itemize}
+\item Konstanstensymbole \(A, B, C, \ldots\) (Namen der Blöcke)
+\item Variablensymbole: \(u, v, x_1, x_2, \ldots\)
+\item Prädikate
+  \begin{itemize}
+  \item \textit{handempty}
+  \item \textit{ontable(bottle)}
+  \item \textit{on(bottle, table)}
+  \item \textit{in(water,cup)}
+  \item \textit{at(robot, fridge)}
+  \item \ldots
+  \end{itemize}
+\item Operatorensymbole: \textit{pickup, putdown, stack, unstack, \ldots}
+\end{itemize}
+
+Weltrepräsentation: Konjunktion positiver aussagenlogischer Literale\\
+Keine Variablen, negativen Literale, Funktionen!\\
+
+Ziele: Teilweise spezifizierter Zustand\\
+
+Aktion: Deklaration, Vorbedingungen, Effekte\\
+
+Ausführbarkeit: Aktion ausführbar, wenn Vorbedingungen erfüllt.
+
+
+
+
+
+  
