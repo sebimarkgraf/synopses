@@ -5,7 +5,7 @@
 %%% End:
 
 \section{Dynamik}
-Untersuchung der Bewegung von Körpern als FOlge der auf sie wirkenden Kräfte und Momente.
+Untersuchung der Bewegung von Körpern als Folge der auf sie wirkenden Kräfte und Momente.
 
 \subsection{Dynamisches Modell}
 Das dynamische Modell beschreibt den Zusammenhang von Kräften, Momenten und Bewegungen, welche in einem mechanischen
@@ -27,22 +27,21 @@ Finde Koordinaten, welche gleichzeitig die Constraints einhalten.
 
 \subsection{Bewegungsgleichung}
 \[\tau = M(q) \cdot \ddot{q} + c(\dot{q}, q) + g(q)\]
-\(\tau\): \(n \times 1\) Vektor der generalisierten Kräfte\\
-\(M(q)\): \(n \times n\) Massenträgheitsmatrix\\
-\(c(\dot{q}, q)\): \(x \times 1\) Vektor der Zentripel- und Corioliskomponenten\\
-\(g(q)\): \(n \times 1 \) Vektor der Gravitationskomponenten\\
-\(q, \dot{q}, \ddot{q}\): \(n \times 1\) Vektor der generalisierten Koordinaten
+\makebox[3cm][l]{\(\tau\): \(n \times 1\)} Vektor der generalisierten Kräfte\\
+\makebox[3cm][l]{\(M(q)\): \(n \times n\)} Massenträgheitsmatrix\\
+\makebox[3cm][l]{\(c(\dot{q}, q)\): \(x \times 1\)} Vektor der Zentripetal- und Corioliskomponenten\\
+\makebox[3cm][l]{\(g(q)\): \(n \times 1 \)} Vektor der Gravitationskomponenten\\
+\makebox[3cm][l]{\(q, \dot{q}, \ddot{q}\): \(n \times 1\)} Vektor der generalisierten Koordinaten
 
 \subsection{Probleme}
 \textbf{Direktes Problem}:\\
-Gegeben Randbedingungen + Kräfte \(\rightarrow\) Generalsierten Koordinaten\\
+Gegeben Randbedingungen + Kräfte \(\rightarrow\) Generalsierte Koordinaten\\
 
 \textbf{Inverses Problem}:\\
 Gegeben Generalisierte Koordiaten \(\rightarrow\) Kräfte
 
-
 \subsection{Lagrange}
-Lagrange-Funtkion:
+Lagrange-Funktion:
 \[ L(q, \dot{q}) = E_{\mathit{kin}}(q, \dot{q}) - E_{\mathit{pot}}(q) \]
 Bewegungsgleichungen für jede Koordinate:
 \[\tau_i = \frac{d}{dt} \left(\frac{\delta L}{\delta \dot{q}_i}\right) - \frac{\delta L}{\delta q_i}\]
