@@ -1,0 +1,138 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "robotik"
+%%% End:
+
+\section{Programmieren durch Vormachen}
+
+\subsection{Grundfragen}
+Hauptziel:
+\begin{itemize}
+\item Intuitive Roboterprogrammierung ohne Expertenwissen
+\item Aufgaben durch Generalisierung auf Basis mehrer Observationen
+\end{itemize}
+
+Zerlegt in 3 Probleme, die seperat betrachtet werden könen.
+
+
+\tikzstyle{block} = [draw, fill=green!20, rectangle, 
+minimum height=3em, minimum width=2cm]
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[auto, node distance=4cm, >=latex']      
+    \node [block] (perzeption) {Perzeption};
+    \node [block, right of=perzeption] (kognition) {Kognition};
+    \node [block, right of=kognition] (aktion) {Aktion};
+    
+    \draw [->] (perzeption) -- (kognition);
+    \draw [->] (kognition) -- (aktion);
+  \end{tikzpicture}
+\end{figure}
+
+\textbf{Wer soll imitiert werden?}\\
+Wähle Lehrer durch den am meisten lernt. Meist sowieso dezidierter Lehrer.\\
+
+\textbf{Wann soll imitiert werden?}\\
+Bewegung segmentiert werden und Start und Ende bestimmt werden.\\
+Oft explizities Kennzeichnen von Start und Ende\\
+
+\textbf{Was soll imitiert werden?}\\
+Manche Eigenschaften irrelevant, finde heruas welche Aspekte interessant sind.\\
+
+Roboter muss Abbildung von Perzeption zu einer Sequenz seiner eigenen Bewegungen lernen.\\
+Embodiment!
+
+
+\subsection{Perzeption}
+Demonstration in 2 Schritten:
+\begin{enumerate}
+\item Aktion des Lehrers Aufnehmen (Record Mapping)
+\item Aktion auf Roboter abbilden (Embodiment Mapping)
+\end{enumerate}
+
+4 Arten des Vormachens:
+\begin{enumerate}
+\item Teleoperation
+\item Shadowing
+\item Sensoren am Lehrer
+\item Externe Beobachtung
+\end{enumerate}
+
+\textbf{Teleoperation (Demonstration)}\\
+Direkte Steuerung des Roboters und Sensoren zeichnen Bewegung auf.\\
+Kinästhetisches Lernen: Bewegen des Roboters, benötigt mehr DoF als Roboter\\
+
+\textbf{Shadowing (Demonstration)}\\
+Nachmachen von anderem Roboter, direktes Embodiment\\
+
+\textbf{Sensoren auf dem Lehrer (Imitation)}\\
+Aufnahme von Bewegungen des Lehrers\\
+Ermöglicht hohe Genauigkeit und Freiheit für den Mensch.\\
+Abbildung auf Roboter notwendig\\
+Unterschieden in marker-basierte und marker-lose Verfahren.\\
+Verfahren:
+\begin{itemize}
+\item optisch-passive Bewegungserfassung
+\item optisch-aktive Bewegungserfassung
+\item IMU-basierte Bewegungserfassung
+\item Mechanische Bewegungserfassung
+\item Magnetische/Akustische Bewegungserfassung
+\end{itemize}
+
+Master Motor Map Framework:\\
+Vereinheitlichende Darstellung menschlicher Ganzkörperbewegungen\\
+Referenzmodell Mensch mit 104 DoF\\
+
+\textbf{Externe Beobachtung (Imitation)}\\
+Beobachtung durch Kameras oder andere Sensoren. Benötigt komplexe Algorithmen zur Vearbeitung und erreicht nur
+niedrige Präzision.\\
+
+Verfahren:
+\begin{itemize}
+\item Marker-lose optische Bewegungserfassung
+\item Skeleton Tracing
+\item Segmentation \& Tracking
+\end{itemize}
+
+
+\subsection{Kognition}
+Fähigkeit als Trajektorie oder symbolisch als Fähigkeiten repräsentiert
+
+\subsubsection{Trajektorie}
+Signal in latenten Bewegungsraum projiziert\\
+Spezifich zu zyklischer, diskreter oder beides beinhaltender Bewegung
+
+\subsubsection{Symbolisch}
+Segmentation von Aufgaben in vordefinierte Aktionen\\
+Reproduzieren und mit klassichen Machine-Learning-Verfahren\\
+
+2 Arten von Segmetierung
+\begin{itemize}
+\item Bewegungssegmentierung
+\item Semantische Segmentierung (Aufgabensegmentierung)
+\end{itemize}
+
+
+\subsection{Demonstrationsverarbeitung}
+In 2 Arten
+\begin{itemize}
+\item Batch Lernen --- Lernen nach gesamter Aufzeichnung
+\item Inkrementelles Lernen --- Aktionsrepräsentation nach jeder Aktion/Wiederholung aktualisiert
+\end{itemize}
+
+
+\section{Aktion}
+Ausführen und Adaption der Aktion
+
+\subsubsection{Online Anpassung}
+Anpassung durch Kopplungsterm in DMP\\
+DMP Online: \[\tau\ddot{y} = K (g-y)-D\dot{y} + f_\theta(x)(g-y_0) + \color{red}C\]
+
+\subsubsection{Ausführung von komplexen Aufgaben}
+Roboter braucht Weltwissen, aber weiß nicht wo Objekte sind\\
+\(\rightarrow\) Hypothesen anhand von Wissen generieren\\
+
+Fehlerhaftes Verhalten muss erkannt und behandelt werden\\
+\(\rightarrow\) Suchen von Alternativen / Neuplanen
+
