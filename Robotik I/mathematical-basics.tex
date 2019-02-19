@@ -7,19 +7,28 @@
 \section{Mathematische Grundlagen}
 
 \subsection{Definitionen}
-\textbf{Kinematik} analysiert die Geometrie eines Manipulators oder Roboters. Das essentielle Konzept ist die Position.\\
-\textbf{Statik} behandelt Kräfte und Momente, die sich auf den ruhenden Mechanismus auswirken. Dass essentielle Konzept
+\textbf{Kinematik}\\
+Analysiert die Geometrie eines Manipulators oder Roboters. Das essentielle Konzept ist die Position.\\
+
+\textbf{Statik}\\
+Behandelt Kräfte und Momente, die sich auf den ruhenden Mechanismus auswirken. Dass essentielle Konzept
 ist die Steifigkeit.\\
-\textbf{Dynamik} analysiert die Kräfte und Momente, die durch Bewegung und Beschleunigung eines Mechanismus und einer
+
+\textbf{Dynamik}\\
+Analysiert die Kräfte und Momente, die durch Bewegung und Beschleunigung eines Mechanismus und einer
 zusätzlichen Last entstehen.\\
-\textbf{Kinematische Kette} ist ein Satz an Gliedern die durch Gelenke verbunden sind.\\
-\textbf{Freiheitsgrade} ist eine Anzahl unabhängiger Parameter, die zur kompletten Spezifikation der Position eines
+
+\textbf{Kinematische Kette}\\
+Ist ein Satz an Gliedern die durch Gelenke verbunden sind.\\
+
+\textbf{Freiheitsgrade}\\
+Ist eine Anzahl unabhängiger Parameter, die zur kompletten Spezifikation der Position eines
 Mechanismus/Objekts benötigt werden. (degrees of freededom DoF)
 
 \subsection{\SO und \SE}
-\SO ist die Spezielle Orthogonale Gruppe und repräsentiert Rotationen.\\
-Elemente: 3x3 Matrizen und \(R^TR = I\ \text{mit}\ \det(R) = 1\)\\
-\SE ist die Spezielle Euklidische Gruppe und repräsentiert Bewegungen von Starrkörpern.\\
+\SO{} ist die Spezielle Orthogonale Gruppe und repräsentiert Rotationen.\\
+Elemente: 3\(\times\)3 Matrizen und \(R^{T}R = I\ \text{mit}\ \det(R) = 1\)\\
+\SE{} ist die Spezielle Euklidische Gruppe und repräsentiert Bewegungen von Starrkörpern.\\
 Elemente: \((p, R)\ \text{mit}\ p \in \realnumbers^3\ \text{und}\ R \in \SO\)
 
 \subsection{Euklidischer Raum}
@@ -36,21 +45,25 @@ Es existieren rechtsdrehende und linksdrehende Koordinatensysteme. Lässt sich e
 
 \textbf{Typen von Koordinatensystemen}
 \begin{itemize}
-  \item BKS: Basiskoordinatensystem, initialias Bezugssystem
-  \item OKS: Objektkoordinatensystem
-  \item EKS: Endeffektorkoordinatensystem
-  \item SKS: Sensorkoordinatensystem
+  \item BKS:\@ Basiskoordinatensystem, initialias Bezugssystem
+  \item OKS:\@ Objektkoordinatensystem
+  \item EKS:\@ Endeffektorkoordinatensystem
+  \item SKS:\@ Sensorkoordinatensystem
 \end{itemize}
 
 \subsection{Lineare Abbildungen}
-\textbf{Endomorphismus} - Lineare Abbildung des euklidischen Raums auf sich selbst\\
-\textbf{Isomorhpismus} - Bijektive Endomorphismen. Spezielle Art von Isomorphismus ist \SO
+\textbf{Endomorphismus}\\
+Lineare Abbildung des euklidischen Raums auf sich selbst\\
+
+\textbf{Isomorhpismus}\\
+Bijektive Endomorphismen. Spezielle Art von Isomorphismus ist \SO{}
 
 \subsection{Rotation}
 \textbf{in 2D}\\
 Abbildung mit Matrix \(R_\alpha(x) = \begin{pmatrix} \cos \alpha & -\sin\alpha \\ \sin \alpha & \cos \alpha\end{pmatrix}\)
 Ist nur eine lineare Transformation wenn um \(c=(0,0)\) rotiert wird.\\
 Sonst muss erst vorher zum Ursprung und hinterher wieder zurück verschoben werden.\\
+
 \textbf{Affine Transformationen}\\
 \(T(x) = A(x) + b\) werden affine Transformtionen genannt.\\
 
@@ -60,6 +73,7 @@ Rotationen um Achsen identisch mit 2D Fall + eine weitere 1.
 \subsection{Rotations Operationen}
 \textbf{Inverse}\\
 Inverse wird durch transponieren der Rotationsmatrix erreicht. \(R^{-1} = R^T\)\\
+
 \textbf{Verkettung}\\
 \(\phi_{z, \theta_3}(\phi_{y, \theta_2}(\phi_{x, \theta_1}(a))), a \in \realnumbers^3\)\\
 Lesen von links nach rechts: Rotation um lokale Achsen\\
@@ -100,33 +114,33 @@ Kombiniere Translation und Rotation in einer Matrix. Dann Standardmatrix:
 \end{itemize}
 
 \subsection{Quaternionen}
-Erweiterung der komplexen Zahlen \complexnumbers durch William Rowan Hamilton.\\
-Menge der Quaternionen \quaternionen als \( \quaternionen = \complexnumbers + \complexnumbers j\)\\
+Erweiterung der komplexen Zahlen \complexnumbers{} durch William Rowan Hamilton.\\
+Menge der Quaternionen \quaternionen{} als \( \quaternionen = \complexnumbers + \complexnumbers j\)\\
 Also ist ein Quaterionen \(q \in \quaternionen\) durch \(q = \myVector{a \\ u} = a + u_1 i + u_2 j + u_3 k\) 
-mit \(a \in \realnumbers, u \in \realnumbers^3\) und \( k = i \cdot j\) gegeben.
+mit \(a \in \realnumbers, u \in \realnumbers^3\) und \( k = i \cdot j\) gegeben.\\
 
 \textbf{Rechenregeln}\\
 Quaternionen \(q = {(a, u)}^T,\ r = {(b,v)}^T\).
 \begin{itemize}
-\item Addition --- \(q + r = {(a + b, u + b)}^T\)
-\item Skalarprodukt --- \(\langle q \lvert r\rangle = a \cdot b + \langle v \lvert u \rangle = a \cdot b + v_1 \cdot u_1 + v_2 \cdot u_2 + v_3 \cdot u_3\)
-\item Multiplikation --- \(q \cdot r = (a + u_1i + u_2j + u_3k) \cdot (b + v_1 i + v_2 j + v_3 k)\)
-\item Konjugation --- \(q^* = {(a, -u)}^T\)
-\item Norm --- \( \lvert q \lvert = \sqrt{q \cdot q^*} = \sqrt{q^* \cdot q} = \sqrt{a^2 + u_1^2 + u_2^2 + u_3^2}\)
-\item Inverse --- \( q^{-1} = \frac{q^*}{{\lvert q \lvert}^2}\)
+\item Addition:\@ \(q + r = {(a + b, u + b)}^T\)
+\item Skalarprodukt:\@ \(\langle q \lvert r\rangle = a \cdot b + \langle v \lvert u \rangle = a \cdot b + v_1 \cdot u_1 + v_2 \cdot u_2 + v_3 \cdot u_3\)
+\item Multiplikation:\@ \(q \cdot r = (a + u_1i + u_2j + u_3k) \cdot (b + v_1 i + v_2 j + v_3 k)\)
+\item Konjugation:\@ \(q^* = {(a, -u)}^T\)
+\item Norm:\@ \( \lvert q \lvert = \sqrt{q \cdot q^*} = \sqrt{q^* \cdot q} = \sqrt{a^2 + u_1^2 + u_2^2 + u_3^2}\)
+\item Inverse:\@ \( q^{-1} = \frac{q^*}{{\lvert q \lvert}^2}\)
 \end{itemize}
 
 \textbf{Rotationen}\\
 Dafür werden Einheitsquaternionen \(\mathbb{S}^3 = \{q \in \quaternionen\ \lvert\ {\|{q}\|}^2 = 1\}\) definiert.\\
 Definiere Rotation um Achse \(a,\ \|a\| = 1\) und Winkel \(\phi\) durch \(q = (\cos \frac{\phi}{2}, a \sin \frac{\phi}{2})\)\\
 Dann Rotatoin des Punkes \(v\) mit \(v' = qvq^{-1} = qvq^*\).\\
-Vorgehen: (an \(p = (1, 0, 9)^T,\ a = (1, 0, 0)^T,\ \phi = \ang{90}\))
+Vorgehen: (an \(p = {(1, 0, 9)}^T,\ a = {(1, 0, 0)}^T,\ \phi = \ang{90}\))
 \begin{enumerate}
 \item Darstellung von \(p\) als Quaternion \(v\) --- \(v = 0 + 1i + 0j + 9k\)
 \item Rotationsquaternion \(q\) --- \( q = \cos \frac{\phi}{2} + 1i \cdot \sin \frac{phi}{2} + 0j + 0k\)
 \item Konjugiertes Quaternion \(q^*\) --- \(q^* = \cos \frac{\phi}{2} - 1i \cdot \sin \frac{\phi}{2} - 0j -0k\)
 \item Rotation von \(v\) um \(q\) --- \(v_r = qvq^*\)
-\item Darstellung als Punkt \(p_r\) --- \(p_r = (1, -9, 0)^T\)
+\item Darstellung als Punkt \(p_r\) --- \(p_r = {(1, -9, 0)}^T\)
 \end{enumerate}
 
 \textbf{Interpolation SLERP}\\
