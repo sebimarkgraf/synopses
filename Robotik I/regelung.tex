@@ -15,7 +15,7 @@
 Lehre von der selbsttätigen, gezielten Beeinflussung dynamischer Prozesse während des Prozessablaufs.
 
 \subsection{Aufbau und Wirkungsweise}
-Aufgabe: Die Ausgangsgröße eines dynamischen Systems soll mittels der Stellgröße ein Sollverhalten, d.h. ein
+Aufgabe: Die Ausgangsgröße eines dynamischen Systems soll mittels der Stellgröße ein Sollverhalten, d.h.\ ein
 gewünschtes Verhalten aufgeprägt werden, und zwar gegen den Einfluss einer Störgröße, die nur unvollständig bekannt
 ist.\\
 
@@ -23,31 +23,35 @@ Lösung: Die Strecke ist laufend zu beobachten und mit der so gewonnen Informati
 verändern, dass trotz der Störgrößeneinwirkung die Ausgangsgröße an den gewünschten Verlauf (Sollverlauf)
 angeglichen wird.\\
 
-\begin{tikzpicture}[auto, node distance=2cm, >=latex']
-  \node [input, name=input] {};
-  \node [sum, right of=input] (sum) {};
-  \node [block, right of=sum] (controller) {Korrektur-\\einrichtung \\ (Regelglied)};
-  \node [block, right of=controller, node distance=3cm] (system) {Stelleinrichtung};
-  \node [block, right of=system, node distance=3cm, pin={[pinstyle]above:z}] (way) {Strecke};
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[auto, node distance=2cm, >=latex']
+    \node [input, name=input] {};
+    \node [sum, right of=input] (sum) {};
+    \node [block, right of=sum] (controller) {Korrektur-\\einrichtung \\ (Regelglied)};
+    \node [block, right of=controller, node distance=3cm] (system) {Stelleinrichtung};
+    \node [block, right of=system, node distance=3cm, pin={[pinstyle]above:z}] (way) {Strecke};
+    
+    \draw [->] (controller) -- (system);
+    \draw [->] (system) -- node[name=y] {$y$} (way);
+    \node [output, right of=way] (output) {};
+    \node [block, below of=y] (measurements) {Messeinrichtung};
 
-  \draw [->] (controller) -- (system);
-  \draw [->] (system) -- node[name=y] {$y$} (way);
-  \node [output, right of=way] (output) {};
-  \node [block, below of=y] (measurements) {Messeinrichtung};
+    \draw [draw, ->] (input) -- node {$w$} (sum);
+    \draw [->] (sum) -- node {$x_d$} (controller);
+    \draw [->] (way) -- node [name=x] {$x$} (output);
+    \draw [->] (x) |- (measurements);
+    \draw [->] (measurements) -| node[pos=0.99] {$-$}
+    node [near end] {$r$} (sum);
+  \end{tikzpicture}
+  \vspace{2em}
 
-  \draw [draw, ->] (input) -- node {$w$} (sum);
-  \draw [->] (sum) -- node {$x_d$} (controller);
-  \draw [->] (way) -- node [name=x] {$x$} (output);
-  \draw [->] (x) |- (measurements);
-  \draw [->] (measurements) -| node[pos=0.99] {$-$}
-  node [near end] {$r$} (sum);
-\end{tikzpicture}\\
-
-\begin{tabular}{clcl}
-  \(w\) & Führungsgröße & \(x_d\) & Regeldifferenz\\
-  \(y\) & Stellgröße & \(x\) & Regelgröße\\
-  \(r\) & Rückführgröße & \(z\) & Störgröße\\
-\end{tabular}
+  \begin{tabular}{clcl}
+    \(w\) & Führungsgröße & \(x_d\) & Regeldifferenz\\
+    \(y\) & Stellgröße & \(x\) & Regelgröße\\
+    \(r\) & Rückführgröße & \(z\) & Störgröße\\
+  \end{tabular}
+\end{figure}
 
 \textbf{Wirkungsweise}\\
 \begin{tabular}{ll}
@@ -60,7 +64,7 @@ Die Regelgröße folgt der Führungsgröße. Die Regelung ist ein Wirkungskreisl
 
 \subsection{Regelung}
 Unter einer Regelung versteht man eine Anordnung, durch welche unvollständig bekannter Strecke,
-insbesondere unvollständiger Kenntnis der Störgröße, die Regelgröße, d.h. die Ausgangsgröße der Strecke,
+insbesondere unvollständiger Kenntnis der Störgröße, die Regelgröße, d.h.\ die Ausgangsgröße der Strecke,
 laufend erfasst und mit der Führungsgröße verglichen wird, um mittels der so gebildeten Differenz die
 Regelgröße an den Sollverlauf anzugleichen.
 
