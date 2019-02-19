@@ -41,9 +41,10 @@ Mehrkörpersystem (z.B. Roboterarme, Systeme mit mehreren Robotern).\\
 Hochdimensionale Problemstellungen\\
 
 \textbf{Komplexität}\\
-Allgemeine Planungsaufgaben sind PSPACE-vollständig
+Allgemeine Planungsaufgaben sind PSPACE-vollständig\\
 
-\textbf{Alrogithmen}\\
+\newpage
+\textbf{Algorithmen}\\
 \begin{itemize}
 \item vollständig --- Mindestens eine Lösung oder in endlicher Zeit, dass keine Lösung
 \item randomisiert --- Verwenden Zufallsgrößen und oft heuristische Annahmen zur Beschleunigung
@@ -94,7 +95,7 @@ Findet optimalen Pfad von Start zu Zielknoten\\
 \textbf{Algorithmus}\\
 Solange \(O \neq \varnothing\)
 \begin{itemize}
-\item Besteimme den zu erweiternden Knoten --- Finde \(v_i \in O\) mit minimalem \(f(v_i) = g(v_i) + h(v_i)\)
+\item Bestimme den zu erweiternden Knoten --- Finde \(v_i \in O\) mit minimalem \(f(v_i) = g(v_i) + h(v_i)\)
 \item Wenn \(v_i = v_{\mathit{Ziel}\)} Lösung gefunden: Traversiere Vorgänger von \(v_i\) bis \(v_{\mathit{start}}\) erreicht ist.
 \item \(O\).remove(\(v_i\))
 \item \(C\).add(\(v_i\))
@@ -142,7 +143,7 @@ Schließlich werden Start und Ziel im Graphen verbunden.\\
 
 \subsection{Rapidly-exploring Random Trees (RRTs)}
 Algorithmus zur Einmalanfrage ohne Vorverarbeitung\\
-probabilistisch, vollständig, randomisiert\\
+probabilistisch, vollständig, randomisiert
 
 \begin{enumerate}
 \item Beginne mit leerem Baum nur mit Start
