@@ -1,0 +1,117 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "robotik"
+%%% End:
+
+\section{Teilsysteme}
+
+\subsection{Mechanische Komponenten}
+\subsubsection{Gelenktypen}
+\textbf{Rotationsgelenk (R)}\\
+Besteht aus Eingang und dazu drehbarem Ausgang.\\
+Drehachse in rechten Winkel mit den Achsen der beiden Glieder\\
+Ellenbogen\\
+
+\textbf{Torsionsgelenk (T)}\\
+Drehachse parallel zu Achsen der beiden Glieder.\\
+Unterarm\\
+
+\textbf{Revolvergelenk (V)}\\
+Einggangglied parallel zur Drehachse, Ausgangsglied im rechten Winkel dazu.\\
+Schultergelenk\\
+
+\textbf{Lineargelenk (L)}\\
+Gleitende / Fortschreitende Bewegung\\
+Translationsgelenk / Schubgelenk
+
+\subsubsection{Arbeitsraum}
+Jene Punkte im 3D-Raum die von der Roboterhand angefahren werden können. Dazu sind 3 Freiheitsgrade in der
+Bewegung erforderlich, also mindestens drei Gelenke erforderlich.\\
+Grundform: Ignoriere Kollisionen und Winkelbegrenzungen
+
+\subsubsection{Radkonfigurationen}
+\textbf{Differentialantrieb}\\
+Geradeaus- \& Kurvenfahrten, Drehen auf der Stelle\\
++ einfach\\
+- Radregelung in Echtzeit\\
+
+\textbf{Dreirad-Antrieb}\\
+Geradeaus- \& Kurvenfahrten, Vorwärts/Rückwärts unterschiedlich.\\
++ einfache Mechanik\\
+- eingeschränkt\\
+
+\textbf{Synchro-Antrieb}\\
+Geradeaus- \& Kurvenfahrten, Vorwärts/Rückwärts identisch, Plattform dreht nicht mit\\
++ Einfache Regelung\\
++ Geradeaus mechanisch garantiert\\
+- Mechanisch Komplex\\
+
+\newpage
+\textbf{Mecanum-Antrieb}\\
++ Uneingeschränkte Beweglichkeit\\
+- Mechanisch komplex\\ 
+- Aufwendige Regelung\\
+
+\subsection{Antriebe}
+\subsubsection{Fluidische Antriebe}
+\textbf{Linearantrieb}\\
+Bewege Kolben durch Flüssigkeit.\\
+Geschwindigkeit \(v(t) = \frac{Q(t)}{A}\).\\
+Kraft \(F(t) = p(t) \cdot A\) mit \(p(t)\) Druck des Mediums.\\
+
+\textbf{Schaufelrad}\\
+Bewegen einer Schaufel in einem Zylinder.\\
+Winkelgeschwindigkeit \(\omega (t) = \frac{2 \cdot Q(t)}{h \cdot (R^2 - r^2)}\)\\
+Drehmoment \(T(t) = p(t) \cdot h \cdot (R - r) \cdot \frac{ R + r} {2}\)
+
+\subsubsection{Muskelartige Antriebe}
+\textbf{Pneumatik}\\
+Komprimierte Luft bewegt Kolben\\
+Vorteile: billig, einfach, schnell\\
+Nachteile: Laut, keine Steuerung der Geschwindigkeit\\
+Einsatz: Kleine Roboter, wenig Kraft, schnell\\
+
+\textbf{Hydraulik}\\
+Öldruckpumpe und steuerbare Ventile\\
+Vorteil: Große Kraft, mittelschnell\\
+Nachteil: Laut, viel Platz, Ölverlust\\
+Einsatz: Große Roboter
+
+\subsubsection{Elektrische Antriebe}
+Schritt- oder Servomotoren\\
+Vorteil: wenig Platz, kompakt, leise, gut Regelbar\\
+Nachteil: Wenig kraft, langsam\\
+Einsatz: Kleine Roboter für Präzision
+
+\newpage
+\subsection{Getriebe}
+\subsubsection{Stirnradgetriebe}
+Standardgetriebe mit Getrieberad + Ritzel.\\
+Übersetzung: \(i = \frac{N_2}{N_1}\) mit \(N_i\) Anzahl der Zähne\\
+Drehmoment: \(T_2 = T_1 \cdot i\)
+
+\subsubsection{Schrauben- \& Spindelgetriebe}
+Schraube/Spindel dreht sich in Richtung.\\
+Lineargeschwindigkeit \(v(t) = p \cdot \omega(t)\)
+
+\subsubsection{Harmonic Drive}
+Bestehe aus Wavegenerator, Flexible Spine und Circular Spine.\\
+Auch \enquote{Spannungswellengetriebe}\\
+Hohes Übersetzungsverhältnis in einer Stufe, sehr genau\\
+Gutes Getriebe für Leichtbauroboter
+
+\subsection{Sensoren}
+Wandelt physikalische Größe \& Änderungen in elektronsiche Signale um.
+\begin{itemize}
+\item Elementarsensor --- Aufnahme von Messgröße
+\item Integrierter Sensor --- Zusätzlich Signalaufbereitung
+\item Intelligenter Sensor --- Mit rechnergesteuerter Auswertung + Ausgabe verarbeitete Größe
+\end{itemize}
+
+Anforderungen: Genauigkeit, Präzision, Betriebsbereich, Antwortgeschwindigkeit, Kalibrierung, Zuverlässigkeit, Kosten
+Installationsaufwand.\\
+
+Klassifizierung:\\
+intern / extern je nach Kontakt zur Umwelt\\
+aktiv / passiv wobei passiv nur messen und aktive ihre Umwelt simulieren.

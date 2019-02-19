@@ -1,0 +1,175 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "robotik"
+%%% End:
+
+\section{Bewegungsplanung}
+Erzeuge kollisionsfreie Trajektorie unter Einschränkungen.
+
+\subsection{Grundlagen}
+\textbf{Konfiguration}\\
+Eine Konfiguration \(q \in C\) beschreibt den Zustand eines Roboters.\\
+
+\textbf{Konfigurationsraum}\\
+Der Konfigurationsraum \(C\) eines Roboters \(R\) ist der Raum aller möglicher Konfigurationen von \(R\).\\
+
+\textbf{Arbeitsraumhindernis}\\
+Ein Arbeitsraumhindernis \(H\) ist der Raum, welcher von einem Objekt im Arbeitsraum eingenommen wird.\\
+
+\textbf{Konfigurationsraum}\\
+Ein Konfigurationsraumhindern \(C_H\) ist die Menge aller Punkte des Konfigurationsraumes \(C\),
+welche zu einer Kollision mit dem Hindernis \(H\) führen.\\
+
+\textbf{Hindernisraum}\\
+Der Hindernisraum \(C_{\mathit{obs}}\) ist die Menge aller Konfigurationsraumhindernisse.
+\[C_{\mathit{obs}} = \bigcup_i C_{H_i} \]
+
+\textbf{Freiraum}\\
+Der Freiraum ist die Menge aller Punkte aus \(C\), welche nicht im Hindernisraum \(C_{\mathit{obs}}\) liegen
+\[C_{\mathit{free}} = \{q \in C\ |\ q \not \in C_{\mathit{obs}}\} = C \setminus C_{\mathit{obs}}\]
+
+\textbf{Umweltmodellierung}\\
+Exakt: Beispielsweise über CSG (constructed solid geometry), in Form einer algebraischen Beschreibung\\
+Aproximiert: Die Umwelt wird durch Näherungen beschrieben (Boxen, Zylinder, \ldots)\\
+
+\textbf{Pfadplanung}\\
+Starres Objekt, 2D / 3D Problem.\\
+
+\textbf{Bewegungsplanung}\\
+Mehrkörpersystem (z.B. Roboterarme, Systeme mit mehreren Robotern).\\
+Hochdimensionale Problemstellungen\\
+
+\textbf{Komplexität}\\
+Allgemeine Planungsaufgaben sind PSPACE-vollständig\\
+
+\newpage
+\textbf{Algorithmen}\\
+\begin{itemize}
+\item vollständig --- Mindestens eine Lösung oder in endlicher Zeit, dass keine Lösung
+\item randomisiert --- Verwenden Zufallsgrößen und oft heuristische Annahmen zur Beschleunigung
+\item auflösungsvollständig --- Vollständiger approximativer Algorithmus für diskretisierte Problemstllung
+\item probabilistisch-vollständig --- findet mindestens eine Lösung falls Sie existiert. Falls kein Lösung existiert
+  konvergiert er gegen 1
+\end{itemize}
+
+\subsection{Problemklassen}
+\begin{tabular}{lllll}
+  Buchstabe & Umwelt & Gesucht & Problem\\
+  a & vollständig &  Kollisionsfreie Trajektorie Start zu Ziel & \\
+  b & unvollständig & Kollisionsfreie Trajektorie Start zu Ziel & Kollision mit unbekannten Objekten\\
+  c & zeitvariant &  Kollisionsfreie Trajektorie Start zu Ziel & Hindernisse in Ort und Zeit variant\\
+  d & keins &  Kollisionsfreie Trajektorie Start zu Ziel & Kartographieren\\
+  e & zeitvariant &  Trajektorie zu einem beweglichen Ziel & Zielzustand in Ort und Zeit beweglich\\
+\end{tabular}
+
+\subsection{Voronoi-Diagramme}
+Zerlegung eines raumes in regionen basierend auf vorgegeben Punkten bzw. Bereichen\\
+Region eines Bereiches sind alle die Punkte deren Abstand zum Hindernis geringe ist, als zu allen anderen Hindernisse.\\
+
+\textbf{Konstruktion}\\
+Rekursive Unterteilung von 2 oder 3 Punkten und dann verbinden an den nächsten.
+
+
+\subsection{Sichtgraphen}
+Verbinde jedes Paar von Eckpunkten im freien Raum durch gerades Liniensegment, falls kein Hindernis geschnitten wird.
+\enquote{Die Punkte müssen sich sehen}\\
+Start und Ziel werden analog verbunden\\
+
+Damit Kanten nicht als Wege genommen werden, müssen die Hindernisse erweitert werden.
+
+\subsection{Zellzerlegung}
+Zerlegung des freien Raums in einzelne Zelle und suche dann in Zellen nach kürzesten Wegen. Ermöglicht dann
+suchen eines Pfades im entstehenden Graphen.
+
+
+\subsection{Suchen im Wegenetz}
+Konstruierte Graph liegt von den vorhergehenden Verfahren vor. Nun muss ein Weg im Graph gefunden werden.
+
+\subsubsection{Baumsuche}
+Darstellung als Quadtree
+
+\subsubsection{A*}
+Beliebter Algorithmus\\
+Findet optimalen Pfad von Start zu Zielknoten\\
+\textbf{Algorithmus}\\
+Solange \(O \neq \varnothing\)
+\begin{itemize}
+\item Bestimme den zu erweiternden Knoten --- Finde \(v_i \in O\) mit minimalem \(f(v_i) = g(v_i) + h(v_i)\)
+\item Wenn \(v_i = v_{\mathit{Ziel}\)} Lösung gefunden: Traversiere Vorgänger von \(v_i\) bis \(v_{\mathit{start}}\) erreicht ist.
+\item \(O\).remove(\(v_i\))
+\item \(C\).add(\(v_i\))
+\item Update für alle Nachfolger \(v_j\) von \(v_i\) durchführen
+  \begin{itemize}
+  \item Wenn \(v_j \in C\), dann überspringe \(v_j\)
+  \item Wenn \(v_j \not \in O\), dann \(O\).add(\(v_j\))
+  \item Wenn \(g(v_i) + \mathit{cost}(v_i, v_j) < g(v_j)\)
+    \begin{itemize}
+    \item \(g(v_j) = g(v_i) + \mathit{cost}(v_i, v_j)\)
+    \item \(h(v_j) = \mathit{heuristic}(v_j, v_{\mathit{ziel}})\)
+    \item \(\mathit{pred}(v_j) = v_i\)
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\subsection{Potentialfelder}
+Roboter bewegt sich unter dem Einfluss von Kräften, welche ein Potentialfeld auf ihn ausübt.\\
+Ein Potentialfeld \(U\) ist eine Skalarfunktion über dem Freiraum \[U: C_{\mathit{free}} \rightarrow \realnumbers\]
+Die Kraft in einem Punkt \(q\) des Potentialfeldes ist der negative Gradient in diesem Punkt
+\[F(q) = - \nabla U(q)\]
+Es muss abstoßende Potentiale um Hindernis und anziehende Potentiale mit Minimum in \(q_{\mathit{Ziel}}\) geben.\\
+z.B. Lineare Funktion der Distanz zum Ziel \( U_{\mathit{an}}() = k \cdot || q - q_{\mathit{Ziel}} ||\)
+oder quadratischer Funktion \(U_{\mathit{an}}(q) = k \cdot \frac{1}{2} {|| q - _{\mathit{Ziel}}||}^2\)\\
+Durch Bewegung des Roboters in Richtung des negativen Gradienten bewegt er sich zu den lokalen Minima.
+Durch Flucht aus den lokalen Minima bewegt er sich zum nächsten Minium.
+
+
+\subsection{Probabilistic Roadmaps (PRM)}
+Mehrere Anfragen in gleicher Umgebung\\
+Approximation des Freiraums durch Graphen\\
+\begin{enumerate}
+\item Erzeuge Graph durch zufällige verbundene Stichproben
+\item Suche Weg im Graph
+\end{itemize}
+
+\subsection{Dynamic Roadmaps}
+Mehrere Anfragen bei gleichbleibender kinematischen Kette\\
+Approximation des Konfigurationsraums durch Graph und Arbeitsraum durch Voxel\\
+
+Berechnet Roadmap durch Sampling und erzeugt eine Abbildung zwichen den Knoten/Kanten und allen Voxeln\\
+Bei einer Anfrage müssen alle Voxel mit Hindernis bestimmt werden und die Kanten / Knoten aus der Roadmap entfernt werden.
+Schließlich werden Start und Ziel im Graphen verbunden.\\
+
+
+\subsection{Rapidly-exploring Random Trees (RRTs)}
+Algorithmus zur Einmalanfrage ohne Vorverarbeitung\\
+probabilistisch, vollständig, randomisiert
+
+\begin{enumerate}
+\item Beginne mit leerem Baum nur mit Start
+\item Erzeuge zufälligen Punkt
+\item Verbinde mit nächstem Nachbarn, falls kollisionsfrei
+\item Überprüfe ob Ziel erreicht, sonst erzeuge nächsten Punkt
+\end{enumerate}
+
+Durch Nachbearbeitung können Lösungen verbessert werden. Wähle zufällige Punkte im Lösung und teste ob diese
+verbunden werden können. Dadurch kann die Trajektorie geglättet werden.
+
+\subsection{Erweiterungen von RRT}
+\subsubsection{Constrained RRT}
+Erfüllen von Nebenbedingungen.\\
+Idee: Projeziere auf Mannigfaltigkeit, die Nebendingung erfüllt und suche dort
+
+\subsubsection{RRT*}
+RRT finden nicht optimale Trajektorien.\\
+Idee: Optimiere Suchbaum während der Suche. Optimierung durch Ermittlung der Wegkosten jedes neuen Knotens und
+passender Neuverbindunge des Suchbaums.
+
+\subsubsection{Enge Passagen}
+Durch zufällige Stichproben schwierig enge Passagen zu überwinden.\\
+Idee: Sample nur in Kegel um Knoten (sichtbaren Bereich)
+\(\rightarrow\) Dynamic Domain RRT\\
+
+Idee2: Wähle Zielpunkte in Passage
+\(\rightarrow\) Bridge Sampling\\
+

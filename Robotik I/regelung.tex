@@ -1,0 +1,156 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "robotik"
+%%% End:
+
+\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
+    minimum height=3em, minimum width=6em, align=center]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+\section{Regelung}
+Lehre von der selbsttätigen, gezielten Beeinflussung dynamischer Prozesse während des Prozessablaufs.
+
+\subsection{Aufbau und Wirkungsweise}
+Aufgabe: Die Ausgangsgröße eines dynamischen Systems soll mittels der Stellgröße ein Sollverhalten, d.h.\ ein
+gewünschtes Verhalten aufgeprägt werden, und zwar gegen den Einfluss einer Störgröße, die nur unvollständig bekannt
+ist.\\
+
+Lösung: Die Strecke ist laufend zu beobachten und mit der so gewonnen Information ist die Stellgröße derart zu
+verändern, dass trotz der Störgrößeneinwirkung die Ausgangsgröße an den gewünschten Verlauf (Sollverlauf)
+angeglichen wird.\\
+
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[auto, node distance=2cm, >=latex']
+    \node [input, name=input] {};
+    \node [sum, right of=input] (sum) {};
+    \node [block, right of=sum] (controller) {Korrektur-\\einrichtung \\ (Regelglied)};
+    \node [block, right of=controller, node distance=3cm] (system) {Stelleinrichtung};
+    \node [block, right of=system, node distance=3cm, pin={[pinstyle]above:z}] (way) {Strecke};
+    
+    \draw [->] (controller) -- (system);
+    \draw [->] (system) -- node[name=y] {$y$} (way);
+    \node [output, right of=way] (output) {};
+    \node [block, below of=y] (measurements) {Messeinrichtung};
+
+    \draw [draw, ->] (input) -- node {$w$} (sum);
+    \draw [->] (sum) -- node {$x_d$} (controller);
+    \draw [->] (way) -- node [name=x] {$x$} (output);
+    \draw [->] (x) |- (measurements);
+    \draw [->] (measurements) -| node[pos=0.99] {$-$}
+    node [near end] {$r$} (sum);
+  \end{tikzpicture}
+  \vspace{2em}
+
+  \begin{tabular}{clcl}
+    \(w\) & Führungsgröße & \(x_d\) & Regeldifferenz\\
+    \(y\) & Stellgröße & \(x\) & Regelgröße\\
+    \(r\) & Rückführgröße & \(z\) & Störgröße\\
+  \end{tabular}
+\end{figure}
+
+\textbf{Wirkungsweise}\\
+\begin{tabular}{ll}
+  Sollwert von \(x\): & \(x_s\)\\
+  Messeinrichtung: & \(r = K_j x\)\\
+  Führungsgröße: & \(w = K_j x_s\)\\
+  Dann: & \(x_d = w - r = K_j x_s - K_j x = K_j (x_s - x)\)\\
+\end{tabular}\\
+Die Regelgröße folgt der Führungsgröße. Die Regelung ist ein Wirkungskreislauf.\\
+
+\subsection{Regelung}
+Unter einer Regelung versteht man eine Anordnung, durch welche unvollständig bekannter Strecke,
+insbesondere unvollständiger Kenntnis der Störgröße, die Regelgröße, d.h.\ die Ausgangsgröße der Strecke,
+laufend erfasst und mit der Führungsgröße verglichen wird, um mittels der so gebildeten Differenz die
+Regelgröße an den Sollverlauf anzugleichen.
+
+\subsection{Laplace-Transformation}
+\[L\{f(t)\} = F(s) = \int_0^{\infty} f(t)e^{-st}dt \qquad s := \sigma + j\omega; \quad f(t) = 0,\ t < 0\]
+
+\textbf{Regeln}\\
+\begin{tabular}{lc}
+  Linearitätssatz & \(L\{\alpha f_1(t) + \beta f_2(t)\} = \alpha F_1(s) + \beta F_2(s)\)\\
+  Faltungssatz & \(L\{f_1(t) * f_2(t)\} = F_1 (s) \cdot F_2(s)\)\\
+  Grenzwertsatz & \(f_1(t=0) = \lim_{s \rightarrow \infty} s * F(s)\)\\
+  Differentiationssatz & \(L \{\frac{d}{dt} f(t)\}= s F(s) \) \\
+  Integrationssatz & \(L \{\int f(t)dt\} = \frac{1}{s} F(s)\)\\
+  Verschiebung & \(L \{ f(t-\tau)\} = e^{-\tau s} F(s) \)\\
+  \(L\{e^{\alpha t}\} = \frac {1}{s-\alpha}\) & \(L\{t^n\} = \frac{n!}{s^{n+1}} \quad (n = 1,2, \ldots)\)\\
+  \(L\{\sin(\alpha t)\} = \frac{\alpha}{s^2 + \alpha^2}\) & \(L\{\cos (\alpha t)\} = \frac{s}{s^2 + \alpha^2}\)\\ 
+\end{tabular}
+
+\subsection{Elementare Glieder}
+\begin{tabular}{lll}
+  P-Glied & Proportionsgleid & \(y(t) = K \cdot u(t)\)\\
+  I-Glied & Integrierglied & \(y(t) = K \cdot \int_0^t u(\tau)d\tau\)\\
+  D-Glied & Differenzglied & \(y(t) = K \cdot \dot(u)(t)\) \\
+  \(T_t\)-Glied & Totzeitglied & \(y(t) = K \cdot u(t - T_t)\)\\
+  S-Glied & Summenglied & \(y(t) = \pm u_1(t) \pm u_2(t)\)\\
+  KL-Glied & Kennlinienglied & \(y(t) = K \cdot f(u(t))\)\\
+  M-Glied & Multiplizierglied & \(y(t) = K \cdot u_1(t) \cdot u_2(t)\)\\
+\end{tabular}
+
+\subsection{PID-Regelung}
+Proportional-Integral-Derivative Controller
+\[\tau = K_p \theta_d + K_i \int \theta_d(t)dt + K_d \dot{\theta}_d\]
+
+\begin{tikzpicture}[auto, node distance=2cm, >=latex']
+  \node [sum, right of=input] (sum) {};
+
+  \node [block, node distance=6cm, right of=sum] (kp) {\(K_p\)};
+  
+  \node [block, below of=kp] (ki) {\(K_i\)};
+  \node [block, node distance=3cm, left of=ki] (int) {\(\int dt\)};
+  
+  \node [block, below of=ki] (kd) {\(K_d\)};
+  \node [block, below of=int] (dt) {\(\frac{d}{dt}\)};
+  
+  \node [sum, right of=kp, node distance=3cm] (sum2) {};
+
+  \node[block, node distance=3cm, right of=sum2] (dynamic) {Dynamik des Arms};
+  
+  \draw [draw, ->] (input) -- node {$\theta_v(t)$} -- node[pos=0.90] {\(+\)} (sum);
+
+  \draw [->] (sum) -- node [pos=0.2, name=td] {\(\theta_d(t)\)} (kp);
+  \draw [->] (td) |- (int);
+  \draw [->] (td) |- (dt);
+
+  \draw [->] (int) -- (ki);
+  \draw [->] (dt) -- (kd);
+
+  \draw [->] (kp) -- node[pos=0.90] {\(+\)} (sum2);
+  \draw [->] (ki) -| node[pos=0.90] {\(+\)} (sum2);
+  \draw [->] (kd) -| node[pos=0.90] {\(+\)} (sum2);
+
+  \draw [->] (sum2) -- node {\(\tau\)} (dynamic);
+ % \draw [->] (measurements) -| node[pos=0.99] {$-$}
+ % node [near end] {$r$} (sum);
+
+  \draw [->] (dynamic) -- node[pos=0.10] {\(\theta\)} +(0,-5) -| (sum);
+\end{tikzpicture}
+
+
+\subsection{Stabilität}
+Ziel: Regelabweichung geht mit der Zeit gegen 0
+
+
+\subsection{Regelung von Manipulatoren}
+Manipulatoren = Mehrgrößensystem
+\(\Rightarrow\) Unabhängige Einzelregelkreise\\
+
+\textbf{Dynamikmodell}\\
+Wirken von Gravitation-, Zentrifugal-, Coriolis- und Reibungskräften.
+\[ Q = M(q)\ddot{q} + n(\dot{q}, q) + g(q) + R\dot{q}\]
+
+\textbf{Konzepte}\\
+Exakte Systemmodellierung: A priori exakte Kenntnis des Dynamikmodells + Umgebung.\\
+Kraft-/Positionsregelung: Ausführen von Aufgaben mit Interaktionskräften.\\
+Hybride Kraft-/Positionsregelung: Regele jede kartesische Richtung einzeln.\\
+
+\textbf{Impedanz-reglung}\\
+Regelt die dynamische Beziehung zwischen Kraft und Position im Kontaktfall.\\
+\[f(t) = d \cdot x(t) + b \cdot \dot{x}(t) + m \cdot \ddot{x}(t)\]

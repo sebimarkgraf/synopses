@@ -1,0 +1,151 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "robotik"
+%%% End:
+
+\section{Mathematische Grundlagen}
+
+\subsection{Definitionen}
+\textbf{Kinematik}\\
+Analysiert die Geometrie eines Manipulators oder Roboters. Das essentielle Konzept ist die Position.\\
+
+\textbf{Statik}\\
+Behandelt Kräfte und Momente, die sich auf den ruhenden Mechanismus auswirken. Dass essentielle Konzept
+ist die Steifigkeit.\\
+
+\textbf{Dynamik}\\
+Analysiert die Kräfte und Momente, die durch Bewegung und Beschleunigung eines Mechanismus und einer
+zusätzlichen Last entstehen.\\
+
+\textbf{Kinematische Kette}\\
+Ist ein Satz an Gliedern die durch Gelenke verbunden sind.\\
+
+\textbf{Freiheitsgrade}\\
+Ist eine Anzahl unabhängiger Parameter, die zur kompletten Spezifikation der Position eines
+Mechanismus/Objekts benötigt werden. (degrees of freededom DoF)
+
+\subsection{\SO und \SE}
+\SO{} ist die Spezielle Orthogonale Gruppe und repräsentiert Rotationen.\\
+Elemente: 3\(\times\)3 Matrizen und \(R^{T}R = I\ \text{mit}\ \det(R) = 1\)\\
+\SE{} ist die Spezielle Euklidische Gruppe und repräsentiert Bewegungen von Starrkörpern.\\
+Elemente: \((p, R)\ \text{mit}\ p \in \realnumbers^3\ \text{und}\ R \in \SO\)
+
+\subsection{Euklidischer Raum}
+Ist der Vektorraum \(\realnumbers^3\) mit dem Standardskalarprodukt.
+
+\subsection{Koordinatensysteme}
+Es existieren rechtsdrehende und linksdrehende Koordinatensysteme. Lässt sich einfach mit der rechten-Hand-Regel herausfinden:
+\begin{itemize}
+  \item Daumen in z-Richtung
+  \item Zeigefinger in x-Richtung
+  \item Mittelfinger in y-Richtung
+\end{itemize}
+\(\Rightarrow\) Koordinatensystem rechtsdrehend.\\
+
+\textbf{Typen von Koordinatensystemen}
+\begin{itemize}
+  \item BKS:\@ Basiskoordinatensystem, initialias Bezugssystem
+  \item OKS:\@ Objektkoordinatensystem
+  \item EKS:\@ Endeffektorkoordinatensystem
+  \item SKS:\@ Sensorkoordinatensystem
+\end{itemize}
+
+\subsection{Lineare Abbildungen}
+\textbf{Endomorphismus}\\
+Lineare Abbildung des euklidischen Raums auf sich selbst\\
+
+\textbf{Isomorhpismus}\\
+Bijektive Endomorphismen. Spezielle Art von Isomorphismus ist \SO{}
+
+\subsection{Rotation}
+\textbf{in 2D}\\
+Abbildung mit Matrix \(R_\alpha(x) = \begin{pmatrix} \cos \alpha & -\sin\alpha \\ \sin \alpha & \cos \alpha\end{pmatrix}\)
+Ist nur eine lineare Transformation wenn um \(c=(0,0)\) rotiert wird.\\
+Sonst muss erst vorher zum Ursprung und hinterher wieder zurück verschoben werden.\\
+
+\textbf{Affine Transformationen}\\
+\(T(x) = A(x) + b\) werden affine Transformtionen genannt.\\
+
+\textbf{in 3D}\\
+Rotationen um Achsen identisch mit 2D Fall + eine weitere 1.
+
+\subsection{Rotations Operationen}
+\textbf{Inverse}\\
+Inverse wird durch transponieren der Rotationsmatrix erreicht. \(R^{-1} = R^T\)\\
+
+\textbf{Verkettung}\\
+\(\phi_{z, \theta_3}(\phi_{y, \theta_2}(\phi_{x, \theta_1}(a))), a \in \realnumbers^3\)\\
+Lesen von links nach rechts: Rotation um lokale Achsen\\
+Lesen von rechts nach links: Rotation um globale Achsen\\
+
+\textbf{Probleme mit Rotationsmatrizen}\\
+Redundanz und keine einfache Erzeugung durch maschinelles Lernen
+
+\subsection{Eulerwinkel}
+Lege Rotation um Achsen fest. In \textbf{Euler-Konvention} \(z, x', z''\).
+Gebe Rotation in Winkeln \(\alpha, \beta\) und \(\gamma\) an.
+\[ R_s = R_z R_{x'} R_{z''}\]
+
+\textbf{Roll, Pitch, Yaw}\\
+Andere Konvention, verwendet \(x, y, z\).\\
+Drehung um jeweils unveränderte Achsen.
+Kann zum Gimbal Lock führen.\\
+
+\textbf{Gimbal Lock}\\
+Verlust eines Freiheitsgrades, da bei bestimmten Winkeln 2 Achsen voneinaner abhängig werden.
+
+
+\subsection{Affine Transformationen}
+Affiner Raum ist Erweiterung des euklidischen Raums.
+\begin{equation}
+  b = Ax + t
+    \Leftrightarrow
+    b = \myVector{b \\ 1} = \myMatrix{A & o \\ o^T & 1} \myVector{x \\ 1} + \myVector{t \\ 0} =
+    \myMatrix{A & t \\ o^T & 1}\myVector{x \\ 1}
+\end{equation}
+Kombiniere Translation und Rotation in einer Matrix. Dann Standardmatrix:
+\(T = \myMatrix{A & \mathbf{t} \\ \mathbf{o}^T & 1}\)\\
+
+\textbf{Nachteile}
+\begin{itemize}
+\item Redundant
+\item Schwierige Interpolation
+\end{itemize}
+
+\subsection{Quaternionen}
+Erweiterung der komplexen Zahlen \complexnumbers{} durch William Rowan Hamilton.\\
+Menge der Quaternionen \quaternionen{} als \( \quaternionen = \complexnumbers + \complexnumbers j\)\\
+Also ist ein Quaterionen \(q \in \quaternionen\) durch \(q = \myVector{a \\ u} = a + u_1 i + u_2 j + u_3 k\) 
+mit \(a \in \realnumbers, u \in \realnumbers^3\) und \( k = i \cdot j\) gegeben.\\
+
+\textbf{Rechenregeln}\\
+Quaternionen \(q = {(a, u)}^T,\ r = {(b,v)}^T\).
+\begin{itemize}
+\item Addition:\@ \(q + r = {(a + b, u + b)}^T\)
+\item Skalarprodukt:\@ \(\langle q \lvert r\rangle = a \cdot b + \langle v \lvert u \rangle = a \cdot b + v_1 \cdot u_1 + v_2 \cdot u_2 + v_3 \cdot u_3\)
+\item Multiplikation:\@ \(q \cdot r = (a + u_1i + u_2j + u_3k) \cdot (b + v_1 i + v_2 j + v_3 k)\)
+\item Konjugation:\@ \(q^* = {(a, -u)}^T\)
+\item Norm:\@ \( \lvert q \lvert = \sqrt{q \cdot q^*} = \sqrt{q^* \cdot q} = \sqrt{a^2 + u_1^2 + u_2^2 + u_3^2}\)
+\item Inverse:\@ \( q^{-1} = \frac{q^*}{{\lvert q \lvert}^2}\)
+\end{itemize}
+
+\textbf{Rotationen}\\
+Dafür werden Einheitsquaternionen \(\mathbb{S}^3 = \{q \in \quaternionen\ \lvert\ {\|{q}\|}^2 = 1\}\) definiert.\\
+Definiere Rotation um Achse \(a,\ \|a\| = 1\) und Winkel \(\phi\) durch \(q = (\cos \frac{\phi}{2}, a \sin \frac{\phi}{2})\)\\
+Dann Rotatoin des Punkes \(v\) mit \(v' = qvq^{-1} = qvq^*\).\\
+Vorgehen: (an \(p = {(1, 0, 9)}^T,\ a = {(1, 0, 0)}^T,\ \phi = \ang{90}\))
+\begin{enumerate}
+\item Darstellung von \(p\) als Quaternion \(v\) --- \(v = 0 + 1i + 0j + 9k\)
+\item Rotationsquaternion \(q\) --- \( q = \cos \frac{\phi}{2} + 1i \cdot \sin \frac{phi}{2} + 0j + 0k\)
+\item Konjugiertes Quaternion \(q^*\) --- \(q^* = \cos \frac{\phi}{2} - 1i \cdot \sin \frac{\phi}{2} - 0j -0k\)
+\item Rotation von \(v\) um \(q\) --- \(v_r = qvq^*\)
+\item Darstellung als Punkt \(p_r\) --- \(p_r = {(1, -9, 0)}^T\)
+\end{enumerate}
+
+\textbf{Interpolation SLERP}\\
+Interpoliere mit Hilfe von \(t \in [0, 1]\) und \(\langle q_1 \lvert q_2 \rangle = \cos \theta\)
+\[ \mathit{Slerp}(q_1, q_2, t) = \frac{\sin(1-t)\theta}{\sin \theta} \cdot q_1 + \frac{\sin t\theta}{\sin \theta} \cdot q_2 \]
+
+\textbf{Duale Quaternionen}\\
+Ergänze Quaternionen um Duale Zahlen um Translation des Objektes auszudrücken.

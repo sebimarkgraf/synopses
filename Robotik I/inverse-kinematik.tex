@@ -1,0 +1,54 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "robotik"
+%%% End:
+
+\section{Inverse Kinematik}
+Bestimmen der Gelenkwinkelstellungen zu einer gewünschten Lage des Endeffektors\\
+Vorgehensweise: Aufstellen der kinematischen Gleichung und lösen nach den Winkeln.
+
+\subsection{Eindeutigkeit}
+In der Ebene für Systeme mit mehr als 3 Bewegungsfreiheitsgrade mehrere Möglichkeiten. Damit nicht eindeutig!\\
+Bei mehr als 6 Bewegungsfreiheitsgraden auch in \SE uneindeutig.
+
+\subsection{Geometrische Methode}
+Nutzen von geometrischen Beziehungen um die Gelenkwinkel aus der Pose zu bestimmen.\\
+Kein Verwenden des kinematischen Modells.\\
+z.B. verwende Sinus-/Kosinussatz mit Darstellung: 
+\begin{align*}
+  \cos \theta = \frac{1 - u^2}{1 + u^2}\\
+  \sin \theta = \frac{2u}{1 + u^2}
+\end{align*}
+
+\subsection{Algebraische Methode}
+Setze TCP Pose \(P_{TCP}\) und Transformation \({}^{BKS}T_{TCP}\)
+\[P_{TCP} = {}^{BKS}T_{TCP}(\theta)\]
+und führe Koeffizientenvergleich durch.
+\[\myMatrix{a_{11} & \cdots & a_{1n}\\ \vdots & \ddots & \vdots \\ a_{n1} & \cdots & a_{nn} } =
+  \myMatrix{b_{11} & \cdots & b_{1n}\\ \vdots & \ddots & \vdots \\ b_{n1} & \cdots & b_{nn} } \Rightarrow a_{ij} = b_{ij}\]
+Ergibt 12 nicht-triviale Gleichungen.\\
+Schwierig zu lösen, deswegen Lösen der Gleichungen Matrix für Matrix anstatt der gesamten Transformation auf einmal.
+
+\subsection{Numerische Methoden}
+Durch Invertieren der Jacobimatrix und Annähern der Vorwärtskinematix
+\[\Delta x = f(\Delta \theta) \approx J_f(\theta) \cdot \Delta \theta\]
+Dann suche Lösung für Inverse:
+\[\Delta \theta \approx F(\Delta x) = J_f^{-1}(\theta) \cdot \Delta x\]
+
+Da Jacobimatrix im Allgemeinen nicht invertierbar: Verwende Pseudoinverse
+\[A^+ = A^T{(AA^T)}^{-1}\]
+
+Also Vorgehen
+\begin{enumerate}
+\item Vorwärtskinematik \(x(t) = f(\theta(t))\)
+\item Ableitung nach Zeit \(\frac{dx(t)}{dt} = \dot{x}(t) = J_f(\theta)\dot{\theta}(t)\)
+\item Übergang zu Differenzenquotienten \(\Delta x \approx J_f(\theta)\Delta\theta\)
+\item Umkehrung \(\Delta\theta \approx J_f^+(\theta)\Delta x\)
+\end{enumerate}
+
+\textbf{Iteratives Vorgehen}\\
+Pseudoinverse in der Nähe von Singularitäten instabil \(\rightarrow\) Verwende Damped least squares.\\
+Minimiere:
+\[\min_{\Delta\theta}||J_f(\theta)\Delta\theta - \Delta x||^2_2 + \lambda^2||\Delta\theta||^2_2\]
+mit Dämpfung \(\lambda > 0\)

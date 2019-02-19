@@ -16,6 +16,7 @@ Dabei wird der Inhalt auf den Klausur relevanten Stoff beschränkt.
 Diese befinden sich auf eigenen Branches bis zur Fertigstellung der Erstfassung
 * Programmierparadigmen
 * Sicherheit
+* Robotik I
 
 ## Mitarbeit
 Fehlerkorrekturen und Erweiterungen der bestehenden Zusammenfassungen sind gerne als Pull Request gesehen.
