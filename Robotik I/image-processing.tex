@@ -85,7 +85,6 @@ Algorithmus:
 
 Intensitätsgradienten mit Prewitt- oder Sobel-Filter
 
-
 \subsection{Visual Servoing}
 Visuelle Eingabedaten nutzen, um Bewegungen zu steuern, z.B. auf Grund von Modellfehlern oder anderen Ungenauigkeiten\\
 
@@ -114,7 +113,28 @@ und berechne Eigenvektoren\\
 \textbf{Registrierung}\\
 Zusammenführen von Punktwolken aus verschiedenen Ansichten für das selbe Objekt
 z.B. mit iterative Closest Point\\
-Berechne Transformationen, sodass Punkte von B transformiert möglichst nahe an nächsten Punkten ovn A \\
+Berechne Transformationen, sodass Punkte von B transformiert möglichst nahe an nächsten Punkten von A \\
 
-oder RANSAC
+\subsubsection{Iterative Closest Point (ICP)}
+Algorithmus für Registrierung zweier Mengen \(A,B\) mit a priori unbekannter Zuordnung\\
+Vorgehen:
+\begin{itemize}
+\item Für jeden Punkt \(a_i\) aus \(A\) suche Punkt \(b_i\) aus \(B\), der \(a_i\) am nächsten liegt
+\item Berechne Transformation \(T_k\) so dass \(D_k\) minimal wird, z.B. mit
+  \(D_k = \sum_i || a_i - T_k \cdot b_i ||^2\)
+\item \(D_k\) kombiniert Translation und Rotation
+\item Wende Transformation \(T_k\) auf alle Punkte aus \(B\) an (Update).
+\item Abbruch: Schwellwert oder Anzahl an Iterationen
+\end{itemize}
 
+\subsubsection{Random Sample Consensus (RANSAC)}
+Iterative Methode zur Schätzung von Modellparamtern aus Datenpunkten\\
+Nicht-deterministisch!\\
+Robust gegenüber Ausreißern\\
+Vorgehen:
+\begin{itemize}
+\item Wähle zufällig die minimale Anzahl an Punkten aus, die nötig ist um die Modellparameter zu berechnen
+\item Schätze ein Modell aus dem ausgewählten Datensatz
+\item Bewertung der Modellschätzung (Bestimme inliers --- Punkte mit Abstand kleiner als Schwellwert)
+\item Wiederhole bis das Modell mit den meistern Inliers gefunden
+\end{itemize}
