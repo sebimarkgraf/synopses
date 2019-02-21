@@ -91,7 +91,10 @@ Gebe Rotation in Winkeln \(\alpha, \beta\) und \(\gamma\) an.
 Andere Konvention, verwendet \(x, y, z\).\\
 Drehung um jeweils unveränderte Achsen.
 Kann zum Gimbal Lock führen.\\
-
+\[\myMatrix{\cos \alpha \cos \beta & \cos \alpha \sin \beta \sin \gamma - \sin \alpha \cos \gamma & \(\cos \alpha \sin \beta \cos \gamma + \sin \alpha \sin \gamma\)\\
+  \sin \alpha \cos \beta & \sin \alpha \sin \beta \sin \gamma + \cos \alpha \cos \gamma & \(\sin \alpha \sin \beta \cos \gamma - \cos \alpha \sin \gamma\)\\
+  -\sin \beta &  \cos \beta \sin \gamma& \cos \beta \cos \gamma\\
+  }\]
 \textbf{Gimbal Lock}\\
 Verlust eines Freiheitsgrades, da bei bestimmten Winkeln 2 Achsen voneinaner abhängig werden.
 
