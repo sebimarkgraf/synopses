@@ -148,8 +148,11 @@ probabilistisch, vollständig, randomisiert
 \begin{enumerate}
 \item Beginne mit leerem Baum nur mit Start
 \item Erzeuge zufälligen Punkt
-\item Verbinde mit nächstem Nachbarn, falls kollisionsfrei
-\item Überprüfe ob Ziel erreicht, sonst erzeuge nächsten Punkt
+\item Bestimme nächsten Nachbarn \(q_{nn}\)
+\item Verbinde mit Schrittweite \(d\) und prüfe ob Teilpfad Kollisionen hat
+\item Stoppe, wenn Kollision erkannt
+\item Gehe zu Schritt 1
+\item Überprüfe jeden \(k\)-ten Schritt ob Ziel erreicht werden kann
 \end{enumerate}
 
 Durch Nachbearbeitung können Lösungen verbessert werden. Wähle zufällige Punkte im Lösung und teste ob diese

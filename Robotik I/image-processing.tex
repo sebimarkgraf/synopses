@@ -61,6 +61,11 @@ Alternativ Intervallschranken für Farbton
 \textbf{Öffnen}: Erosion danach Dilatation, entferne dünne Linien, außenliegende Objekte\\
 \textbf{Schließen}: Diltatation danach Erosion: Überbrückung kleiner Distanzen und Schließung von Löchern\\
 
+\subsection{Filter}
+\textbf{Prewitt}\\
+Detektion von Kanten in X-Richtung und Y-Richtung. Aufgeteilt in 2 Richtungen
+\[p_x = \myMatrix{-1 & 0 & 1\\-1 & 0 & 1\\ -1 & 0 & 1\\} \qquad p_y = \myMatrix{-1 & -1 & -1\\ 0 & 0 & 0\\ 1& 1 & 1\\}\]
+
 \subsection{Canny-Kantendetektor}
 Ziel: optimaler Kantendetektor
 \begin{itemize}
