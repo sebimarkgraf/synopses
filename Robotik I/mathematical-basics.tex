@@ -68,6 +68,7 @@ Sonst muss erst vorher zum Ursprung und hinterher wieder zurück verschoben werd
 \(T(x) = A(x) + b\) werden affine Transformtionen genannt.\\
 Invertieren einer Affinen Transformation aus Rotation \(R\) und Translation \(T\).
 \[ A^{-1} = R^{-1} - (R^{-1} T)\]
+Angabe als \({}^{\text{Nach}}T_{\text{Von}}\)\\
 
 \textbf{in 3D}\\
 Rotationen um Achsen identisch mit 2D Fall + eine weitere 1.
@@ -151,6 +152,8 @@ Vorgehen: (an \(p = {(1, 0, 9)}^T,\ a = {(1, 0, 0)}^T,\ \phi = \ang{90}\))
 \textbf{Interpolation SLERP}\\
 Interpoliere mit Hilfe von \(t \in [0, 1]\) und \(\langle q_1 \lvert q_2 \rangle = \cos \theta\)
 \[ \mathit{Slerp}(q_1, q_2, t) = \frac{\sin(1-t)\theta}{\sin \theta} \cdot q_1 + \frac{\sin t\theta}{\sin \theta} \cdot q_2 \]
+Vorteil: Konstante Winkelgeschwindigkeit bei Interpolation\\
+Problem: Da in \SO doppelt Einheitsquaternionen abgedeckt \(\rightarrow\) Nicht immer kürzeste Rotation\\
 
 \textbf{Duale Quaternionen}\\
 Ergänze Quaternionen um Duale Zahlen um Translation des Objektes auszudrücken.
