@@ -259,19 +259,22 @@
 	\subsubsection{Phong-Beleuchtungsmodell}
 	\label{rt:ssub:phong_beleuchtungsmodell}
 	
+        \[I = k_a I_L + k_d I_L (N \cdot L) + k_s I_L (R_L \cdot V)^n \qquad \text{wobei } R_L = -L + 2N(L \cdot N)\]
 	\begin{itemize}
 		\item Phänomenologisches Modell, modelliert Beleuchtung anhand dreier Komponenten, die aufsummiert den Lichteinfluss ergeben
 		\begin{itemize}
-			\item \textbf{Ambient}: Grundhelligkeit durch indirekte Beleuchtung
-			\item \textbf{Diffus}: Grobe Beleuchtung nach dem Lambertschen Gesetz (beschreibt die Intensitätsabschwächung je nach Material)
-			\item \textbf{Spekular}: Imperfekte Spiegelung, \glqq Highlights\grqq
+			\item \textbf{Ambient}: Grundhelligkeit durch indirekte Beleuchtung: \(k_a I_l\)
+			\item \textbf{Diffus}: Grobe Beleuchtung nach dem Lambertschen Gesetz (beschreibt die Intensitätsabschwächung je nach Material):
+                          \(k_d I_L (N \cdot L)\)
+			\item \textbf{Spekular}: Imperfekte Spiegelung, \glqq Highlights\grqq:
+                          \(k_s I_l (R_L \cdot V)^n\)
 		\end{itemize}
 		\item Ambientes Licht ist meist grundsätzlich vorhanden
 		\item Diffuses Licht ergibt sich aus dem diffusen Materialfaktor, der Lichtintensität und dem Punktprodukt von Lichtrichtung und Oberflächennormale
 		\item Spekulares Licht ergibt sich aus dem spekularen Materialfaktor, der Lichtintensität und dem Punktprodukt von Lichtreflektionsrichtung und Blickrichtung der Kamera hoch \glqq Phong-Exponent\grqq\ n
 		\item Die Lichtintensität \textbf{nimmt mit zunehmender Entfernung zur Lichtquelle ab}!
 		\item In der Regel werden die Punktprodukte auf 0 und größer \textbf{\glqq geclampt\grqq}, damit z.B Licht von der Rückseite nicht die Vorderseite beleuchtet
-	\end{itemize}
+        \end{itemize}
 
 	\subsection{Schattierung von Dreiecksnetzen}
 	\label{rt:sub:schattierung_von_dreiecksnetzen}
