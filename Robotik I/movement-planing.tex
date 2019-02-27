@@ -96,7 +96,7 @@ Findet optimalen Pfad von Start zu Zielknoten\\
 Solange \(O \neq \varnothing\)
 \begin{itemize}
 \item Bestimme den zu erweiternden Knoten --- Finde \(v_i \in O\) mit minimalem \(f(v_i) = g(v_i) + h(v_i)\)
-\item Wenn \(v_i = v_{\mathit{Ziel}\)} Lösung gefunden: Traversiere Vorgänger von \(v_i\) bis \(v_{\mathit{start}}\) erreicht ist.
+\item Wenn \(v_i = v_{\mathit{Ziel}}\) Lösung gefunden: Traversiere Vorgänger von \(v_i\) bis \(v_{\mathit{start}}\) erreicht ist.
 \item \(O\).remove(\(v_i\))
 \item \(C\).add(\(v_i\))
 \item Update für alle Nachfolger \(v_j\) von \(v_i\) durchführen
@@ -142,7 +142,7 @@ Approximation des Freiraums durch Graphen\\
 \begin{enumerate}
 \item Erzeuge Graph durch zufällige verbundene Stichproben
 \item Suche Weg im Graph
-\end{itemize}
+\end{enumerate}
 
 \subsection{Dynamic Roadmaps}
 Mehrere Anfragen bei gleichbleibender kinematischen Kette\\
