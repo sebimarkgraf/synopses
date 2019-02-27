@@ -138,3 +138,13 @@ Vorgehen:
 \item Bewertung der Modellschätzung (Bestimme inliers --- Punkte mit Abstand kleiner als Schwellwert)
 \item Wiederhole bis das Modell mit den meistern Inliers gefunden
 \end{itemize}
+
+\subsection{Simultaneous localization and mapping (SLAM)}
+Bezeichnet das Problem eine Karte von einem Gebiet zu erstellen und gleichzeitig den Roboter zu lokalisieren.\\
+Vorgehen:
+\begin{enumerate}
+\item Orientierungspunkte/Szenenfeatures auswählen
+\item Vorhersage, wie viel sich der Roboter bewegt hat
+\item Neue Orientierungspunkte/Szenenfeatures aufnehmen. Falls bekannte Features erkannt werden kann eine Zuordnung stattfinden
+\item Interne Repräsentation aktualisieren (Messungenauigkeit beachten)
+\end{enumerate}
