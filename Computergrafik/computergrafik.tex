@@ -10,6 +10,8 @@
 \usepackage{mathrsfs}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
 
 \graphicspath{{./images/}}
 
@@ -64,6 +66,15 @@
 
         Daraus ergibt sich eine kleiste wahrnehmbare Helligkeitsdifference \(\Delta L_\text{JND}\)
         \[\frac{\Delta L_\text{JND}}{L} = \text{const} \approx 2\%\]
+        \begin{tikzpicture}
+          \begin{axis}[
+            xlabel=Leuchtdichte cd/\(m^2\),
+            ylabel=wahrgenommene Helligkeit
+            ]
+            \addplot { 1 / e * ln x + 0.5};
+          \end{axis}
+        \end{tikzpicture}
+        % TODO: Fix scaling of tikzpicture to go from 0 to 1 in both axes.
         
 	\subsection{Gamma-Korrektur}
 	\label{bfp:sub:gamma_korrektur}
