@@ -284,20 +284,27 @@
 	\subsection{Sekundärstrahlen}
 	\label{rt:sub:sekundaerstrahlen}
 	
-	\begin{itemize}
-		\item Sekundärstrahlen für \textbf{Reflexion}:
-			\begin{itemize}
-				\item z.B spiegelnde Metallkugel
-				\item Bei Intersektion: Verfolge einen Reflexionsstrahl in die Reflexionsrichtung ab der Position $\epsilon$ Längeneinheiten vor der Intersektion (Vermeidung von erneutem Schneiden derselben Oberfläche) und addiere die resultierende Farbe gewichtet hinzu
-			\end{itemize}
-		\item Sekundärstrahlen für \textbf{Transmission}:
-			\begin{itemize}
-				\item z.B durchsichtige Glaskugel
-				\item Bei Intersektion: Verfolge einen Transmissionsstrahl in die Transmissionsrichtung $\epsilon$ Längeneinheiten von der zweiten Intersektion der Kugel entfernt (Vermeidung von erneutem Schneiden derselben Oberfläche) und addiere die resultierende Farbe gewichtet hinzu
-			\end{itemize}
-	\end{itemize}
+	\subsubsection{Reflexion}
+        \begin{itemize}
+        \item z.B spiegelnde Metallkugel
+        \item Bei Intersektion: Verfolge einen Reflexionsstrahl in die Reflexionsrichtung ab der Position $\epsilon$ Längeneinheiten vor der Intersektion (Vermeidung von erneutem Schneiden derselben Oberfläche) und addiere die resultierende Farbe gewichtet hinzu
+        \end{itemize}
 
-	\subsection{Aliasing}
+        \subsubsection{Transmission}
+        \begin{itemize}
+        \item z.B durchsichtige Glaskugel
+        \item Bei Intersektion: Verfolge einen Transmissionsstrahl in die Transmissionsrichtung $\epsilon$ Längeneinheiten von der zweiten Intersektion der Kugel entfernt (Vermeidung von erneutem Schneiden derselben Oberfläche) und addiere die resultierende Farbe gewichtet hinzu
+        \end{itemize}
+        \textbf{Brechungsgesetz}\\
+        Bei Übergang in optisch dichtere Medium wird zum Lot hingebrochen\\
+        Bei Übergang ins optisch dünnere Medium vom Lot weg\\
+        \[\eta_i \sin \theta_i = \eta_t \sin \theta_t\]
+        \textit{Fresnel-Effekt}: Aufspaltung in Reflexion und Transmission\\
+        \textit{Totalreflexion}: Bei \(\sin \theta_c = \eta_i / \eta_t\) wird gesamtes Licht reflektiert\\
+        \textit{Disperson}: Ausbreitungsgeschwindigkeit abhängig von Wellenlänge \(\rightarrow\) Aufspaltung in Wellenlängen
+        
+
+        \subsection{Aliasing}
 	\label{rt:sub:aliasing}
 	
 	\begin{itemize}
