@@ -21,6 +21,7 @@
 \newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 \newcommand{\norm}[1]{\lVert#1\rVert}
 \renewcommand{\arraystretch}{1.5}
+\setlength{\parindent}{0cm}
 
 \begin{document}
 	\pagenumbering{Roman}
@@ -292,6 +293,9 @@
         \item z.B spiegelnde Metallkugel
         \item Bei Intersektion: Verfolge einen Reflexionsstrahl in die Reflexionsrichtung ab der Position $\epsilon$ Längeneinheiten vor der Intersektion (Vermeidung von erneutem Schneiden derselben Oberfläche) und addiere die resultierende Farbe gewichtet hinzu
         \end{itemize}
+
+        \textbf{Glanzlichter}\\
+        Perfekte Spiegelung der Lichtquelle auf Objekt. Fallen mit größerem Phong-Exponenten schneller ab.
 
         \subsubsection{Transmission}
         \begin{itemize}
