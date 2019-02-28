@@ -184,8 +184,13 @@
 		\item Es existieren k Punkte $P_1, ..., P_k \in \realnumbers^n, k \leq n + 1$
 		\item Existiert dann ein Punkt Q der Form $Q = \lambda_1P_1 + \lambda_2P_2 + ... + \lambda_kP_k, \lambda_1 + \lambda_2 + ... + \lambda_k = 1$ (\glqq Affinkombination\grqq)
 	\end{itemize}
-	Dann definiert man $(\lambda_1, \lambda_2, ..., \lambda_k)$ als die baryzentrischen Koordinaten von Q bzgl. der Basispunkte $P_1, ..., P_k$. Hiermit lässt sich z.B ein Punkt innerhalb eines Dreiecks anhand der Eckpunkte beschreiben (z.B um zu testen ob ein Punkt in einem Dreieck liegt).
+	Dann definiert man $(\lambda_1, \lambda_2, ..., \lambda_k)$ als die baryzentrischen Koordinaten von Q bzgl. der Basispunkte $P_1, ..., P_k$. Hiermit lässt sich z.B ein Punkt innerhalb eines Dreiecks anhand der Eckpunkte beschreiben (z.B um zu testen ob ein Punkt in einem Dreieck liegt).\\
 
+        \textbf{Berechnung in Dreieck}\\
+        Berechne \(\lambda_1, \lambda_2, \lambda_3\) durch \\
+        \[\lambda_1 = \frac{A_{\Delta}(Q, P_2, P_3)}{A_\Delta(P_1, P_2, P_3)} \qquad \lambda_2 = \frac{A_{\Delta}(P_1, Q, P_3)}{A_\Delta(P_1, P_2, P_3)} \qquad \lambda_3 = \frac{A_{\Delta}(P_1, P_2, Q)}{A_\Delta(P_1, P_2, P_3)}\]
+        wobei \(A_\Delta (Q, P_2, P_3) = \frac{1}{2} |P_2 - Q| | P_3 - Q | \sin \phi\)
+          
 	\newpage
 	\subsection{Ray Casting - Schnittpunktberechnung}
 	\label{rt:sub:ray_casting_schnittpunktberechnung}
