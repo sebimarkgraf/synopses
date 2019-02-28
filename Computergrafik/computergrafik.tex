@@ -870,6 +870,84 @@
         \end{itemize}
 
         \newpage
+        \section{Prozedurales Modellieren}
+        
+        \subsection{Textursynthese}
+        Ziel: Synthesiere eine Texture die genau wie Eingabetexture aussieht\\
+        \(\rightarrow\) Stochastische Muster, nicht wiederholen der Textur\\
+
+        \textbf{Pixelbasiert}\\
+        Erzeuge Textur Pixel für Pixel durch Betrachten der Nachbarschaft\\
+        Einfach, aber langsam\\
+
+        \textbf{Patchbasiert}\\
+        Verwende größere Bereiche und setze diese wieder zusammen
+
+        \subsection{Rauschen und Rauschtexturen}
+        \textbf{Noise-Funktion}\\
+        Grundlage für stoch. Modellierung / prozedurale Texturen\\
+        Erzeugen von Bildern aus Pseuo-Zufallszahlen\\
+        2 Klassen
+        \begin{itemize}
+          \item Lattice Value Noise (Werte auf 1D/2D/3D Gitter)
+          \item Lattice Gradient Noise (nicht klausurrelevant)
+        \end{itemize}
+
+        Auswertung in Abhängigkeit von Frequenz \(f\) und Offset \(o\): \(n(f \cdot x + o)\)\\
+
+        \textbf{Turbulenz}\\
+        Summiere mehrere Frequenzen (Oktaven)\\
+        \[\text{turbulence}(x) = \sum_k (1 / f)^k n(f^k \cdot x)\]
+        Höhere Frequenzen \(\rightarrow\) Feiner strukturen + kleinere Amplitude\\
+
+        \textbf{Texturen}\\
+        Durch geschicktes Kombinieren (addieren, multiplizieren) und mappings lassen sich Texturen oder auch
+        ganze Landschaften erzeugen
+        
+        \subsection{Hypertextures}
+        Beschreiben von komplexen Objekten durch Dichtefunktionen. Verwende Turbulunce innerhalb des Objekts
+        um Rauschen zu erzeugen und Strukturen wie Wolken oder Feuer zu erzeugen. Außerhalb verwende 0.
+        
+        \subsection{Distanzfelder, Distanzfunktionen}
+        Stelle Geometrie implizit als Abstandsfunktion dar z.B. Kugel \(f(x) = | x - m | - r\)\\
+        Vorzeichenbehaftet, negativ also im Inneren. Bei \(f(x) = 0\) spricht man von der Isofläche\\
+
+        \textbf{Sphere Tracing}\\
+        Finden des Schnittpunkts durch Sphere Tracing \(\rightarrow\) Lege immer Strecke \(f(x)\) zurück
+        \(\rightarrow\) Da kürzeste Abstand zu nächster Fläche überspringen wir garantiert keinen Schnittpunkt\\
+
+        \textbf{Normalen}\\
+        Gradient zeigt in Richtung der schnellsten Zunahem \(\righarrow\) Normale. Approximiere Gradient
+        \[\nabla f(x) = \left[
+            \begin{tabular}{c}
+              d / dx\\
+              d / dy \\
+              d / dz\\
+              \end{tabular}
+            \right] f(x)
+            \approx
+            \left[
+              \begin{tabular}{c}
+                f (x + 1/2 h, y, z) - f (x - 1/2 h, y, z)\\
+                f (x, y + 1/2 h, z) - f (x, y - 1/2 h, z)\\
+                f (x, y, z + 1/2 h) - f (x, y, z - 1/2 h)\\
+              \end{tabular}
+            \right]
+          \]
+
+          Durch Verknüpfen von einzelnen Funktionen lassen sich komplexe Geometrien modellieren
+          \begin{itemize}
+          \item Vereinigung \(f_{A \cup B} (x) = \min (f_A(x), f_B(x))\)
+          \item Schnitt \(f_{A \cap B} (x) = \max (f_A(x), f_B(x))\)
+          \item Differenz \(f_{A \setminus B} (x) = \max (f_A(x), - f_B(x))\)
+          \end{itemize}
+        
+        \subsection{L-Systeme}
+        Theoretisches Modell für biologische Entwicklung\\
+        Definiere ein komplexes Objekt durch sukzessives Ersetzen von Teilen eines einfacheren Objekts\\
+        Arbeitet ähnlich wie formale Grammatiken
+        
+        \newpage
         \section{Kurven und Flächen}
         
         \subsection{Bézierkurven}
