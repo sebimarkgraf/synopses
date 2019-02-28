@@ -44,11 +44,11 @@ genannt Wrenchvektor, \(w\) zusammengefasst.\\
 
 \textbf{Berechnung}\\
 Bestimme Reibungskraft \(f_R\) im rechten Winkel zur Kraft \(f_i\): \(f_R \perp f_i \qquad ||f_R|| = \gamma \cdot ||f_i||\)\\
+Note: Um den perpendikulären Vektor \(f_{\perp}\) durch CCW zu erhalten muss in 2D: \((x, y) \rightarrow (-y, x)\)
 Die Seiten erhalten wir dann mit \(f_a = f + f_R \qquad f_b = f - f_R\)\\
 Berechne \(d_i\) zum Schwerpunkt \(c\): \(d_i = p_i - c\)\\
 Bestimme Drehmomente \(\tau\): \(\tau_{a,i} = d_i \times f_{a,i} \qquad \tau_{b,i} = d_i \times f_{b,i}\)\\
-Wrenches aufschreiben: \(w_{a,i} = (f_{a,i}, \tau_{a,i}) \qquad w_{b,i} = (f_{b,i}, \tau_{b, i})\)
-
+Wrenches aufschreiben: \(w_{a,i} = (f_{a,i}, \tau_{a,i}) \qquad w_{b,i} = (f_{b,i}, \tau_{b, i})\)\\
 \subsubsection{Greifmatrix}
 Darstellung eines räumlichen Griffes durch Wrenchvektoren mit \(m\) Kontaktpunkten
 \[G = \left[ {}^1w_n, {}^1w_t, {}^1w_{\theta}, \ldots, {}^mw_n, {}^mw_t, {}^mw_{\theta}\right] \in \realnumbers^{6\times3m}\]
