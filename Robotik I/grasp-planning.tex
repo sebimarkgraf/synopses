@@ -33,9 +33,21 @@ Gegeben: Objekt und eine Menge von Nebenbedingungen\\
 Gesucht: Eine Menge von Kontaktpunkten
 
 \subsection{Griffmodelle}
+
+\subsubsection{Reibungsdreiecke}
+Dreieck an Kontaktpunkt \(p_i\) mit Kraft \(f_i\). Öffnung ist abhängig von Reibungskoeffizient \(\gamma = 1\).\\
+Öffnungswinkel des Dreiecks \(\beta = \arctan \gamma\)
+
 \subsubsection{Wrenchvektor}
 In Kontaktpunkt \(p_i\) wirkenden Kräfte \(f_i\) und Momente \(\tau_i\) mit \(i \in \{x, y, z\}\) in einem Vektor,
-genannt Wrenchvektor, \(w\) zusammengefasst.
+genannt Wrenchvektor, \(w\) zusammengefasst.\\
+
+\textbf{Berechnung}\\
+Bestimme Reibungskraft \(f_R\) im rechten Winkel zur Kraft \(f_i\): \(f_R \perp f_i \qquad ||f_R|| = \gamma \cdot ||f_i||\)\\
+Die Seiten erhalten wir dann mit \(f_a = f + f_R \qquad f_b = f - f_R\)\\
+Berechne \(d_i\) zum Schwerpunkt \(c\): \(d_i = p_i - c\)\\
+Bestimme Drehmomente \(\tau\): \(\tau_{a,i} = d_i \times f_{a,i} \qquad \tau_{b,i} = d_i \times f_{b,i}\)\\
+Wrenches aufschreiben: \(w_{a,i} = (f_{a,i}, \tau_{a,i}) \qquad w_{b,i} = (f_{b,i}, \tau_{b, i})\)
 
 \subsubsection{Greifmatrix}
 Darstellung eines räumlichen Griffes durch Wrenchvektoren mit \(m\) Kontaktpunkten
@@ -61,6 +73,14 @@ mathematisch
   \forall e = (f_x, f_y, f_z, \tau_x, \tau_y, \tau_z)^T \in \realnumbers^6 \\
   \exists c \in \realnumbers^{3m}, \quad c \neq 0: \quad G \cdot c + e = 0
 \end{align*}
+
+\textbf{Bestimmung mit Wrenchvektoren}
+\begin{enumerate}
+\item Wrenches an Kontaktpunkten bestimmen
+\item Konvexe Hülle der Wrenches bestimmen (Grasp Wrench Space)
+\item Minimalen Abstand des Ursprungs zum Rand des GWS bestimmen
+\end{enumerate}
+\(\rightarrow\) Kraftgeschlossen, falls Abstand \(d > \epsilon\)
 
 \subsubsection{Formgeschlossene Griffe}
 Stärkere Einschränkungen als kraftgeschlossender Griff\\
