@@ -7,7 +7,7 @@
 \section{Bildverarbeitung}
 Durch Sehen dem Roboter die Wahrnehmung der Umwelt wahrnehmen\\
 Bilderfassung: Hardware\\
-Bildverarbeitung: überwiegend Software\\
+Bildverarbeitung: überwiegend Software
 
 \subsection{Bildrepräsentation}
 Bildkoordinaten
@@ -18,12 +18,13 @@ Bildkoordinaten
 \item Einheit: Pixel
 \end{itemize}
 
-Monochrombild: \(\mathit{Img}: [0 \cdots n - 1] \times [0 \cdots m-1] \rightarrow [0\dots q\)\\
+Monochrombild: \(\mathit{Img}: [0 \cdots n - 1] \times [0 \cdots m-1] \rightarrow [0\dots q]\)\\
 Farbbild: \(\mathit{Img}(u,v) = (r,g,b)^T \in \realnumbers^3\)
 
 \subsection{Kameramodell}
 Einfachstes Modell: Lochkamera\\
-\textbf{Koordinatensysteme}\\
+
+\textbf{Koordinatensysteme}
 \begin{itemize}
 \item Hauptachse: Gerade durch das Projektionszentrum, rechtwinklig zur Bildebene
 \item Hauptpunkt: Schnitt der Hauptachse mit der Bildebene
@@ -65,7 +66,21 @@ Alternativ Intervallschranken für Farbton
 \textbf{Prewitt}\\
 Detektion von Kanten in X-Richtung und Y-Richtung. Aufgeteilt in 2 Richtungen
 \[p_x = \myMatrix{-1 & 0 & 1\\-1 & 0 & 1\\ -1 & 0 & 1\\} \qquad p_y = \myMatrix{-1 & -1 & -1\\ 0 & 0 & 0\\ 1& 1 & 1\\}\]
-Approximieren den Gradienten \(\frac{\delta g(x, y)}{\delta x}\) bzw. \(\frac{\delta g(x, y)}{\delta y}\)
+Approximieren den Gradienten \(\frac{\delta g(x, y)}{\delta x}\) bzw. \(\frac{\delta g(x, y)}{\delta y}\)\\
+Lässt sich kombinieren um Gradientenbetrag zu erhalten
+\[M \approx \sqrt{P_x^2 + P_y^2}\]
+
+\textbf{Sobel}\\
+Ähnlich wie Prewitt, aber gewichtet Mitte stärker
+\[s_x = \myMatrix{-1 & 0 & 1\\-2 & 0 & 2\\ -1 & 0 & 1\\} \qquad s_y = \myMatrix{-1 & -2 & -1\\ 0 & 0 & 0\\ 1& 2 & 1\\}\]
+
+\textbf{Laplace}\\
+Laplace-Operator \(\nabla^2 f= \frac{\delta^2 f}{\delta x^2}+ \frac{\delta^2 f}{\delta y^2}\) erkennt Kanten\\
+\[\nabla^2 \approx \myMatrix{0 & 1 & 0 \\ 1 & -4 & 1 \\ 0 & 1 & 0}\]
+
+\textbf{Laplacian of Gaussian (LoG)}\\
+Anwenden von Gauß-Filter gefolgt von Laplace.
+
 \subsection{Canny-Kantendetektor}
 Ziel: optimaler Kantendetektor
 \begin{itemize}
