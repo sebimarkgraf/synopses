@@ -19,7 +19,7 @@
 Hierarchisch\\
 Oberste Unterscheidung: Kraft und Präzisionsgriffe
 
-\subsection{Greifanalyse und Greifsynthese}
+\subsection{Greifanalyse und Griffsynthese}
 \textbf{Griff}\\
 Eine Menge von Kontaktpunkten auf der Oberfläche eines Objekts, die potentielle Bewegungen des Objekts unter dem
 Einfluss externer Kräfte einschränken bzw. kompensieren\\
@@ -28,7 +28,7 @@ Einfluss externer Kräfte einschränken bzw. kompensieren\\
 Gegeben: Objekt und ein Griff als Menge von Kontaktpunkten\\
 Gesucht: Aussagen zur Stabilität des Griffs unter Berücksichtigung von Nebenbedingungen\\
 
-\textbf{Greifsynthese}\\
+\textbf{Griffsynthese}\\
 Gegeben: Objekt und eine Menge von Nebenbedingungen\\
 Gesucht: Eine Menge von Kontaktpunkten
 
@@ -44,7 +44,7 @@ genannt Wrenchvektor, \(w\) zusammengefasst.\\
 
 \textbf{Berechnung}\\
 Bestimme Reibungskraft \(f_R\) im rechten Winkel zur Kraft \(f_i\): \(f_R \perp f_i \qquad ||f_R|| = \gamma \cdot ||f_i||\)\\
-Note: Um den perpendikulären Vektor \(f_{\perp}\) durch CCW zu erhalten muss in 2D: \((x, y) \rightarrow (-y, x)\)
+Note: Um den perpendikulären Vektor \(f_{\perp}\) durch CCW zu erhalten muss in 2D: \((x, y) \rightarrow (-y, x)\)\\
 Die Seiten erhalten wir dann mit \(f_a = f + f_R \qquad f_b = f - f_R\)\\
 Berechne \(d_i\) zum Schwerpunkt \(c\): \(d_i = p_i - c\)\\
 Bestimme Drehmomente \(\tau\): \(\tau_{a,i} = d_i \times f_{a,i} \qquad \tau_{b,i} = d_i \times f_{b,i}\)\\
@@ -96,7 +96,6 @@ Griff stabil, falls für kleine Änderungen \(\delta q = (\delta_x, \delta_y, \d
 \realnumbers^6 \neq 0\) der Lage
 \[\forall \delta q \in \realnumbers^6: \quad \delta V > 0\]
 
-
 \subsection{Objektklassen}
 \begin{itemize}
 \item Bekannte Objekte
@@ -108,13 +107,12 @@ Griff stabil, falls für kleine Änderungen \(\delta q = (\delta_x, \delta_y, \d
 \subsubsection{Durch Vorwärtsplanung}
 Plane in Simulation, bestimme Anfahrspunkt und Anfahrtsrichtung\\
 Hand nähert sich, bis Kontakt und Finger schließen sich\\
-Evaluation des Kontaktes\\
-
+Evaluation des Kontaktes
 
 \subsubsection{Zufallsbasierte Vorwärts-Greifplanung}
 Erzeuge Zufällig Griffe\\
 Ermittle Kontakt\\
-Evaluiere Hypothesen\\
+Evaluiere Hypothesen
 
 \subsubsection{Griffsynthese auf Objektteilen}
 Bei komplexer Geometrie schwierig einen Griff zu berechnen\\
