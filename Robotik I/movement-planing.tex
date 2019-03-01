@@ -116,8 +116,7 @@ Solange \(O \neq \varnothing\)
 Heuristik darf Kosten nicht überschätzen und sollte monoton sein.
 Für Heuristik \(h(x) = 0\) identisch mit Djikstra.\\
 
-
-\textbf{Eigenschaften}\\
+\textbf{Eigenschaften}
 \begin{itemize}
 \item vollständig
 \item optimal
@@ -130,7 +129,7 @@ Ein Potentialfeld \(U\) ist eine Skalarfunktion über dem Freiraum \[U: C_{\math
 Die Kraft in einem Punkt \(q\) des Potentialfeldes ist der negative Gradient in diesem Punkt
 \[F(q) = - \nabla U(q)\]
 Es muss abstoßende Potentiale um Hindernis und anziehende Potentiale mit Minimum in \(q_{\mathit{Ziel}}\) geben.\\
-z.B. Lineare Funktion der Distanz zum Ziel \( U_{\mathit{an}}() = k \cdot || q - q_{\mathit{Ziel}} ||\)
+z.B. Lineare Funktion der Distanz zum Ziel \( U_{\mathit{an}}(q) = k \cdot || q - q_{\mathit{Ziel}} ||\)
 oder quadratischer Funktion \(U_{\mathit{an}}(q) = k \cdot \frac{1}{2} {|| q - _{\mathit{Ziel}}||}^2\)\\
 Durch Bewegung des Roboters in Richtung des negativen Gradienten bewegt er sich zu den lokalen Minima.
 Durch Flucht aus den lokalen Minima bewegt er sich zum nächsten Minium.
@@ -138,7 +137,7 @@ Durch Flucht aus den lokalen Minima bewegt er sich zum nächsten Minium.
 
 \subsection{Probabilistic Roadmaps (PRM)}
 Mehrere Anfragen in gleicher Umgebung\\
-Approximation des Freiraums durch Graphen\\
+Approximation des Freiraums durch Graphen
 \begin{enumerate}
 \item Erzeuge Graph durch zufällige verbundene Stichproben
 \item Suche Weg im Graph
