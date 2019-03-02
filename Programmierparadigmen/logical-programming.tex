@@ -1,0 +1,175 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "propa"
+%%% End:
+
+\lstset{language=Prolog,mathescape=true}
+
+\section{Logische Programmierung}
+
+\subsection{Prolog Syntax}
+\textbf{Logische Programmierung}\\
+Definiere Objekte und deren Beziehung, wird als Terme einer Termalgebra dargestellt.\\
+
+\textbf{Fakten in Prolog}\\
+Einzelne Fakten werden per \enquote{.} definiert.
+Programmierer ist verantwortlich für deren Korrektheit.
+
+\textbf{Termsyntax}
+\begin{itemize}
+  \item Atome: \code{hans, inge,...}
+  \item Zahlen: 3, 4.5
+  \item Variablen: X, Y, Fisch
+  \item Term-Listen: 3, 4.5, Fisch,...
+  \item Zusammengesetzt: liebt(fritz, fisch)
+\end{itemize}
+Atome stehen nur für sich selbst. Variablen sind hingegen Platzhalter für unbekannte Terme.\\
+
+\textbf{Abfragen}\\
+Alle Fakten in Datenbank zur Laufzeit. Abfragen daran können mit \enquote{?} eingeleitet werden.
+z.B. \code{?liebt(fritz, fisch).}
+Bei erfolgreich gefunder Lösung wird die Variablenbelegung ausgegeben. Mit \enquote{;} kann nach weiteren Lösungen
+gesucht werden. Keine weiteren Lösungen werden mit \code{no} angegeben.
+Mit \enquote{,} können Anfragen als Logisches Und konjugiert werden.\\
+
+\textbf{Verarbeitung}\\
+Teilziele werden von links nach rechts erfüllt. Dabei wird nach passenden Instanziierungen gesucht und diese werden
+an das nächste Teilziel weiter vererbt. Falls keine Lösung für Teilziel wird \textit{Backtracking} von vorherigem Teilziel
+durchgeführt, demnach also eine neue Belegung dafür gesucht.\\
+
+\textbf{Regeln}\\
+Besteht aus \textit{Regelkopf} und \textit{Regelrumpf}. Dabei sind diese als Konklusion und Voraussetzungen zu sehen.
+\code{term :- termlist .}\\
+
+\textbf{Prädikate}\\
+Eine Gruppe von Fakten/Regeln mit gleichem Funktor und gleicher Argumentzahl im Regelkopf heiß \enquote{Prozedur}
+oder \enquote{Prädikat}.
+
+\subsection{Backtracking}
+\textbf{Unifikation} findet Werte für Variablen, sodass 2 Terme gleich werden. Dabei ist zu beachten, dass Terme intern
+als Bäume dargestellt werden.\\
+\textbf{informeller Algorithmus}
+\begin{enumerate}
+  \item Erstelle Box, call-Eingang
+  \item Falls keine Regel, verlasse durch fail-Ausgang und lösche
+  \item Für passende Regel anlegen von Kind-Boxen + Success zum call-Eingang des Kindes
+  \item Falls keine Kinder -> Success auf call Eingang des Kindes
+  \item Fail zeigt auf redo des vorherigen Teilziels
+  \item Box durch redo -> Suche Choice Points. Falls kein Choice Point -> fail
+  \item fail-Ausgang der ersten Box erzeugt \code{no}
+  \item success der letzten Box gibt Substitutionaus
+\end{enumerate}
+
+\subsection{Arithmetik und Listen}
+Arithmetik in Prolog als syntaktischer Zucker für normale Prädikate.\\
+Zusätzliche Erzwingung einer Auswertung mit is: \code{X is B*(C+3)}, aber Variablen
+in rechten Term müssen immer instanziiert sein!\\
+Für arithmetische Vergleiche müssen auch alle Variablen instanziiert sein.
+
+\subsection{Funktionen}
+Prolog hat außer der Erfüllbarkeit keinen Rückgabewert, also Rückgabewert als zusätzlicher Parameter (uninstanziierte Variable).
+
+\subsection{Generate and Test}
+Entwurfsmuster für Prolog. Probiere alle Lösungen durch teste Lösungskandidaten. Benötigt oft Beschneidung des
+Lösungsbaums (Branch and Bound).
+
+\subsection{Cuts}
+\textbf{Determinismus}\\
+Ein Prädikat heißt deterministisch, wenns es stets auf höchstens eine Weise erfüllt werden kann; hat es
+möglicherweise mehrere Lösungen, so heißt es nichtdeterministisch.\\
+
+\textbf{Blauer Cut} beeinflusst weder Programmlaufzeit, noch -verhalten\\
+\textbf{Grüner Cut} beeinflustt Programmlaufzeit, aber nicht -verhalten\\
+\textbf{Roter Cut} beeinflusst das Programmverhalten\\
+
+\textbf{Faustregel}\\
+Der Cut darf erst kommen, wenn man weiß, dass man in der richtigen Regel ist, aber muss vor der
+Instanziierung der Ausgabevariablen stehen.
+
+\subsection{Negation}
+Negation in Prolog ohne Cut nicht möglich.
+\begin{lstlisting}
+  not(X) :- call(X),!,fail.
+  not(X).
+\end{lstlisting}
+
+\subsection{Manipulation Terme}
+Untersuche Terme:
+\begin{itemize}
+  \item atom(X)
+  \item integer(X)
+  \item var(X)
+  \item X = Y, unifizere X mit Y
+  \item X == Y, erfolgreich, falls bereits unifiziert
+  \item X =:= Y, arithmetischer Vergleich
+  \item X=..L , Konstruktion/Zerlegung von X, aus/in Liste L
+\end{itemize}
+
+\subsection{Optimierung}
+\textbf{Manuell}\\
+Anstatt alle Variable Werte erst zu generieren und dann zu überprüfen, schiebe Tests so weit nach vorne wie möglich.
+Dadurch Begrenzung der Möglichkeiten.\\
+
+\textbf{Freeze}\\
+Werte Datengetrieben aus, also wird \(T_i\) erst ausgewertet, wenn notwenig.
+In Prolog mit Hilfe von \code{freezeAll([$X_1,X_2,..$], T)}
+
+\subsection{Unifikation}
+\textbf{Unifikator}\\
+Eine Substitution \(\sigma\) unifiziert Gleichug \(\theta = \theta'\), falls \(\sigma\theta = \sigma\theta'\).
+\(\sigma\) unifiziert \(C\), falls \(\forall c \in C\) gilt: \(\sigma\) unifiziert \(c\).\\
+\textbf{Allgemeinster Unifikator (mgu)}\\
+\(\sigma\) \textbf{mgu}, falls \(\forall\) Unifikator \(\gamma\ \exists\) Substitution \(\delta\). \( \gamma = \delta\ \circ\ \sigma\).\\
+
+\textbf{Unifikationsalgorithmus}\\
+Informell:
+\begin{enumerate}
+  \item Ziehe Umbenennungen aus der Contraint Menge
+  \item Wende diese auf die Constraint Menge an
+  \item Schreibe Sie als Komposition hinten dran
+  \item Wende Algorithmus erneut auf verbleibende Constraint Menge an
+\end{enumerate}
+Formell:
+\begin{lstlisting}
+  if $C == \varnothing$ then []
+  else let $\{\theta_l == \theta_r\} \cup C' = C$ in
+    if $\theta_l == \theta_r$ then unify($C'$)
+    else if $\theta_l == Y$ and $Y \notin \mathit{FV}(\theta_r)$ then unify ($[Y \mapsto \theta_r]C') \circ [Y \mapsto \theta_r]$
+    else if $\theta_r == Y$ and $Y \notin \mathit{FV}(\theta_l)$ then unify ($[Y \mapsto \theta_l]C') \circ [Y \mapsto \theta_l]$
+    else if $\theta_l == f(\theta_l^1, \ldots, \theta_l^n)$ and $\theta_r == f(\theta_r^1,\ldots,\theta_r^n)$
+         then unify($C' \cup \{\theta_l^1 = \theta_r^1, \ldots, \theta_l^n = \theta_r^n\})$
+    else fail
+\end{lstlisting}
+  
+\textbf{Effiziente Algorithmen}\\
+Klassisicher Algorithmus ggf exponentiell.\\
+Paterson-Wegman-Unifikation: Terme als gerichtete azyklische Graphen.
+Verschmelzung von Variablen und sogar inneren Knoten der Terme mittels union/find.
+
+\subsection{Resolution}
+Regel:
+\[\frac{\tau_1, \tau_2, \ldots, \tau_n \text{Terme;}\quad \alpha \code{ :- } \alpha_, \ldots, \alpha_k \text{ eine Regel;}\quad \sigma \text{ mgu von } \alpha \text{ und } \tau_1}
+  {\sigma(\alpha_1), \ldots, \sigma(\alpha_k), \sigma(\tau_2), \ldots, \sigma(\tau_n)}\]
+
+\textbf{Resolutionsprinzip}\\
+Sei P ein logisches Programm (i.e. eine Liste von Fakten und Regeln). Sei \(\tau_1, \ldots, \tau_n\) eine Liste von
+Zielen (Termen).
+\begin{itemize}
+  \item Die Schreibweise \( P \vdash \tau_1, \ldots, \tau_n\) bedeutet: Die Ziele \(\tau_1, \ldots, \tau_n\) lassen sich
+  mittels Resolution abarbeiten (mittels der Fakten und Regeln von \(P\) in die leere Zielliste verwandeln)
+\item Die Schreibweise \( P \vDash \tau, \ldots, \tau_n \) beudetet: Die Zielliste \(\tau_1, \ldots, \tau_n\) ist die
+  logische Konsequenz aus den Fakten und Regeln des Programms \(P\).
+\end{itemize}
+Die Resolutionsregel ist vollständig + korrekt.
+
+
+
+
+\subsection{Vollständigkeit}
+Prolog ist nicht vollständig da es deterministisch arbeitet. Beweis kann leicht mit Gegenbeispiel erbracht werden:
+\begin{lstlisting}
+  aua(X) :- aua(X).
+  aua(5).
+\end{lstlisting}
+Herleitbar mit Resolutionsregel aber nicht mit Prolog.

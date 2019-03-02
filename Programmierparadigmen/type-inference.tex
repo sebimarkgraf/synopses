@@ -1,0 +1,36 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "propa"
+%%% End:
+
+\section{Typinferenz}
+
+\subsection{Problem}
+\textit{Gegeben}: Term \(t\) mit freien Variablen \(x_1, x_2, \ldots\) und Annahmen \(\Gamma = x_1 : \tau_1, x_2 : \tau_2, \ldots\)\\
+\textit{Gesucht}: \(\tau\), so dass \(\Gamma \vdash t: \tau\) (Typisierung des Terms)
+
+\textit{Lösungsansatz}: Suche rekursiv die Lösung für Subterme von \(t\). Mache dafür vorläufige Annahmen und Substituiere hinterher.
+
+\textit{Typinferenz}: Finde \(\tau\) und Substitution \(\sigma\), so dass \(\sigma \Gamma \vdash t: \tau\)
+
+\subsection{Typ-Substitution}
+Ist eine endliche Abbildung von Typvariablen auf Typen.\\
+Die Substitutionen werden alle gleichzeitig angewandt, also müssen alle Substitutionen bis zur endgültigen Form
+ausgeschrieben sein.\\
+Beispiel: \(\sigma = [\alpha_1 \Rightarrow \text{bool}, \alpha_2 \Rightarrow \alpha_1 \rightarrow \alpha_1]\)\\
+Eine Ergänzung auf \([\ldots, \alpha_3 \Rightarrow \alpha_1]\) wäre demnach nicht korrekt.
+
+\subsection{Typinferenz mit Constraints}
+\begin{enumerate}
+  \item Erstelle Herleitungsbaum. Verwende immer frische Typvariablen \(\alpha_i\)
+  \item Stelle Constraints \(C\) für die \(\alpha_i\) auf
+  \item Bestimme mgu der die Gleichungen löst
+  \item Anwendung von \(\sigma\) gibt endgültigen Lösungsbaum
+\end{enumerate}
+Die Lösung ist dann durch \(\sigma, \tau\) für \((\Gamma, t)\) gegeben.
+% TODO: Add Let-Polymorphismus
+
+\subsection{Implementierung in Prolog}
+Constraints \(C\) werden implizit durch Prolog-Unifikator dargestellt.
+Implementierung in Foliensatz 40\_Typinferenz auf Seite 330ff

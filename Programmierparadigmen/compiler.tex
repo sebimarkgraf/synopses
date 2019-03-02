@@ -1,0 +1,196 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "propa"
+%%% End:
+
+\section{Compiler}
+
+\subsection{Ebenen der Übersetzung}
+\textbf{Reiner Interpretierer}\\
+Lese Quelltext Anweisung für Anweisung + führe aus.\\
+Sinnvoll bei Kommandosprachen.\\
+z.B. Unix-Shell\\
+
+\textbf{Interpretation nach Vorübersetzung}\\
+Transformiere Quellcode in Zwischensprache. Leichter zu interpretieren.\\
+z.B. Java-Bytecode, Pascal P-Code, Python\\
+
+\textbf{Vollständige Übersetzung}\\
+Übersetze Anwendung in Maschinencode. Code wird zur Laufzeit genutzt.\\
+z.B. C/C++, Fortran (Compiler)\\
+
+\textbf{Just-in-time-Compiler}\\
+Übersetze zur Laufzeit bei Bedarf. Ist schneller als reine Interpretation.\\ gs
+z.B. .NET
+
+\subsection{SIMPLE}
+Einfache Programmiersprache zum Verdeutlichen der Konzepte.
+Stark eingeschränkte Syntax.\\
+Compiler nach Java-Bytecode auf Vorlesungshomepage.\\
+
+Nur Prozeduren, startet mit \code{void main()}. Nur \code{int, boolean}.
+\code{int read()} und \code{void println(int value)} in Standardbibliothek.
+
+\subsection{Phasen des Compilers}
+\textbf{Lexikalische Analyse}\\
+Erkenne bedeutungstragende Zeichengruppen: Tokens.\\
+Fasse in Stringtabelle zusammen.\\
+
+\textbf{Syntaktische Analyse}\\
+Überprüfe ob in kontextfreier Sprache und erstelle Abstrakten Syntaxbaum.\\
+
+\textbf{Semantische Analyse}\\
+Kontextsensitive Analyse nach Deklaration und Verwendung, Typanalyse und Konsistenzprüfung.\\
+Erstellt attributierten Syntaxbaum.\\
+
+\textbf{Zwischencodegenerator, Optimierung}\\
+Bringt Code in sprach- und zielunabhängige Zwischensprache. Wende Optimierungstechniken an.\\
+
+\textbf{Codegenerierung}\\
+Erzeuge Code angepasst auf Zielsystem / Codeauswahl / Scheduling / Register.
+
+\subsection{Lexikalische Analyse}
+Reguläre Ausdrücke werden von Automat erkannt. Dafür muss Automat zuerst Potenzmengenkonstruktion und
+Äquivalenzklassenbildung durchlaufen.\\
+Automaten dann als Tabelle oder ausprogrammiert verwenden.\\
+Alternativ: Generieren durch Flex\\
+
+\textbf{Flex-Spezifikation}
+\begin{lstlisting}
+Definitionen
+%%
+Regeln
+%%
+Code
+\end{lstlisting}
+
+\subsection{Syntaktische Analyse}
+Aufgebaut durch Grammatiken. Gewünschte Eigenschaften:
+\begin{itemize}
+  \item Deterministisch --- Nicht gegeben
+  \item Operatorprioritäten --- Baum entsprechend Prioritäten
+\end{itemize}
+Deshalb Faustregeln:
+\begin{itemize}
+  \item Ein Nichtterminal pro Prioritätsebene
+  \item nicht zweimal dasselbe Nichtterminal auf rechter Seite
+  \item Assoziativität durch Links / Rechtsrekursive Regeln
+\end{itemize}
+
+\textbf{Parserkonstruktion}\\
+Viele Techniken, nur \textit{LL} und \textit{LR} lesen einmal und erkennen Fehler bei erstem Zeichen t.\\
+Parser rekonstruiert für Grammatik schrittweise die Ableitung.
+
+\textbf{First und Follow}\\
+\begin{align*}
+  \mathit{First}_k(\xeta) &= \{\beta \in \Sigma^k | \exists \tau \in \Sigma^*: \chi \Rightarrow^* \tau
+  \and \beta = k : \tau \}\\
+  \mathit{Follow}_k(\chi) &= \{\beta \in \Sigma^k | \exists \alpha, \omega \in {(V \cup \Sigma)}^* : S \Rightarrow^*
+                             \alpha \chi \omega \land \beta \in \mathit{First}_k(\omega)\}
+\end{align*}
+
+
+\textbf{SLL(k)-Bedingung}\\
+Eine (kontextfreie) Grammatik ist genau dann eine SLL(k)-Grammatik, wenn für alle Paare von Produktionen
+\(A \rightarrow \alpha|\beta, \alpha \neq \beta\), gilt:
+\[\mathit{First}_k(\alpha\mathit{Follow}_k(A)) \cap \mathit{First}_k(\beta\mathit{Follow}_k(A)) = \varnothing\]
+
+In der Praxis werden die 2 getrennten für Spezialfall \(k=1, \alpha \not \implies^* \epsilon, \beta \not \implies^* \epsilon\)
+\begin{align*}
+  \mathit{First}(\alpha) &\cap \mathit{First}(\beta) = \varnothing \\
+  \mathit{Follow}(A) &\cap \mathit{First}(\beta) = \varnothing
+\end{align*}
+
+\textbf{Linksrekursive Grammatiken}\\
+Linksrekursive Grammatiken sind nie SLL-Grammatiken, aber für jede linksrekursive Grammatik existiert
+eine entsprechende nicht-linksrekursive Grammatik\\
+Bei Produktion \(X \rightarrow \gamma\alpha | \gamma\beta\) mit gemeinsamen Anfang \(\gamma\) einfach den gemeinsamen
+Anfang ausklammern:
+\begin{align*}
+  X \rightarrow \gamma X'\\
+  X' \rightarrow \alpha | \beta
+\end{align*}
+
+\textbf{SLL(1)-Parser mit rekursivem Abstieg}\\
+\begin{itemize}
+ \item Eingabe: Sequenz von Tokens
+ \item eine Prozedur pro Nichtterminal
+ \item Prozeduranfang: erstes Token der Phrase in aktuellem Token t
+ \item Ergebnis von Prozeduraufruf:
+   \begin{itemize}
+   \item erstes Token folgender Phrase ist aktuelles Token
+   \item Rückgabe: abstrakter Syntaxbaum
+   \end{itemize}
+ \item alternative Produktionen: Fallunterscheidung nach aktuellem Token stets eindeutig wegen SLL(1)
+\end{itemize}
+
+
+\subsection{Semantische Analyse}
+\textbf{Namensanalse}\\
+Analysiere Beziehung zwischen Definition und Verwendung.
+Probleme:
+\begin{itemize}
+\item Namensbereiche verschachtelt
+\item getrennte Namensräume
+\item Verwendung von Definitionen
+\end{itemize}
+
+\textbf{Vorgehen}\\
+Durchlaufe AST + sammle Informationen in Symboltabelle.
+
+\textbf{Symboltabelle}\\
+Zentrale Datenstruktur außerhalb von AST. Zugriff sollte in \(O(1)\) erfolgen.\\
+Ansatz:
+\begin{itemize}
+\item Eintrag in Stringtabelle auf aktuelle Definition
+\item Stack von Namensbereichen
+\item Merken von vorherigen Definitionen, bei verlassen des Bereiches widerherstellen
+\end{itemize}
+
+\textbf{Traversierung}\\
+Bei Definitionen vor Verwendung nur 1 Durchlauf. Sonst muss Visitor Pattern für Eintragen in Symboltabelle verwendet werden.
+
+
+\subsection{Java-Bytecode}
+Portable Zwischensprache für Java virtuelle Maschine\\
+
+\textbf{Bytecode, Operandenstack}\\
+Stackbasierter Bytecode: Operanden + Rückgabewerte auf Operandenstack\\
+Ermöglicht kürzere Befehlscodierung\\
+
+\textbf{Instruktionen}\\
+Typen aus Java, alles explizit typisiert.\\
+Klassen:
+\begin{itemize}
+\item Lesen/Schreiben von lokalen Variablen
+\item Lesen/Schreiben von Feldern
+\item Sprungbefehler
+\item Methodenaufruf
+\item Objekterzeugung
+\item Arithmeitsche Berechnung
+\end{itemize}
+
+\textbf{Activation Records}\\
+Enthält lokale Variablen der Methode, Aufruf neuer AR, Rückkehr wieder entfernt.\\
+Aufbau: Rücksprungadresse, Dynamischer Vorgänger, lokale Variablen, Operandenstack
+
+\textbf{Deskriptoren}\\
+Namen von Typen, Feldern und Methoden nach Schema
+\begin{itemize}
+\item Objekte: \code{java.lang.Object \(\rightarrow\) Ljava/lang/Object;}
+\item Primitive Typen: \code{int \(\rightarrow\) I, void \(\rightarrow\) V, boolean \(\rightarrow\) Z,\ldots}
+\item Methoden \code{void foo(int, Object) \(\rightarrow\) foo(ILjava/lang/Object;)V}
+\item Felder \code{boolean b \(\rightarrow\) b:Z}
+\item Konstruktoren \code{<init>} static \code{<clinit>}
+\end{itemize}
+
+
+\subsection{Codeerzeugung}
+\textbf{Umgekehrte polnische Notation}\\
+Erst Operanden dann Operation. Wird bei Tiefensuche auf Syntaxbaum erzeugt.
+Natürliche Repräsentation für Stackmaschinen.\\
+
+\textbf{Kontrollstrukturen}\\
+Realisierung mit bedingten Sprüngen.\\
+Negation wird oft mit Vertauschen der Sprungzielen realisiert
