@@ -7,14 +7,11 @@ Dabei wird der Inhalt auf den Klausur relevanten Stoff beschränkt.
 ## Fertige Fassungen
 * Lineare Algebra 2 für Informatiker
 * Numerik für Informatiker
+* Algorithmen 2
 
 ## In Erstfassung verfügbar
-* Algorithmen 2
 * Computergrafik
 * Robotik I
-
-## Fassungen in Arbeit
-Diese befinden sich auf eigenen Branches bis zur Fertigstellung der Erstfassung
 * Programmierparadigmen
 * Sicherheit
 
