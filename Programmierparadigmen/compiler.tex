@@ -84,7 +84,7 @@ Parser rekonstruiert für Grammatik schrittweise die Ableitung.
 
 \textbf{First und Follow}\\
 \begin{align*}
-  \mathit{First}_k(\xeta) &= \{\beta \in \Sigma^k | \exists \tau \in \Sigma^*: \chi \Rightarrow^* \tau
+  \mathit{First}_k(\eta) &= \{\beta \in \Sigma^k | \exists \tau \in \Sigma^*: \chi \Rightarrow^* \tau
   \and \beta = k : \tau \}\\
   \mathit{Follow}_k(\chi) &= \{\beta \in \Sigma^k | \exists \alpha, \omega \in {(V \cup \Sigma)}^* : S \Rightarrow^*
                              \alpha \chi \omega \land \beta \in \mathit{First}_k(\omega)\}

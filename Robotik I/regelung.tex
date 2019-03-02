@@ -113,7 +113,7 @@ Proportional-Integral-Derivative Controller
 
   \node[block, node distance=3cm, right of=sum2] (dynamic) {Dynamik des Arms};
   
-  \draw [draw, ->] (input) -- node {$\theta_v(t)$} -- node[pos=0.90] {\(+\)} (sum);
+  \draw [->] (input) -- node {\(\theta_v(t)\)} (sum);
 
   \draw [->] (sum) -- node [pos=0.2, name=td] {\(\theta_d(t)\)} (kp);
   \draw [->] (td) |- (int);
@@ -130,7 +130,7 @@ Proportional-Integral-Derivative Controller
  % \draw [->] (measurements) -| node[pos=0.99] {$-$}
  % node [near end] {$r$} (sum);
 
-  \draw [->] (dynamic) -- node[pos=0.10] {\(\theta\)} +(0,-5) -| (sum);
+  \draw [->] (dynamic) -- node[pos=0.10] {\(\theta\)} +(0,-5) -| node[pos=0.98] {\(-\)} (sum);
 \end{tikzpicture}
 
 
