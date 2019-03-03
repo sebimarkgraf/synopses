@@ -19,5 +19,11 @@ deploy:
   on:
    branch: master
    tags: true
+
 notifications:
-  email: false
+  email:
+    recipients:
+      - trngcomplete@gmail.com
+      - Sebastian-Markgraf@t-online.de
+    on_success: never
+    on_failure: always
