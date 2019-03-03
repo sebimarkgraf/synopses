@@ -1,0 +1,23 @@
+sudo: required
+dist: trusty
+before_install:
+- sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends latexmk texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-lang-german
+script:
+- ./build.sh
+
+branches:
+  only:
+    - master
+deploy:
+  provider: releases
+  api_key:
+    secure: $key
+  file_glob: true
+  file:
+  - _build/*.pdf
+  skip_cleanup: true
+  on:
+   branch: master
+   tags: true
+notifications:
+  email: false

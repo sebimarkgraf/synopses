@@ -237,3 +237,6 @@ TSWLatexianTemp*
 
 # standalone packages
 *.sta
+
+# Travis build
+_build/
