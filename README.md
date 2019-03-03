@@ -1,4 +1,5 @@
 # Synopses - KIT Zusammenfassungen
+[![Build Status](https://travis-ci.org/Novare/synopses.svg?branch=master)](https://travis-ci.org/Novare/synopses)
 
 ## Vorlesungen
 Zusammenfassungen zu Vorlesungen werden während der Vorlesungen und in der Vorbereitung auf Klausuren erstellt.
