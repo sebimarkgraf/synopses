@@ -61,15 +61,17 @@
 	womit sich der erreichbare Kontrast $R_d = \frac{I_{max} + k}{I_{min} + k}$ ergibt. Man benötigt eine Transferfunktion, bei welcher der Unterschied zwischen aufeinanderfolgenden Pixelwerten nicht bemerkbar (unter 2\%) ist, um Color Banding zu vermeiden.
 
         \subsection{Helligkeit}
+        \label{bfp:sub:helligkeit}
+        
         \textbf{Weber-Fechner-Gesetz}\\
         Subjektiv empfundene Stärke von Sinneseindrücken ist proportional zum Logarithmus der Intensität des
         physikalischen Reizes.\\
 
-        Daraus ergibt sich eine kleiste wahrnehmbare Helligkeitsdifference \(\Delta L_\text{JND}\)
-        \[\frac{\Delta L_\text{JND}}{L} = \text{const} \approx 2\%\]
+        Daraus ergibt sich eine kleiste wahrnehmbare Helligkeitsdifference $\Delta L_\text{JND}$
+        $$\frac{\Delta L_\text{JND}}{L} = \text{const} \approx 2\%$$
         \begin{tikzpicture}
           \begin{axis}[
-            xlabel=Leuchtdichte cd/\(m^2\),
+            xlabel=Leuchtdichte cd/$m^2$,
             ylabel=wahrgenommene Helligkeit
             ]
             \addplot { 1 / e * ln x + 0.5};
@@ -187,9 +189,9 @@
 	Dann definiert man $(\lambda_1, \lambda_2, ..., \lambda_k)$ als die baryzentrischen Koordinaten von Q bzgl. der Basispunkte $P_1, ..., P_k$. Hiermit lässt sich z.B ein Punkt innerhalb eines Dreiecks anhand der Eckpunkte beschreiben (z.B um zu testen ob ein Punkt in einem Dreieck liegt).\\
 
         \textbf{Berechnung in Dreieck}\\
-        Berechne \(\lambda_1, \lambda_2, \lambda_3\) durch \\
-        \[\lambda_1 = \frac{A_{\Delta}(Q, P_2, P_3)}{A_\Delta(P_1, P_2, P_3)} \qquad \lambda_2 = \frac{A_{\Delta}(P_1, Q, P_3)}{A_\Delta(P_1, P_2, P_3)} \qquad \lambda_3 = \frac{A_{\Delta}(P_1, P_2, Q)}{A_\Delta(P_1, P_2, P_3)}\]
-        wobei \(A_\Delta (Q, P_2, P_3) = \frac{1}{2} |P_2 - Q| | P_3 - Q | \sin \phi\)
+        Berechne $\lambda_1, \lambda_2, \lambda_3$ durch \\
+        $$\lambda_1 = \frac{A_{\Delta}(Q, P_2, P_3)}{A_\Delta(P_1, P_2, P_3)} \qquad \lambda_2 = \frac{A_{\Delta}(P_1, Q, P_3)}{A_\Delta(P_1, P_2, P_3)} \qquad \lambda_3 = \frac{A_{\Delta}(P_1, P_2, Q)}{A_\Delta(P_1, P_2, P_3)}$$
+        wobei $A_\Delta (Q, P_2, P_3) = \frac{1}{2} |P_2 - Q| | P_3 - Q | \sin \phi$
           
 	\newpage
 	\subsection{Ray Casting - Schnittpunktberechnung}
@@ -265,15 +267,15 @@
 	\subsubsection{Phong-Beleuchtungsmodell}
 	\label{rt:ssub:phong_beleuchtungsmodell}
 	
-        \[I = k_a I_L + k_d I_L (N \cdot L) + k_s I_L (R_L \cdot V)^n \qquad \text{wobei } R_L = -L + 2N(L \cdot N)\]
+        $$I = k_a I_L + k_d I_L (N \cdot L) + k_s I_L (R_L \cdot V)^n \qquad \text{wobei } R_L = -L + 2N(L \cdot N)$$
 	\begin{itemize}
 		\item Phänomenologisches Modell, modelliert Beleuchtung anhand dreier Komponenten, die aufsummiert den Lichteinfluss ergeben
 		\begin{itemize}
-			\item \textbf{Ambient}: Grundhelligkeit durch indirekte Beleuchtung: \(k_a I_l\)
+			\item \textbf{Ambient}: Grundhelligkeit durch indirekte Beleuchtung: $k_a I_l$
 			\item \textbf{Diffus}: Grobe Beleuchtung nach dem Lambertschen Gesetz (beschreibt die Intensitätsabschwächung je nach Material):
-                          \(k_d I_L (N \cdot L)\)
+                          $k_d I_L (N \cdot L)$
 			\item \textbf{Spekular}: Imperfekte Spiegelung, \glqq Highlights\grqq:
-                          \(k_s I_l (R_L \cdot V)^n\)
+                          $k_s I_l (R_L \cdot V)^n$
 		\end{itemize}
 		\item Ambientes Licht ist meist grundsätzlich vorhanden
 		\item Diffuses Licht ergibt sich aus dem diffusen Materialfaktor, der Lichtintensität und dem Punktprodukt von Lichtrichtung und Oberflächennormale
@@ -294,6 +296,8 @@
 	\label{rt:sub:sekundaerstrahlen}
 	
 	\subsubsection{Reflexion}
+        \label{rt:ssub:reflexion}
+        
         \begin{itemize}
         \item z.B spiegelnde Metallkugel
         \item Bei Intersektion: Verfolge einen Reflexionsstrahl in die Reflexionsrichtung ab der Position $\epsilon$ Längeneinheiten vor der Intersektion (Vermeidung von erneutem Schneiden derselben Oberfläche) und addiere die resultierende Farbe gewichtet hinzu
@@ -303,6 +307,8 @@
         Perfekte Spiegelung der Lichtquelle auf Objekt. Fallen mit größerem Phong-Exponenten schneller ab.
 
         \subsubsection{Transmission}
+        \label{rt:ssub:transmission}
+        
         \begin{itemize}
         \item z.B durchsichtige Glaskugel
         \item Bei Intersektion: Verfolge einen Transmissionsstrahl in die Transmissionsrichtung $\epsilon$ Längeneinheiten von der zweiten Intersektion der Kugel entfernt (Vermeidung von erneutem Schneiden derselben Oberfläche) und addiere die resultierende Farbe gewichtet hinzu
@@ -310,10 +316,10 @@
         \textbf{Brechungsgesetz}\\
         Bei Übergang in optisch dichtere Medium wird zum Lot hingebrochen\\
         Bei Übergang ins optisch dünnere Medium vom Lot weg\\
-        \[\eta_i \sin \theta_i = \eta_t \sin \theta_t\]
+        $$\eta_i \sin \theta_i = \eta_t \sin \theta_t$$
         \textit{Fresnel-Effekt}: Aufspaltung in Reflexion und Transmission\\
-        \textit{Totalreflexion}: Bei \(\sin \theta_c = \eta_i / \eta_t\) wird gesamtes Licht reflektiert\\
-        \textit{Disperson}: Ausbreitungsgeschwindigkeit abhängig von Wellenlänge \(\rightarrow\) Aufspaltung in Wellenlängen
+        \textit{Totalreflexion}: Bei $\sin \theta_c = \eta_i / \eta_t$ wird gesamtes Licht reflektiert\\
+        \textit{Disperson}: Ausbreitungsgeschwindigkeit abhängig von Wellenlänge $\rightarrow$ Aufspaltung in Wellenlängen
         
 
         \subsection{Aliasing}
@@ -871,10 +877,13 @@
 
         \newpage
         \section{Prozedurales Modellieren}
+        \label{pm:sec:prozedurales_modellieren}
         
         \subsection{Textursynthese}
+        \label{pm:sub:textursynthese}
+
         Ziel: Synthesiere eine Texture die genau wie Eingabetexture aussieht\\
-        \(\rightarrow\) Stochastische Muster, nicht wiederholen der Textur\\
+        $\rightarrow$ Stochastische Muster, nicht wiederholen der Textur\\
 
         \textbf{Pixelbasiert}\\
         Erzeuge Textur Pixel für Pixel durch Betrachten der Nachbarschaft\\
@@ -884,6 +893,8 @@
         Verwende größere Bereiche und setze diese wieder zusammen
 
         \subsection{Rauschen und Rauschtexturen}
+        \label{pm:sub:rauschen_und_rauschtexturen}
+        
         \textbf{Noise-Funktion}\\
         Grundlage für stoch. Modellierung / prozedurale Texturen\\
         Erzeugen von Bildern aus Pseuo-Zufallszahlen\\
@@ -893,32 +904,36 @@
           \item Lattice Gradient Noise (nicht klausurrelevant)
         \end{itemize}
 
-        Auswertung in Abhängigkeit von Frequenz \(f\) und Offset \(o\): \(n(f \cdot x + o)\)\\
+        Auswertung in Abhängigkeit von Frequenz $f$ und Offset $o$: $n(f \cdot x + o)$\\
 
         \textbf{Turbulenz}\\
         Summiere mehrere Frequenzen (Oktaven)\\
-        \[\text{turbulence}(x) = \sum_k (1 / f)^k n(f^k \cdot x)\]
-        Höhere Frequenzen \(\rightarrow\) Feiner strukturen + kleinere Amplitude\\
+        $$\text{turbulence}(x) = \sum_k (1 / f)^k n(f^k \cdot x)$$
+        Höhere Frequenzen $\rightarrow$ Feiner strukturen + kleinere Amplitude\\
 
         \textbf{Texturen}\\
         Durch geschicktes Kombinieren (addieren, multiplizieren) und mappings lassen sich Texturen oder auch
         ganze Landschaften erzeugen
         
         \subsection{Hypertextures}
+        \label{pm:sub:hypertextures}
+        
         Beschreiben von komplexen Objekten durch Dichtefunktionen. Verwende Turbulunce innerhalb des Objekts
         um Rauschen zu erzeugen und Strukturen wie Wolken oder Feuer zu erzeugen. Außerhalb verwende 0.
         
         \subsection{Distanzfelder, Distanzfunktionen}
-        Stelle Geometrie implizit als Abstandsfunktion dar z.B. Kugel \(f(x) = | x - m | - r\)\\
-        Vorzeichenbehaftet, negativ also im Inneren. Bei \(f(x) = 0\) spricht man von der Isofläche\\
+        \label{pm:sub:distanzfelder_distanzfunktionen}
+        
+        Stelle Geometrie implizit als Abstandsfunktion dar z.B. Kugel $f(x) = | x - m | - r$\\
+        Vorzeichenbehaftet, negativ also im Inneren. Bei $f(x) = 0$ spricht man von der Isofläche\\
 
         \textbf{Sphere Tracing}\\
-        Finden des Schnittpunkts durch Sphere Tracing \(\rightarrow\) Lege immer Strecke \(f(x)\) zurück
-        \(\rightarrow\) Da kürzeste Abstand zu nächster Fläche überspringen wir garantiert keinen Schnittpunkt\\
+        Finden des Schnittpunkts durch Sphere Tracing $\rightarrow$ Lege immer Strecke $f(x)$ zurück
+        $\rightarrow$ Da kürzeste Abstand zu nächster Fläche überspringen wir garantiert keinen Schnittpunkt\\
 
         \textbf{Normalen}\\
-        Gradient zeigt in Richtung der schnellsten Zunahme \(\rightarrow\) Normale. Approximiere Gradient
-        \[\nabla f(x) = \left[
+        Gradient zeigt in Richtung der schnellsten Zunahme $\rightarrow$ Normale. Approximiere Gradient
+        $$\nabla f(x) = \left[
             \begin{tabular}{c}
               d / dx\\
               d / dy \\
@@ -933,53 +948,64 @@
                 f (x, y, z + 1/2 h) - f (x, y, z - 1/2 h)\\
               \end{tabular}
             \right]
-          \]
+          $$
 
-          Durch Verknüpfen von einzelnen Funktionen lassen sich komplexe Geometrien modellieren
-          \begin{itemize}
-          \item Vereinigung \(f_{A \cup B} (x) = \min (f_A(x), f_B(x))\)
-          \item Schnitt \(f_{A \cap B} (x) = \max (f_A(x), f_B(x))\)
-          \item Differenz \(f_{A \setminus B} (x) = \max (f_A(x), - f_B(x))\)
-          \end{itemize}
+        Durch Verknüpfen von einzelnen Funktionen lassen sich komplexe Geometrien modellieren
+        \begin{itemize}
+                \item Vereinigung $f_{A \cup B} (x) = \min (f_A(x), f_B(x))$
+                \item Schnitt $f_{A \cap B} (x) = \max (f_A(x), f_B(x))$
+                \item Differenz $f_{A \setminus B} (x) = \max (f_A(x), - f_B(x))$
+        \end{itemize}
         
         \subsection{L-Systeme}
+        \label{pm:sub:l_systeme}
+
         Theoretisches Modell für biologische Entwicklung\\
         Definiere ein komplexes Objekt durch sukzessives Ersetzen von Teilen eines einfacheren Objekts\\
         Arbeitet ähnlich wie formale Grammatiken
         
         \newpage
         \section{Kurven und Flächen}
+        \label{kuf:sec:kurven_und_flaechen}
         
         \subsection{Bézierkurven}
-        \[F(u) = \sum_{i=0}^n B_i^n(u)b_i, \text{mit } b_i \in \realnumbers^d\] 
+        \label{kuf:sub:bezierkurven}
+        
+        $$F(u) = \sum_{i=0}^n B_i^n(u)b_i, \text{mit } b_i \in \realnumbers^d$$ 
         \begin{itemize}
-        \item Aufgebaut aus Bernsteinpolynomen
-        \item \(b_i\) heißen Stützpunkte
+        	\item Aufgebaut aus Bernsteinpolynomen
+        	\item $b_i$ heißen Stützpunkte
         \end{itemize}
 
         \subsubsection{Lemma von Bézier}
+        \label{kuf:sub:lemma_von_bezier}
+        
         \begin{itemize} 
-        \item \(F(u)\) liegt in der abgeschlossenen konvexen Hülle des Kontrollpolygons
-        \item Endpunktinterpolation \(F(0) = b_0\) und \(F(1) = b_n\)
-        \item Tangentenbedigung \(F'(0) = n(b_1 - b_0) \land F'(1) = n(b_n - b_{n-1})\)
-        \item Affine Invarianz: Sei \(\varphi(x) = Ax + t\) eine affine Abbildung, dann gilt
-          \[F(u) = \sum^n_{i=0} B_i^n(u) \varphi(b_i)\]
-        \item Variationsreduzierung: Eine Bézier-Kurve wackelt nicht stärker als Kontrollpolygon
-      \end{itemize}
+        	\item $F(u)$ liegt in der abgeschlossenen konvexen Hülle des Kontrollpolygons
+        	\item Endpunktinterpolation $F(0) = b_0$ und $F(1) = b_n$
+        	\item Tangentenbedigung $F'(0) = n(b_1 - b_0) \land F'(1) = n(b_n - b_{n-1})$
+        	\item Affine Invarianz: Sei $\varphi(x) = Ax + t$ eine affine Abbildung, dann gilt
+          $$F(u) = \sum^n_{i=0} B_i^n(u) \varphi(b_i)$$
+        	\item Variationsreduzierung: Eine Bézier-Kurve wackelt nicht stärker als Kontrollpolygon
+        \end{itemize}
       
         \subsection{de Causteljau-Algorithmus}
+        \label{kuf:sub:de_causteljau-algorithmus}
+        
         Effiziente Auswertung von Bezierkurven an einzelnen Punkten\\
         Möglich wegen Rekursiver Darstellung
-        \[B_i^n(u) = u \cdot B_{i-1}^{n-1} (u) + (1 - u) \cdot B_i^{n-1}(u)\]
+        $$B_i^n(u) = u \cdot B_{i-1}^{n-1} (u) + (1 - u) \cdot B_i^{n-1}(u)$$
         \begin{figure}[h]
-          \includegraphics[width=6cm]{images/De_Casteljau_construction_1}
-          \caption{https://commons.wikimedia.org/wiki/File:De\_Casteljau\_construction\_1.png}
+        	  \includegraphics[width=6cm]{images/De_Casteljau_construction_1}
+        	  \caption{https://commons.wikimedia.org/wiki/File:De\_Casteljau\_construction\_1.png}
         \end{figure}
 
         \subsection{Bézier-Splines}
+        \label{kuf:sub:bezier-splines}
+        
         \begin{itemize}
-        \item Bei hohem Grad beeinflusst jeder Punkt die ganze Kurve \(\rightarrow\) schwierig bei Modellierung
-        \item Deshalb: Füge mehere Kurven niedrigeren Grades aneinander
+        	\item Bei hohem Grad beeinflusst jeder Punkt die ganze Kurve $\rightarrow$ schwierig bei Modellierung
+        	\item Deshalb: Füge mehere Kurven niedrigeren Grades aneinander
         \end{itemize}
         \textbf{Definition}\\
         Stückwise polynomielle Kruve, deren einzelne Abschnitte durch Bézier-Kurven beschrieben sind
