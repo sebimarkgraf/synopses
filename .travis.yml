@@ -8,17 +8,6 @@ script:
 branches:
   only:
     - master
-deploy:
-  provider: releases
-  api_key:
-    secure: $key
-  file_glob: true
-  file:
-  - _build/*.pdf
-  skip_cleanup: true
-  on:
-   branch: master
-
 notifications:
   email:
     recipients:
