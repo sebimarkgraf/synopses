@@ -894,6 +894,15 @@
 
         \subsection{Rauschen und Rauschtexturen}
         \label{pm:sub:rauschen_und_rauschtexturen}
+
+        \textbf{Gewünschte Eigenschaften an Rauschfunktion}\\
+        \begin{itemize}
+        \item reproduzierbar
+        \item keine Periodizität
+        \item begrenzter Wertebereich
+        \item definierte Frequenzverteilung, bandlimitiert
+        \item Stetigkeit, räumliche Korrelation
+        \end{itemize}
         
         \textbf{Noise-Funktion}\\
         Grundlage für stoch. Modellierung / prozedurale Texturen\\
@@ -903,6 +912,7 @@
           \item Lattice Value Noise (Werte auf 1D/2D/3D Gitter)
           \item Lattice Gradient Noise (nicht klausurrelevant)
         \end{itemize}
+          
 
         Auswertung in Abhängigkeit von Frequenz $f$ und Offset $o$: $n(f \cdot x + o)$\\
 
