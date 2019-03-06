@@ -60,25 +60,6 @@
 	\end{itemize}
 	womit sich der erreichbare Kontrast $R_d = \frac{I_{max} + k}{I_{min} + k}$ ergibt. Man benötigt eine Transferfunktion, bei welcher der Unterschied zwischen aufeinanderfolgenden Pixelwerten nicht bemerkbar (unter 2\%) ist, um Color Banding zu vermeiden.
 
-        \subsection{Helligkeit}
-        \label{bfp:sub:helligkeit}
-        
-        \textbf{Weber-Fechner-Gesetz}\\
-        Subjektiv empfundene Stärke von Sinneseindrücken ist proportional zum Logarithmus der Intensität des
-        physikalischen Reizes.\\
-
-        Daraus ergibt sich eine kleiste wahrnehmbare Helligkeitsdifference $\Delta L_\text{JND}$
-        $$\frac{\Delta L_\text{JND}}{L} = \text{const} \approx 2\%$$
-        \begin{tikzpicture}
-          \begin{axis}[
-            xlabel=Leuchtdichte cd/$m^2$,
-            ylabel=wahrgenommene Helligkeit
-            ]
-            \addplot { 1 / e * ln x + 0.5};
-          \end{axis}
-        \end{tikzpicture}
-        % TODO: Fix scaling of tikzpicture to go from 0 to 1 in both axes.
-        
 	\subsection{Gamma-Korrektur}
 	\label{bfp:sub:gamma_korrektur}
 
@@ -92,6 +73,29 @@
 	
 	Zusätzlich zu RGB-Farbwerten wird oftmals auch ein \textbf{Alpha-Kanal} gespeichert, dessen Inhalt die \textbf{Opazität} (Gegenteil von Transparenz) des Pixels ist.
 
+	\newpage
+    \subsection{Helligkeit}
+    \label{bfp:sub:helligkeit}
+    
+    \textbf{Weber-Fechner-Gesetz}\\
+    Subjektiv empfundene Stärke von Sinneseindrücken ist proportional zum Logarithmus der Intensität des
+    physikalischen Reizes.\\
+
+    Daraus ergibt sich eine kleiste wahrnehmbare Helligkeitsdifferenz $\Delta L_\text{JND}$
+    $$\frac{\Delta L_\text{JND}}{L} = \text{const} \approx 2\%$$
+    \begin{figure}[!h]
+    	\centering
+	    \begin{tikzpicture}
+	    	\begin{axis}[
+	    		xlabel=Leuchtdichte cd/$m^2$,
+	        	ylabel=wahrgenommene Helligkeit
+	        ]
+	        \addplot { 1 / e * ln x + 0.5};
+	        \end{axis}
+	    \end{tikzpicture}
+    \end{figure}
+    % TODO: Fix scaling of tikzpicture to go from 0 to 1 in both axes.
+
 	\subsection{Licht}
 	\label{bfp:sub:licht}
 
@@ -103,7 +107,7 @@
 		\item \textbf{Metamerismus}: Unterschiedliche Spektren ergeben \textbf{dieselbe Farbe}
         \end{itemize}
 
-
+    \newpage
 	\subsection{Farbräume}
 	\label{bfp:sub:farbraeume}
 
@@ -127,7 +131,6 @@
 		\end{itemize}
 	\end{itemize}
 
-	\newpage
 	\subsection{Farbraumkonversion}
 	\label{bfp:sub:farbraumkonversion}
 
@@ -845,6 +848,7 @@
 			\item Geschrieben in C-artiger Programmiersprache \textbf{GLSL} (GL Shading Language)
 			\item Unterstützung für bekannte mathematische Operationen wie normieren und Konstrukte wie Vektoren oder Matrizen
 		\end{itemize}
+		\newpage
 		\item \textbf{Neue Grafik-Pipeline}:
 		\begin{enumerate}
 			\item \textbf{Vertex Shader}
@@ -882,7 +886,7 @@
         \subsection{Textursynthese}
         \label{pm:sub:textursynthese}
 
-        Ziel: Synthesiere eine Texture die genau wie Eingabetexture aussieht\\
+        \textbf{Ziel}: Synthesiere eine Texture die genau wie Eingabetexture aussieht\\
         $\rightarrow$ Stochastische Muster, nicht wiederholen der Textur\\
 
         \textbf{Pixelbasiert}\\
@@ -895,7 +899,7 @@
         \subsection{Rauschen und Rauschtexturen}
         \label{pm:sub:rauschen_und_rauschtexturen}
 
-        \textbf{Gewünschte Eigenschaften an Rauschfunktion}\\
+        \textbf{Gewünschte Eigenschaften an Rauschfunktion}
         \begin{itemize}
         \item reproduzierbar
         \item keine Periodizität
@@ -904,17 +908,17 @@
         \item Stetigkeit, räumliche Korrelation
         \end{itemize}
         
-        \textbf{Noise-Funktion}\\
-        Grundlage für stoch. Modellierung / prozedurale Texturen\\
-        Erzeugen von Bildern aus Pseuo-Zufallszahlen\\
-        2 Klassen
+        \textbf{Noise-Funktion}
         \begin{itemize}
-          \item Lattice Value Noise (Werte auf 1D/2D/3D Gitter)
-          \item Lattice Gradient Noise (nicht klausurrelevant)
+        	\item Grundlage für stoch. Modellierung / prozedurale Texturen
+        	\item Erzeugen von Bildern aus Pseuo-Zufallszahlen
+        	\item 2 Klassen
+		        \begin{itemize}
+		          \item Lattice Value Noise (Werte auf 1D/2D/3D Gitter)
+		          \item Lattice Gradient Noise (nicht klausurrelevant)
+		        \end{itemize}
+		    \item Auswertung in Abhängigkeit von Frequenz $f$ und Offset $o$: $n(f \cdot x + o)$
         \end{itemize}
-          
-
-        Auswertung in Abhängigkeit von Frequenz $f$ und Offset $o$: $n(f \cdot x + o)$\\
 
         \textbf{Turbulenz}\\
         Summiere mehrere Frequenzen (Oktaven)\\
@@ -969,10 +973,11 @@
         
         \subsection{L-Systeme}
         \label{pm:sub:l_systeme}
-
-        Theoretisches Modell für biologische Entwicklung\\
-        Definiere ein komplexes Objekt durch sukzessives Ersetzen von Teilen eines einfacheren Objekts\\
-        Arbeitet ähnlich wie formale Grammatiken
+        \begin{itemize}
+	        \item Theoretisches Modell für biologische Entwicklung
+	        \item Definiere ein komplexes Objekt durch sukzessives Ersetzen von Teilen eines einfacheren Objekts
+	        \item Arbeitet ähnlich wie formale Grammatiken
+        \end{itemize}
         
         \newpage
         \section{Kurven und Flächen}
@@ -980,12 +985,12 @@
         
         \subsection{Bézierkurven}
         \label{kuf:sub:bezierkurven}
-        
-        $$F(u) = \sum_{i=0}^n B_i^n(u)b_i, \text{mit } b_i \in \realnumbers^d$$ 
         \begin{itemize}
         	\item Aufgebaut aus Bernsteinpolynomen
         	\item $b_i$ heißen Stützpunkte
         \end{itemize}
+        \vspace*{-0.5cm}
+        $$F(u) = \sum_{i=0}^n B_i^n(u)b_i, \text{mit } b_i \in \realnumbers^d$$ 
 
         \subsubsection{Lemma von Bézier}
         \label{kuf:sub:lemma_von_bezier}
@@ -999,15 +1004,15 @@
         	\item Variationsreduzierung: Eine Bézier-Kurve wackelt nicht stärker als Kontrollpolygon
         \end{itemize}
       
-        \subsection{de Casteljau-Algorithmus}
+        \subsection{De-Casteljau-Algorithmus}
         \label{kuf:sub:de_casteljau-algorithmus}
         
-        Effiziente Auswertung von Bezierkurven an einzelnen Punkten\\
-        Möglich wegen Rekursiver Darstellung
-        $$B_i^n(u) = u \cdot B_{i-1}^{n-1} (u) + (1 - u) \cdot B_i^{n-1}(u)$$
-        \begin{figure}[h]
-        	  \includegraphics[width=6cm]{images/De_Casteljau_construction_1}
-        	  \caption{https://commons.wikimedia.org/wiki/File:De\_Casteljau\_construction\_1.png}
+        Rekursiver Algorithmus zur effizienten Auswertung von Bezierkurven an einzelnen Punkten:
+        $$B_i^n(u) = u \cdot B_{i-1}^{n-1} (u) + (1 - u) \cdot B_i^{n-1}(u)$$\vspace*{-0.5cm}
+		\begin{figure}[h]
+    		\centering
+    		\includegraphics[width=6cm]{images/De_Casteljau_construction_1}
+	    	\caption{https://commons.wikimedia.org/wiki/File:De\_Casteljau\_construction\_1.png}
         \end{figure}
 
         \subsection{Bézier-Splines}
