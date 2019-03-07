@@ -102,7 +102,7 @@
 	\begin{itemize}
 		\item Licht ist elektromagnetische Strahlung mit verschiedenen Charakteristika von Strahlen, Wellen und Teilchen
 		\item Licht besitzt eine \textbf{Wellenlänge} $\lambda$, die u.a. eine Spektralfarbe repräsentiert\\(Lichtfrequenz $f = \frac{c}{\lambda}$)
-		\item Sichtbares Licht: $380nm < \lambda < 700nm$
+		\item Sichtbares Licht: $380nm < \lambda < 780nm$
 		\item Licht verschiedener Wellenlängen und verschiedener Intensitäten setzen weitere Farben zusammen
 		\item \textbf{Metamerismus}: Unterschiedliche Spektren ergeben \textbf{dieselbe Farbe}
         \end{itemize}
@@ -320,10 +320,9 @@
         Bei Übergang in optisch dichtere Medium wird zum Lot hingebrochen\\
         Bei Übergang ins optisch dünnere Medium vom Lot weg\\
         $$\eta_i \sin \theta_i = \eta_t \sin \theta_t$$
-        \textit{Fresnel-Effekt}: Aufspaltung in Reflexion und Transmission\\
+        \textit{Fresnel-Effekt}: Aufspaltung in Reflexion und Transmission; je flacher der Blickwinkel, desto mehr Reflexion und weniger Transmission und andersherum\\
         \textit{Totalreflexion}: Bei $\sin \theta_c = \eta_i / \eta_t$ wird gesamtes Licht reflektiert\\
         \textit{Disperson}: Ausbreitungsgeschwindigkeit abhängig von Wellenlänge $\rightarrow$ Aufspaltung in Wellenlängen
-        
 
         \subsection{Aliasing}
 	\label{rt:sub:aliasing}
@@ -366,7 +365,7 @@
 		\item \textbf{Bisher}: Zum Beschreiben eines n-dimensionalen Körpers nutzen wir einen n-dimensionalen Raum (z.B einen dreidimensionalen Raum für einen Würfel)
 		\item \textbf{Problem}: Parallele Geraden im affinen Raum schneiden sich nicht, bei einer Projektion aber schon
 		\item \textbf{Lösung}: Ergänze zusätzliche Dimension zur Formalisierung
-		\item \textbf{Homogenisierung von Ortsvektoren}: $(x, y, z)_{3D} \rightarrow (x', y', z', w)_h$ sodass $(\frac{x}{w}, \frac{y}{w}, \frac{z}{w}) = (x, y, z)$ (einfachste Homogenisierung: wähle $x' = x, y' = y, z' = z, w = 1$)
+		\item \textbf{Homogenisierung von Ortsvektoren}: $(x, y, z)_{3D} \rightarrow (x', y', z', w)_h$ sodass $(\frac{x'}{w}, \frac{y'}{w}, \frac{z'}{w}) = (x, y, z)$ (einfachste Homogenisierung: wähle $x' = x, y' = y, z' = z, w = 1$)
 		\item \textbf{Homogenisierung von Richtungsvektoren}: $(x, y, z)_{3D} \rightarrow (x, y, z, w)_h$ mit $w = 0$
 		\item \textbf{Dehomogenisierung von Ortsvektoren}: $(x, y, z, w)_h \rightarrow (\frac{x}{w}, \frac{y}{w}, \frac{z}{w})$
 	\end{itemize}
@@ -921,7 +920,7 @@
         \end{itemize}
 
         \textbf{Turbulenz}\\
-        Summiere mehrere Frequenzen (Oktaven)\\
+        Summiere $k$ Frequenzen $f$ (Oktaven) einer Noise-Funktion $n$ an Stelle $x$:\\
         $$\text{turbulence}(x) = \sum_k (1 / f)^k n(f^k \cdot x)$$
         Höhere Frequenzen $\rightarrow$ Feinere Strukturen + kleinere Amplitude\\
 
@@ -1014,7 +1013,7 @@
     		\includegraphics[width=6cm]{images/De_Casteljau_construction_1}
 	    	\caption{https://commons.wikimedia.org/wiki/File:De\_Casteljau\_construction\_1.png}
         \end{figure}
-
+        \newpage
         \subsection{Bézier-Splines}
         \label{kuf:sub:bezier-splines}
         
@@ -1023,7 +1022,7 @@
         	\item Deshalb: Füge mehere Kurven niedrigeren Grades aneinander
         \end{itemize}
         \textbf{Definition}\\
-        Stückwise polynomielle Kruve, deren einzelne Abschnitte durch Bézier-Kurven beschrieben sind.\\
+        Stückwise polynomielle Kurve, deren einzelne Abschnitte durch Bézier-Kurven beschrieben sind.\\
 
         \textbf{Stetigkeit}\\
         Setze Bézier-Spline $C^2$ stetig fort. Spline $B$ mit $b_i$.
@@ -1032,5 +1031,11 @@
           b_n &= c_0\\
           b_n - b_{n-1} &= c_1 - c_0\\
           b_{n-1} + (b_{n-1} -  b_{n-2}) &= c_1 + (c_1 - c_2)
+        \end{align*}
+        Damit:
+        \begin{align*}
+        	c_0 &= b_n\\
+        	c_1 &= c_0 + (c_0 - b_{n-1})\\
+        	c_2 &= c_1 + (c_1 - (b_{n-1} + (b_{n-1} - b_{n-2})))
         \end{align*}
 \end{document}
