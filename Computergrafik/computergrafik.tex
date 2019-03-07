@@ -1023,6 +1023,14 @@
         	\item Deshalb: Füge mehere Kurven niedrigeren Grades aneinander
         \end{itemize}
         \textbf{Definition}\\
-        Stückwise polynomielle Kruve, deren einzelne Abschnitte durch Bézier-Kurven beschrieben sind
-        
+        Stückwise polynomielle Kruve, deren einzelne Abschnitte durch Bézier-Kurven beschrieben sind.\\
+
+        \textbf{Stetigkeit}\\
+        Setze Bézier-Spline $C^2$ stetig fort. Spline $B$ mit $b_i$.
+        Forsetzung mit Spline $C$ mit $c_i$. Dann gilt
+        \begin{align*}
+          b_n &= c_0\\
+          b_n - b_{n-1} &= c_1 - c_0\\
+          b_{n-1} + (b_{n-1} -  b_{n-2}) &= c_1 + (c_1 - c_2)
+        \end{align*}
 \end{document}
