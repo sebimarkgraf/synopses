@@ -69,12 +69,21 @@
 	\label{jd:sub:jordan_basis}
 	
 	Ziel: Finden einer Matrix S, sodass $J_A = S^{-1} * A * S$
-	\begin{enumerate}
-		\item Für jeden Eigenwert Vektoren $v \in ker(A - \lambda I_N)^q \setminus ker(A - \lambda I_N)^{q - 1}$ wählen;\\diese bilden die am weitesten links liegende Spalte in S für das entsprechende Jordankästchen
-		\item Das Kästchen wird nach rechts aufgefüllt, indem man v immer wieder abbildet:\\$(A - \lambda I_N)^{q - 1}v, (A - \lambda I_N)^{q - 2}v ... (A - \lambda I_N)v$
-		\item \textbf{Achtung}: Die Wahl des ersten Vektors für ein Jordankästchen ist nicht trivial! Die Vektoren aller Jordankästchen desselben Jordanblocks müssen eine Basis zu $ker(A - \lambda I_N)$ ergeben!
-		\item Die Reihenfolge muss zur aufgestellten Normalform passen und ist nicht eindeutig!
-	\end{enumerate}
+	\begin{itemize}
+		\item \textbf{Ansatz}: $S = (b_1 | b_2 | \dots | b_n)$ mit Basisvektoren $b_i, i = 1 \dots n$, bzgl. derer die Jordan-Normalform $J_A$ die Abbildungsmatrix von $\phi_A$ ist
+		\item \textbf{Vorgehen}:
+		\begin{enumerate}
+			\item Wähle für jeden Jordanblock das \textbf{größte Jordankästchen} und bestimme einen Vektor (q sei der \textbf{Index des Hauptraumes}) $$b_i \in Kern(A - \lambda I)^q \setminus Kern(A - \lambda I)^{q-1}$$
+			\item Für die restlichen Plätze im Jordankästchen, \textbf{bilde} $b_i$ \textbf{immer wieder ab}: $$b_{j+1} = (A - \lambda I)b_j, j \in \naturalnumbers$$
+			\item Sobald so viele Basisvektoren für das Jordankästchen bestehen \textbf{wie das Kästchen groß ist}, wähle die restlichen Basisvektoren für den Jordanblock so, dass alle Basisvektoren des Blocks eine \textbf{Basis von} $Kern(A - \lambda I)$ bilden
+			\item Sobald dies für jeden Jordan-Block erledigt ist, fülle S so mit den Basisvektoren, dass die Basisvektoren eines Blocks an den \textbf{zugehörigen Stellen in S} stehen
+			\item \textbf{Achtung}: Die Richtung, in der die Basisvektoren für jeden Jordan-Block eingefügt werden, ist davon abhängig, ob die $1$-Elemente der Nebendiagonalen \textbf{rechts oder links} von der Hauptdiagonalen stehen ($i \in \naturalnumbers$)
+			\begin{itemize}
+				\item Falls \textbf{rechts}: Fülle Block von \textbf{rechts nach links} ($S = (\dots | b_{i+2} | b_{i+1} | b_{i} | \dots$)
+				\item Falls \textbf{links}: Fülle Block von \textbf{links nach rechts} ($S = (\dots | b_{i} | b_{i+1} | b_{i+2} | \dots$)
+			\end{itemize}
+		\end{enumerate}
+	\end{itemize}
 
 	\subsection{Tricks \& Hinweise}
 	\label{jd:sub:tricks}
