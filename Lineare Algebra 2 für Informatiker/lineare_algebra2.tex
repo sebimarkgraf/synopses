@@ -73,14 +73,13 @@
 		\item \textbf{Ansatz}: $S = (b_1 | b_2 | \dots | b_n)$ mit Basisvektoren $b_i, i = 1 \dots n$, bzgl. derer die Jordan-Normalform $J_A$ die Abbildungsmatrix von $\phi_A$ ist
 		\item \textbf{Vorgehen}:
 		\begin{enumerate}
-			\item Wähle für jeden Jordanblock das \textbf{größte Jordankästchen} und bestimme einen Vektor (q sei der \textbf{Index des Hauptraumes}) $$b_i \in Kern(A - \lambda I)^q \setminus Kern(A - \lambda I)^{q-1}$$
+			\item Wähle für jedes Jordankästchen eines Jordanblocks einen Vektor $b_i$ (q sei der \textbf{Index des Hauptraumes}) $$b_i \in Kern(A - \lambda I)^q \setminus Kern(A - \lambda I)^{q-1}$$
 			\item Für die restlichen Plätze im Jordankästchen, \textbf{bilde} $b_i$ \textbf{immer wieder ab}: $$b_{j+1} = (A - \lambda I)b_j, j \in \naturalnumbers$$
-			\item Sobald so viele Basisvektoren für das Jordankästchen bestehen \textbf{wie das Kästchen groß ist}, wähle die restlichen Basisvektoren für den Jordanblock so, dass alle Basisvektoren des Blocks eine \textbf{Basis von} $Kern(A - \lambda I)$ bilden
-			\item Sobald dies für jeden Jordan-Block erledigt ist, fülle S so mit den Basisvektoren, dass die Basisvektoren eines Blocks an den \textbf{zugehörigen Stellen in S} stehen
-			\item \textbf{Achtung}: Die Richtung, in der die Basisvektoren für jeden Jordan-Block eingefügt werden, ist davon abhängig, ob die $1$-Elemente der Nebendiagonalen \textbf{rechts oder links} von der Hauptdiagonalen stehen ($i \in \naturalnumbers$)
+			\item Sobald dies für jedes Jordan-Kästchen erledigt ist, fülle S so mit den Basisvektoren, dass die Basisvektoren eines Kästchens an den \textbf{zugehörigen Stellen in S} stehen
+			\item \textbf{Achtung}: Die Richtung, in der die Basisvektoren für jedes Jordan-Kästchen eingefügt werden, ist davon abhängig, ob die $1$-Elemente der Nebendiagonalen \textbf{rechts oder links} von der Hauptdiagonalen stehen ($i \in \naturalnumbers$)
 			\begin{itemize}
-				\item Falls \textbf{rechts}: Fülle Block von \textbf{rechts nach links} ($S = (\dots | b_{i+2} | b_{i+1} | b_{i} | \dots$)
-				\item Falls \textbf{links}: Fülle Block von \textbf{links nach rechts} ($S = (\dots | b_{i} | b_{i+1} | b_{i+2} | \dots$)
+				\item Falls \textbf{rechts}: Fülle Kästchen von \textbf{rechts nach links} ($S = (\dots | b_{i+2} | b_{i+1} | b_{i} | \dots$)
+				\item Falls \textbf{links}: Fülle Kästchen von \textbf{links nach rechts} ($S = (\dots | b_{i} | b_{i+1} | b_{i+2} | \dots$)
 			\end{itemize}
 		\end{enumerate}
 	\end{itemize}
