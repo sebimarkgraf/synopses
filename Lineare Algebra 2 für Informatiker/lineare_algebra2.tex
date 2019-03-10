@@ -351,6 +351,25 @@
 		\end{bmatrix}$
 	\end{center}
 	
+	\subsection{Ähnlichkeitstransformation der Isometrie-Normalform}
+	\label{os:sub:aehnlichkeitstransformation_der_isometrie_normalform}
+	
+	\begin{itemize}
+		\item \textbf{Ziel}: Analog zur Jordan-Normalform: Finden einer (orthogonalen) Transformationsmatrix $S = (b_1 | \dots | b_n)$, sodass $S^TAS = A_{INF}$
+		\item \textbf{Vorgehen für (-)1-Kästchen}:
+		\begin{enumerate}
+			\item Finde \textbf{Eigenvektoren analog zu Jordan}
+			\item Die die Basisvektoren für diese Stellen in $S$ sind die \textbf{normierten Eigenvektoren}
+		\end{enumerate}
+		\item \textbf{Vorgehen für Drehkästchen}:
+		\begin{enumerate}
+			\item Finde einen Vektor \textbf{orthogonal zu den anderen Basisvektoren}
+			\item \textbf{Bilde diesen mit A ab}, bis genug Vektoren für die Stellen gefunden sind
+			\item Berechne mit Gram-Schmidt aus diesen Basisvektoren eine \textbf{Orthonormalbasis}
+			\item Die orthonormalen Vektoren sind die Basisvektoren für die Stellen des Drehkästchens\\in $S$
+		\end{enumerate}
+	\end{itemize}
+
 	\newpage
 	\section{Adjungierte und normale Abbildungen}
 	\label{aa:sec:adjungierte_und_normale_abbildungen}
