@@ -4,41 +4,41 @@
 %%% TeX-master: "mechano"
 %%% End:
 
-\section{Algorithmische Grundlagen}
-\label{sec:algorithmtische_grundlagen}
+\section{Algorithmische Grundlagen}%
+\label{ag:sec:algorithmtische_grundlagen}
 
-\subsection{Vorwärtskinematik}
-\label{sub:vorwaertskinematik}
+\subsection{Vorwärtskinematik}%
+\label{ag:sub:vorwaertskinematik}
 Wo ist meine Hand? \(\rightarrow\) Hier!\\
 
 Bestimmt die Position des Endeffektors abhängig von den Gelenkwinkeln.
 
-\subsection{Inverse Kinematik}
-\label{sub:inverse_kinematik}
+\subsection{Inverse Kinematik}%
+\label{ag:sub:inverse_kinematik}
 Bestimmt die Gelenkwinkel zu einer gegeben Endeffektor Pose
 
-\subsection{Jacobi Matrix}
-\label{sub:jacobi_matrix}
+\subsection{Jacobi Matrix}%
+\label{ag:sub:jacobi_matrix}
 \begin{align*}
   \dot{x} = J(\theta) \cdot \dot{\theta} \qquad \text{Vorwärtskinematik}\\
   \dot{\theta} = J^{-1} (\theta) \cdot \dot{x} \qquad \text{Inverse Kinematik}
 \end{align*}
 
-\subsection{Arbeitsraum}
-\label{sub:arbeitsraum}
+\subsection{Arbeitsraum}%
+\label{ag:sub:arbeitsraum}
 Der Arbeitsraum \(W\) des Roboters ist in kartesischen Koordinaten beschrieben \(\realnumbers^6\)
 
-\subsection{Konfigurationsraum}
-\label{sub:konfigurationsraum}
+\subsection{Konfigurationsraum}%
+\label{ag:sub:konfigurationsraum}
 Der Konfigurationsraum \(C\) besteht aus kollisionsfreiem \(C_{\mathit{free}}\) und kollidierendem \(C_\mathit{obs}\) Raum.
 \[C = C_\mathit{free} \cup C_\mathit{obs}\]
 
-\subsection{Graph Algorithmen}
-\label{sub:graph_algorithmen}
+\subsection{Graph Algorithmen}%
+\label{ag:sub:graph_algorithmen}
 Graph \(G = (V, E)\) als Vertices \(V\), Kanten \(E\) und ggf. Gewichten \(W = {w_1, \ldots, w_k}\)
 
-\subsubsection{A*}
-\label{ssub:a*}
+\subsubsection{A*}%
+\label{ag:ssub:a*}
 \begin{itemize}
 \item best-first Suchalgorithmus
 \item Optimal: Findet optimalen Pfad
@@ -48,8 +48,8 @@ Graph \(G = (V, E)\) als Vertices \(V\), Kanten \(E\) und ggf. Gewichten \(W = {
 \item Für \(h(x) = 0\) entspricht Djikstra
 \end{itemize}
 
-\subsubsection{RRT}
-\label{ssub:rrt}
+\subsubsection{RRT}%
+\label{ag:ssub:rrt}
 Verschiedene Formen
 \begin{itemize}
 \item Single Tree
@@ -57,22 +57,22 @@ Verschiedene Formen
 \end{itemize}
 Benötigt eine Nearest Neighbour Suche. Deshalb kd-Bäume relevant
 
-\subsubsection{kd-Bäume}
-\label{ssub:kd-baeume}
+\subsubsection{kd-Bäume}%
+\label{ag:ssub:kd-baeume}
 Füge \enquote{cutting Dimensions} ein. An Hand dieser lässt sich absteigen und nach Nearest Neighbours suchen:
 \begin{itemize}
 \item Tue so, als würde der Punkt eingefügt werden
 \item Speichere beim Abstieg nächste Distanz
-\item Steige auf und vergleiche ob Knoten näher, ggf. steige in andere Teilbäume ab
+\item Steige auf und vergleiche ob Knoten näher, ggf.\ steige in andere Teilbäume ab
 \item Führe solange durch, bis Wurzel erreicht
 \end{itemize}
 
-\subsubsection{Octrees}
-\label{ssub:octrees}
+\subsubsection{Octrees}%
+\label{ag:ssub:octrees}
 Andere Raumunterteilende Datenstruktur
 
-\subsubsection{PRM}
-\label{ssub:prm}
+\subsubsection{PRM}%
+\label{ag:ssub:prm}
 Erstelle Roadmap für mehrere Queries.\\
 Besteht aus Buildup und Query phase.\\
-Selbst wenn eine Lösung existiert findet PRM sie ggf. nicht.
+Selbst wenn eine Lösung existiert findet PRM sie ggf.\ nicht.
