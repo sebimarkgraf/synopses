@@ -1,0 +1,135 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "mechano"
+%%% End:
+
+\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
+minimum height=3em, minimum width=6em, align=center]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+\section{Dynamik linearer Systeme}%
+\label{dls:sec:dynamik_linearer_systeme}
+
+\subsection{Control Theory}%
+\label{dls:sub:control_theory}
+(Regelungstechnik) is the theory of automatic, goal-orientated modification of dynamical processes at run-time
+
+\subsubsection{Fundamental question}%
+\label{dls:ssub:fundamental_question}
+Design of a system for automatic, targeted modification of a process with incomplete knowledge of the underlying
+process, and in the presence of disturbances
+
+\subsubsection{Principle Operation}%
+\label{dls:ssub:principle_operation}
+The plant is to be monitored continuously, and the obtained information is used to modify the system input in such a
+way that its output matches the desired output as close as possible, despite the effects of the disturbance.
+
+
+\subsubsection{Structure of a control system}%
+\label{dls:ssub:structure_of_a_control_system}
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[auto, node distance=2cm, >=latex']
+    \node [input, name=input] {};
+    \node [sum, right of=input] (sum) {};
+    \node [block, right of=sum] (controller) {Controller};
+    \node [block, right of=controller, node distance=3cm] (system) {Actuator};
+    \node [block, right of=system, node distance=3cm, pin={[pinstyle]above:z}] (way) {Plant};
+    
+    \draw [->] (controller) -- (system);
+    \draw [->] (system) -- node[name=y] {$y$} (way);
+    \node [output, right of=way] (output) {};
+    \node [block, below of=y] (measurements) {Plant};
+
+    \draw [draw, ->] (input) -- node {$w$} (sum);
+    \draw [->] (sum) -- node {$x_d$} (controller);
+    \draw [->] (way) -- node [name=x] {$x$} (output);
+    \draw [->] (x) |- (measurements);
+    \draw [->] (measurements) -| node[pos=0.99] {$-$}
+    node [near end] {$r$} (sum);
+  \end{tikzpicture}
+  \vspace{2em}
+
+  \begin{tabular}{clcl}
+    \(w\) & Reference & \(x_d\) & Control error\\
+    \(y\) & Control input & \(x\) & System output\\
+    \(r\) & Feedback & \(z\) & Disturbance\\
+  \end{tabular}
+\end{figure}
+
+Control system is a closed loop:\\
+Feedback is substracted from the reference in the deviation analysis.
+
+\subsubsection{Definition: Control System}%
+\label{dls:ssub:definition_control_system}
+A control system is an arrangement that continuously monitors the plant's output, computes
+the deviation from a reference value and uses this error to adjust the system output to match the reference.\\
+This is achieved with only limited knowledge about the plant and, especially, about the disturbance.
+
+\subsection{Linear Differential Equations in State-Space Form}%
+\label{dls:sub:linear_differential_equations_in_state_space_form}
+\[\dot{x} = Ax + Bu\]
+has solution 
+\[x(t) = e^{A(t - \tau)} x(\tau) + \int_\tau^t e^{A(t - \lambda)} B u(\lambda) d\lambda\]
+But does not hold when \(A\) is time varying.
+
+\subsubsection{Time varying dynamics}%
+\label{dls:ssub:time_varying_dynamics}
+Write \(\dot{x} = A(t)x\) as
+\[x(t) = \Phi(t,\tau)x(\tau)\]
+Where \(\Phi(t,\tau)\) is the State-Transition matrix:\\
+It relates the state at time \(t\) to the state at time \(\tau\) and defines how state \(x(\tau)\) transitions
+into \(x(t)\)
+\begin{itemize}
+\item time-invariant: \(\Phi(t,\tau) = e^{A(t-\tau)}\)
+\item time-varying: No simple expression
+\end{itemize}
+General solution
+\begin{align*}
+  x(t) = \Phi(t, \tau)x(\tau) &+ \int_\tau^t \Phi(t,\lambda)B(\lambda)u(\lambda)d\lambda\\
+  y(t) = C(t)\Phi(t, \tau)x(\tau) &+ \int_\tau^t C(t) \Phi(t,\lambda)B(\lambda)u(\lambda)d\lambda
+\end{align*}
+
+\subsubsection{Properties of the State-Transition matrix}%
+\label{dls:ssub:properties_of_the_state_transition_matrix}
+\begin{itemize}
+\item Expression of the solution to the homogeneous equation \(\dot{x} = A(t)x(t)\)
+\item The time derivative is given by \[\frac{\delta\Phi(t,\tau)}{\delta t} = A(t)\Phi(t,\tau)
+    \Leftrightarrow \dot{\Phi} = A \Phi\]
+\item \(x(t) = \Phi(t,t) x(t) \rightarrow \) The semi-group property: \(\Phi(t,t) = I\)
+\item When \(A\) constant matrix, then \(\Phi(t) = e^{At}\)
+\item Is never singular even if the \(A\) is singular
+\end{itemize}
+
+\subsection{Laplace Transformation}%
+\label{dls:sub:laplace_transformation}
+Transforms to frequency domain and enables the methodology.
+
+\[\mathcal{L}[f(t)] = f(s) = \int_0^\infty \cdot e^{-st}dt\]
+where \(s\) is called complex frequency \(s = \delta + i\omega\)
+
+\subsubsection{Resolving the State-Transition}%
+\label{dls:ssub:resolving_the_state_transition}
+\(e^{At}\) called sate-transition matrix\\
+Laplace transform: \(\Phi(s) = {(s \cdot I - A)}^{-1}\) called resolvent\\
+Characterizes the dynamic behavior of the system
+
+\subsection{Transfer Functions}%
+\label{dls:sub:transfer_functions}
+Relates Laplace transform of the output to the Laplace transform of the input\\
+With output \(y(s) = C \cdot x(s)\)  the Transfer-function matrix is
+\[H(s) = C \cdot {(s \cdot I - A)}^{-1} \cdot B)\]
+And impulse-response(inverse Laplace transformation of the transfer-function matrix)
+\[H(t) = \mathcal{L}^{-1} [H(s)] = C \cdot e^{A \cdot t} \cdot B\]
+
+\subsection{Transformation of state variables}%
+\label{dls:sub:transformation_of_state_variables}
+Sometimes other set of variables more convenient
+\(\rightarrow\) Transform \(A, B, C, D\) to new set \(\overline{A}, \overline{B}, \overline{C}, \overline{D}\)\\
+Change represented in linear transformation \(z=Tx\)\\
+\(T\) is non-singular, so \(x = T^{-1}z\)\\
+Then \[T^{-1}\dot{z} = AT^{-1}z + Bu\]
