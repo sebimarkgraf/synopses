@@ -4,9 +4,11 @@
 %%% TeX-master: "robotik"
 %%% End:
 
-\section{Bahnsteuerung}
+\section{Bahnsteuerung}%
+\label{bs:sec:bahnsteuerung}
 
-\subsection{Grundproblem}
+\subsection{Grundproblem}%
+\label{bs:sub:grundproblem}
 Gegeben:
 \begin{itemize}
 \item \(S_{\mathit{Start}}\): Zustand zum Startzeitpunkt
@@ -24,7 +26,8 @@ Zustände können in 2 Räumen dargestellt werden:
 \end{itemize}
 
 
-\subsection{Bahnsteuerung}
+\subsection{Bahnsteuerung}%
+\label{bs:sub:bahnsteuerung}
 \textbf{Konfigurationsraum}\\
 Funktion der Gelenkwinkelzustände. Werden entweder synchron oder asynchron abgefahren.\\
 
@@ -33,9 +36,11 @@ Funktion der Zustände des Roboters. Continuous Path: Endeffektor folgt Lage und
 
 
 \subsection{Programmierung der Schlüsselpunkte}
+\label{bs:sub:programmierung-schluesselpunkte}
 Anfahren markanter Punkte der Bahn mit manueller Steuerung
 
-\subsection{Interpolationsarten}
+\subsection{Interpolationsarten}%
+\label{bs:sub:interpolationsarten}
 \textbf{Punkt-zu-Punkt (PTP)}\\
 Roboter führt Punkt zu Punkt Bewegung aus. Einfache Berechnung\\
 
@@ -56,7 +61,8 @@ Gleiche Endbedingungen der Teiltrajektorien aneinander an.\\
 z.B. mit Splines
 
 
-\subsection{Approximation}
+\subsection{Approximation}%
+\label{bs:sub:approximation}
 \textbf{Bézierkurven}\\
 Verlaufen nicht durch Punkte, sondern werden nur von diesen beeinflusst.\\
 

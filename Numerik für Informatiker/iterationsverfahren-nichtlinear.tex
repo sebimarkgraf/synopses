@@ -1,0 +1,30 @@
+\section{Iterationsverfahren für nichtlineare Gleichungssysteme}%
+\label{itn:sec:iterationsverfahren}
+\subsection{Newton-Verfahren}%
+\label{itn:sub:newton-verfahren}
+\textbf{Idee}:\\Zugrunde liegende Gleichung ist \textbf{nichtlinear} (z.B Polynom von mindestens Grad zwei, Bruchgleichungen, Wurzelgleichungen, Exponentialgleichungen etc.). Nähere hierfür die Lösung durch die \textbf{Newton-Iteration} an. Hierbei bestimmt man die \textbf{Tangente des aktuellen Punkts}, wählt die \textbf{Nullstelle der Tangente} und fährt von dieser an fort. Für einen Vektor $x_k$ folgt für eine Funktion $F(x)$ die nächste Näherung durch die Newton-Iteration $x_{k + 1} = x_k - \frac{F(x_k)}{F'(x_k)}$.\\\\
+\textbf{Das Newton-Verfahren konvergiert nur für einen guten Startwert!}\\\\
+\textbf{Lösungssuche über Newton-Verfahren}:\\
+Bsp.: Finden der n-ten Wurzel
+\begin{enumerate}
+	\item Gesucht: $x = \sqrt[n]{2}$\\formuliere als Nullstellenproblem: $x^n = 2 \Leftrightarrow x^n - 2 = 0 \Rightarrow F(x) = x^n - 2$ und $F'(x) = nx^{n - 1}$
+	\item Iteriere für z.B $n = 5$ folgendermaßen:
+	\begin{enumerate}
+		\item $x_1 = 2$
+		\item $x_2 = 2 - \frac{2^5 - 2}{5 * 2^4} = 2 - \frac{30}{80} = \frac{13}{8}$
+		\item $x_3 = \frac{13}{8} - \frac{(\frac{13}{8})^5 - 2}{5 * (\frac{13}{8})^4} \approx 1.357364938$
+		\item etc. (Lösung des Taschenrechners: $x \approx 1.148698355$)
+	\end{enumerate}
+\end{enumerate}
+\textbf{Lösen einer Minimierungsaufgabe}:                                                                                        \\
+Zur Minimierung einer differenzierbaren Funktion $f: \realnumbers^N \rightarrow \realnumbers$ suche $x^* \in \realnumbers^N$ mit \\$f(x^*) \leq f(x) \forall x \in \realnumbers^N$. Dies lässt sich erreichen, indem man das Nullstellenproblem\\$F(x) = grad\ f(x) = 0$ berechnet. Die damit folgende Newton-Iterationsvorschrift lautet:
+\begin{center}
+	$x_{k + 1} = x_k - F''(x_k)^{-1} grad\ f(x_k)$
+\end{center}
+\textbf{Allgemeine Gleichung für mehrdimensionale Probleme}
+\begin{enumerate}
+	\item Wähle Startwert $x_0$ und $\epsilon$
+	\item Falls $|F(x^k)| < \epsilon$: STOP
+	\item Berechne Newton Korrektur $d^k: F^{\prime}(x^k)d^k = -F(x^k)$
+	\item Setze: $x^{k+1} = x^{k} + d^{k}$
+\end{enumerate}

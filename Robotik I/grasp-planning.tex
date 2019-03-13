@@ -4,9 +4,11 @@
 %%% TeX-master: "robotik"
 %%% End:
 
-\section{Greifplanung}
+\section{Greifplanung}%
+\label{gpl:sec:greifplanung}
 
-\subsection{Grifftaxonomie}
+\subsection{Grifftaxonomie}%
+\label{gpl:sub:grifftaxonomie}
 \begin{itemize}
 \item Vereinfachung der Griffsynthese
 \item Benchmark für die Evaluierung von Roboterhänden
@@ -19,7 +21,8 @@
 Hierarchisch\\
 Oberste Unterscheidung: Kraft und Präzisionsgriffe
 
-\subsection{Greifanalyse und Griffsynthese}
+\subsection{Greifanalyse und Griffsynthese}%
+\label{gpl:sub:greifanalyse-griffsynthese}
 \textbf{Griff}\\
 Eine Menge von Kontaktpunkten auf der Oberfläche eines Objekts, die potentielle Bewegungen des Objekts unter dem
 Einfluss externer Kräfte einschränken bzw. kompensieren\\
@@ -32,13 +35,16 @@ Gesucht: Aussagen zur Stabilität des Griffs unter Berücksichtigung von Nebenbe
 Gegeben: Objekt und eine Menge von Nebenbedingungen\\
 Gesucht: Eine Menge von Kontaktpunkten
 
-\subsection{Griffmodelle}
+\subsection{Griffmodelle}%
+\label{gpl:sub:griffmodelle}
 
-\subsubsection{Reibungsdreiecke}
+\subsubsection{Reibungsdreiecke}%
+\label{gpl:ssub:reibungsdreiecke}
 Dreieck an Kontaktpunkt \(p_i\) mit Kraft \(f_i\). Öffnung ist abhängig von Reibungskoeffizient \(\gamma = 1\).\\
 Öffnungswinkel des Dreiecks \(\beta = \arctan \gamma\)
 
-\subsubsection{Wrenchvektor}
+\subsubsection{Wrenchvektor}%
+\label{gpl:ssub:wrenchvektor}
 In Kontaktpunkt \(p_i\) wirkenden Kräfte \(f_i\) und Momente \(\tau_i\) mit \(i \in \{x, y, z\}\) in einem Vektor,
 genannt Wrenchvektor, \(w\) zusammengefasst.\\
 
@@ -49,11 +55,13 @@ Die Seiten erhalten wir dann mit \(f_a = f + f_R \qquad f_b = f - f_R\)\\
 Berechne \(d_i\) zum Schwerpunkt \(c\): \(d_i = p_i - c\)\\
 Bestimme Drehmomente \(\tau\): \(\tau_{a,i} = d_i \times f_{a,i} \qquad \tau_{b,i} = d_i \times f_{b,i}\)\\
 Wrenches aufschreiben: \(w_{a,i} = (f_{a,i}, \tau_{a,i}) \qquad w_{b,i} = (f_{b,i}, \tau_{b, i})\)\\
-\subsubsection{Greifmatrix}
+\subsubsection{Greifmatrix}%
+\label{gpl:ssub:greifmatrix}
 Darstellung eines räumlichen Griffes durch Wrenchvektoren mit \(m\) Kontaktpunkten
 \[G = \left[ {}^1w_n, {}^1w_t, {}^1w_{\theta}, \ldots, {}^mw_n, {}^mw_t, {}^mw_{\theta}\right] \in \realnumbers^{6\times3m}\]
 
-\subsubsection{Fingerspitzengriff}
+\subsubsection{Fingerspitzengriff}%
+\label{gpl:ssub:fingerspitzengriff}
 Greifen nur durch geeignete Anordnung der Kontaktpunkte\\
 Arten der Kontakte:
 \begin{itemize}
@@ -62,11 +70,13 @@ Arten der Kontakte:
 \item Nicht starrer Punktkontakt mit Reibung --- Kraft normal und tangential zur Fläche, sowie axiale Momente
 \end{itemize}
 
-\subsubsection{Gleichgewichtsgriff}
+\subsubsection{Gleichgewichtsgriff}%
+\label{gpl:ssub:gleichgewichtsgriff}
 Griff ist ein Gleichgewichtsgriff, wenn die Summe aller Kräfte \(f_i\) und Momente \(\tau_i\), die auf das gegriffene
 Objekt wirken, gleich \(0\) ist.
 
-\subsubsection{Kraftgeschlossene Griffe}
+\subsubsection{Kraftgeschlossene Griffe}%
+\label{gpl:ssub:kraftgeschlossene-griffe}
 Ausgleichen von nicht bekannten externen Einflüssen durch Kräfte der Finger.\\
 mathematisch
 \begin{align*}
@@ -82,12 +92,14 @@ mathematisch
 \end{enumerate}
 \(\rightarrow\) Kraftgeschlossen, falls Abstand \(d > \epsilon\)
 
-\subsubsection{Formgeschlossene Griffe}
+\subsubsection{Formgeschlossene Griffe}%
+\label{gpl:ssub:formgeschlossene-griffe}
 Stärkere Einschränkungen als kraftgeschlossender Griff\\
 Nur von der Position der Kontaktpunkte auf der Oberfläche abhängig\\
 Keine Berücksichtigung von Normal-/Tangentialkräften oder Drehmomenten
 
-\subsubsection{Stabile Griffe}
+\subsubsection{Stabile Griffe}%
+\label{gpl:ssub:stabile-griffe}
 Nachgiebigkeit von Fingern und Kräften mit Hilfe von Potentialfunktion \(V\)
 \[V : \realnumbers^6 \rightarrow \realnumbers^6\]
 Potentielle Energie in Abhängigkeit von Lage und Orientierung des Objektes
@@ -96,25 +108,30 @@ Griff stabil, falls für kleine Änderungen \(\delta q = (\delta_x, \delta_y, \d
 \realnumbers^6 \neq 0\) der Lage
 \[\forall \delta q \in \realnumbers^6: \quad \delta V > 0\]
 
-\subsection{Objektklassen}
+\subsection{Objektklassen}%
+\label{gpl:sub:objektklassen}
 \begin{itemize}
 \item Bekannte Objekte
 \item Bekannte Objektklassen
 \item Unbekannte Objekte
 \end{itemize}
 
-\subsection{Griffsynthese}
-\subsubsection{Durch Vorwärtsplanung}
+\subsection{Griffsynthese}%
+\label{gpl:sub:griffsynthese}
+\subsubsection{Durch Vorwärtsplanung}%
+\label{gpl:ssub:vorwaertsplanung}
 Plane in Simulation, bestimme Anfahrspunkt und Anfahrtsrichtung\\
 Hand nähert sich, bis Kontakt und Finger schließen sich\\
 Evaluation des Kontaktes
 
-\subsubsection{Zufallsbasierte Vorwärts-Greifplanung}
+\subsubsection{Zufallsbasierte Vorwärts-Greifplanung}%
+\label{gpl:ssub:zufallsbasierte-greifplanung}
 Erzeuge Zufällig Griffe\\
 Ermittle Kontakt\\
 Evaluiere Hypothesen
 
-\subsubsection{Griffsynthese auf Objektteilen}
+\subsubsection{Griffsynthese auf Objektteilen}%
+\label{gpl:ssub:griffsynthese-objektteile}
 Bei komplexer Geometrie schwierig einen Griff zu berechnen\\
 Also berechne Kandidaten auf Teilen eines Objekts\\
 

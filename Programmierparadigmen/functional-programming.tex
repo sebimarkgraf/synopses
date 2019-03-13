@@ -5,9 +5,11 @@
 
 \lstset{language=Haskell,mathescape=true}
 
-\section{Funktionale Programmierung in Haskell}
+\section{Funktionale Programmierung in Haskell}%
+\label{hsk:sec:funktionale-programmierung}
 
-\subsection{Funktion}
+\subsection{Funktion}%
+\label{hsk:sub:funktion}
 Entspricht in Sprachen wie Haskell der mathematischen Sicht:
 \begin{itemize}
   \item Bildet Element aus Definitions- in Wertebereich ab
@@ -16,12 +18,13 @@ Entspricht in Sprachen wie Haskell der mathematischen Sicht:
 \end{itemize}
 Es gibt keine Variablen in Haskell, Zustand über Parameter \& Rückgabewert.  
 
-\subsection{Funktionsdefinition}
+\subsection{Funktionsdefinition}%
+\label{hsk:sub:funktionsdefinition}
 \code{f x = sin x / x}\\
 Defininiere Funktionen mit Leerzeichen um Parameter zu trennen.\\
 
-        
-\subsection{Rekursive Definitionen}
+\subsection{Rekursive Definitionen}%
+\label{hsk:sub:rekursive-definitionen}
 Definition mit if-else-then:
 \begin{lstlisting}
           binom n k =
@@ -37,7 +40,8 @@ Oder mit Type Guard Notation:
 \end{lstlisting}
 Vergleichbar mit Mathematischer Notation
 
-\subsection{Ausführung}
+\subsection{Ausführung}%
+\label{hsk:sub:ausfuehrung}
 Ausführung mit \code{ghci}\\
 Programm \code{simple.hs}:
 \begin{lstlisting}
@@ -51,14 +55,16 @@ Laden und Ausführen:
           cube (1+2)
 \end{lstlisting}
 
-\subsection{Auswertung}
+\subsection{Auswertung}%
+\label{hsk:sub:auswertung}
 Schrittweise ausgewertet
 \begin{itemize}
   \item \(e_1 \Rightarrow e_2\) für einen Schritt
   \item \(e_1 \Rightarrow^+ e_n \) falls \(e_1 \Rightarrow e_2 \Rightarrow ... \Rightarrow e_n\)
 \end{itemize}
         
-\subsection{Akkumulatoren}
+\subsection{Akkumulatoren}%
+\label{hsk:sub:akkumulatoren}
 Auswertung von rekursiven Funktionen \(\Rightarrow\) Zwischenausdrücke wachsen mit Eingabegröße.\\
 Deshalb: Verwende Akkumulatoren\\
 Idee: Speichere partielle Ergebnisse
@@ -67,10 +73,12 @@ Idee: Speichere partielle Ergebnisse
           fak n = fakAcc n 1
 \end{lstlisting}
 
-\subsection{Endrekursion}
+\subsection{Endrekursion}%
+\label{hsk:sub:endrekursion}
 Funktion heiß endrekursiv, falls in jedem Zweig der rekursive Aufruf nicht in einen anderen Aufruf eingebettet ist.
 
-\subsection{Listen}
+\subsection{Listen}%
+\label{hsk:sub:listen}
 Liste ist entweder
 \begin{itemize}
   \item leere Liste \code{[]}, oder
@@ -88,7 +96,8 @@ Lässt sich zum Pattern Matching auf Listen verwenden.\\
   \item \code{drop n l} - \code{l} ohne erste \code{n} Elemente
 \end{itemize}
           
-\subsection{Pattern Matching}
+\subsection{Pattern Matching}%
+\label{hsk:sub:pattern-matching}
 Verwende mehrere Gleichungen zur Definition einer Funktion.\\
 Jede Gleichung gibt Struktur für Argumente vor. Erstes passendes Muster wird angewandt.
 Muster sind Konstanten, Variablen oder Konstruktoren.
@@ -98,8 +107,8 @@ Muster sind Konstanten, Variablen oder Konstruktoren.
           maximum (x:xs) = max x (maximum xs)
 \end{lstlisting}
 
-
-\subsection{Funktionen höherer Ordnung}
+\subsection{Funktionen höherer Ordnung}%
+\label{hsk:sub:funktionen-hoeherer-ordnung}
 \textbf{Lambda Notation}
 Schreibe Funktionsparameter auf rechte Seite
 \begin{lstlisting}
@@ -122,14 +131,16 @@ Filtern von Listen:\\
 Funktionskomposition: \code{f . g}\\
 n-fache Anwedung: \code{iter :: (t -> t) -> Integer -> (t -> t)}
 
-\subsection{Currying}
+\subsection{Currying}%
+\label{hsk:sub:currying}
 Ersetzung einer mehrstelligen Funktion durch Schachtelung einstelliger Funktionen\\
 z.B. \(f = \lambda a, b.F(a,b)\) und \(f_c = \lambda a.\lambda b. F(a, b)\)\\
 \(f_c\) kann unterversorgt werden!\\\\
 \textbf{Unterversorgung}\\
 Wende `mehrstellige` Funktionen auf zu wenige Parameter an.
 
-\subsection{Namensbindung}
+\subsection{Namensbindung}%
+\label{hsk:sub:namensbindung}
 Bindungskonstrukte legen Bedeutung und Geltungsbereich von Variablen fest.
 \begin{itemize}
   \item Globale Bindung durch Defintion
@@ -137,7 +148,8 @@ Bindungskonstrukte legen Bedeutung und Geltungsbereich von Variablen fest.
   \item x in Lambda Ausdruck gebunden
 \end{itemize}
 
-\subsection{Lokale Bindung}
+\subsection{Lokale Bindung}%
+\label{hsk:sub:lokale-bindung}
 \textbf{let} ermöglicht Deklarierung in Block.\\
 \textbf{where} vor Allem für Hilfsfunktionen.
 \begin{lstlisting}
@@ -146,7 +158,8 @@ Bindungskonstrukte legen Bedeutung und Geltungsbereich von Variablen fest.
             where c = 299792458
 \end{lstlisting}
 
-\subsection{Verdeckung}
+\subsection{Verdeckung}%
+\label{hsk:sub:verdeckung}
 Innere Bindungen verdecken äußere.
 Vorsicht insbesondere bei \code{let} Klauseln!
 \begin{lstlisting}
@@ -156,7 +169,8 @@ Vorsicht insbesondere bei \code{let} Klauseln!
 \code{x} in \code{3 * x} gebunden durch inneres \code{let}
 \(\Rightarrow\) Auswetung terminiert nicht.
 
-\subsection{Folds}
+\subsection{Folds}%
+\label{hsk:sub:folds}
 Verallgemeinere Summe und andere Operationen auf Listen zu \textit{Initialwert, Operator}.
 \begin{lstlisting}
           foldr op i [] = i
@@ -168,11 +182,13 @@ Verallgemeinere Summe und andere Operationen auf Listen zu \textit{Initialwert, 
 Gibt selbes Ergebnis, falls Operation assoziativ.\\
 Besonders bei Kurzschlussauswertung empfiehlt sich \code{foldr} zu verwenden, obwohl es nicht die Endrekursion ausnutzt.
 
-\subsection{List Comprehensions}
+\subsection{List Comprehensions}%
+\label{hsk:sub:list-comprehensions}
 Generierung von Listen \code{\([e | q_1, ..., q_m]\)}, wobei die \code{\(q_i\)} Tests von der Form
 \code{p <- list}, Muster \code{p} und Listenausdruck \code{list}, sind.
 
-\subsection{Lazy Evaluation}
+\subsection{Lazy Evaluation}%
+\label{hsk:sub:lazy-evaluation}
 Auswertung von Audrücken geschieht nur dann, wenn sie auch wirklich benötigt wird. Ermöglicht durch \textbf{Sharing}:
 Ausdrücke werden als Graph repräsentiert.\\
 Wann ist eine Auswertung nötig?
@@ -184,11 +200,13 @@ Wann ist eine Auswertung nötig?
   \item Boolsche Operatoren -> Short-circuit
 \end{itemize}
 
-\subsection{Streams}
+\subsection{Streams}%
+\label{hsk:sub:streams}
 Durch Lazy Evaluation lässt sich unendlich lange Liste definieren, so genannte Streams.
 Selbes Konzept wird auch in Java und anderen neuen Programmiersprachen verwendet.
 
-\subsection{Typen}
+\subsection{Typen}%
+\label{hsk:sub:typen}
 Statische Typisierung: Variable hat vom \textit{Compiler} einen festen Typ.\\
 Dynamische Typisierung: Typ der Variable zur \textit{Laufzeit} veränderbar.\\
 Vorteile Statisch
@@ -208,33 +226,39 @@ Vorteile Statisch
   \item struktuierte Typen: Listen, Tupel, ...
 \end{itemize}
 
-\subsection{Polymorphe Typen}
+\subsection{Polymorphe Typen}%
+\label{hsk:sub:polymorphe-typen}
 Verwende Typvariablen um Polymorphie auszudrücken.
 \code{[t]} ist Liste von Typ \code{t} für alle Typen \code{t}.
 Dementsprechend ist dann \code{s -> t} Typ einer Funktion von Typ \code{s} nach Typ \code{t}.
         
-\subsection{Infixnotation}
+\subsection{Infixnotation}%
+\label{hsk:sub:infixnotation}
 Jeder binäre Operator lässt sich mit Hilfe von Backquote-Notation als Infixoperator schreiben.
 z.B. \code{l `app` r}.\\
 Außerdem lassen sich Operatoren auch als Infix deklarieren mit \code{infix n s} mit Bindungsstärke \code{n} und Symbol \code{s}.
 
-\subsection{Typangabe}
+\subsection{Typangabe}%
+\label{hsk:sub:typangabe}
 \textbf{Typinferenz}\\
 Typen werden durch den Compiler errechnet. Spart explizite Deklaration und ermöglicht dadurch kompaktere Programme.\\
 \textbf{Typdeklartion}\\
 Manualles Angeben des Typs. Erhöhen Lesbarkeit und helfen beim Finden von Fehlern.
 
-\subsection{Typsynonyme}
+\subsection{Typsynonyme}%
+\label{hsk:sub:typsynonyme}
 Weise einem Typ einen neuen Namen zu. IST KEIN NEUER TYP!
 \begin{lstlisting}
         type String = [Char]
 \end{lstlisting}
 
-\subsection{Backtracking}
+\subsection{Backtracking}%
+\label{hsk:sub:backtracking}
 Ansatz zum Lösen von Problemen mit Haskell.
 Bestimme mögliche Kombinationen, prüfe ob Kombination zulässig, püfe ob zulässe Lösung.
 
-\subsection{Algebraische Datentypen}
+\subsection{Algebraische Datentypen}%
+\label{hsk:sub:algebraische-datentypen}
 Deklaration mit Hilfe von \code{data}
 \begin{lstlisting}
         data Shape = Circle Double --- Radius
@@ -251,7 +275,8 @@ Außerdem lassen sich Funktionen auf Datentypen deklarieren. Dabei wird Pattern 
         weather Winter = Cold
 \end{lstlisting}
 
-\subsection{Binäre Bäume}
+\subsection{Binäre Bäume}%
+\label{hsk:sub:binaere-baeume}
 Ein binärer Baum ist entweder ein Blatt, oder ein Knoten mit Teilbäumen rechts und links.
 \begin{lstlisting}
         data Tree t = Leaf
@@ -259,7 +284,8 @@ Ein binärer Baum ist entweder ein Blatt, oder ein Knoten mit Teilbäumen rechts
         someTree = Node (Node Leaf 1 Leaf) 3 Leaf 
 \end{lstlisting}
 
-\subsection{Typklassen}
+\subsection{Typklassen}%
+\label{hsk:sub:typklassen}
 Idee: QuickSort oder andere Algorithmen lassen sich allgemein definieren, sobald gewisse Operationen verfügbar.
 \(\Rightarrow\) Definieren Typklassen, welche diese Operatoren vorschreiben.
 \begin{lstlisting}
@@ -274,6 +300,7 @@ Standard-Typklassen:
   \item Show --- Typen lassen sich anzeigen mit show
   \item Enum --- Jeder Wert hat Nachfolger
 \end{itemize}
+\newpage
 \textbf{Typklassen-Definition}
 \begin{lstlisting}
         class Eq t where
@@ -288,9 +315,9 @@ Standard-Typklassen:
           False == True = False
           True === False = False
 \end{lstlisting}
-        
 
-\subsection{Generische Instanziierung}
+\subsection{Generische Instanziierung}%
+\label{hsk:sub:generische-instanziierung}
 Tupel und Listen lassen sich auch generisch instanziieren.
 \begin{lstlisting}
          instance (Eq s, Eq t) => Eq (s, t) where

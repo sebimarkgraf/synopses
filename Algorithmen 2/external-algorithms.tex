@@ -1,0 +1,50 @@
+\section{External Algorithms}%
+\label{ea:sec:external_algorithms}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Nutzung von schnellem oder großem Sekundärspeicher, auf den blockweise zugegriffen werden kann
+	\item Minimieren von I/O ist wichtig für Performance
+\end{itemize}
+
+\subsection{Externe Stapel}%
+\label{ea:sub:externe_stapel}
+
+\begin{itemize}
+	\item Datei mit Blöcken und zwei interne Puffer sind gegeben
+	\item \texttt{push}: Schiebe, wenn möglich, in Puffer, ansonsten schreibe Puffer \textbf{eins} in Datei, tausche Puffer und schiebe dann
+	\item \texttt{pop}: Falls vorhanden, \texttt{pop} aus Puffer, ansonsten lese Puffer \textbf{eins} aus Datei
+\end{itemize}	
+
+\subsection{Externes Sortieren}%
+\label{ea:sub:externes_sortieren}
+
+\begin{itemize}
+	\item \textbf{Externes binäres Mergen}: Lese zwei Eingabedateien und wiederhole: Entferne das kleinere vorderste Element und schreibe es in den Output; benötigt 3 Pufferblöcke
+	\item \textbf{Run Formation}: Portioniere die Eingabe in Chunks der Größe des Sekundärspeichers
+	\item \textbf{Sortierungsalgorithmus}:
+	\begin{enumerate}
+		\item Run Formation der Eingabe
+		\item Paarweises Mergen der Runs
+		\item Ausgabe des übrigen Runs
+	\end{enumerate}
+	\item \textbf{External Multiway Merging}:
+	\begin{itemize}
+		\item Analog zu binärem Mergen, nur mit $k > 2$ Inputs; benötigt $k + 1$ Pufferblöcke
+		\item Interne Prioritätsliste zur Bestimmung des Minimums aller Frontelemente
+		\item \textbf{Sortierung}: Analog zu oben, nur mit \textbf{Multi Merge} statt paarweisem binären Merge
+	\end{itemize}
+\end{itemize}	
+
+\subsection{Externe Prioritätslisten}%
+\label{ea:sub:externe_prioritaetslisten}
+
+\begin{itemize}
+	\item \textbf{Problem}: Binary Heaps benötigen zu viel I/O, effizienterer Umgang mit externem Speicher nötig
+	\item \textbf{Lösung}:
+	\begin{itemize}
+		\item \textbf{Zwei Prioritätslisten} im \textbf{Hauptspeicher}, eine \texttt{insertion queue} und eine \texttt{deletion queue}
+		\item k sortierte Sequenzen im \textbf{Sekundärspeicher}
+		\item \texttt{insert}: Füge in die \texttt{insertion queue} ein; sobald diese voll ist, verschiebe sie als neue sortierte Sequenz in den \textbf{Hauptspeicher}
+		\item \texttt{deleteMin}: Die \texttt{deletion queue} hält die \textbf{kleinsten Elemente jeder Sequenz}; das kleinste Element der \texttt{deletion queue} oder der \texttt{insertion queue}, welches \textbf{immer im Hauptspeicher gehalten wird}, wird entfernt und zurückgegeben; \textbf{amortisiert quasi \quotestyle{umsonst}}
+	\end{itemize}
+\end{itemize}

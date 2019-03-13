@@ -4,15 +4,18 @@
 %%% TeX-master: "robotik"
 %%% End:
 
-\section{Inverse Kinematik}
+\section{Inverse Kinematik}%
+\label{ik:sec:inverse-kinematik}
 Bestimmen der Gelenkwinkelstellungen zu einer gewünschten Lage des Endeffektors\\
 Vorgehensweise: Aufstellen der kinematischen Gleichung und lösen nach den Winkeln.
 
-\subsection{Eindeutigkeit}
+\subsection{Eindeutigkeit}%
+\label{ik:sub:eindeutigkeit}
 In der Ebene für Systeme mit mehr als 3 Bewegungsfreiheitsgrade mehrere Möglichkeiten. Damit nicht eindeutig!\\
 Bei mehr als 6 Bewegungsfreiheitsgraden auch in \SE uneindeutig.
 
-\subsection{Geometrische Methode}
+\subsection{Geometrische Methode}%
+\label{ik:sub:geometrische-methode}
 Nutzen von geometrischen Beziehungen um die Gelenkwinkel aus der Pose zu bestimmen.\\
 Kein Verwenden des kinematischen Modells.\\
 z.B. verwende Sinus-/Kosinussatz mit Darstellung: 
@@ -21,7 +24,8 @@ z.B. verwende Sinus-/Kosinussatz mit Darstellung:
   \sin \theta = \frac{2u}{1 + u^2}
 \end{align*}
 
-\subsection{Algebraische Methode}
+\subsection{Algebraische Methode}%
+\label{ik:sub:algebraische-methode}
 Setze TCP Pose \(P_{TCP}\) und Transformation \({}^{BKS}T_{TCP}\)
 \[P_{TCP} = {}^{BKS}T_{TCP}(\theta)\]
 und führe Koeffizientenvergleich durch.
@@ -30,7 +34,8 @@ und führe Koeffizientenvergleich durch.
 Ergibt 12 nicht-triviale Gleichungen.\\
 Schwierig zu lösen, deswegen Lösen der Gleichungen Matrix für Matrix anstatt der gesamten Transformation auf einmal.
 
-\subsection{Numerische Methoden}
+\subsection{Numerische Methoden}%
+\label{ik:sub:numerische-methoden}
 Durch Invertieren der Jacobimatrix und Annähern der Vorwärtskinematix
 \[\Delta x = f(\Delta \theta) \approx J_f(\theta) \cdot \Delta \theta\]
 Dann suche Lösung für Inverse:

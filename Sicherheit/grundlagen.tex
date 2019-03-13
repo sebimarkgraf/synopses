@@ -1,0 +1,24 @@
+\section{Grundlagen}%
+\label{gl:sec:grundlagen}
+
+\subsection{Kerckhoffs' Prinzip}%
+\label{gl:sub:kerckhoffs-prinzip}
+Die Sicherheit eines Verfahrens beruht auf der \textbf{Geheimhaltung des Schlüssels}
+anstatt auf der \textbf{Geheimhaltung des Verschlüsselsungsverfahrens}.
+
+\subsection{EUF-CMA}%
+\label{gl:sub:euf-cma}
+Ein Verfahren ist EUF-CMA sicher, wenn für alle PPT-Angreifer \(\mathcal{A}\) die Wahrscheinlichkeit,
+dass \(\mathcal{A}\) im EUF-CMA Spiel gewinnt, vernachlässigbar (im Sicherheitsparameter) ist.
+
+\subsection{IND-CPA}%
+\label{gl:sub:ind-cpa}
+Ein symmetrisches Verfahren \((\mathbf{Enc}, \mathbf{Dec})\) heißt \textbf{IND-CPA-sicher}, wenn der Vorteil des
+PPT-Algorithmus \(\mathcal{A}\) gegenüber dem Raten einer Lösung, also
+\(\Pr\left[\mathcal{A}\ \text{gewinnt}\right] - \frac{1}{2}\), für alle
+PPT-Algorithmen \(\mathcal{A}\) vernachlässigbar im Sicherheitsparameter \textit{k} ist.
+
+\subsection{Vernachlässigbar}%
+\label{gl:sub:vernachlaessigbar}
+Eine vernachlässigbare Funktion „verschwindet“ (d.h. geht gegen Null) also schneller als der
+Kehrwert jedes Polynoms.

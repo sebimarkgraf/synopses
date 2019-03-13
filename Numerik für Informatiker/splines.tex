@@ -1,0 +1,29 @@
+\section{Splines}%
+\label{spl:sec:splines}
+\textbf{Idee}:\\Interpoliere nicht mit einem passenden Polynom sondern setze die Lösung mit mehreren Polynomen stückweise zusammen. Diese Funktion wird als Spline bezeichnet (nicht ein einzelnes Stück davon!).\\\\\textbf{Splines sind in der Regel selbst keine Polynome!} Eine einfache Lösung sind \textbf{lineare Splines}, bei denen zwischen den Stützpunkten linear verbunden wird - diese sind jedoch nicht glatt und an den Stützpunkten nicht differenzierbar.
+
+\subsection{Kubische Splines}%
+\label{spl:sub:kubische-splines}
+\textbf{Idee}:\\Kubische Polynome, damit der Spline glatt und an Stützpunkten zweifach stetig differenzierbar ist.\\\\
+\textbf{Grundlegende Definitionen}:
+\begin{itemize}
+	\item Zu einer Zerlegung $\Xi = \{a = \xi_0 < \xi_1 < ... < \xi_N = b\}$ des Intervalls $[a, b]$ definiere den Raum kubischer Splines:
+	\begin{center}
+		$\mathscr{S}_3(\Xi) = \{S \in C^2[a, b]: S_n = S|_{[\xi_{n-1}, \xi_n]} \in \polynomials_3, n = 1, ..., N\}$
+	\end{center}
+	\item Dabei heißt für $f \in C[a, b]$ der Spline $S \in \mathscr{S}_3(\Xi)$ interpolierender kubischer Spline zu f, wenn:
+	\begin{center}
+		$S(\xi_n) = f(\xi_n)$, $n = 0, ..., N$
+	\end{center}
+\end{itemize}
+\textbf{Randbedigungen zur eindeutigen Bestimmung:}\\
+Mit jeweils einer dieser Randbedingungen ist die Spline-Interpolation $S \in \mathscr{S}_3(\Xi)$ zu f eindeutig lösbar:
+\begin{itemize}
+	\item Natürliche Randbedingung:\hfill$S''(a) = S''(b) = 0$
+	\item Hermite-Randbedingungen zu $f \in C^1[a, b]$:\hfill$S'(a) = f'(a)$ und $S'(b) = f'(b)$
+	\item Periodische Randbedingungen:\hfill$S'(a) = S'(b)$ und $S''(a) = S''(b)$
+\end{itemize}
+Weiter seien die \textbf{Momente} $\mu_n = S''(\xi_n)$ eines Interpolationssplines $S \in \mathscr{S}_3(\Xi)$ zu f definiert als $\mu_n = S''(\xi_n)$. Die Momente ergeben sich durch das Lösen von Gleichungssystemen passend zu den Randbedingungen (vgl. Skript, nicht klausurrelevant).\\\\
+\textbf{Berechnung eines Splines durch 3 Punkte}:\\
+\textbf{Gegeben}:\\Spline-Polynom vor und nach dem \textbf{mittleren Stützpunkt} mit variablen Koeffizienten.\\\\
+\textbf{Vorgehen}:\\Berechne für beide Spline-Polynome den \textbf{Funktionswert}, die \textbf{erste Ableitung} und die \textbf{zweite Ableitung} an der mittleren Stützstelle, setze die entsprechenden Ergebnisse gleich und \textbf{löse das LGS für die Koeffizienten}.

@@ -7,16 +7,19 @@
 \newcommand\alphaeq{\overset{\alpha}{=}}
 \newcommand\etaeq{\overset{\eta}{=}}
 
-\section{Theoretische Grundlagen}
+\section{Theoretische Grundlagen}%
+\label{tg:sec:theoretische-grundlagen}
 
-\subsection{Kalküle}
+\subsection{Kalküle}%
+\label{tg:sub:kalkuele}
 \begin{itemize}
   \item Minimalistische Programmiersprachen zur Beschreibung von Berechnungen
   \item Zum Führen von Beweisen
 \end{itemize}
 In dieser Vorlesung \(\lambda\)-Kalkül für sequentielle Sprachen
 
-\subsection{untypisiertes \(\lambda\)-Kalkül}
+\subsection{untypisiertes \(\lambda\)-Kalkül}%
+\label{tg:sub:untypisiertes-lambda-kalkuel}
 \begin{tabular}{l l l}
   \textbf{Bezeichnung} & \textbf{Notation} & \textbf{Beispiele}\\
   Variablen & \(x\) & \code{x y}\\
@@ -27,23 +30,28 @@ Die Funktionsanwendung ist \textit{linksassoziativ}: \code{\(\lambda\)x. f x y =
 
 % TODO: Add shadowing?
 
-\subsection{\(\alpha\)-Äquivalenz}
+\subsection{\(\alpha\)-Äquivalenz}%
+\label{tg:sub:alpha-aequivalenz}
 Gedanke: 2 Terme sind äquivalent, wenn die Variablen in Lambdas des einen Terms in den anderen umbennant werden können.\\
 Definition: \(t_1\) und \(t_2\) heißen \(\alpha\)-äquivalent (\(t_1 \alphaeq t_2\)), wenn \(t_1\) in \(t_2\) durch konsitente
 Umbennung der \(\lambda\)-gebundenen Variablen überführt werden kann.
 
-\subsection{\(\eta\)-Äquivalenz}
+\subsection{\(\eta\)-Äquivalenz}%
+\label{tg:sub:eta-aequivalenz}
 Gedanke: 2 Terme sind äquivalent, wenn Sie immer das gleiche Ergebnis haben.\\
 Definition: \(\lambda x.\ f\ x\) und \(f\) heißen \(\eta\)-äquivalent (\(\lambda x.\ f\ x \etaeq f\)), falls \(x\)
 nicht freie Variable von \(f\).
 
-\subsection{Ausführung von \(\lambda\)-Termen}
+\subsection{Ausführung von \(\lambda\)-Termen}%
+\label{tg:sub:ausfuehrung-von-lambda-termen}
 Redex: Von Englisch \textit{Reducable Expression} ein vereinfachbarer \(\lambda\)-Term\\
 \(\beta\)-Reduktion: Ausführen der Funktionsanwendung auf einem Redex \[(\lambda x.\ t_1)\ t_2 \Rightarrow t_1 [x \rightarrow t_2]\]\\
 Substitution: \(t_1 [x \rightarrow t_2]\) ersetze freie Vorkommen von \(x\) in \(t_1\) durch \(t_2\)\\
 Normalform: Termn kann nicht weiter reduziert werden.
 
-\subsection{Auswertungsstrategien}
+\newpage
+\subsection{Auswertungsstrategien}%
+\label{tg:sub:auswertungsstrategien}
 Oft mehrere Terme in Ausdruck \(\Rightarrow\) Welchen wertet man zuerst aus?\\
 Volle \(\beta\)-Reduktion: Alle Terme bis zum Ende ausgewertet
 \begin{itemize}
@@ -53,7 +61,8 @@ Volle \(\beta\)-Reduktion: Alle Terme bis zum Ende ausgewertet
 \end{itemize}
 Die letzten beiden Varianten werten nicht immer zur Normalform aus!
 
-\subsection{Church-Zahlen}
+\subsection{Church-Zahlen}%
+\label{tg:sub:church-zahlen}
 Natürliche Zahlen lassen sich als Lambda Terme ausdrücken.
 Idee: Verstehe natürliche Zahlen, als Anzahl der Funktionsanwendungen \code{s}. Dann:
 \begin{lstlisting}
@@ -81,18 +90,21 @@ Test auf 0
   isZero = $\lambda$n. n ($\lambda$x. $c_{false}$) $c_{true}$
 \end{lstlisting}
 
-\subsection{Divergenz}
+\subsection{Divergenz}%
+\label{tg:sub:divergenz}
 Es existieren Terme, welche nicht zu einer Normalform ausführen. Diesen Prozess nennt man Divergenz.
 Dies ist die mathematische Modellierung für unendliche Ausführung, z.B.
 \(\omega = (\lambda x.\ x\ x)(\lambda x.\ x\ x)\)
 
-\subsection{Rekursion}
+\subsection{Rekursion}%
+\label{tg:sub:rekursion}
 \[Y = \lambda f.\ (\lambda x.\ f\ (x\ x))(\lambda x.\ f\ (x\ x))\]
 Damit erhält man Rekursion in der Form \(Y\ f = f\ (Y\ f)\) da \(f\) Fixpunkt von \(Y\) ist.
 
 % TODO: Ergänze Konfluenz?
 
-\subsection{Regelsysteme}
+\subsection{Regelsysteme}%
+\label{tg:sub:regelsysteme}
 \textbf{Frege'scher Schlussstrich}\\
 \(\frac{\varphi_1\ \varphi_2\ \varphi_3\ \ldots\ \varphi_n}{\varphi}\) \(\varphi_i\) Voraussetzungen, \(\varphi\) Konklusion.\\
 \textbf{Herleitungsbäume}\\
@@ -100,7 +112,8 @@ Herleitungen von Konklusionen können durch mehrere Schlusstriche als Bäume dar
 \textbf{Syntaktische Herleitbarkeit}\\
 Mit diesen Mitteln lässt sich Syntaktische Herleitbarkeit \(\psi \vdash \varphi\) zeigen.
 
-\subsection{Typen}
+\subsection{Typen}%
+\label{tg:sub:typen}
 Weise sicheren Programmen Typen zu und lehne unsichere ab
 \begin{itemize}
   \item Basistypen: bool, int,...
@@ -123,13 +136,15 @@ Demnach existieren auch nicht typisierbare Terme, z.B. \((\lambda x.\ x + 42) \m
 Dies wäre allerdings ein sicherer Term, welcher immer zu \(\mathit{true}\) auswertet. Also ist Typsystem nicht vollständig
 bzgl. \(\beta\)-Reduktion.
 
-\subsection{Korrektheit des Typsystems}
+\subsection{Korrektheit des Typsystems}%
+\label{tg:sub:korrektheit-des-typsystems}
 \textbf{Substitutionslemma}\\
 Wenn \(\Gamma, x: \tau_2 \vdash t_1: \tau_1\) und \(\Gamma \vdash t_2: \tau_2\), dann \(\Gamma \vdash t_1[x \mapsto t_2]: \tau_1\).\\
 \textbf{Typerhaltungstheorem}\\
 Wenn \(\Gamma \vdash t: \tau\) und \(t \Rightarrow t'\), dann \(\Gamma \vdash t': \tau\).
 
-\subsection{Polymorpie}
+\subsection{Polymorpie}%
+\label{tg:sub:polymorphie}
 Verhalten oft unabhängig vom Typ \(\Rightarrow\) Abstrahiere über Typ.\\
 \textbf{Typschemata}\\
 Ein Typ der Gestalt \(\forall \alpha_1. \forall \alpha_2. \ldots \forall \alpha_n.\ \tau\) heißt Typschema.
@@ -138,7 +153,8 @@ Es bindet freie Typvariablen \(\alpha_1,\ldots,\alpha_n\) in \(\tau\).\\
 Für Nicht-Schema-Typen \(\tau_2\) ist der Typ \(\tau[\alpha \mapsto \tau_2]\) eine Instanziierung vom
 Typschema \(\forall \alpha.\ \tau\). Schreibweise: \(\forall \alpha.\ \tau \succeq \tau [\alpha \mapsto \tau_2]\)
 
-\subsection{\code{let}-Polymorphismus}
+\subsection{\code{let}-Polymorphismus}%
+\label{tg:sub:let-polymorphismus}
 \code{let}-definierte Funktionen könne polymorph sein, da
 \[\mathbf{let}\ f = t_f\ \mathbf{in}\ t\ \simeq (\lambda f.\ t)\ t_f\]
 und bekannt ist, dass \(f\) in \(t\) an \(t_f\) gebunden ist.\\

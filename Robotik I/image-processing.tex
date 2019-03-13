@@ -4,12 +4,14 @@
 %%% TeX-master: "robotik"
 %%% End:
 
-\section{Bildverarbeitung}
+\section{Bildverarbeitung}%
+\label{bv:sec:bildverarbeitung}
 Durch Sehen dem Roboter die Wahrnehmung der Umwelt wahrnehmen\\
 Bilderfassung: Hardware\\
 Bildverarbeitung: überwiegend Software
 
-\subsection{Bildrepräsentation}
+\subsection{Bildrepräsentation}%
+\label{bv:sub:bildrepraesentation}
 Bildkoordinaten
 \begin{itemize}
 \item \(u\) horizontal
@@ -21,7 +23,8 @@ Bildkoordinaten
 Monochrombild: \(\mathit{Img}: [0 \cdots n - 1] \times [0 \cdots m-1] \rightarrow [0\dots q]\)\\
 Farbbild: \(\mathit{Img}(u,v) = (r,g,b)^T \in \realnumbers^3\)
 
-\subsection{Kameramodell}
+\subsection{Kameramodell}%
+\label{bv:sub:kameramodell}
 Einfachstes Modell: Lochkamera\\
 
 \textbf{Koordinatensysteme}
@@ -42,18 +45,22 @@ Einfachstes Modell: Lochkamera\\
 \textbf{Erweiterung mit Kalibriermatrix}\\
 \[\myVector{u \cdot z\\ v \cdot z\\ z} = K \myVector{x \\ y \\ z}, \qquad K = \myMatrix{f_x & 0 & c_x\\ 0 & f_y & c_y \\ 0 & 0 & 1}\]
 
-\subsection{Filteroperation}
+\subsection{Filteroperation}%
+\label{bv:sub:filteroperation}
 Operation auf einer Menge benachbarter Pixel, wird auf alle Pixel angewendet
 
-\subsection{Segmentierung}
+\subsection{Segmentierung}%
+\label{bv:sub:segmentierung}
 Aufteilung eines Bildes in aussagekräftige Segmente\\
 Jeder Pixel mindestens einem Segment zugeordnet
 
-\subsubsection{Schwellwertfilter}
+\subsubsection{Schwellwertfilter}%
+\label{bv:ssub:schwellwertfilter}
 Definiere Schwellwert um Grauwertbild in binäres Bild zu segmentieren\\
 Alternativ Intervallschranken für Farbton
 
-\subsection{Morphologische Operatoren}
+\subsection{Morphologische Operatoren}%
+\label{bv:sub:morphologische-operatoren}
 \begin{itemize}
 \item Dilatation --- Vergrößere Pixel zu größeren Bereichen
 \item Erosion --- Entfernt vereinzelte Pixel und schwach zusammenhängende Pixelgruppen
@@ -62,7 +69,8 @@ Alternativ Intervallschranken für Farbton
 \textbf{Öffnen}: Erosion danach Dilatation, entferne dünne Linien, außenliegende Objekte\\
 \textbf{Schließen}: Diltatation danach Erosion: Überbrückung kleiner Distanzen und Schließung von Löchern\\
 
-\subsection{Filter}
+\subsection{Filter}%
+\label{bv:sub:filter}
 \textbf{Prewitt}\\
 Detektion von Kanten in X-Richtung und Y-Richtung. Aufgeteilt in 2 Richtungen
 \[p_x = \myMatrix{-1 & 0 & 1\\-1 & 0 & 1\\ -1 & 0 & 1\\} \qquad p_y = \myMatrix{-1 & -1 & -1\\ 0 & 0 & 0\\ 1& 1 & 1\\}\]
@@ -81,7 +89,8 @@ Laplace-Operator \(\nabla^2 f= \frac{\delta^2 f}{\delta x^2}+ \frac{\delta^2 f}{
 \textbf{Laplacian of Gaussian (LoG)}\\
 Anwenden von Gauß-Filter gefolgt von Laplace.
 
-\subsection{Canny-Kantendetektor}
+\subsection{Canny-Kantendetektor}%
+\label{bv:sub:canny-kantendetektor}
 Ziel: optimaler Kantendetektor
 \begin{itemize}
 \item Gute Detektion
@@ -100,7 +109,8 @@ Algorithmus:
 
 Intensitätsgradienten mit Prewitt- oder Sobel-Filter
 
-\subsection{Visual Servoing}
+\subsection{Visual Servoing}%
+\label{bv:sub:visual-servoing}
 Visuelle Eingabedaten nutzen, um Bewegungen zu steuern, z.B. auf Grund von Modellfehlern oder anderen Ungenauigkeiten\\
 
 \textbf{Kamera-in-Hand}\\
@@ -113,7 +123,8 @@ Beobachten der Bewegung (meist roter Ball)\\
 Ein Bildmerkmal \(s = (u,v)^T\) ist die Projektion eines 3D Punktes \(P (x, y, z)^T\) im Kamerabild\\
 Geschwindigkeiten direkt aus aktuellen und gewünschten Bildmerkmalen\\
 
-\subsection{Punktwolken}
+\subsection{Punktwolken}%
+\label{bv:sub:punktwolken}
 Diskrete Menge von 3D Punkten \(P = \{(X, C)\ |\ X \in \realnumbers^3,\ C \in [0 \ldots 255]^3 \subset \naturalnumbers^3_0\}\)
 \begin{itemize}
 \item \(X = (x, y, z)\) Ortsinformationen
@@ -130,7 +141,8 @@ Zusammenführen von Punktwolken aus verschiedenen Ansichten für das selbe Objek
 z.B. mit iterative Closest Point\\
 Berechne Transformationen, sodass Punkte von B transformiert möglichst nahe an nächsten Punkten von A
 
-\subsubsection{Iterative Closest Point (ICP)}
+\subsubsection{Iterative Closest Point (ICP)}%
+\label{bv:ssub:iterative-closest-point}
 Algorithmus für Registrierung zweier Mengen \(A,B\) mit a priori unbekannter Zuordnung\\
 Vorgehen:
 \begin{itemize}
@@ -142,7 +154,8 @@ Vorgehen:
 \item Abbruch: Schwellwert oder Anzahl an Iterationen
 \end{itemize}
 
-\subsubsection{Random Sample Consensus (RANSAC)}
+\subsubsection{Random Sample Consensus (RANSAC)}%
+\label{bv:ssub:random-sample-consensus}
 Iterative Methode zur Schätzung von Modellparamtern aus Datenpunkten\\
 Nicht-deterministisch!\\
 Robust gegenüber Ausreißern\\
@@ -154,7 +167,8 @@ Vorgehen:
 \item Wiederhole bis das Modell mit den meistern Inliers gefunden
 \end{itemize}
 
-\subsection{Simultaneous localization and mapping (SLAM)}
+\subsection{Simultaneous localization and mapping (SLAM)}%
+\label{bv:ssub:simultaneous-localization-and-mapping}
 Bezeichnet das Problem eine Karte von einem Gebiet zu erstellen und gleichzeitig den Roboter zu lokalisieren.\\
 Vorgehen:
 \begin{enumerate}

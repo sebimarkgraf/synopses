@@ -4,10 +4,12 @@
 %%% TeX-master: "robotik"
 %%% End:
 
-\section{Bewegungsplanung}
+\section{Bewegungsplanung}%
+\label{bwp:sec:bewegungsplanung}
 Erzeuge kollisionsfreie Trajektorie unter Einschränkungen.
 
-\subsection{Grundlagen}
+\subsection{Grundlagen}%
+\label{bwp:sub:grundlagen}
 \textbf{Konfiguration}\\
 Eine Konfiguration \(q \in C\) beschreibt den Zustand eines Roboters.\\
 
@@ -53,7 +55,8 @@ Allgemeine Planungsaufgaben sind PSPACE-vollständig\\
   konvergiert er gegen 1
 \end{itemize}
 
-\subsection{Problemklassen}
+\subsection{Problemklassen}%
+\label{bwp:sub:problemklassen}
 \begin{tabular}{lllll}
   Buchstabe & Umwelt & Gesucht & Problem\\
   a & vollständig &  Kollisionsfreie Trajektorie Start zu Ziel & \\
@@ -63,7 +66,8 @@ Allgemeine Planungsaufgaben sind PSPACE-vollständig\\
   e & zeitvariant &  Trajektorie zu einem beweglichen Ziel & Zielzustand in Ort und Zeit beweglich\\
 \end{tabular}
 
-\subsection{Voronoi-Diagramme}
+\subsection{Voronoi-Diagramme}%
+\label{bwp:sub:voronoi-diagramme}
 Zerlegung eines raumes in regionen basierend auf vorgegeben Punkten bzw. Bereichen\\
 Region eines Bereiches sind alle die Punkte deren Abstand zum Hindernis geringe ist, als zu allen anderen Hindernisse.\\
 
@@ -71,25 +75,30 @@ Region eines Bereiches sind alle die Punkte deren Abstand zum Hindernis geringe 
 Rekursive Unterteilung von 2 oder 3 Punkten und dann verbinden an den nächsten.
 
 
-\subsection{Sichtgraphen}
+\subsection{Sichtgraphen}%
+\label{bwp:sub:sichtgraphen}
 Verbinde jedes Paar von Eckpunkten im freien Raum durch gerades Liniensegment, falls kein Hindernis geschnitten wird.
 \enquote{Die Punkte müssen sich sehen}\\
 Start und Ziel werden analog verbunden\\
 
 Damit Kanten nicht als Wege genommen werden, müssen die Hindernisse erweitert werden.
 
-\subsection{Zellzerlegung}
+\subsection{Zellzerlegung}%
+\label{bwp:sub:zellzerlegung}
 Zerlegung des freien Raums in einzelne Zelle und suche dann in Zellen nach kürzesten Wegen. Ermöglicht dann
 suchen eines Pfades im entstehenden Graphen.
 
 
-\subsection{Suchen im Wegenetz}
+\subsection{Suchen im Wegenetz}%
+\label{bwp:sub:suchen-im-wegenetz}
 Konstruierte Graph liegt von den vorhergehenden Verfahren vor. Nun muss ein Weg im Graph gefunden werden.
 
-\subsubsection{Baumsuche}
+\subsubsection{Baumsuche}%
+\label{bwp:ssub:baumsuche}
 Darstellung als Quadtree
 
-\subsubsection{A*}
+\subsubsection{A*}%
+\label{bwp:ssub:a-stern}
 Beliebter Algorithmus\\
 Findet optimalen Pfad von Start zu Zielknoten\\
 \textbf{Algorithmus}\\
@@ -123,7 +132,8 @@ Für Heuristik \(h(x) = 0\) identisch mit Djikstra.\\
 \item optimal effizient --- Kein Algorithmus besucht weniger Knoten
 \end{itemize}
 
-\subsection{Potentialfelder}
+\subsection{Potentialfelder}%
+\label{bwp:sub:potentialfelder}
 Roboter bewegt sich unter dem Einfluss von Kräften, welche ein Potentialfeld auf ihn ausübt.\\
 Ein Potentialfeld \(U\) ist eine Skalarfunktion über dem Freiraum \[U: C_{\mathit{free}} \rightarrow \realnumbers\]
 Die Kraft in einem Punkt \(q\) des Potentialfeldes ist der negative Gradient in diesem Punkt
@@ -135,7 +145,8 @@ Durch Bewegung des Roboters in Richtung des negativen Gradienten bewegt er sich 
 Durch Flucht aus den lokalen Minima bewegt er sich zum nächsten Minium.
 
 
-\subsection{Probabilistic Roadmaps (PRM)}
+\subsection{Probabilistic Roadmaps (PRM)}%
+\label{bwp:sub:probabilistic-roadmaps}
 Mehrere Anfragen in gleicher Umgebung\\
 Approximation des Freiraums durch Graphen
 \begin{enumerate}
@@ -143,7 +154,8 @@ Approximation des Freiraums durch Graphen
 \item Suche Weg im Graph
 \end{enumerate}
 
-\subsection{Dynamic Roadmaps}
+\subsection{Dynamic Roadmaps}%
+\label{bwp:sub:dynamic-roadmaps}
 Mehrere Anfragen bei gleichbleibender kinematischen Kette\\
 Approximation des Konfigurationsraums durch Graph und Arbeitsraum durch Voxel\\
 
@@ -152,7 +164,8 @@ Bei einer Anfrage müssen alle Voxel mit Hindernis bestimmt werden und die Kante
 Schließlich werden Start und Ziel im Graphen verbunden.\\
 
 
-\subsection{Rapidly-exploring Random Trees (RRTs)}
+\subsection{Rapidly-exploring Random Trees (RRTs)}%
+\label{bwp:sub:rapidly-exploring-random-trees}
 Algorithmus zur Einmalanfrage ohne Vorverarbeitung\\
 probabilistisch, vollständig, randomisiert
 
@@ -169,17 +182,22 @@ probabilistisch, vollständig, randomisiert
 Durch Nachbearbeitung können Lösungen verbessert werden. Wähle zufällige Punkte im Lösung und teste ob diese
 verbunden werden können. Dadurch kann die Trajektorie geglättet werden.
 
-\subsection{Erweiterungen von RRT}
-\subsubsection{Constrained RRT}
+\subsection{Erweiterungen von RRT}%
+\label{bwp:sub:erweiterungen-von-rrt}
+\subsubsection{Constrained RRT}%
+\label{bwp:ssub:constrained-rrt}
+
 Erfüllen von Nebenbedingungen.\\
 Idee: Projeziere auf Mannigfaltigkeit, die Nebendingung erfüllt und suche dort
 
-\subsubsection{RRT*}
+\subsubsection{RRT*}%
+\label{bwp:ssub:rrt-stern}
 RRT finden nicht optimale Trajektorien.\\
 Idee: Optimiere Suchbaum während der Suche. Optimierung durch Ermittlung der Wegkosten jedes neuen Knotens und
 passender Neuverbindunge des Suchbaums.
 
-\subsubsection{Enge Passagen}
+\subsubsection{Enge Passagen}%
+\label{bwp:ssub:enge-passagen}
 Durch zufällige Stichproben schwierig enge Passagen zu überwinden.\\
 Idee: Sample nur in Kegel um Knoten (sichtbaren Bereich)
 \(\rightarrow\) Dynamic Domain RRT\\

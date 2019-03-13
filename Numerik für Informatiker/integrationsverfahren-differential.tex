@@ -1,0 +1,15 @@
+\section{Integrationsverfahren für gewöhnliche Differentialgleichungen}%
+\label{intd:sec:integrationsverfahren}
+\subsection{Runge-Kutta-Verfahren}%
+\label{intd:sub:runge-kutta}
+\textbf{Ziel}: Numerisches Lösen von Anfangswertproblemen. Definition eines Anfangswertproblems:
+\begin{center} 
+	$y'(t) = f(t, y(t)), y(t_0) = y_0, y: \realnumbers \rightarrow \realnumbers^d$
+\end{center}
+\textbf{Beispiele}:\\
+Die verschiedenen Runge-Kutta-Verfahren unterscheiden sich in erster Linie in der Konvergenzordnung R. Mit höherer Konvergenzordnung wächst die Zahl zu lösender Gleichungen schnell an, die Ergebnisse werden dafür jedoch genauer.
+\begin{itemize}
+	\item Explizites Euler-Verfahren\hfill R = 1
+	\item Verfahren von Heun\hfill R = 2
+	\item Klassisches Runge-Kutta-Verfahren\hfill R = 4
+\end{itemize}

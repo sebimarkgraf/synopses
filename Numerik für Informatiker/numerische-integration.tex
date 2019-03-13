@@ -1,0 +1,28 @@
+\section{Numerische Integration}%
+\label{ni:sec:numerische-integration}
+\textbf{Problem}:\\Eine Stammfunktion für die reguläre Integration kann nicht immer gefunden werden, deshalb wird auf numerische Verfahren zurückgefallen.\\\\
+\textbf{Idee}:\\Approximiere den Wert des Integrals mit dem Wert Q(f) einer Quadraturformel Q.
+
+\subsection{Definition der Quadratur}%
+\label{ni:sub:definition-quadratur}
+Für eine endliche Menge Stützstellen $\Xi$ existiert genau eine Quadratur $$Q_\Xi(f) = \sum_{\xi \in \Xi} \omega_\xi f(\xi)$$
+Die \textbf{Kantengewichte} $\omega_\xi$ sind anhand der \textbf{Lagrange-Basis} definiert:
+$$\omega_\xi = \int_a^bL_\xi(t)dt\hspace*{1cm}L_\xi(t) = \prod_{\eta \in \Xi \setminus \{\xi\}} \frac{t - \eta}{\xi - \eta}$$
+
+\subsection{Fehler einer Quadratur}%
+\label{ni:sub:fehler-quadratur}
+Der \textbf{Fehler einer Quadratur} $Q_\Xi(f)$ ist definiert als $$|Q_\Xi(f) - \int^b_af(t)dt|$$
+Für jede Quadratur die für Polynome $P \in \polynomials_{K-1}$ exakt ist, existiert mit $C > 0$ eine \textbf{obere Schranke des Fehlers} für $f \in C^{K+1}[a,b]$:
+$$|Q_\Xi(f) - \int^b_af(t)dt| \leq C(b - a)^{K+1}\max_{t\in[a,b]}||(\frac{d}{dt})^{K+1}f||$$
+
+\subsection{Wichtige Quadraturformeln}%
+\label{ni:sub:quadraturformeln}
+Trapezregel (Ordnung $p = 2$):\hfill$\int_{a}^{b} f(x) = \frac{b - a}{2} (f(a) + f(b))$ \\
+Simpsonregel (Ordnung $p = 4$):\hfill$\int_{a}^{b} f(x) = \frac{b - a}{6} (f(a) + 4f(\frac{a-b}{2}) + f(b))$ \\
+Newton'sche $\frac{3}{8}$-Regel:\hfill$w_0 = w_3 \frac{b - a}{8}, w_1 = w_2 = \frac{3(b - a)}{8}$ \\
+Milne-Regel:\hfill$w_0 = w_4 = \frac{7(b - a)}{90}, w_1 = w_3 = \frac{32(b - a)}{90}, w_2 = \frac{12(b - a)}{90}$ \\
+
+\subsection{Summierte Trapezregel}%
+\label{ni:sub:summierte-trapezregel}
+\textbf{Ansatz (Summierte Quadraturformel)}:\\Zerlege das Intervall $[a, b]$ in gleich große Stücke und wende die Quadraturformel auf jedem Teilinterval an.\\\\
+\textbf{Summierte Trapezregel}:\\Zerlege Flächen unter einer Kurve im gegebenen Intervall in Trapeze.

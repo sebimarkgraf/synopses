@@ -1,0 +1,52 @@
+\section{Eigenwertberechnung}%
+\label{ew:sec:eigenwertberechnung}
+\textbf{Ziel:}\\Berechnung von Eigenwerten und Eigenvektoren (z.B für Zwecke der Informatik wie das Lösen des Problems \quotestyle{Welche Seite hat einen Link auf welche Seite?} oder der Technik für Wellengleichungen).
+
+\subsection{Hessenberg-Matrizen}%
+\label{ew:sub:hessenberg-matrizen}
+\textbf{Relevanz}:\\Hessenberg-Matrizen sind aufgrund ihrer Form ein wichtiger Teilschritt im unten folgenden QR-Algorithmus für Eigenwertprobleme\\\\
+\textbf{Form}:\\Quadratische Matrizen, deren Einträge unter- bzw. überhalb der ersten Nebendiagonalen gleich $0$ sind\\\\
+\textbf{Hessenberg-Transformation}:\\Berechnung einer Matrix $Q$ für $A \in \realnumbers^{N\times N}$ in $O(N^3)$, sodass $H = QAQ^T$:
+\begin{enumerate}
+	\item Berechne $v = \begin{pmatrix}0\\A[2:N,1]\end{pmatrix} \in \realnumbers^N$, $\sigma = -sgn(v[2])|v|$ und $w = \frac{1}{v[2] - \sigma}(v - \sigma e^2)$
+	\item Berechne damit die Householder-Spiegelung: $Q_1 = I_N - \frac{2}{w^Tw}ww^T$
+	\item Berechne damit $A_1 = Q_1AQ_1$ und fahre mit $A_1[2:N, 2:N]$ sukzessive fort bis die gewünschte Form erreicht ist
+\end{enumerate}
+
+\subsection{Inverse Iteration mit variablem Shift}%
+\label{ew:inverse-iteration}
+\textbf{Rayleigh-Quotient}:\\Definiere $r(A, v) = \frac{v^TAv}{v^Tv}$ für $A \in \realnumbers^{N\times N}, v \in \realnumbers^N, v \neq 0$\\\\
+\textbf{Idee}:\\Wähle einen \textbf{Startvektor} $0 \neq z^0 \in \realnumbers^N$ und nähere diesen \textbf{iterativ} an einen Eigenvektor von $A$ an, bis der Unterschied zu einem echten Eigenvektor $\epsilon \geq 0$ erreicht; die \textbf{Laufvariable} sei $k = 0$\\\\
+\textbf{Vorgehen}:
+\begin{enumerate}
+	\item \textbf{Normierung und Rayleigh-Quotient}:\\Berechne $w^k = \frac{1}{|z^k|_2}z^k$ sowie $\mu_k = r(A, w^k)$ (\quotestyle{Shift})
+	\item \textbf{Betrachte Nähe zum Eigenvektor}:\\Falls $|Aw^k - \mu_k w^k|_2 \leq \epsilon$ sind wir fertig, ansonsten fahre fort
+	\item \textbf{Annäherungsschritt}:\\$z^{k+1} = (A - \mu_k * I_N)^{-1}w^k$, erhöhe $k$ um $1$ und wiederhole
+\end{enumerate}
+
+\newpage
+\subsection{QR-Iteration mit variablem Shift}%
+\label{ew:sub:qr-iteration}
+\textbf{Idee}:\\Iterative Annäherung der Eigenvektoren einer symmetrischen Matrix $A \in \realnumbers^{N\times N}$ per \textbf{QR-Zerlegung} bis ein $\epsilon \geq 0$ erreicht wird; die \textbf{Laufvariable} sei $k = 0$. Die Annäherung konvergiert gegen eine\\\textbf{Diagonalmatrix}, aus der die Eigenwerte dann einfach ablesbar sind.\\\\
+\textbf{Vorgehen}:
+\begin{enumerate}
+	\item \textbf{Iterationsbremse}:\\Falls $|A_k[n, n-1]| \leq \epsilon$, dekrementiere $n$; falls dann $n = 1$, sind wir fertig
+	\item \textbf{QR-Zerlegung}:\\Wähle $\mu_k = A[n,n]$ und berechne die \textbf{QR-Zerlegung}: $Q_kR_k = A_k - \mu_kI_N$
+	\item \textbf{Neue Iteration}:\\Setze $A_{k+1} = R_kQ_k + \mu_kI_N$, inkrementiere $k$ und wiederhole
+\end{enumerate}
+\textbf{Eigenwerte}:\\Die Eigenwerte bleiben bei jeder Iteration gleich, da $A_{k + 1} = Q_k^TA_kQ_k$
+
+\subsection{QR-Iteration mit variablem Shift und Hessenberg-Matrix}%
+\label{ew:sub:qr-iteration-hessenberg}
+\textbf{Idee}:\\QR-Iteration, aber wähle statt $A$ die \textbf{Hessenberg-Transfomierte} als Startmatrix,\\d.h. $A_0 = QAQ^T$\\\\
+\textbf{Vorgehen}:
+\begin{enumerate}
+	\item \textbf{Iterationsbremse}:\\
+	Falls $|A_k[n + 1, n]| \leq \epsilon$ für ein $n$, führe eine \textbf{getrennte Eigenwertberechnung} für\\$A_k[1 : n, 1 : n]$ und $A_k[n + 1 : N, n + 1 : N]$ aus
+	\item \textbf{QR-Zerlegung}:\\
+	Berechne Shift $\mu_k$ (genaue Berechnung nicht relevant) und damit die \textbf{QR-Zerlegung} $Q_kR_k = A_k - \mu_kI_N$
+	\item \textbf{Neue Iteration}:\\
+	Setze $A_{k+1} = R_kQ_k + \mu_kI_N$, inkrementiere $k$ und wiederhole
+\end{enumerate}
+\textbf{Hessenberg-Matrix}:\\Durch die Transformation zu einer Hessenberg-Matrix steigt der \textbf{Aufwand} zu $O(N^3)$, jedoch lässt sich hierdurch die Berechnung in separate \textbf{Unterprobleme} teilen (vgl. \textbf{Iterationsbremse})\\\\
+\textbf{Aufwand eines Schrittes}:\\Jeder Schritt benötigt $O(N)$ Operationen

@@ -1,0 +1,133 @@
+\section{Texturen}%
+\label{tex:sec:texturen}
+
+\subsection{Texture Mapping}%
+\label{tex:sub:texture_mapping}
+
+\begin{itemize}
+	\item Textur ist meist ein Rasterbild aus sog. \textbf{Texels} (Pixel der Textur)
+	\item Textur-Ebene definiert durch einen Punkt p und zwei aufspannende Vektoren \textbf{s, t bzw. u, v}
+	\item Texturkoordinate eines Punktes x: $s = (x - p) * s, t = (x - p) * t$ bzw. analog mit u, v
+	\item $u, v \in [0, 1]^2$, \textbf{unabhängig} von der tatsächlichen Auflösung, s und t hingegen auf die Texturmaße skaliert (je nach Definition auch anders herum, diese entspricht den Übungsblättern)
+	\item 1D Texturen funktionieren analog, nur dass der Vektor t bzw. v wegfällt
+	\item Mögliches Mapping je nach Körper per Berechnungsvorschrift:
+	\begin{itemize}
+		\item Kugel-Mapping über Polarkoordinaten: $(s, t) = (\phi / 2 \pi, \theta / \pi)$
+		\item Zylinder-Mapping über Zylinderkoordinaten: $(s, t) = (\phi / 2 \pi, y / h)$
+		\item ggf. Mapping eines komplexen Objekts über einfacheren Hilfskörper (Würfel, Kugel...)
+	\end{itemize}
+	\item Oft auch: Speichern von \textbf{Texturkoordinaten in Vertices}, Generierung z.B manuell beim Modellieren oder nach Berechnungsvorschrift
+\end{itemize}
+
+\subsection{Texture Wrapping}%
+\label{tex:sub:texture_wrapping}
+
+\begin{itemize}
+	\item Problem: Wie handhabt man Textur-Koordinaten die über die Textur hinaus gehen?\\($u, v \notin [0, 1]$)?
+	\item Lösung: \textbf{Wrap-Modi}
+	\begin{itemize}
+		\item \textbf{Repeat/Wrapping}: Fortsetzen/Kacheln der Textur über die eigentliche Größe hinaus
+		\item \textbf{Clamp}: Clampt alle Koordinaten zwischen den Grenzen
+		\item Variationen von clamp oder repeat (z.B eine feste Farbe wählen)
+	\end{itemize}
+\end{itemize}
+
+\subsection{Texture Filtering}%
+\label{tex:sub:texture_filtering}
+
+\begin{itemize}
+	\item \textbf{Problem}: Aliasing tritt auch bei Texturen auf
+	\item Lösungen für Aliasing beim Vergrößern (Magnification, zur Textur hinbewegen, wenige Texel fallen auf viele Pixel)
+	\begin{itemize}
+		\item \textbf{Nearest Neighbor Filterung}: Nächstliegender Texel wird verwendet
+		\item \textbf{Bilineare Interpolation}: Interpolation der 4 nächsten Texel (Glättung)
+	\end{itemize}
+	\item Lösungen für Aliasing beim Verkleinern (Minification, von der Textur wegbewegen, viele Texel fallen auf wenige Pixel)
+	\begin{itemize}
+		\item Überabtastung (\textbf{Supersampling}), gewichteter Mittelwert der Texel
+		\item Vorfilterung der Textur (\textbf{Mip-Mapping})
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Mip-Mapping}%
+\label{tex:subs:mip_mapping}
+
+\begin{itemize}
+	\item Einfache \textbf{Vorfilterung} von Texturen um Aliasing zu vermeiden
+	\item Textur wird rekursiv jeweils in der Größe geviertelt und gefiltert (meistens per Mittelwert über 2x2 Texel)
+	\item Nur 33\% höherer Speicherbedarf
+	\item Regel für Mip-Map-Stufe n (Rekursionstiefe, 0 entspricht der höchsten Auflösungsstufe):\\Texelgröße(n) $\leq$ Größe Pixelfootprint auf Textur $<$ Texelgröße(n + 1)
+	\item \textbf{Pixelfootprint}: Wie viele Texel werden auf einen Pixel abgebildet? Ermittlung durch gefundene Texturkoordinaten, wenn man Strahlen durch die Ecken des Pixels verfolgt
+	\item Endgültiger Farbwert mit Mip-Maps per trilinearer Interpolation
+	\begin{itemize}
+		\item Bilineare Interpolation von Stufe n und n + 1
+		\item Lineare Interpolation zwischen den beiden bilinear interpolierten Farben
+	\end{itemize}
+\end{itemize}
+
+\subsection{Alternative Texturnutzung}%
+\label{tex:sub:alternative_texturnutzung}
+
+\textbf{Bump- und Normalmaps}:
+\begin{itemize}
+	\item \textbf{Idee}: Speichere zusätzliche Oberflächennormalen in einer Textur
+	\item \textbf{Ergebnis}: Höheres Detailreichtum (v.a. durch Beleuchtung) ohne zusätzliche Geometrie
+\end{itemize}
+\textbf{Gloss-Maps}:
+\begin{itemize}
+	\item \textbf{Idee}: Speichere zusätzliche spekulare Koeffizienten für Phong-Beleuchtung in Texturen
+	\item \textbf{Ergebnis}: Höhere Kontrolle der Stärke und Streuung der spekularen Reflexion
+\end{itemize}
+\textbf{Displacement-Maps}:
+\begin{itemize}
+	\item \textbf{Idee}: Speichere Verschiebung der Oberfläche und Änderung der Normalen in Texturen
+	\item \textbf{Ergebnis}: Tatsächliche neue Geometrie statt nur Änderung der Beleuchtung
+	\item Anmerkung: Vor allem nützlich mit GPU-unterstützter Tesselierung (Subdivision von Geometrie in weitere Dreiecke)
+\end{itemize}
+\textbf{Vorgenerierte Ambient Occlusion}
+\begin{itemize}
+	\item \textbf{Idee}: Speichere vorgeneriertes Umgebungslicht (ambienter Koeffizient im Phong-Modell) in Texturen (meist wird auch der diffuse Koeffizient modifiziert)
+	\item \textbf{Ergebnis}: Simple Ambient Occlusion (Umgebungsverdeckung) ohne rechenintensive globale Beleuchtungsmethoden
+\end{itemize}
+\newpage
+\textbf{Alpha-/Opacity-Maps}:
+\begin{itemize}
+	\item \textbf{Idee}: Speichere zusätzlich zur Farbe einen Transparenzwert, der die Durchsichtigkeit des Pixels beschreibt
+	\item \textbf{Ergebnis}: Höheres Detailreichtum ohne zusätzliche Geometrie (z.B einzelne Blätter eines Palmenblattes sind so realisierbar ohne jedes Blatt einzeln durch Dreiecke darzustellen)
+	\item Analog zum Alpha-Farbkanal der Textur, kann aber ggf. eine separate Textur sein
+\end{itemize}
+\textbf{Texture-Atlases}:
+\begin{itemize}
+	\item \textbf{Idee}: Zerschneide das Dreiecksnetz eines Objektes und rolle es flach zu einer Textur aus
+	\item \textbf{Ergebnis}: 1:1 Mapping von Textur zu Oberfläche (ermöglicht z.B Malen einer Textur direkt auf dem Objekt in Grafikprogrammen)
+\end{itemize}
+
+\subsection{3D Texturen}%
+\label{tex:sub:3d_texturen}
+
+\begin{itemize}
+	\item \textbf{Problem}: 2D-Texturen haben manchmal erkennbare Tapeten-Effekte, Mapping ist für komplexe Objekte schwer etc.
+	\item \textbf{Lösung}: 3D-Texturen (Solid-Textures)
+	\begin{itemize}
+		\item \textbf{Vorteil}: Kein Parametrisierungsproblem
+		\item \textbf{Nachteil}: Sehr speicherintensiv, schwer zu gewinnen (oft prozedural)
+	\end{itemize}
+\end{itemize}
+
+\subsection{Environment Mapping}%
+\label{tex:sub:environment_mapping}
+
+\begin{itemize}
+	\item \textbf{Idee}: Speichere Bild der Umgebung in einer Textur
+	\item \textbf{Ergebnis}: Darstellung reflektierender Objekte ohne geometrische Repräsentation, approximiert Reflexion ohne Raytracing
+	\item \textbf{Modell}: Textur auf einer virtuellen Kugel um ein Objekt / die Szene
+	\item \textbf{Spezialfall}: Sphere Mapping
+	\begin{itemize}
+		\item Texturgewinnung durch Fotografieren einer kleinen Spiegelkugel mit einem Teleobjektiv
+	\end{itemize}
+	\item \textbf{Spezialfall}: Cube Environment Maps
+	\begin{itemize}
+		\item Abbilden der Umgebung auf einen Würfel um den Betrachter
+		\item \textbf{Vorteil}: Ermöglicht normale Texturfilterung wie bei Mip-Mapping
+	\end{itemize}
+\end{itemize}

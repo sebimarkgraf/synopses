@@ -4,9 +4,11 @@
 %%% TeX-master: "propa"
 %%% End:
 
-\section{Parallele Programmierung}
+\section{Parallele Programmierung}%
+\label{pp:sec:parallele-programmierung}
 
-\subsection{Motivation}
+\subsection{Motivation}%
+\label{pp:sub:motivation}
 \begin{itemize}
   \item Moore's law erreicht Grenzen für Anzahl der Schaltkreise / Taktung
   \item Trotzdem Rechenpower für Medizin, Wetter, \ldots
@@ -14,18 +16,21 @@
 \end{itemize}
 \(\Rightarrow\) Softwareentwickler müssen Parallelverarbeitung beherrschen
 
-\subsection{Parallelism vs. Concurrency}
+\subsection{Parallelism vs. Concurrency}%
+\label{pp:sub:parallelism-vs-concurrency}
 \textbf{Parallelism}: Mindestens 2 Threads werden gleichzeitig ausgeführt.\\
 \textbf{Concurrency}: Mindestens 2 Threads machen Fortschritt.\\
 Concurrency ist die Verallgemeinerung von Parallelism.
 
-\subsection{Ansätze}
+\subsection{Ansätze}%
+\label{pp:sub:ansaetze}
 \textbf{Geteilter Speicher}\\
 Jeder Prozess kann jeden Speicher bearbeiten. Auf Mehrkernprozessoren.\\
 \textbf{Verteilter Speicher}\\
 Prozesse schicken sich gegenseitig Nachrichten. Z.B. in Clustern.
 
-\subsection{Flynn's Taxonomy}
+\subsection{Flynn's Taxonomy}%
+\label{pp:sub:flynns-taxonomy}
 \begin{enumerate}
   \item SISD:\@ Single Instruction x Single Data --- von Neumann
   \item SIMD:\@ Single Instruction x Multiple Data --- Vector Prozessoren
@@ -33,17 +38,19 @@ Prozesse schicken sich gegenseitig Nachrichten. Z.B. in Clustern.
   \item MISD:\@ Multiple Instruction x Single Data --- Pipelines / Redundante Systeme
 \end{enumerate}
 
-\subsection{Aufteilung des Problems}
+\subsection{Aufteilung des Problems}%
+\label{pp:sub:aufteilung-des-problems}
 \textbf{Task parallelism}: Aufteilung in verschiedene Funktionen.\\
 \textbf{Data prallelism}: Aufteilen der Daten auf verschiedene Prozesse.\\
 
-
-\subsection{Amdahl's Law}
+\subsection{Amdahl's Law}%
+\label{pp:sub:amdahls-law}
 Berechnung der Beschleunigung \(S(n) = \frac{T(1)}{T(n)} = \frac{\text{Zeit eines Prozessors}}{\text{Zeit von n Prozessoren}}\)\\
 Nach Amdahl's Law kann maximal eine Beschleunigung erreicht werden, bei \(p\) Prozent des Programms parallelisierbar von:
 \[S(n) = \frac{1}{(1-p) + \frac{p}{n}}\]
 
-\subsection{MPI}
+\subsection{MPI}%
+\label{pp:sub:mpi}
 Kommunikation von Prozession durch Nachrichten.
 MPI ist ein offenes Interface, welches Wert auf best practices legt.\\
 Grundlegend wird SIMD verwendet.\\
@@ -95,6 +102,7 @@ Sending:
   MPI_Rsend
 \end{lstlisting}
 
+\newpage
 \textbf{Non-blocking Send}
 \begin{lstlisting}
   int MPI_Isend(void* buf, int count MPI_Datatype type, int dest, int tag, 
@@ -132,8 +140,9 @@ Verschiedene Varianten verfügbar:
 Programmiermodell von Google entwickelt.
 Besteht aus 3 Schritten: Map, Shuffle und Reduce.
 
-
-\subsection{Java Parallel}
+\newpage
+\subsection{Java Parallel}%
+\label{pp:sub:javas-parallel}
 Grundlagen sollten aus SWTI bekannt sein. Demnach werden hier nur die erweiterten Konzepte vorgestellt.\\
 
 \textbf{Atomic Types}\\
@@ -173,7 +182,9 @@ Diese werden vergleichbar mit Haskell Lazy ausgewertet.
 Streams existieren auch als Int/Double/...-Stream. Diese erhält man durch mapToInt/Double/...
 Nur auf Zahlenstreams existieren Operationen wie average.
 
-\subsection{Actor Model}
+\newpage
+\subsection{Actor Model}%
+\label{pp:sub:actor-model}
 Konzeptuelles Model für paralleles Rechnen. Basiert auf Aktoren und Nachrichten.\\
 Aktoren können nur auf Ihren eigenen Zustand und eigenen Speicher zugreifen. Kommunikation mit anderen Aktoren geschieht
 durch Austausch von Nachrichten. \\
@@ -193,6 +204,6 @@ Dabei hilft \code{receiveBuilder()} und \code{match(Class<P> type, UnitApply<P> 
 Alternativ noch \code{match} und \code{matchAny}.\\
 Aktoren werden durch Props erstellt. \code{Props Props.create(Class<?> actorType, Object... parameters)}.
 Und durch die ActorRefFactory instanziiert \code{ActorRef actorOf(Props props)}.\\
-Nachrichten werden mit \code{void tell(Object message, ActorRef sender)} und \code{Future<?> Patterns.ask(ActorRef target, Object msg, Timeout timeout)}
+Nachrichten werden mit \code{void tell(Object message, ActorRef sender)} und\\\code{Future<?> Patterns.ask(ActorRef target, Object msg, Timeout timeout)}
 versandt.\\
 Stoppen von Akoren erfolgt durch \code{void stop(ActorRef actorToStop)} oder \code{PoisonPill.getInstance} und senden dieser.

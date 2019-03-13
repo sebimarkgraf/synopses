@@ -4,9 +4,11 @@
 %%% TeX-master: "robotik"
 %%% End:
 
-\section{Programmieren durch Vormachen}
+\section{Programmieren durch Vormachen}%
+\label{pdv:sec:programmieren-durch-vormachen}
 
-\subsection{Grundfragen}
+\subsection{Grundfragen}%
+\label{pdv:sub:grundfragen}
 Hauptziel:
 \begin{itemize}
 \item Intuitive Roboterprogrammierung ohne Expertenwissen
@@ -44,7 +46,8 @@ Manche Eigenschaften irrelevant, finde heruas welche Aspekte interessant sind.\\
 Roboter muss Abbildung von Perzeption zu einer Sequenz seiner eigenen Bewegungen lernen.\\
 Embodiment!
 
-\subsection{Perzeption}
+\subsection{Perzeption}%
+\label{pdv:sub:perzeption}
 Demonstration in 2 Schritten:
 \begin{enumerate}
 \item Aktion des Lehrers Aufnehmen (Record Mapping)
@@ -96,14 +99,17 @@ Verfahren:
 \end{itemize}
 
 
-\subsection{Kognition}
+\subsection{Kognition}%
+\label{pdv:sub:kognition}
 Fähigkeit als Trajektorie oder symbolisch als Fähigkeiten repräsentiert
 
-\subsubsection{Trajektorie}
+\subsubsection{Trajektorie}%
+\label{pdv:ssub:trajektorie}
 Signal in latenten Bewegungsraum projiziert\\
 Spezifich zu zyklischer, diskreter oder beides beinhaltender Bewegung
 
-\subsubsection{Symbolisch}
+\subsubsection{Symbolisch}%
+\label{pdv:ssub:symbolisch}
 Segmentation von Aufgaben in vordefinierte Aktionen\\
 Reproduzieren und mit klassichen Machine-Learning-Verfahren\\
 
@@ -114,7 +120,8 @@ Reproduzieren und mit klassichen Machine-Learning-Verfahren\\
 \end{itemize}
 
 
-\subsection{Demonstrationsverarbeitung}
+\subsection{Demonstrationsverarbeitung}%
+\label{pdv:sub:demonstrationsverarbeitung}
 In 2 Arten
 \begin{itemize}
 \item Batch Lernen --- Lernen nach gesamter Aufzeichnung
@@ -122,14 +129,17 @@ In 2 Arten
 \end{itemize}
 
 
-\section{Aktion}
+\subsection{Aktion}%
+\label{pdv:sub:aktion}
 Ausführen und Adaption der Aktion
 
-\subsubsection{Online Anpassung}
+\subsubsection{Online Anpassung}%
+\label{pdv:ssub:online-anpassung}
 Anpassung durch Kopplungsterm in DMP\\
 DMP Online: \[\tau\ddot{y} = K (g-y)-D\dot{y} + f_\theta(x)(g-y_0) + \color{red}C\]
 
-\subsubsection{Ausführung von komplexen Aufgaben}
+\subsubsection{Ausführung von komplexen Aufgaben}%
+\label{pdv:ssub:ausfuehrung-von-komplexen-aufgaben}
 Roboter braucht Weltwissen, aber weiß nicht wo Objekte sind\\
 \(\rightarrow\) Hypothesen anhand von Wissen generieren\\
 

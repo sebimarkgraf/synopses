@@ -1,0 +1,46 @@
+\section{Burrows-Wheeler-Transform}%
+\label{bwt:sec:burrows_wheeler_transform}
+
+\begin{itemize}
+	\item \textbf{Reversible} Transformation eines Textes $T$ in \textbf{Runs von Zeichen mit gleichem Kontext} $T^{BWT}$ zur Optimierung für \textbf{Kompression} (z.B Lauflängenkodierung) und Textindizierung
+	\item \textbf{Transformation}:
+	\begin{itemize}
+		\item \textbf{Vorgehen}:
+		\begin{enumerate}
+			\item Bilde alle \textbf{möglichen Rotationen} von $T$ durch Verschieben des hintersten Zeichens nach vorne
+			\item Schreibe alle Rotationen in eine Tabelle und \textbf{sortiere} diese lexikographisch
+			\item Die \textbf{letzten Zeichen jeder Zeile} ergeben \textbf{von oben nach unten gelesen} den codierten Text
+		\end{enumerate}
+		\item \textbf{Beobachtungen}: Zeilen enthalten sortierte Suffixe, Zeichen in letzter Spalte entspricht Zeichen vor Suffix in Eingabetext $T$
+	\end{itemize}
+	\item \textbf{Rücktransformation}:
+	\begin{enumerate}
+		\item Schreibe $T^{BWT}$ in Spaltenform
+		\item Sortiere zeilenweise
+		\item Schreibe $T^{BWT}$ in Spaltenform davor
+		\item Wiederhole bis $|T^{BWT}|$ mal sortiert, es sind \textbf{keine Zusatzinformationen notwendig}
+	\end{enumerate}
+	% TODO: Vielleicht last to front mapping?
+\end{itemize}
+
+\subsection{Move-To-Front Kodierung}%
+\label{bwt:sub:move_to_front_kodierung}
+
+Wähle Alphabet $Y$ zu $T^{BWT}$ und durchlaufe $T^{BWT}$, generiere $R[1..n]$:
+\begin{enumerate}
+	\item $R[i] = $ Position von $T^{BWT}[i]$ in $Y$
+	\item Schiebe $T^{BWT}[i]$ an den Anfang von $Y$
+\end{enumerate}
+
+\subsection{Huffman Kodierung}%
+\label{bwt:sub:huffman_kodierung}
+
+\begin{itemize}
+	\item Erzeuge \textbf{binären Baum} von unten nach oben
+	\item Funktioniert bei \textbf{präfixfreien Codes variabler Länge}
+	\item \textbf{Ablauf}:
+	\begin{enumerate}
+		\item Wähle seltenste zwei Zeichen(-gruppen)
+		\item Erzeuge neuen Knoten, der beide Zeichen(-gruppen) repräsentiert
+	\end{enumerate}
+\end{itemize}

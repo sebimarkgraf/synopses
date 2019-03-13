@@ -1,0 +1,71 @@
+\section{Shortest Path Algorithms}%
+\label{sp:sec:shortest_path_algorithms}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Finden des kürzesten Weges auf einem Graphen von einem Knoten zum anderen
+	\item \textbf{Eingabe}: Graph $G = (V,E)$, Kostenfunktion $c: E \rightarrow \realnumbers$, Anfangsknoten $s$
+	\item \textbf{Ausgabe}: $\forall v \in V$: Länge $\mu(v)$ des kürzesten Pfades von $s$ nach $v$ (kürzester Pfad = Summe der Kantenkosten minimal)
+	\item \textbf{Breitensuche (BFS)}: Untersuche zuerst alle Nachbarn des Knotens statt einen einzelnen Nachbarn tiefer zu verfolgen
+	\item \textbf{Knotenarrays}: Für jeden Knoten $v$ definiere für den Prozess der Pfadsuche:
+	\begin{itemize}
+		\item die vorläufige Distanz von s nach v als \texttt{d[v]}
+		\item den Vorgänger von v im vorläufigen kürzesten Pfad von s nach v als \texttt{parent[v]}
+		\item \textbf{Die Inhalte beider Knotenarrays können sich mehrfach bei der Pfadsuche ändern!}
+	\end{itemize}
+	\item \textbf{Relaxierung}: Aktualisieren von \texttt{d[v]} und \texttt{parent[v]} eines Knotens $v$, wenn nötig
+	\item \textbf{Laufzeit}: Abhängig von der zugrundeliegenden Prioriätsliste!
+\end{itemize}
+
+\subsection{Dijkstras Algorithmus}%
+\label{sp:sub:dijkstras_algorithmus}
+
+\begin{enumerate}
+	\item Initialisiere beide Knotenarrays (i.d.R. mit $\infty$), alle Knoten seien ungescannt
+	\item Solange ein nicht gescannter Knoten $u$ mit \texttt{d(u)} $< \infty$ existiert
+	\begin{enumerate}
+		\item Wähle den besagten Knoten $u$ mit \texttt{d(u)} $< \infty$
+		\item Relaxiere alle Kanten ausgehend von $u$, $u$ gilt nun als gescannt
+	\end{enumerate}
+\end{enumerate}
+
+\subsection{All-Pairs Shortest Paths}%
+\label{sp:sub:all_pairs_shortest_paths}
+
+\begin{itemize}
+	\item \textbf{Frage}: Wie findet man die kürzesten Pfade für alle Möglichen Start- und Zielpaare?
+	\item \textbf{Voraussetzung}: Keine negativen Kreise, aber negative Pfade sind erlaubt
+	\item \textbf{Bellman-Ford}: Bei n-facher Ausführung Laufzeit von $O(n^2m) \Rightarrow zu langsam$
+	\item \textbf{Knotenpotenziale}:
+	\begin{itemize}
+		\item Lege für jeden Knoten ein \textbf{Potenzial} \texttt{pot(v)} fest
+		\item $pot(v)$ ergibt sich aus $\mu(v) \forall v \in V$
+		\item $\mu(v)$ ergibt sich durch \textbf{Hinzufügen eines Hilfsknotens} mit Kanten zu jedem Knoten mit Kantengewicht $0$, danach Bellman-Ford um die Potenziale zu bestimmen
+		\item Definiere reduzierte Kosten für eine Kante $(u,v)$ als $\overline{c}(e) = pot(u) + c(e) - pot(v)$
+		\item \textbf{Führe Dijkstra auf reduzierten Kosten aus} (sind nun alle nicht negativ) und rechne sich ergebende Kosten wieder in ursprüngliche Kostenfunktion um
+		\item Laufzeit von $O(nm + n^2log(n))) \Rightarrow$ deutlich besser
+	\end{itemize}
+\end{itemize}
+
+\subsection{Bidirektionale Suche}%
+\label{sp:sub:bidirektionale_suche}
+
+\begin{itemize}
+	\item Alternativer Ansatz für Routenplanung zwischen zwei Knoten $s$ und $t$
+	\item \textbf{Idee}: Abwechselnd Vorwärtssuche auf normalem Graph $G = (V,E)$ und Rückwärtsgraph $G^r = (V,E^r)$
+	\item Vorläufige kürzeste Distanz wird in jedem Schritt aktualisiert:\\$d(s,t) = min(d(s,t), d_{forward}(u) + d_{backward}(u))$
+	\item \textbf{Abbruchkriterium}: Suche scannt Knoten, der in anderer Richtung bereits gescannt wurde
+\end{itemize}
+
+\subsection{A*-Suche}%
+\label{sp:sub:a_suche}
+
+\begin{itemize}
+	\item \textbf{Idee}: Suche \quotestyle{in die Richtung von t}
+	\item \textbf{Annahme}: Wir kennen eine Funktion $f(v)$ die $\mu(v,t)$ schätzt $\forall v$
+	\item \textbf{Vorgehen}:
+	\begin{itemize}
+		\item Definiere $pot(v) = f(v)$ und $\overline{c}(u,v) = c(u,v) + f(v) - f(u)$
+		\item Danach: analog zu Knotenpotenziale wie oben beschrieben
+	\end{itemize}
+	\item In der Praxis muss $f(v)$ mit Heuristiken wie z.B dem euklidischen Abstand oder Landmarks (vorberechneten kürzesten Pfaden) approximiert werden
+\end{itemize}

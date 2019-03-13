@@ -1,0 +1,62 @@
+\section{Asymmetrische Verschlüsselung}%
+\label{av:sec:asymmetrische-verschluesselung}
+
+\subsection{RSA}%
+\label{av:sub:rsa}
+\textbf{Schlüsselgenerierung}
+\begin{itemize}
+  \item Wähle Primzahlen \(P \neq q\) zufällig
+  \item berechne \(N = P \cdot Q, \varphi(N) = (P-1)(Q-1)\)
+  \item wähle \(e\) zufällig aus \(\{3,...,\varphi(N)-1\}\), sodass \(\gcd(e, \varphi(N)) = 1\)
+  \item berechne \(d \coloneqq e^{-1} \bmod \varphi(N)\)
+  \item gib \(\mathit{pk} \coloneqq (N, e)\) und \(\mathit{sk} \coloneqq (N, d)\) aus
+\end{itemize}
+\textbf{Standardangreifer}\\
+\textit{Signatur (EUF-CMA)}:\\
+Wähle \(\sigma\) und setze \(m = \sigma^e\)
+
+\subsection{ElGamal}%
+\label{av:sub:elgamal}
+\textbf{Schlüsselerzeugung}
+\[\mathit{pk} = (\mathbb{G},g,h)\]
+\[\mathit{sk} = (\mathbb{G},g,x)\]
+\textbf{Ver- und Entschlüsselung}
+\[\textsc{Enc}(\mathit{pk}, M) = (g^y, h^yM)\]
+\[\textsc{Dec}(\mathit{sk}, g^y, C) = \frac{C}{(g^y)^x}\]
+\textbf{Informationsdichte}\\
+Bei optimaler Codierung hat ein ElGamal Chiffrat \(\log_2 | \mathbb{Z}_p^{\times}| = \log_2(p-1)\)
+Bit Informationen. Da Chiffrat aus 2 Gruppenelementen, ist das Verhältnis von Nutzinformationen zu Chiffratlänge max 1/2. \\
+\textbf{Signieren}\\
+Wähle eine zufällige, invertierbare Zahl \(e \in \{1,..., p-1\}\), wobei \(p - 1 = |\mathbb{G}|\)
+Berechne:
+\begin{align*}
+  a &\coloneqq g^e \in \mathbb{G} \\
+  b &\coloneqq (M - a \cdot x) \cdot e^{-1} \mod |\mathbb{G}| \Leftrightarrow m = ax + eb\\
+  \textsc{Sig}(sk, M) &\coloneqq (a,b)
+\end{align*}
+Verifizieren der Signatur
+\begin{align*}
+  v_1 &= (g^x)^a \cdot a^b\\
+  v_2 &= g^M\\
+  \textsc{Ver}(pk,\sigma, M) &= 1 \Leftrightarrow v_1 = v_2
+\end{align*}
+\newpage
+\noindent\textbf{Standardangreifer}\\
+\textit{Verschlüsselung}:\\
+Bekanntes \(C \coloneqq (9,1)\) gegeben.\\
+Berechne \(C* \neq C\) aber \(M* = M\).
+\begin{enumerate}
+\item Wähle zufälligegs \(z \in \mathbb{Z}_{11}\), z.B. \(y=1\)
+\item Berechne \(C'\) von 1: \(C' = (g^y, g^xy \cdot M) = (3^y, 9^y \cdot M)\)
+\item Multipliziere die Chiffrate: \(C* = C \cdot C' = (5,9)\) von \(1 \cdot M\)
+\end{enumerate}
+\textit{Signatur (EUF-CMA)}:
+\begin{enumerate}
+\item Nullsignatur: Wähle \((g^x, -g^x)\) als Signatur für \(m=0\)
+  \item Unsinssnachricht: Berechne \(a \coloneqq g^zg^x\) dann \((a, -a)\) Signatur für \(m=-az\)
+\end{enumerate}
+
+\subsection{DES}%
+\label{av:sub:des}
+\textbf{Meet-In-The-Middle}
+% TODO Meet-In-The-Middle allgemein aufschreiben. Wird in 2013(2) und 2014(1) abgefragt 

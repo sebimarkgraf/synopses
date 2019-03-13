@@ -1,0 +1,71 @@
+\section{Isometrien}
+Seien V, W euklidische (unitäre) Vektorräume und $\{c_1, ..., c_n\}$ eine Orthonormalbasis von V sowie $\phi: V \rightarrow W$ eine lineare Abbildung und $v, w \in V$ beliebig.
+
+\subsection{Isometrien}%
+\label{os:sub:isometrien}	
+
+\textbf{Definition}: Längenerhaltende Abbildung zwischen metrischen Räumen; folgende Aussagen zu Isometrien sind äquivalent:
+\begin{itemize}
+	\item $\phi$ ist eine Isometrie
+	\item $\langle v, w\rangle = \langle \phi(v), \phi(w)\rangle$
+	\item $\langle \phi(e), \phi(e)\rangle = 1$ für alle Einheitsvektoren $e \in V$
+	\item $\{\phi(c_1), \phi(c_2), ..., \phi(c_n)\}$ ist eine Orthonormalbasis von W
+	\item Falls V = W: Die Abbildungsmatrix $D_{CC}(\phi)$ ist orthogonal (unitär)
+\end{itemize}
+\textbf{Weiter gilt für alle Isometrien:}
+\begin{itemize}
+	\item Jeder Eigenwert von $\phi$ hat Betrag 1
+	\item $|det \phi| = 1$
+	\item In einem n-dimensionalen Raum lässt sich jede lineare Isometrie als Verknüpfung von maximal n Spiegelungen schreiben
+\end{itemize}
+
+\subsection{(Euklidische) Isometrie-Normalform}%
+\label{os:sub:euklidische_isometrie_normalform}
+
+\textbf{Vorgehen}:
+\begin{enumerate}
+	\item Aufstellen des char. Polynoms, Berechnung der Eigenwerte
+	\begin{itemize}
+		\item Ist die Matrix unitär oder euklidisch und diagonalisierbar, zerfällt das char. Polynom in Linearfaktoren, die Diagonalmatrix ist die Normalform und wir sind fertig
+	\end{itemize}
+	\item Ansonsten: Aufstellen einer Matrix mit Eigenwerten oder Drehkästchen auf der Diagonalen
+	\begin{itemize}
+		\item Char. Polynom zerfällt in bekannte \textbf{Linearfaktoren}, für welche nur der Eigenwert auf der Hauptdiagonalen eingetragen wird (z.B $(X + 1)$) und kompliziertere Faktoren (z.B $(X^2 - \frac{49}{25}X + 1)$), welche \textbf{Drehkästchen} ergeben
+		\item \textbf{Bestimmung von Drehkästchen}: Lösen der quadr. Gleichung über Lösungsformel, Ergebnis hat komplexe Form (hier: $\frac{49}{50} + i\frac{3}{50}\sqrt{11}$), Definition dieser Form als
+		\begin{center}
+			$cos(\omega) + isin(\omega)$
+		\end{center}
+		und eintragen als Drehkästchen D mit:
+	\end{itemize}
+\end{enumerate}
+	\begin{center}
+	$D = \begin{bmatrix}
+		cos(\omega) & -sin(\omega)\\
+		sin(\omega) & cos(\omega)\\
+	\end{bmatrix}
+\overrightarrow{Normalform}
+	\begin{bmatrix}
+		-1 & 0 & 0 \\
+		0 & \frac{49}{50} & -\frac{3}{50}\sqrt{11}\\
+		0 & \frac{3}{50}\sqrt{11} & \frac{49}{50}\\
+	\end{bmatrix}$
+\end{center}
+
+\subsection{Ähnlichkeitstransformation der Isometrie-Normalform}%
+\label{os:sub:aehnlichkeitstransformation_der_isometrie_normalform}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Analog zur Jordan-Normalform: Finden einer (orthogonalen) Transformationsmatrix $S = (b_1 | \dots | b_n)$, sodass $S^TAS = A_{INF}$
+	\item \textbf{Vorgehen für (-)1-Kästchen}:
+	\begin{enumerate}
+		\item Finde \textbf{Eigenvektoren analog zu Jordan}
+		\item Die die Basisvektoren für diese Stellen in $S$ sind die \textbf{normierten Eigenvektoren}
+	\end{enumerate}
+	\item \textbf{Vorgehen für Drehkästchen}:
+	\begin{enumerate}
+		\item Finde einen Vektor \textbf{orthogonal zu den anderen Basisvektoren}
+		\item \textbf{Bilde diesen mit A ab}, bis genug Vektoren für die Stellen gefunden sind
+		\item Berechne mit Gram-Schmidt aus diesen Basisvektoren eine \textbf{Orthonormalbasis}
+		\item Die orthonormalen Vektoren sind die Basisvektoren für die Stellen des Drehkästchens\\in $S$
+	\end{enumerate}
+\end{itemize}

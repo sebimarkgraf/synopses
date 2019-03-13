@@ -1,0 +1,31 @@
+\section{Geometric Algorithms}%
+\label{ga:sec:geometric_algorithms}
+
+\begin{itemize}
+	\item \textbf{Streckenschnitt per Plane-Sweeping}:
+	\begin{itemize}
+		\item Waagrechte \textbf{Sweep-Line} $l$ läuft von oben nach unte
+		\item Speichere Segmente, die $l$ schneiden und finde deren Schnittpunkte mit den bisherigen Segmenten
+	\end{itemize}
+	\item \textbf{2D Konvexe Hülle}: Finde ein konvexes Polygon was eine Menge aus Punkten an den äußersten Punkten umschließt
+	\begin{enumerate}
+		\item \textbf{Sortiere} Punkte nach Abstand; fortan wird nur die Hülle der Punkte oberhalb der Strecke zwischen dem \textbf{ersten und dem letzten} Punkt berechnet
+		\item Wähle einen \textbf{Stack} der den letzten sowie die ersten beiden Punkte enthält
+		\item Iteriere über alle Punkte; bei jeder Iteration:
+		\begin{enumerate}
+			\item Entferne so lange das vorderste Element des Stacks bis die Strecke vom vorletzten zum letzten zum nächsten Punkt keine Rechtskurve mehr beschreibt
+			\item Füge den nächsten Punkt hinzu
+		\end{enumerate}
+		\item Verfahre analog für die Hülle unterhalb der Strecke
+	\end{enumerate}
+	\item \textbf{Kleinste einschließende Kugel}: Finde eine Kugel mit minimalem Radius die eine Punktmenge umschließt; rekursiv mit Parametern $P$ und $Q$:
+	\begin{enumerate}
+		\item \textbf{Rekursionsbremse}: Ist $|P| = 0$ oder $|Q| = d + 1$, dann gebe die Kugel um $Q$ zurück
+		\item Wähle einen zufälligen Punkt $x$ und rufe die Funktion rekursiv mit $P = P$ ohne $x$ auf. Falls die zurückgegebene Kugel $x$ enthält, gebe diese Kugel zurück, ansonsten führe die Funktion mit $P = P$ ohne $x$ und $Q$ vereint mit $x$ aus und gebe das Ergebnis davon zurück.
+	\end{enumerate}
+	\item \textbf{2D Bereichssuche}: Finde alle Punkte einer Punktmenge die in einem gegebenen \textbf{achsenparallelen Rechteck} liegen
+	\begin{itemize}
+		\item \textbf{Eindimensionaler Fall}: Sortierung, Suchbaum
+		\item \textbf{Zweidimensionaler Fall}: Sortierung, binäre Suche
+	\end{itemize}
+\end{itemize}

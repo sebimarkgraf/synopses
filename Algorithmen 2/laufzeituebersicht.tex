@@ -1,0 +1,121 @@
+\section{Laufzeitübersicht}%
+\label{lz:sec:laufzeituebersicht}
+\textbf{Es gelte allgemein für Graphen: $n = |V|$ und $m = |E|$}
+
+\subsection{Verschiedenes}%
+\label{lz:sub:verschiedenes}
+
+\begin{itemize}
+	\item \textbf{Breitensuche}: $O(|V| + |E|)$
+	\item \textbf{Tiefensuche}: $O(|V| + |E|)$
+\end{itemize}
+
+\subsection{Adressierbare Prioritätslisten}%
+\label{lz:sub:adressierbare_prioritaetslisten}
+
+\begin{itemize}
+	\item \texttt{deleteMin}: Untere Schranke ist $\Omega(log (n))$
+\end{itemize}
+
+\subsection{Pairing Heaps}%
+\label{lz:sub:pairing_heaps}
+
+\begin{itemize}
+	\item \texttt{insert}, \texttt{merge}: $O(1)$
+	\item \texttt{deleteMin}, \texttt{remove}: $O(log (n))$ amortisiert
+	\item \texttt{decreaseKey}: zwischen $O(log (log (n)))$ und $O(log (n))$ amortisiert
+\end{itemize}
+
+\subsection{Fibonacci Heaps}%
+\label{lz:sub:fibonacci_heaps}
+
+\begin{itemize}
+	\item \texttt{deleteMin}, \texttt{remove}: $O(log (n))$ amortisiert
+	\item Alle anderen Operationen: $O(1)$ amortisiert
+\end{itemize}
+
+\subsection{Bucket Queue}%
+\label{lz:sub:bucket_queue}
+
+\begin{itemize}
+	\item \texttt{insert}, \texttt{decreaseKey}: $O(1)$
+	\item \texttt{deleteMin}: $O(nC)$
+\end{itemize}
+
+\subsection{Radix Heaps}%
+\label{lz:sub:radix_heaps}
+
+\begin{itemize}
+	\item \texttt{insert}, \texttt{deleteMin}: $O(K)$
+	\item \texttt{decreaseKey}: $O(1)$
+\end{itemize}
+
+\subsection{Dijkstras Algorithmus}%
+\label{lz:sub:dijkstras_algorithmus}
+
+\begin{itemize}
+	\item \textbf{Allgemein}: $T_{Dijkstra} = O(m * T_{decreaseKey}(n) + n * (T_{deleteMin}(n) + T_{insert}(n))$
+	\item Mit Fibonacci-Heap-Prioritätslisten: $T_{DijkstraFib} = O(m + n * log (n))$
+	\item Mit Radix-Heap-Prioritätslisten: $T_{DijkstraRadix} = O(m + n * log (C))$
+\end{itemize}
+
+\subsection{All-Pairs Shortest Paths}%
+\label{lz:sub:all_pairs_shortest_paths}
+
+\begin{itemize}
+	\item \textbf{Bellman-Ford}: $O(n^2m)$
+	\item \textbf{Knotenpotenziale}: $O(nm + n^2log(n)))$
+\end{itemize}
+
+\subsection{Max Flow Problem}%
+\label{lz:sub:max_flow_problem}
+
+\begin{itemize}
+	\item \textbf{Ford Fulkerson/Edmond Karp}: $O(n * m^2)$
+	\item \textbf{Dinitz}: $O(n^2 * m)$
+	\item \textbf{Finden von Blocking Flows}: $O(nm)$
+\end{itemize}
+
+\subsection{Hashing-Funktionen}%
+\label{lz:sub:hashing_funktionen}
+
+\begin{itemize}
+	\item \textbf{Cuckoo-Hashing}: \texttt{insert}: $O(1)$
+\end{itemize}
+
+\subsection{External Algorithms}%
+\label{lz:sub:external_algorithms}
+
+\begin{itemize}
+	\item \textbf{Multiway Merging}: $O(n * log (n))$
+	\item \textbf{Externe Prioritätslisten}:
+	\begin{itemize}
+		\item \texttt{deleteMin}: $O(log (m))$
+		\item \texttt{insert}: $O(log (km))$ amortisiert
+	\end{itemize}
+\end{itemize}
+
+\subsection{Stringology}%
+\label{lz:sub:stringology}
+
+\begin{itemize}
+	\item \textbf{MSD Radix Sort}: $O(d + r\sigma + n * log (\sigma))$
+	\item \textbf{Multikey Quicksort}: $O(|S| * log(|S|) + d)$, d ist Summe der eindeutigen Präfixe
+	\item \textbf{Naives Pattern Matching}: $O(nm)$
+	\item \textbf{Knuth-Morris-Pratt}: $O(n + m)$
+	\item \textbf{Binäre Volltextsuche}: $O(m * log (n))$, mit LCP $O(m + log (n))$
+	\item \textbf{Volltextsuche mit Suffix-Baum}: $O(n)$
+	\item \textbf{Berechnung Suffix-Array}: $O(n)$
+	\item \textbf{Berechnung LCP-Array}: naiv $O(n^2)$
+	\item \textbf{Burrows-Wheeler-Transformation}: $O(n)$ hin und zurück
+\end{itemize}
+
+\subsection{Geometric Algorithms}%
+\label{lz:sub:geometric_algorithms}
+
+\begin{itemize}
+	\item \textbf{Streckenschnitt per Plane Sweeping}: $O((n + k) log (n))$ mit $n$ Strecken und $k$ Schnitten
+	\item \textbf{2D Konvexe Hülle}: $O(sort(n))$
+	\item \textbf{Kleinste einschließende Kugel}: $O(n)$
+	\item \textbf{2D Bereichssuche}: $O(log (n))$ für Anzahl der Punkte, mindestens $O(k * log (n))$ für Finden der Punkte
+\end{itemize}

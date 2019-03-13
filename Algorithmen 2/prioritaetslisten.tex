@@ -1,0 +1,106 @@
+\section{Prioritätslisten}%
+\label{pl:sec:prioritaetslisten}
+
+\begin{itemize}
+	\item \textbf{Prioritätsliste (priority queue):}
+	\begin{itemize}
+		\item Queue, deren Elemente zusätzlich einen Schlüssel besitzen, der die Reihenfolge der Abarbeitung bestimmt
+		\item Grundlegende Operationen: \texttt{build, size, insert, min, deleteMin}
+	\end{itemize}
+	\item \textbf{Adressierbarkeit}:
+	\begin{itemize}
+		\item Zugriff auf einzelne Elemente per Handle
+		\item Wichtig für Algorithmen, bei denen sich die Schlüssel innerhalb der Queue ändern (v.a. Greedy-Algorithmen)
+		\item Neue Operationen: \texttt{remove, decreaseKey, merge}
+	\end{itemize}
+	\item \textbf{Verwendung}: Dijkstra, Jarnik-Prim, Graphpartitionierung, Disk Scheduling uvm.
+	\item \textbf{Aufbau}:
+	\begin{itemize}
+		\item Wald heap-geordneter Bäume (Verallgemeinerung eines Binary Heaps mit einem Wald statt einem Baum und beliebigen Knotengraden)
+		\item Wälder lassen sich per \texttt{cut} trennen und per \texttt{link} vereinen
+		\item Grundlegender Heap kann variieren, z.B Pairing Heap, Fibonacci Heap (folgt)
+	\end{itemize}
+	\end{itemize}
+
+	\subsection{Pairing Heaps}%
+	\label{pl:sub:pairing_heaps}
+
+	\begin{itemize}
+		\item Jedes neue Element ergibt einen neuen Baum, der zum Wald hinzugefügt wird (ggf. wird der minPtr aktualisiert)
+		\item \texttt{decreaseKey} aktualisiert den Key des Elements sowie ggf. den minPtr; ist das Element keine Baumwurzel, so wird der Teilbaum per \texttt{cut} herausgeschnitten und als neuer Baum hinzugefügt
+		\item \texttt{deleteMin} entfernt das Minimum, aktualisiert den minPtr, macht aus jeden Kindknoten einen neuen Baum und führt paarweise \texttt{union} auf allen Bäumen im Wald aus
+		\item \texttt{merge} fügt die Wälder zusammen, aktualisiert den minPtr und leert die zweite Prioritätsliste
+		\item \textbf{Nur bei deleteMin wird tatsächlich paarweise union aufgerufen!}
+		\item \textbf{Aufbau} als doppelt verkettete Liste
+	\end{itemize}
+
+	\newpage
+	\subsection{Fibonacci Heaps}%
+	\label{pl:sub:fibonacci_heaps}
+	
+	\begin{itemize}
+	\item \textbf{Rang}: Anzahl direkter Kinder (\textbf{Zweck}: \texttt{union} nur für gleichrangige Wurzeln)
+	\item \textbf{Kaskadierende Schnitte}: Knoten, die ein Kind verloren haben, werden markiert; markierte Knoten werden geschnitten
+	\item \textbf{Aufbau} als doppelt verkettete Liste; zusätzliche Felder in Elementen für Rang und Markierung
+	\item \texttt{insert} und \texttt{merge} wie bei Pairing Heaps
+	\item \texttt{deleteMin} per \textbf{Union-by-Rank}:
+	\begin{enumerate}
+		\item Entferne Minimum, mache aus jedem Kind-Teilbaum einen neuen Baum im Wald
+		\item Bilde \texttt{union} für alle gleichrangigen Bäume bis nicht mehr möglich (vereinte Bäume mit neuem, höheren Rang sind u.U. erneut vereinbar)
+		\item Aktualisiere den minPtr
+	\end{enumerate}
+	\item \texttt{decreaseKey} mit \textbf{kaskadierenden Schnitten} aktualisiert den Schlüssen und ruft \texttt{cascadingCut} auf dem Element auf
+	\item \texttt{cascadingCut}:
+	\begin{enumerate}
+		\item Entferne die Markierung des Elements, rufe \texttt{cut} auf dem Element auf
+		\item Falls der Elternknoten markiert ist, rufe \texttt{cascadingCut} auf dem Elternknoten auf, ansonsten markiere den Elternknoten
+		\item \textbf{Zweck}: Hält \texttt{maxRank}-Funktion für \textbf{Union-by-Rank} logarithmisch, verbessert also die Laufzeit
+	\end{enumerate}
+	\item Fibonacci-Heap, da eine Wurzel $v$ mit $rank(v) = i$ mindestens $F_{i + 2}$ Elemente enthält, wobei $F_i$ die i-te Stelle der Fibonacci-Folge ist
+	\end{itemize}
+
+	\subsection{Bucket Queues}%
+	\label{pl:sub:bucket_queues}
+	
+	\begin{itemize}
+		\item \textbf{Idee}: Prioritätsliste dem ein zyklisches Array zugrunde liegt; Elemente gleicher Priorität teilen sich dieselbe Arrayzelle
+		\item \textbf{Funktionsweise}:
+		\begin{itemize}
+			\item Zyklisches Array $B$ von $C + 1$ doppelt verketteten Listen (Buckets)
+			\item \texttt{insert}: Füge Element mit Priorität $p$ in Zelle $p\ mod (C + 1)$ ein
+			\item \texttt{decreaseKey}: Entferne Element aus seiner Liste und füge es mit der geänderten Priorität wieder ein
+			\item \texttt{deleteMin}: Beginne bei Bucket $min$; falls dieser leer ist, inkrementiere $min$ und wiederhole; entferne ein beliebiges Element aus dem ersten nicht-leeren Bucket
+		\end{itemize}
+		\item Nützlich für \textbf{Dijkstras Algorithmus}
+	\end{itemize}
+
+	\subsection{Radix Heaps}%
+	\label{sub:radix_heaps}
+	
+	\begin{itemize}
+		\item \textbf{Idee}: Bucket Queues, bei denen nicht alle Buckets dieselbe Größe haben
+		\item \textbf{Funktionsweise}:
+		\begin{itemize}
+			\item Verwende Buckets $-1$ bis $K = 1 + \floor{log C}$
+			\item Wähle $min$ als das zuletzt aus der Queue entfernte Element
+			\item \texttt{insert}: Betrachte binäre Repräsentation des Elements; speichere das Element $v$ in $B(i)$, falls sich $v$ und $min$ zuerst an der i-ten Stelle unterscheiden
+			\begin{itemize}
+				\item Die gesuchte Stelle ist das \textbf{höchstwertige unterschiedliche} Bit!
+				\item Beginne von rechts ab $0$ zu zählen; falls identisch, ist das Ergebnis $-1$
+				\item Beispiel: $$\begin{array}{c c c c c c c c}
+					1&1&0&0&1&0&0&0\\
+					1&1&0&0&0&1&1&1
+				\end{array}$$ $\Rightarrow$ Unterschied an Stelle $3$
+			\end{itemize}
+			\item \texttt{deleteMin}:
+			\begin{itemize}
+				\item Falls die Liste an Stelle $-1$ leer ist:
+				\begin{enumerate}
+					\item Finde den kleinsten Index $i$ an dem eine nicht-leere Liste steht
+					\item Bewege das Minimum dieser Liste zu $B(-1)$ und zu $min$
+					\item Rufe für alle übrigen Elemente aus $B(i)$ \texttt{insert} auf
+				\end{enumerate}
+				\item Entferne und gebe das erste Element der Liste bei Index $-1$ zurück
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}

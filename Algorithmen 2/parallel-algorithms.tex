@@ -1,0 +1,16 @@
+\section{Parallel Algorithms}%
+\label{pa:sec:parallel_algorithms}
+
+\begin{itemize}
+	\item \textbf{Gründe für parallele Verarbeitung}: Geschwindigkeit, Energieersparnis, Speicherbeschränkung von Einzelprozessoren, Kommunikationsersparnis
+	\item \textbf{Nachrichtenaustausch}: Vollduplex, gleichzeitig eine Nachricht empfangen und versenden
+	\item Kein \textbf{Shared Memory Multicore-Modell}, da zu viel Unklarheit bzgl. Speicherzugriffskonflikte und Skalierbarkeit; verteilter Speicher deckt Smartphone bis Supercomputer, Cloud, P2P-Netze etc. einigermaßen kompetent ab
+	\item \textbf{Single Program Multiple Data (SPMD)}: Gleicher Pseudocode wie immer, Prozessorindex berechnet Symmetrie
+	\item \textbf{Laufzeitanalyse}: Zusätzlicher Parameter $p$, Bedeutung je nach Interpretation
+	\item \textbf{Brent's Prinzip}: Ineffiziente Algorithmen werden durch \textbf{Verringerung der Prozessorzahl effizient} (weniger ist mehr)
+	\item \textbf{Quicksort}:
+	\begin{itemize}
+		\item Einfache Parallelisierung: Parallelisiere jeden \textbf{rekursiven Aufruf} (speedup sehr begrenzt, schlecht für verteilten Speicher)
+		\item \textbf{Besser}: Aufteilung parallelisieren
+	\end{itemize}
+\end{itemize}

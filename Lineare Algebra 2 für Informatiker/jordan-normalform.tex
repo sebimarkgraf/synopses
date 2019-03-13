@@ -1,0 +1,71 @@
+\section{Jordan Normalform}%
+\label{jd:sec:jordan_normalform}
+
+Seien $A \in \realnumbers^{N\times N}$, $\lambda \in \realnumbers$.
+
+\subsection{Berechnung der Normalform}%
+\label{jd:sub:berechnung_der_normalform}
+
+\begin{itemize}
+	\item Berechnung des \textbf{charakteristischen Polynoms} $p_A(\lambda) = |A - \lambda I_N| = 0$
+	\item \textbf{Algebraische Vielfachheit} eines Eigenwerts $r_\lambda$: Potenz des Eigenwerts in $p_A(\lambda)$
+	\item \textbf{Geometrische Vielfachheit} eines Eigenwerts $d_\lambda$: Dimension des zugehörigen Eigenraums
+	\item Hauptdiagonale der Jordan-Normalform $J_A$ entspricht Eigenwerten in beliebiger Reihenfolge, jeder davon jeweils so oft wie $r_\lambda$ vorgibt
+	\item $d_\lambda$ gibt die Anzahl der Jordankästchen an
+	\item Falls die Anzahl der Jordankästchen keine eindeutige Form impliziert
+		\begin{enumerate}
+			\item Hauptraum bilden (Eigenraum verallgemeinern)
+			\item $q$ entspricht der Länge des längsten Jordankästchens
+			\item Ansonsten: Anzahl der Kästchen der Länge k = $dim K_k(\lambda) - dim K_{k - 1}(\lambda)$
+		\end{enumerate}
+\end{itemize}
+
+\subsection{Eigenräume verallgemeinern}%
+\label{jd:sub:eigenraeume_verallgemeinern}
+
+Annahme: Dimension des Eigenraums ist kleiner als die algebraische Vielfachheit. Für die Jordan-Normalform wird ein Eigenraum zum Hauptraum erweitert.
+\begin{itemize}
+	\item $K_k(\lambda) = ker(A - \lambda I_N)^k$, d.h. wir bilden $A - \lambda I_N$ jeweils $k$-mal auf sich selber ab und bilden den Kern für $K_k$; der Eigenraum selber entspricht somit $K_1(\lambda)$
+	\item Sobald $K_q(\lambda) = K_{k + 1}(\lambda)$ für ein $q \in \naturalnumbers$ heißt $K_q(\lambda)$ Hauptraum, danach ergeben sich keine neuen Änderungen mehr
+\end{itemize}
+
+\subsection{Minimalpolynom bestimmen}%
+\label{jd:sub:minimalpolynom_bestimmen}
+
+\begin{enumerate}
+	\item Charakteristisches Polynom bestimmen, Eigenwerte ablesen
+	\item Haupträume der Eigenwerte bestimmen
+	\item Exponenten des char. Polynoms anpassen für Minimalpolynom $m_A = (X - \lambda_1)^{q_1} ... (X - \lambda_n)^{q_n}$
+\end{enumerate}
+\textbf{Cayley-Hamilton}: $m_A(A) = 0$ und $m_A|p_A$
+
+\newpage
+\subsection{Jordan-Basis}%
+\label{jd:sub:jordan_basis}
+
+Ziel: Finden einer Matrix S, sodass $J_A = S^{-1} * A * S$
+\begin{itemize}
+	\item \textbf{Ansatz}: $S = (b_1 | b_2 | \dots | b_n)$ mit Basisvektoren $b_i, i = 1 \dots n$, bzgl. derer die Jordan-Normalform $J_A$ die Abbildungsmatrix von $\phi_A$ ist
+	\item \textbf{Vorgehen}:
+	\begin{enumerate}
+		\item Wähle für jedes Jordankästchen eines Jordanblocks einen Vektor $b_i$ (q sei der \textbf{Index des Hauptraumes}) $$b_i \in Kern(A - \lambda I)^q \setminus Kern(A - \lambda I)^{q-1}$$
+		\item Für die restlichen Plätze im Jordankästchen, \textbf{bilde} $b_i$ \textbf{immer wieder ab}: $$b_{j+1} = (A - \lambda I)b_j, j \in \naturalnumbers$$
+		\item Sobald dies für jedes Jordan-Kästchen erledigt ist, fülle S so mit den Basisvektoren, dass die Basisvektoren eines Kästchens an den \textbf{zugehörigen Stellen in S} stehen
+		\item \textbf{Achtung}: Die Richtung, in der die Basisvektoren für jedes Jordan-Kästchen eingefügt werden, ist davon abhängig, ob die $1$-Elemente der Nebendiagonalen \textbf{rechts oder links} von der Hauptdiagonalen stehen ($i \in \naturalnumbers$)
+		\begin{itemize}
+			\item Falls \textbf{rechts}: Fülle Kästchen von \textbf{rechts nach links} ($S = (\dots | b_{i+2} | b_{i+1} | b_{i} | \dots$)
+			\item Falls \textbf{links}: Fülle Kästchen von \textbf{links nach rechts} ($S = (\dots | b_{i} | b_{i+1} | b_{i+2} | \dots$)
+		\end{itemize}
+	\end{enumerate}
+\end{itemize}
+
+\subsection{Tricks \& Hinweise}%
+\label{jd:sub:tricks}
+
+\begin{itemize}
+	\item $dim(ker \phi)$ bzw. $dim(ker A)$ impliziert die Dimension des Eigenraumes zum Eigenwert 0
+	\item $Spur(A)$ = Summe der Eigenwerte mit Vielfachheit (z.B Eigenwert mit algebraischer Vielfachheit 2 zählt doppelt) bei diagonalisierbaren Matrizen (z.B bei einer Matrix aus $\complexnumbers$)
+	\item Zwei Matrizen sind genau dann ähnlich, wenn sie (bis auf die Reihenfolge der Jordanblöcke) dieselbe Jordan-Normalform besitzen
+	\item (Bei linearer Abbildung, für $A \in K^{N\times N}$:)\\Rang(A) = dim(Bild(A)) und damit dim(ker(A)) = N - dim(Bild(A)) = N - Rang(A)
+	\item Die Abbildung ist injektiv, wenn 0 kein Eigenwert ist
+\end{itemize}

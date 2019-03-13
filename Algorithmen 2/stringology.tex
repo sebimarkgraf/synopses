@@ -1,0 +1,89 @@
+\section{Stringology / Zeichenkettenalgorithmen}%
+\label{str:sec:stringology}
+
+\subsection{Sortierung}%
+\label{str:sub:sortierung}
+
+\begin{itemize}
+	\item \textbf{Eingabe}: n Strings mit N Zeichen insgesamt
+	\item \textbf{Ziel}: Sortierung der Strings; Strings mit gleichen Anfangsbuchstaben anhand des nächsten Buchstabens sortieren etc.
+	\item \textbf{Multikey Quicksort / Ternäres Quicksort}: Gegeben sei eine Menge an Strings und eine natürliche Zahl $l$
+	\begin{itemize}
+		\item Ist die übergebene Stringmenge höchstens von Kardinalität 1, gebe die Menge zurück
+		\item Wähle  ein Pivot-Element $p$
+		\item Berechne rekursiv ternäres Quicksort für alle Elemente die an der Stelle $l$ lexikographisch
+		\begin{enumerate}
+			\item vor $p[l]$ kommen, l bleibt gleich
+			\item $p[l]$ entsprechen, l wird inkrementiert
+			\item nach $p[l]$ kommen, l bleibt gleich
+		\end{enumerate}
+		\item Konkateniere die drei Sortierten Mengen für das Ergebnis
+	\end{itemize}
+	\item \textbf{MKG ohne Endzeichen}; Wie bisher, nur verschiebe vor jeder Rekursion alle Elemente der Länge $l$ in eine eigene Menge und konkateniere diese vorne an statt sie weiter mit zu sortieren
+	\item \textbf{Most Significant Digit Radix Sort}: Ähnliches Verhalten wie MKQ, aber partitioniert in $\sigma$ Teile statt 3, wobei $\sigma$ die Anzahl verschiedener vorkommender Buchstaben ist
+\end{itemize}
+
+\subsection{Pattern Matching}%
+\label{str:sub:pattern_matching}
+
+\begin{itemize}
+	\item \textbf{Eingabe}: String $T$ der Länge $n$, Pattern $P$ der Länge $m$
+	\item \textbf{Ziel}: Finde alle Vorkommen von $P$ in $T$
+	\item \textbf{Naiv}: Iteriere über $T$ bis ein Buchstabe dem Anfang von $T$ entspricht; \textbf{beginne Vergleiche} zu P bei der Iteration; sollte bis zum Ende von $P$ alles gleich sein, ist ein Treffer gefunden, ansonsten beginne erneut \textbf{eine Stelle nach} dem letzten begonnenen Vergleich
+	\item \textbf{Knuth-Morris-Pratt}:
+	\begin{itemize}
+		\item \textbf{Idee}: Setze nicht immer zurück zu einer Stelle nach dem letzten begonnenen Vergleich
+		\item \textbf{Verfahren}:
+		\begin{itemize}
+			\item \textbf{Präfixfunktion}: Erstelle \textbf{Border Array} der Länge $|P|$. Für T speichert das Border Array an Position $i$ die Länge des längsten Suffixes von T, das auch ein echtes Präfix von T ist.
+			\item \textbf{Matching}: Verfahren wie bisher, Änderung nur beim Zurücksetzen: springe anhand des \textbf{Border Arrays} bis zum ersten erneuten Vorkommen des Präfixes
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Invertierter Index}: Speichere für jedes Wort in einem Text eine Liste an Positionen
+	\newpage
+	\item \textbf{Volltextsuche}:
+	\begin{itemize}
+		\item Pattern-Matching in Text (String-Array) mittels \textbf{Suffix-Tabelle} (sortierte Tabelle aller Suffixe eines Wortes)
+		\item Binäre Suche (ggf. mit vorberechneten längsten gemeinsamen Präfixen)
+		\item Alternativ: \textbf{Suffix-Baum} (hoher Platzverbrauch, kompliziert, aber mächtig und erzeugt Ergebnisse in linearer Zeit; stattdessen eher Suffixtabellen bzw. \textbf{Suffix Arrays})
+	\end{itemize}
+	\item \textbf{Lexikographische Namen}: Rang eines Suffixes in einer sortierten Liste aller möglichen Suffixe
+\end{itemize}
+
+\subsection{Suffix Array Konstruktion}%
+\label{str:sub:suffix_array_konstruktion}
+
+\begin{itemize}
+	\item \textbf{Idee}: Sortiere separat alle geraden und ungeraden Suffixe und mische dann die sortierten Ergebnisse
+	\item \textbf{Problem}: Mischen ist zu schwer
+	\item \textbf{Lösung}: \textbf{Asymmetrisches Divide-and-Conquer}, sortiere alle Suffixe mit einer Länge die ein Vielfaches von 3 ist separat von allen anderen
+	\item \textbf{Klausur}: Suffix Array aus Suffix Tree \textbf{von Hand}: \textbf{Nummerierte Tabelle der Suffixe in lexikographischer Ordnung} aus dem Suffix Tree
+\end{itemize}
+
+\begin{enumerate}
+	\item Sortiere alle Suffixe, deren Länge kein Vielfaches von $3$ ist in die Menge $SA^{12}$
+	\begin{enumerate}
+		\item Lasse das erste Zeichen weg, bilde Dreiergruppen (fülle hinten mit $0$ auf), sortiere und übersetze in lexikographische Namen
+		\item Rekursion % TODO: Eigentliche Rekursion erklären
+		\item Übersetze lexikographische Namen wieder zu Suffixen
+	\end{enumerate}
+	\item Sortiere alle Suffixe, deren Länge ein Vielfaches von $3$ ist in die Menge $SA^0$ per LSD-Radix-Sort
+	\item Mische $SA^{12}$ und $SA^0$
+\end{enumerate}
+
+\subsection{Textkompression}%
+\label{str:sub:textkompression}
+
+\begin{itemize}
+	\item \textbf{Wörterbuchbasiert}: Baue Wörterbuch aus Zeichenkombinationen und ersetze Text durch kürzere Worte des Wörterbuchs
+	\item \textbf{Lempel-Ziv Kompression (LZ)}:
+	\begin{itemize}
+		\item Wörterbuchgenerierung bei Codierung und Decodierung ohne explizite Speicherung
+		\item \textbf{Verfahren}:
+		\begin{itemize}
+			\item Initialisiere den Anfang des Wörterbuches mit einem \textbf{grundlegendem Alphabet} (z.B einzelne Groß- und Kleinbuchstaben, sodass ein einzelnes a direkt kodiert werden kann)
+		 	\item Wähle den \textbf{längstmöglichen passenden Code} aus dem Wörterbuch, kodiere damit die entsprechenden Zeichen und speichere daraufhin den Code konkateniert mit dem nächsten folgenden Zeichen als \textbf{neues Wort im Wörterbuch}
+		 	\item \textbf{Beispiel}: Sei AA im Wörterbuch vorhanden, AAB nicht - kodiere das AA von AAB mit dem passenden Code und speichere AAB als neues Wort im Wörterbuch
+		 \end{itemize} 
+	\end{itemize}
+\end{itemize}

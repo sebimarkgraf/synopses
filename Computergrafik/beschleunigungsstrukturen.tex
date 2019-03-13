@@ -1,0 +1,109 @@
+\section{Räumliche Datenstrukturen / Beschleunigungsstrukturen}%
+\label{ds:sec:raeumliche_datenstrukturen_beschleunigungsstrukturen}
+
+\subsection{Motivation}%
+\label{ds:sub:motivation}
+
+\begin{itemize}
+	\item Raytracing ist aufwendiger Prozess, großer Optimierungsbedarf
+	\item Großer Teil der Geometrie in einer Szene wird von einem Strahl nicht getroffen
+	\item Nötige Intersektionstests sollen auf ein Minimum reduziert werden
+	\item \textbf{Idee}: Räumliche Datenstrukturen (Beschleunigungsstrukturen), mit denen Geometrie frühzeitig ignoriert werden kann
+	\item \textbf{Anmerkung}: Die Effizient einer bestimmten räumlichen Datenstruktur ist \textbf{immer szenenabhängig!}
+\end{itemize}
+
+\subsection{Bounding Volumes}%
+\label{ds:sub:bounding_volumes}
+
+\begin{itemize}
+	\item \textbf{Idee}: Umhülle komplexe Geometrie mit approximierender, simpler Geometrie; überprüfe umhüllte Geometrie \textbf{erst dann, wenn das Bounding Volume geschnitten wird}
+	\item \textbf{Vorteil}: Einfache Intersektionstests (vgl. Mesh aus tausenden Dreiecken vs. Würfel)
+	\item \textbf{Nachteil}: Nur grobe Approximation, manchmal false positives
+	\item Kugel
+	\begin{itemize}
+		\item meist unpassend, da zu groß
+	\end{itemize}
+	\item \textbf{Achsenparallele Box (axis-aligned bounding box, AABB)}
+	\begin{itemize}
+		\item Sehr einfache Intersektionsberechnung, 6 Ebenengleichungen (Kollision zwischen AABBs noch simpler über Achsen)
+		\item Muss bei Rotation des Objektes ggf. skaliert werden
+		\item Einfach optimierbar (auch: SIMD)
+		\item Standardoption
+	\end{itemize}
+	\item Orientierte Bounding Box (OBB)
+	\begin{itemize}
+		\item Aufwendiger als AABBs
+		\item Besser approximierend, da nicht achsenorientiert
+	\end{itemize}
+	\item Slabs
+\end{itemize}
+
+\newpage
+\subsection{Bounding Volume Hierarchies}%
+\label{ds:sub:bounding_volume_hierarchies}
+
+\begin{itemize}
+	\item \textbf{Idee}: Baue Hierarchie von Bounding Volumes (umhülle Bounding Volumes mit Bounding Volumes) für weitere Approximation; wird ein Volumen geschnitten, so prüft man daraufhin alle Kindvolumen etc.
+	\item \textbf{Vorteil}: Adaptivität, noch schnellere Suche, leicht zu traversieren und konstruieren
+	\item \textbf{Nachteil}: Unterteilung muss sinnvoll gewählt sein, Overhead von zusätzlichen Bounding Volumes summiert sich auf
+	\item \textbf{Aufbaustrategie}: Umhülle alle Objekte mit einem Bounding Volume und teile dieses dann rekursiv auf
+	\item \textbf{Unterteilungskriterien}:
+	\begin{itemize}
+		\item Mittiges Unterteilen an der Achse mit der größten Ausdehnung
+		\item Rotation durch Achsen (unterteile entlang x, dann y, dann z, dann x ...)
+		\item Objektzahl in beiden Child-Volumes gleich groß halten
+		\item Szenengraph bzw. Modellhierarchie verwenden
+		\item Minimieren einer Kostenfunktion (z.B Surface Area Heuristic)
+	\end{itemize}
+\end{itemize}
+
+\subsection{Reguläre Gitter}%
+\label{ds:sub:regulaere_gitter}
+
+\begin{itemize}
+	\item \textbf{Idee}: Statt einzelnen Volumen um Geometrie, unterteile kompletten Raum in gleich große Zellen (quasi AABBs); Objekte über mehrere Zellen hinweg werden in jeder dieser Zellen eingetragen
+	\item \textbf{Vorteil}: Sehr simpel, einfach zu konstruieren und traversieren, gut geeignet für Szenen mit gleichmäßig verteilter Geometrie
+	\item \textbf{Nachteil}: Richtige Gittergröße ggf. schwer zu finden, ungeeignet für komplexe Szenen mit viel Geometrie in wenigen Zellen, nicht adaptiv
+	\item \textbf{Mailboxing}: Vermeidung von mehreren Schnitttests mit demselben Objekt, welches sich über mehrere Zellen erstreckt, durch Markieren des Objektes als getestet; Schnittpunkt wird gespeichert
+\end{itemize}
+
+\subsection{Octrees}%
+\label{ds:sub:octrees}
+
+\begin{itemize}
+	\item \textbf{Idee}: Adaptive Gitter; baue reguläres Gitter und unterteile Zellen rekursiv, falls zu viele Primitive enthalten sind (Unterteilung in gleich große Achtelblöcke in 3D, in Viererblöcke in 2D für einen Quadtree)
+	\item \textbf{Vorteil}: Adaptiv, feine Unterteilung nur dort wo die Geometrie ist, leicht zu konstruieren und traversieren
+	\item \textbf{Nachteil}: Häufige Vertikalbewegung (auf und ab in der Hierarchie), Traversierungskosten zweier Strahlen können stark variieren (Problem bei Parallelität)
+\end{itemize}
+
+\subsection{BSP-trees / kd-trees}%
+\label{ds:sub:bsp_trees_kd_trees}
+
+\begin{itemize}
+	\item \textbf{Idee}: Rekursives binäres Unterteilen des Raumes durch Ebenen (k-dimensionale Binärbäume, kd-trees)
+	\item \textbf{Unterschied}: Binary-Space-Partitioning-Trees (BSP-trees) verwenden beliebig orientierte Ebenen, kd-Bäume sind ein Spezialfall mit Ebenen senkrecht zur x-, y- oder z-Achse; kd-trees werden öfter genutzt, da BSPs aufgrund des größeren Suchraums für Teilungsebenen \textbf{schwerer zu konstruieren} sind
+	\item \textbf{Aufbaustrategie}: Initialisiere Wurzelknoten um alle Objekte, unterteile dann rekursiv bis Unterteilungskriterium erfüllt
+	\begin{itemize}
+		\item Primitivenzahl unterschreitet Threshold
+		\item Feste maximale Rekursionstiefe ist erreicht
+	\end{itemize}
+	\item \textbf{Kriterien für die Position der Teilungsebene}:
+	\begin{itemize}
+		\item Räumliches Mittel (\textbf{spatial median}) entlang der Achse mit der größten Ausdehnung \textbf{oder} rotierend x, dann y, dann z, dann wieder x etc.
+		\item Objektmittel (\textbf{object median}): Primitivzahl in beiden Kindknoten soll sich höchstens um 1 unterscheiden
+		\item Kostenfunktion (z.B \textbf{Surface Area Heuristic}): Unterteilung nach Oberfläche der Primitiven
+	\end{itemize}
+	\item \textbf{Vorteil}: Adaptiv, leicht zu traversieren, manchmal performanter als BVHs
+	\item \textbf{Nachteil}: Konstruktion aufwendig
+\end{itemize}
+
+\subsection{Praktische Anwendung}%
+\label{ds:sub:praktische_anwendung}
+
+\begin{itemize}
+	\item Oftmals \textbf{Kombination} von verschiedenen Beschleunigungstechniken (z.B kd-trees mit BVHs)
+	\item BVHs sehr gut für Szenen die sich \textbf{bewegen} (Alternativen nicht adaptiv genug oder müssen für gute Approximation oft neu generiert werden)
+	\item kd-tree wird BSP-tree oft vorgezogen, da Konstruktionskosten den möglichen Performancegewinn selten rechtfertigen
+	\item Gitter eher selten, hierarchische Gitter und Octrees eher für Simulationen
+	\item \textbf{Anmerkung}: Auch Verwendung \textbf{abseits von Beschleunigung} für Raytracing, z.B Culling, Sortierung, 3D Texturen, Physiksimulation, Robotik
+\end{itemize}

@@ -4,8 +4,10 @@
 %%% TeX-master: "robotik"
 %%% End:
 
-\section{Kinematik}
-\subsection{Kinematisches Modell}
+\section{Kinematik}%
+\label{kin:sec:kinematik}
+\subsection{Kinematisches Modell}%
+\label{kin:sub:kinematisches-modell}
 Beschreibt die Zusammenhänge zwsichen dem Raum der Gelenkwinkel und dem Raum der Lage des Endeffektors in
 Weltkoordinaten.\\
 
@@ -15,7 +17,8 @@ Bestimme Endeffektor Position aus Winkeln.\\
 \textbf{Inverse Kinematik}\\
 Bestimme Winkel zu gewünschter Position.\\
 
-\subsubsection{Kinematische Kette}
+\subsubsection{Kinematische Kette}%
+\label{kin:ssub:kinematische-kette}
 Wird von mehreren Körpern gebildet, die durch Gelenke kinematisch verbunden sind.\\
 Mit allen Endpunkten fest \(\rightarrow\) geschlossen, sonst offen.\\
 
@@ -29,7 +32,8 @@ Mit allen Endpunkten fest \(\rightarrow\) geschlossen, sonst offen.\\
 \textbf{Kinematische Parameter}\\
 Jedes Glied 3 Rotations- und 3 Translationsparameter \(\rightarrow\) 6 Parameter pro Glied.
 
-\subsubsection{Denavit-Hartenberg (DH) Konvention}
+\subsubsection{Denavit-Hartenberg (DH) Konvention}%
+\label{kin:ssub:denavit-hartenberg}
 Koordinatensystem bestimmen durch
 \begin{enumerate}
 \item \(z_{i-1}\)-Achse liegt entlang der Bewegungsachse des \(i\)-ten Gelenks.
@@ -41,7 +45,8 @@ Koordinatensystem bestimmen durch
 \item Gelenkwinkel \(\theta_i\) ist Winkel von \(x_{i-1}\) zu \(x_i\) um \(z_{i-1}\)
 \end{enumerate}
 
-\subsubsection{Direktes Kinematisches Problem}
+\subsubsection{Direktes Kinematisches Problem}%
+\label{kin:ssub:direktes-problem}
 Bestimme aus DH-Parametern \& Gelenkwinkeln die Stellung des Endeffektors.
 \[S_{\mathit{Basis},\ \mathit{Greifer}} = A_{0,1}(\theta_1) \cdot A_{1,2}(\theta_2) \cdot \ldots
   \cdot A_{n-2,n-1}(\theta_{n-1}) \cdot A_{n-1, n}(\theta_n)\]
@@ -52,7 +57,8 @@ Die Jacobi-Matrix setzt kartesische End-Effektor-Geschwindigkeiten in Relation z
 Die Jacobi-Matrix setzt Kräfte und Momente am End-Effektor in Relation zu Drehmomenten in den Gelenken
 \[\tau(t) = J_f^T(\theta(t)) \cdot F(t)\]
 
-\subsubsection{Singularitäten}
+\subsubsection{Singularitäten}%
+\label{kin:ssub:singularitaeten}
 Singuläre Konfiguration liegt vor, wenn die Jacobi-Matrix nicht vollen Rang hat.\\
 Dann ist sie nicht invertierbar und damit bestimmte Bewegungen unmöglich. Ggf. große Gelenkgeschwindigkeiten
 für End-Effektor-Geschwindigkeit notwendig.\\
@@ -67,10 +73,12 @@ Daraus Maße:
 \item Determinante \(\mu_3(\theta) = \det A(\theta)\)
 \end{itemize}
 
-\subsubsection{Erreichbarkeit}
+\subsubsection{Erreichbarkeit}%
+\label{kin:ssub:erreichbarkeit}
 Durch offline Abtastung in Gitter. Ermöglicht schnell Griff- oder andere Erreichbarkeitsanalysen durchzuführen.
 
-\subsection{Geometrisches Modell}
+\subsection{Geometrisches Modell}%
+\label{kin:sub:geometrisches-modell}
 Zur Kollisions- / Abstands- / Kraftbestimmung\\
 Zur Darstellung von Körpern.\\
 

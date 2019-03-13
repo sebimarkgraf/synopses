@@ -4,9 +4,11 @@
 %%% TeX-master: "robotik"
 %%% End:
 
-\section{Mathematische Grundlagen}
+\section{Mathematische Grundlagen}%
+\label{math:sec:mathematische-grundlagen}
 
-\subsection{Definitionen}
+\subsection{Definitionen}%
+\label{math:sub:definitionen}
 \textbf{Kinematik}\\
 Analysiert die Geometrie eines Manipulators oder Roboters. Das essentielle Konzept ist die Position.\\
 
@@ -25,16 +27,19 @@ Ist ein Satz an Gliedern die durch Gelenke verbunden sind.\\
 Ist eine Anzahl unabhängiger Parameter, die zur kompletten Spezifikation der Position eines
 Mechanismus/Objekts benötigt werden. (degrees of freededom DoF)
 
-\subsection{\SO und \SE}
+\subsection{\SO und \SE}%
+\label{math:sub:so-se}
 \SO{} ist die Spezielle Orthogonale Gruppe und repräsentiert Rotationen.\\
 Elemente: 3\(\times\)3 Matrizen und \(R^{T}R = I\ \text{mit}\ \det(R) = 1\)\\
 \SE{} ist die Spezielle Euklidische Gruppe und repräsentiert Bewegungen von Starrkörpern.\\
 Elemente: \((p, R)\ \text{mit}\ p \in \realnumbers^3\ \text{und}\ R \in \SO\)
 
-\subsection{Euklidischer Raum}
+\subsection{Euklidischer Raum}%
+\label{math:sub:euklidischer-raum}
 Ist der Vektorraum \(\realnumbers^3\) mit dem Standardskalarprodukt.
 
-\subsection{Koordinatensysteme}
+\subsection{Koordinatensysteme}%
+\label{math:sub:koordinatensysteme}
 Es existieren rechtsdrehende und linksdrehende Koordinatensysteme. Lässt sich einfach mit der rechten-Hand-Regel herausfinden:
 \begin{itemize}
   \item Daumen in z-Richtung
@@ -51,14 +56,16 @@ Es existieren rechtsdrehende und linksdrehende Koordinatensysteme. Lässt sich e
   \item SKS:\@ Sensorkoordinatensystem
 \end{itemize}
 
-\subsection{Lineare Abbildungen}
+\subsection{Lineare Abbildungen}%
+\label{math:sub:lineare-abbildungen}
 \textbf{Endomorphismus}\\
 Lineare Abbildung des euklidischen Raums auf sich selbst\\
 
 \textbf{Isomorhpismus}\\
 Bijektive Endomorphismen. Spezielle Art von Isomorphismus ist \SO{}
 
-\subsection{Rotation}
+\subsection{Rotation}%
+\label{math:sub:rotation}
 \textbf{in 2D}\\
 Abbildung mit Matrix \(R_\alpha(x) = \begin{pmatrix} \cos \alpha & -\sin\alpha \\ \sin \alpha & \cos \alpha\end{pmatrix}\)
 Ist nur eine lineare Transformation wenn um \(c=(0,0)\) rotiert wird.\\
@@ -73,7 +80,8 @@ Angabe als \({}^{\text{Nach}}T_{\text{Von}}\)\\
 \textbf{in 3D}\\
 Rotationen um Achsen identisch mit 2D Fall + eine weitere 1.
 
-\subsection{Rotations Operationen}
+\subsection{Rotations Operationen}%
+\label{math:sub:rotations-operationen}
 \textbf{Inverse}\\
 Inverse wird durch transponieren der Rotationsmatrix erreicht. \(R^{-1} = R^T\)\\
 
@@ -85,7 +93,8 @@ Lesen von rechts nach links: Rotation um globale Achsen\\
 \textbf{Probleme mit Rotationsmatrizen}\\
 Redundanz und keine einfache Erzeugung durch maschinelles Lernen
 
-\subsection{Eulerwinkel}
+\subsection{Eulerwinkel}%
+\label{math:sub:eulerwinkel}
 Lege Rotation um Achsen fest. In \textbf{Euler-Konvention} \(z, x', z''\).
 Gebe Rotation in Winkeln \(\alpha, \beta\) und \(\gamma\) an.
 \[ R_s = R_z R_{x'} R_{z''}\]
@@ -104,7 +113,8 @@ Kann zum Gimbal Lock führen.\\
 Verlust eines Freiheitsgrades, da bei bestimmten Winkeln 2 Achsen voneinaner abhängig werden.
 
 
-\subsection{Affine Transformationen}
+\subsection{Affine Transformationen}%
+\label{math:sub:affine-transformationen}
 Affiner Raum ist Erweiterung des euklidischen Raums.
 \begin{equation}
   b = Ax + t
@@ -121,7 +131,8 @@ Kombiniere Translation und Rotation in einer Matrix. Dann Standardmatrix:
 \item Schwierige Interpolation
 \end{itemize}
 
-\subsection{Quaternionen}
+\subsection{Quaternionen}%
+\label{math:sub:quaternionen}
 Erweiterung der komplexen Zahlen \complexnumbers{} durch William Rowan Hamilton.\\
 Menge der Quaternionen \quaternionen{} als \( \quaternionen = \complexnumbers + \complexnumbers j\)\\
 Also ist ein Quaterionen \(q \in \quaternionen\) durch \(q = \myVector{a \\ u} = a + u_1 i + u_2 j + u_3 k\) 

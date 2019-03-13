@@ -1,0 +1,21 @@
+\section{Fixed-Parameter Algorithms}%
+\label{fpa:sec:fixed_parameter_algorithms}
+
+\begin{itemize}
+	\item \textbf{Beobachtung}: Für \textbf{einfache Instanzen NP-schwerer Probleme} lassen sich u.U. exakte Lösungen finden
+	\item \textbf{Einfachheit}: Charakterisierung eines Problems anhand eines weiteren Parameters \textbf{k (Ausgabegröße)}
+	\item \textbf{Fixed Parameter Tractable (FPT)}: Menge berechenbarer Sprachen bzgl. Parameter $k$, für die ein Algorithmus mit Laufzeit $O(f(k) * p(n))$ existiert, wobei \textbf{f eine Funktion ist die nur von k abhängt und p ein Polynom}
+	\item \textbf{Entwurfstechniken zur Algorithmenentwicklung anhand von Vertex Cover}:
+	\begin{itemize}
+		\item \textbf{Systematische Suche mit beschränkter Tiefe}:
+	 	\begin{itemize}
+	 		\item Wähle \textbf{beliebige Kante} und füge beliebige Kanten aus dem Graph ohne die erste Kante hinzu, bis die \textbf{Maximaltiefe} erreicht oder \textbf{keine Kante mehr verfügbar} ist
+	 	\end{itemize}
+	 	\item \textbf{Kernbildung}: Reduzieren des Problems auf Größe $O(f(k))$
+	 	\begin{itemize}
+	 		\item \textbf{Beobachtung}: $\forall v \in V: degree(v) > k \Rightarrow v \in$ Lösung $\lor$ unlösbar
+	 		\item \textbf{Erzeugen des Kerns}: Entferne solang Knoten $v$ mit $degree(v) > k$ und dekrementiere $k$ bis keine mehr existieren oder $k = 0$, entferne die isolierten Knoten
+	 		\item Hat der Kern mehr Kanten als $k^2$, so existiert keine Lösung, ansonsten nutze die oben beschriebene \textbf{Tiefensuche} auf dem neuen Graph für die Lösung
+	 	\end{itemize}
+	 \end{itemize} 
+\end{itemize}

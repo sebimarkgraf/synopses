@@ -1,0 +1,35 @@
+\section{Approximation Algorithms}%
+\label{aa:sec:approximation_algorithms}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Näherungsweises Lösen von NP-schweren Problemen (fast alle interessanten Optimierungsprobleme sind NP-schwer)
+	\item \textbf{Lösungsansätze}: Spezialisierung des Problems, Heuristiken, Approximationsalgorithmen
+	\item \textbf{Approximationsfaktor}: Obere Schranke $\rho$ für das Verhältnis von gefundener Lösung zu optimaler Lösung bei beliebiger Eingabe (\quotestyle{Güte})
+	\item \textbf{APX (\quotestyle{approximable})}: Approximationsalgorithmus, der in \textbf{polynomieller Zeit} in der Eingabegröße eine Approximation mit \textbf{konstantem Approximationsfaktor} berechnet
+	\item \textbf{PTAS (\quotestyle{polynomial time approximation scheme})}: Approximationsalgorithmus, der eine $(1 \pm \epsilon)$-Approximation in \textbf{polynomieller Zeit} in der Eingabegröße berechnet
+	\item \textbf{FPTAS (\quotestyle{fully PTAS})}: PTAS Algorithmus, welcher zusätzlich \textbf{polynomiell} in $\frac{1}{\epsilon}$ ist
+	\item Jeder \textbf{FPTAS} Algorithmus ist ein \textbf{PTAS} Algorithmus ist ein \textbf{APX} Algorithmus!
+\end{itemize}
+
+\subsection{List Scheduling}%
+\label{aa:sub:list_scheduling}
+
+\begin{itemize}
+	\item Teile Problem in \textbf{unabhängige, gewichtete Jobs} und führe diese auf parallelen Maschinen aus
+	\item \textbf{List Scheduling}: Liste an Jobs, Maschine wählt einen aus und streicht diesen von der Liste, berechnet das Ergebnis und wiederholt dies, bis die Liste leer ist
+\end{itemize}
+
+\subsection{Nichtapproximierbarkeit}%
+\label{aa:sub:nichtapproximierbarkeit}
+
+\begin{itemize}
+	\item \textbf{Es ist NP-schwer das Traveling-Salesman-Problem (TSP) innerhalb irgendeines Faktors a zu approximieren}
+	\item Beweis: Transformation von Hamilton-Kreis-Problem zu a-Approximation von TSP
+\end{itemize}
+
+\subsection{Pseudopolynomielle Algorithmen}%
+\label{aa:sub:pseudopolynomielle_algorithmen}
+
+\begin{itemize}
+	\item Ein pseudopolynomieller Algorithmus ist \textbf{polynomiell} bei \textbf{unär kodierten Eingaben}
+\end{itemize}

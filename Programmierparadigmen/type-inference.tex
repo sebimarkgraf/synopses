@@ -4,9 +4,11 @@
 %%% TeX-master: "propa"
 %%% End:
 
-\section{Typinferenz}
+\section{Typinferenz}%
+\label{inf:sec:typinferenz}
 
-\subsection{Problem}
+\subsection{Problem}%
+\label{inf:sub:problem}
 \textit{Gegeben}: Term \(t\) mit freien Variablen \(x_1, x_2, \ldots\) und Annahmen \(\Gamma = x_1 : \tau_1, x_2 : \tau_2, \ldots\)\\
 \textit{Gesucht}: \(\tau\), so dass \(\Gamma \vdash t: \tau\) (Typisierung des Terms)
 
@@ -14,14 +16,16 @@
 
 \textit{Typinferenz}: Finde \(\tau\) und Substitution \(\sigma\), so dass \(\sigma \Gamma \vdash t: \tau\)
 
-\subsection{Typ-Substitution}
+\subsection{Typ-Substitution}%
+\label{inf:sub:substitution}
 Ist eine endliche Abbildung von Typvariablen auf Typen.\\
 Die Substitutionen werden alle gleichzeitig angewandt, also müssen alle Substitutionen bis zur endgültigen Form
 ausgeschrieben sein.\\
 Beispiel: \(\sigma = [\alpha_1 \Rightarrow \text{bool}, \alpha_2 \Rightarrow \alpha_1 \rightarrow \alpha_1]\)\\
 Eine Ergänzung auf \([\ldots, \alpha_3 \Rightarrow \alpha_1]\) wäre demnach nicht korrekt.
 
-\subsection{Typinferenz mit Constraints}
+\subsection{Typinferenz mit Constraints}%
+\label{inf:sub:constraints}
 \begin{enumerate}
   \item Erstelle Herleitungsbaum. Verwende immer frische Typvariablen \(\alpha_i\)
   \item Stelle Constraints \(C\) für die \(\alpha_i\) auf
@@ -31,6 +35,7 @@ Eine Ergänzung auf \([\ldots, \alpha_3 \Rightarrow \alpha_1]\) wäre demnach ni
 Die Lösung ist dann durch \(\sigma, \tau\) für \((\Gamma, t)\) gegeben.
 % TODO: Add Let-Polymorphismus
 
-\subsection{Implementierung in Prolog}
+\subsection{Implementierung in Prolog}%
+\label{inf:sub:prolog}
 Constraints \(C\) werden implizit durch Prolog-Unifikator dargestellt.
 Implementierung in Foliensatz 40\_Typinferenz auf Seite 330ff

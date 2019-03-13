@@ -4,12 +4,14 @@
 %%% TeX-master: "robotik"
 %%% End:
 
-\section{Roboterprogrammierung}
+\section{Roboterprogrammierung}%
+\label{prog:sec:roboterprogrammierung}
 Komplexe Umgebung \& viele Bewegungsfreiheitsgrade \(\rightarrow\) Programmierung?\\
 Klassische Roboterprogrammierung erfordert Experten + hohen Aufwand\\
 Besser: interaktiv oder durch beobachten des Menschen
 
-\subsection{Klassische Verfahren}
+\subsection{Klassische Verfahren}%
+\label{prog:sub:klassische-verfahren}
 \textbf{Kategorien}\\
 \begin{tabular}{lcc}
   Ort & on-line & off-line\\
@@ -27,7 +29,8 @@ Besser: interaktiv oder durch beobachten des Menschen
 \item gemischte
 \end{itemize}
 
-\subsubsection{Direkte}
+\subsubsection{Direkte}%
+\label{prog:ssub:direkte}
 \textbf{Direkte Programmierung}\\
 Durch Stopper an den Gelenkwinkeln \enquote{Bang-Bang}\\
 
@@ -44,19 +47,23 @@ Programmierung schwerer Roboter durch bewegen eines kleineren Roboters \(\righta
 Erfassen der Werksstücke oder anzufahrender Punkte
 
 
-\subsubsection{Textuelle}
+\subsubsection{Textuelle}%
+\label{prog:ssub:textuelle}
 Programmierung mittels erweiterter höherer Programmiersprachen wie PASRO, VAl, V+
 
 
-\subsubsection{Hybride Verfahren}
+\subsubsection{Hybride Verfahren}%
+\label{prog:ssub:hybride-verfahren}
 Graphische Programmierung basierend auf sensorieller Erfassung der Benutzervorführung \(\rightarrow\) Simulation
 
 
-\subsubsection{Graphische Programmierung}
+\subsubsection{Graphische Programmierung}%
+\label{prog:ssub:graphische-programmierung}
 Virtuelles Teach-in oder graphische Modellierung
 
 
-\subsection{Statecharts}
+\subsection{Statecharts}%
+\label{prog:sub:statecharts}
 Graphischer Formalismus zum Entwurf komplexer Systeme\\
 States mit hierarchischer, nacheinander, parallel Ausführung.\\
 Original: Kein Datenfluss\\
@@ -67,7 +74,8 @@ Keine Inter-level Transitionen\\
 Erfolgs- und MIsserfolgszustände in jedem Zustand
 
 
-\subsection{Symbolische Planung}
+\subsection{Symbolische Planung}%
+\label{prog:sub:symbolische-planung}
 Repräsentation des Weltzustandes durch Booleschen Prädikten um Aktionssequenzen zu planen.\\
 
 \textbf{STRIPS}\\ 

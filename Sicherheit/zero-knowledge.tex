@@ -1,0 +1,29 @@
+\section{Zero-Knowledge}%
+\label{zn:sec:zero-knowledge}
+
+\subsection{Definition}%
+\label{zn:sub:definition}
+\textbf{Ununterscheidbarkeit}\\
+Die Verteilungen \(X\) und \(Y\) sind ununterscheidbar, falls für alle PPT-Angreifer
+\(\mathcal{A}\) die Differenz
+\(\Pr_{x \leftarrow X}[\mathcal{A}(1^k, x) = 1] - \Pr_{y \leftarrow Y}[\mathcal{A}(1^k, y) = 1]\)
+vernachlässigbar (in \(k\)) ist.\\
+\textbf{Zero-Knowledge}\\
+Das PK-Identifikationsprotokoll \((\mathbf{Gen}, \mathbf{P}, \mathbf{V})\) ist Zero-Knowledge, falls für alle
+PPT-Angreife \(\mathcal{A}\) ein PPT-Simulator \(\mathcal{S}\) exisitiert, sodass die Verteilungen\\
+\begin{center}
+  \((\mathit{pk}, \langle\mathcal{P}(\mathit{sk}),\mathcal{A}(1^k, \mathit{pk})\rangle)\)
+  und
+  \((\mathit{pk}, \mathcal{S}(1^k, \mathit{pk}))\)
+\end{center}
+ununterscheidbar sind (wobei \(\mathit{pk}, \mathit{sk}\) von \(\mathbf{Gen}(1^k)\) erzeugt wurde).
+
+\subsection{Commitments}%
+\label{zn:sub:commitments}
+\textbf{Eigenschaften}
+\begin{itemize}
+\item \textit{hiding} - \(\textsc{Com}(M; R)\) verrät zunächst keinerlei Informationen über M
+\item \textit{binding} - \(\textsc{Com}(M; R)\) legt den Ersteller des Commitment auf \(M\) fest, d.h.
+  der Ersteller der Nachricht kann später nicht glaubhaft behaupten, dass \(M' \neq M\) zur Erstellung
+  Commitment
+\end{itemize}

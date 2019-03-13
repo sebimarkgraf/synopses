@@ -1,0 +1,32 @@
+\section{Iterationsverfahren für lineare Gleichungssysteme}%
+\label{itl:sec:iterationsverfahren}
+\textbf{Ziel}:\\Iteratives Lösen eines linearen Gleichungssystems.\\\\
+\textbf{Anwendung}:\\Graphentheorie z.B zur Bisektion eines Graphen, Berechnung der Auslenkung einer Membran unter einer bestimmten Last in der Technik.
+\subsection{Jacobi-Verfahren (Gesamtschrittverfahren)}%
+\label{itl:sub:jacobi-verfahren}
+\textbf{Idee}:\\Approximiere die Lösung $x \in \realnumbers^N$. Wähle x dazu beliebig und setze einen Schwellenwert $\epsilon > 0$ sowie $k = 0$. Solange $|Ax - b|_2 > \epsilon$, berechne
+\begin{center}
+	$x^{k+1}_m = (b_m - \sum_{n \neq m}^{} A[m, n]x_n^k) / A[m, m]$ für $m = 1, ..., N$
+\end{center}
+und erhöhe k um 1. Erweitert man diesen Algorithmus mit der Idee, dass die $x_n$ bei der Berechnung von $x_m$ schon bekannt sind, falls $n < m$, so erhält man das Einzelschrittverfahren.
+\subsection{Gauß-Seidel-Verfahren (Einzelschrittverfahren)}%
+\label{itl:sub:gauss-seidel-verfahren}
+Vergleiche Jacobi-Verfahren und ändere die Formel für die nächstbeste Approximation von x zu:
+\begin{center}
+	$x^{k+1}_m = (b_m - \sum_{n = 1}^{m - 1}A[m, n]x^{k+1}_n - \sum_{k = m + 1}^{N}A[m, n]x_n^k) / A[m, m]$ für $m = 1, ..., N$
+\end{center}
+
+\subsection{Iterationsmatrizen}%
+\label{itl:sub:iterationsmatrizen}
+Iterationsverfahren können für Beweise bzgl. des Konvergenzverhaltens in Matrixform geschrieben werden. Hierzu zerteilen wir A in eine \textbf{strikte untere linke Dreiecksmatrix} $L$, eine \textbf{strikte obere rechte Dreiecksmatrix} $R$ und eine \textbf{Diagonalmatrix} $D$ mit $$A = L + D + R$$
+Die einzelnen Verfahren besitzen \textbf{Vorkonditionierer B} und damit \textbf{Iterationsmatrizen T}.\\\\
+
+\noindent\textbf{Für das Jacobi-Verfahren gilt}:
+$$B = D^{-1}, T = D^{-1}(D - A)$$$$x^{k+1} = x^k + D^{-1}(b - Ax^k)$$
+
+\noindent\textbf{Für das Gauß-Seidel-Verfahren gilt damit}:
+$$B = (D + L)^{-1}, T = -(D + L)^{-1}R$$$$x^{k+1} = x^k + (D + L)^{-1}(b - Ax^k)$$
+
+\subsection{Konvergenz}%
+\label{itl:sub:konvergenz}
+Das Iterationsverfahren konvergiert genau dann für jeden Startvektor $x_0$, falls der Spektralradius (betragsmäßig größter Eigenwert) der Iterationsmatrix kleiner als 1 ist.

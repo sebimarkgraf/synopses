@@ -1,0 +1,59 @@
+\section{Depth-First-Search (DFS, Tiefensuche)}%
+\label{dfs:sec:depth_first_search}
+
+\begin{itemize}
+	\item \textbf{Idee}: Verfolge einen einzelnen Pfad vollständig, bevor abzweigende Pfade betrachtet werden (statt direkt alle benachbarten Knoten zu beschreiten)
+	\item \textbf{Vorgehen}:
+	\begin{enumerate}
+		\item Initialisiere alle Knoten als nicht markiert
+		\item Für alle Startknoten: Markiere den Startknoten und benutze ihn als Wurzel für einen neuen Tiefensuche-Baum; starte die Tiefensuche
+		\item \textbf{Tiefensuche}: Verfolge die erstbeste Kante, markiere ggf. den Zielknoten der Kante und beginne die Tiefensuche von dort erneut; sobald es keine Kanten mehr gibt, nutze \textbf{Backtracking} bis es wieder passende Kanten gibt
+	\end{enumerate}
+	\item \textbf{Übliche Funktionen}:
+	\begin{itemize}
+		\item \texttt{init} zur Initialisierung
+		\item \texttt{root(s)} zur Erstellung eines neuen Tiefensuche-Baumes
+		\item \texttt{traverseNonTreeEdge(v,w)} beim Traversieren zu einem bereits markierten Knoten, ansonsten \texttt{traverseTreeEdge(v,w)}
+		\item \texttt{backtrack(u,v)} für Backtracking
+	\end{itemize}
+\end{itemize}
+
+\subsection{Starke Zusammenhangskomponenten}%
+\label{dfs:sub:starke_zusammenhangskomponenten}
+
+\begin{itemize}
+	\item \textbf{Beobachtung}: Es existiert eine Äquivalenzrelation, deren Äquivalenzklassen alle Knoten sind, die paarweise direkt oder indirekt über Kanten erreichbar sind
+	\begin{center}
+		\textit{\quotestyle{Kommt man irgendwie von A nach B und von B nach A, so sind A und B in derselben Äquivalenzklasse.}}
+	\end{center}
+	\item Die Äquivalenzklassen werden als \textbf{starke Zusammenhangskomponenten (strongly connected components, SCCs)} bezeichnet
+	\item \textbf{Schrumpfgraph}: Graph, der die SCCs seines Supergraphs als Knoten zusammenfasst. Wir beobachten:
+	\begin{itemize}
+		\item Schrumpfgraphen sind \textbf{azyklisch}
+		\item Hinzufügen einer neuen Kante \textbf{innerhalb eines SCCs}:\\$\Rightarrow$ Schrumpfgraph unverändert
+		\item Hinzufügen einer neuen Kante \textbf{zwischen zwei SCCs}, die \textbf{keinen} Kreis erzeugt:\\$\Rightarrow$ \textbf{neue Kante im Schrumpfgraph}
+		\item Hinzufügen einer neuen Kante \textbf{zwischen zwei SCCs}, die \textbf{einen} Kreis erzeugt:\\$\Rightarrow$ SCCs auf dem Kreis \textbf{kollabieren}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Bestimmung starker Zusammenhangskomponenten über DFS}%
+\label{dfs:sub:bestimmung_starker_zusammenhangskomponenten_ueber_dfs}
+
+\textbf{Definitionen}:
+\begin{itemize}
+	\item $V_C$ sind die \textbf{markierten Knoten}, $E_C$ sind die \textbf{bisher explorierten Kanten}
+	\item Unmarkierte Knoten gelten als \textbf{nicht erreicht}
+	\item \textbf{Offene Komponenten} haben aktive Knoten, andernfalls gelten diese als \textbf{abgeschlossen}
+	\item \texttt{component[w]} gibt Repräsentanten einer SCC an
+	\item \texttt{oReps} ist ein Stapel von Repräsentanten offener Komponenten
+	\item \texttt{oNodes} ist ein Stapel aller offenen Knoten
+\end{itemize}
+\textbf{Vorgehen bei der Tiefensuche}:
+\begin{enumerate}
+	\item \textbf{Initialisierung}:\\\texttt{oReps}, \texttt{oNodes} und das \texttt{component}-Array werden geleert
+	\item \textbf{Festlegen einer neuen Wurzel - root(s)}:\\Schiebe die neue Wurzel auf die \texttt{oReps} und \texttt{oNodes} Stapel
+	\item \textbf{Traversieren zu einem nicht-markierten Knoten - traverseTreeEdge(v,w)}:\\Schiebe den Zielknoten $w$ auf die \texttt{oReps} und \texttt{oNodes} Stapel
+	\item \textbf{Traversieren zu einem markierten Knoten - traverseTreeEdge(v,w)}:\\Falls der Zielknoten $w$ nicht in \texttt{oNodes} liegt, passiert nichts. Falls doch, entferne per \texttt{pop} alle Stapelelemente von \texttt{oReps} bis das oberste Element nicht mehr äquivalent zu $w$ ist
+	\item \textbf{Backtracking - backtrack(u,v)}:\\Falls der Zielknoten nicht der \texttt{top} von \texttt{oReps} entspricht, passiert nichts. Falls doch, entferne per \texttt{pop} das oberste Element von \texttt{oReps} und führe \texttt{component[w] = v} solange aus, bis $w = v$ gilt.
+\end{enumerate}
+$\Rightarrow$ \textbf{am Ende sollten beide Stapel leer sein, anhand von component[w] kann man nun die SCCs ablesen}

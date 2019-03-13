@@ -4,9 +4,11 @@
 %%% TeX-master: "propa"
 %%% End:
 
-\section{Compiler}
+\section{Compiler}%
+\label{cmp:sec:compiler}
 
-\subsection{Ebenen der Übersetzung}
+\subsection{Ebenen der Übersetzung}%
+\label{cmp:sub:ebenen}
 \textbf{Reiner Interpretierer}\\
 Lese Quelltext Anweisung für Anweisung + führe aus.\\
 Sinnvoll bei Kommandosprachen.\\
@@ -24,7 +26,8 @@ z.B. C/C++, Fortran (Compiler)\\
 Übersetze zur Laufzeit bei Bedarf. Ist schneller als reine Interpretation.\\ gs
 z.B. .NET
 
-\subsection{SIMPLE}
+\subsection{SIMPLE}%
+\label{cmp:sub:SIMPLE}
 Einfache Programmiersprache zum Verdeutlichen der Konzepte.
 Stark eingeschränkte Syntax.\\
 Compiler nach Java-Bytecode auf Vorlesungshomepage.\\
@@ -32,7 +35,8 @@ Compiler nach Java-Bytecode auf Vorlesungshomepage.\\
 Nur Prozeduren, startet mit \code{void main()}. Nur \code{int, boolean}.
 \code{int read()} und \code{void println(int value)} in Standardbibliothek.
 
-\subsection{Phasen des Compilers}
+\subsection{Phasen des Compilers}%
+\label{cmp:sub:phasen}
 \textbf{Lexikalische Analyse}\\
 Erkenne bedeutungstragende Zeichengruppen: Tokens.\\
 Fasse in Stringtabelle zusammen.\\
@@ -50,7 +54,8 @@ Bringt Code in sprach- und zielunabhängige Zwischensprache. Wende Optimierungst
 \textbf{Codegenerierung}\\
 Erzeuge Code angepasst auf Zielsystem / Codeauswahl / Scheduling / Register.
 
-\subsection{Lexikalische Analyse}
+\subsection{Lexikalische Analyse}%
+\label{cmp:sub:lexikalische-analyse}
 Reguläre Ausdrücke werden von Automat erkannt. Dafür muss Automat zuerst Potenzmengenkonstruktion und
 Äquivalenzklassenbildung durchlaufen.\\
 Automaten dann als Tabelle oder ausprogrammiert verwenden.\\
@@ -65,7 +70,8 @@ Regeln
 Code
 \end{lstlisting}
 
-\subsection{Syntaktische Analyse}
+\subsection{Syntaktische Analyse}%
+\label{cmp:sub:syntaktische-analyse}
 Aufgebaut durch Grammatiken. Gewünschte Eigenschaften:
 \begin{itemize}
   \item Deterministisch --- Nicht gegeben
@@ -90,7 +96,6 @@ Parser rekonstruiert für Grammatik schrittweise die Ableitung.
                              \alpha \chi \omega \land \beta \in \mathit{First}_k(\omega)\}
 \end{align*}
 
-
 \textbf{SLL(k)-Bedingung}\\
 Eine (kontextfreie) Grammatik ist genau dann eine SLL(k)-Grammatik, wenn für alle Paare von Produktionen
 \(A \rightarrow \alpha|\beta, \alpha \neq \beta\), gilt:
@@ -102,6 +107,7 @@ In der Praxis werden die 2 getrennten für Spezialfall \(k=1, \alpha \not \impli
   \mathit{Follow}(A) &\cap \mathit{First}(\beta) = \varnothing
 \end{align*}
 
+\newpage
 \textbf{Linksrekursive Grammatiken}\\
 Linksrekursive Grammatiken sind nie SLL-Grammatiken, aber für jede linksrekursive Grammatik existiert
 eine entsprechende nicht-linksrekursive Grammatik\\
@@ -125,8 +131,8 @@ Anfang ausklammern:
  \item alternative Produktionen: Fallunterscheidung nach aktuellem Token stets eindeutig wegen SLL(1)
 \end{itemize}
 
-
-\subsection{Semantische Analyse}
+\subsection{Semantische Analyse}%
+\label{cmp:sub:semantische-analyse}
 \textbf{Namensanalse}\\
 Analysiere Beziehung zwischen Definition und Verwendung.
 Probleme:
@@ -151,8 +157,8 @@ Ansatz:
 \textbf{Traversierung}\\
 Bei Definitionen vor Verwendung nur 1 Durchlauf. Sonst muss Visitor Pattern für Eintragen in Symboltabelle verwendet werden.
 
-
-\subsection{Java-Bytecode}
+\subsection{Java-Bytecode}%
+\label{cmp:sub:java-bytecode}
 Portable Zwischensprache für Java virtuelle Maschine\\
 
 \textbf{Bytecode, Operandenstack}\\
@@ -185,8 +191,8 @@ Namen von Typen, Feldern und Methoden nach Schema
 \item Konstruktoren \code{<init>} static \code{<clinit>}
 \end{itemize}
 
-
-\subsection{Codeerzeugung}
+\subsection{Codeerzeugung}%
+\label{cmp:sub:codeerzeugung}
 \textbf{Umgekehrte polnische Notation}\\
 Erst Operanden dann Operation. Wird bei Tiefensuche auf Syntaxbaum erzeugt.
 Natürliche Repräsentation für Stackmaschinen.\\

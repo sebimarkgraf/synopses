@@ -4,10 +4,13 @@
 %%% TeX-master: "robotik"
 %%% End:
 
-\section{Teilsysteme}
+\section{Teilsysteme}%
+\label{ts:sec:teilsysteme}
 
-\subsection{Mechanische Komponenten}
-\subsubsection{Gelenktypen}
+\subsection{Mechanische Komponenten}%
+\label{ts:sub:mechanische-komponenten}
+\subsubsection{Gelenktypen}%
+\label{ts:ssub:gelenktypen}
 \textbf{Rotationsgelenk (R)}\\
 Besteht aus Eingang und dazu drehbarem Ausgang.\\
 Drehachse in rechten Winkel mit den Achsen der beiden Glieder\\
@@ -25,12 +28,14 @@ Schultergelenk\\
 Gleitende / Fortschreitende Bewegung\\
 Translationsgelenk / Schubgelenk
 
-\subsubsection{Arbeitsraum}
+\subsubsection{Arbeitsraum}%
+\label{ts:ssub:arbeitsraum}
 Jene Punkte im 3D-Raum die von der Roboterhand angefahren werden können. Dazu sind 3 Freiheitsgrade in der
 Bewegung erforderlich, also mindestens drei Gelenke erforderlich.\\
 Grundform: Ignoriere Kollisionen und Winkelbegrenzungen
 
-\subsubsection{Radkonfigurationen}
+\subsubsection{Radkonfigurationen}%
+\label{ts:ssub:radkonfigurationen}
 \textbf{Differentialantrieb}\\
 Geradeaus- \& Kurvenfahrten, Drehen auf der Stelle\\
 + einfach\\
@@ -53,8 +58,10 @@ Geradeaus- \& Kurvenfahrten, Vorwärts/Rückwärts identisch, Plattform dreht ni
 - Mechanisch komplex\\ 
 - Aufwendige Regelung\\
 
-\subsection{Antriebe}
-\subsubsection{Fluidische Antriebe}
+\subsection{Antriebe}%
+\label{ts:sub:antriebe}
+\subsubsection{Fluidische Antriebe}%
+\label{ts:ssub:fluidische-antriebe}
 \textbf{Linearantrieb}\\
 Bewege Kolben durch Flüssigkeit.\\
 Geschwindigkeit \(v(t) = \frac{Q(t)}{A}\).\\
@@ -78,30 +85,36 @@ Vorteil: Große Kraft, mittelschnell\\
 Nachteil: Laut, viel Platz, Ölverlust\\
 Einsatz: Große Roboter
 
-\subsubsection{Elektrische Antriebe}
+\subsubsection{Elektrische Antriebe}%
+\label{ts:ssub:elektrische-antriebe}
 Schritt- oder Servomotoren\\
 Vorteil: wenig Platz, kompakt, leise, gut Regelbar\\
 Nachteil: Wenig kraft, langsam\\
 Einsatz: Kleine Roboter für Präzision
 
 \newpage
-\subsection{Getriebe}
-\subsubsection{Stirnradgetriebe}
+\subsection{Getriebe}%
+\label{ts:sub:getriebe}
+\subsubsection{Stirnradgetriebe}%
+\label{ts:ssub:stirnradgetriebe}
 Standardgetriebe mit Getrieberad + Ritzel.\\
 Übersetzung: \(i = \frac{N_2}{N_1}\) mit \(N_i\) Anzahl der Zähne\\
 Drehmoment: \(T_2 = T_1 \cdot i\)
 
-\subsubsection{Schrauben- \& Spindelgetriebe}
+\subsubsection{Schrauben- \& Spindelgetriebe}%
+\label{ts:ssub:schrauben-spindelgetriebe}
 Schraube/Spindel dreht sich in Richtung.\\
 Lineargeschwindigkeit \(v(t) = p \cdot \omega(t)\)
 
-\subsubsection{Harmonic Drive}
+\subsubsection{Harmonic Drive}%
+\label{ts:ssub:harmonic-drive}
 Bestehe aus Wavegenerator, Flexible Spine und Circular Spine.\\
 Auch \enquote{Spannungswellengetriebe}\\
 Hohes Übersetzungsverhältnis in einer Stufe, sehr genau\\
 Gutes Getriebe für Leichtbauroboter
 
-\subsection{Sensoren}
+\subsection{Sensoren}%
+\label{ts:sub:sensoren}
 Wandelt physikalische Größe \& Änderungen in elektronsiche Signale um.
 \begin{itemize}
 \item Elementarsensor --- Aufnahme von Messgröße

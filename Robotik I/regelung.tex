@@ -11,10 +11,12 @@
 \tikzstyle{output} = [coordinate]
 \tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
 
-\section{Regelung}
+\section{Regelung}%
+\label{reg:sec:regelung}
 Lehre von der selbsttätigen, gezielten Beeinflussung dynamischer Prozesse während des Prozessablaufs.
 
-\subsection{Aufbau und Wirkungsweise}
+\subsection{Aufbau und Wirkungsweise}%
+\label{reg:sub:aufbau-wirkungsweise}
 Aufgabe: Die Ausgangsgröße eines dynamischen Systems soll mittels der Stellgröße ein Sollverhalten, d.h.\ ein
 gewünschtes Verhalten aufgeprägt werden, und zwar gegen den Einfluss einer Störgröße, die nur unvollständig bekannt
 ist.\\
@@ -62,13 +64,15 @@ angeglichen wird.\\
 \end{tabular}\\
 Die Regelgröße folgt der Führungsgröße. Die Regelung ist ein Wirkungskreislauf.\\
 
-\subsection{Regelung}
+\subsection{Regelung}%
+\label{reg:sub:regelung}
 Unter einer Regelung versteht man eine Anordnung, durch welche unvollständig bekannter Strecke,
 insbesondere unvollständiger Kenntnis der Störgröße, die Regelgröße, d.h.\ die Ausgangsgröße der Strecke,
 laufend erfasst und mit der Führungsgröße verglichen wird, um mittels der so gebildeten Differenz die
 Regelgröße an den Sollverlauf anzugleichen.
 
-\subsection{Laplace-Transformation}
+\subsection{Laplace-Transformation}%
+\label{reg:sub:laplace-transformation}
 \[L\{f(t)\} = F(s) = \int_0^{\infty} f(t)e^{-st}dt \qquad s := \sigma + j\omega; \quad f(t) = 0,\ t < 0\]
 
 \textbf{Regeln}\\
@@ -83,7 +87,8 @@ Regelgröße an den Sollverlauf anzugleichen.
   \(L\{\sin(\alpha t)\} = \frac{\alpha}{s^2 + \alpha^2}\) & \(L\{\cos (\alpha t)\} = \frac{s}{s^2 + \alpha^2}\)\\ 
 \end{tabular}
 
-\subsection{Elementare Glieder}
+\subsection{Elementare Glieder}%
+\label{reg:sub:elementare-glieder}
 \begin{tabular}{lll}
   P-Glied & Proportionsgleid & \(y(t) = K \cdot u(t)\)\\
   I-Glied & Integrierglied & \(y(t) = K \cdot \int_0^t u(\tau)d\tau\)\\
@@ -94,7 +99,8 @@ Regelgröße an den Sollverlauf anzugleichen.
   M-Glied & Multiplizierglied & \(y(t) = K \cdot u_1(t) \cdot u_2(t)\)\\
 \end{tabular}
 
-\subsection{PID-Regelung}
+\subsection{PID-Regelung}%
+\label{reg:sub:pid-regelung}
 Proportional-Integral-Derivative Controller
 \[\tau = K_p \theta_d + K_i \int \theta_d(t)dt + K_d \dot{\theta}_d\]
 
@@ -134,11 +140,13 @@ Proportional-Integral-Derivative Controller
 \end{tikzpicture}
 
 
-\subsection{Stabilität}
+\subsection{Stabilität}%
+\label{reg:sub:stabilitaet}
 Ziel: Regelabweichung geht mit der Zeit gegen 0
 
 
-\subsection{Regelung von Manipulatoren}
+\subsection{Regelung von Manipulatoren}%
+\label{reg:sub:regelung-manipulatoren}
 Manipulatoren = Mehrgrößensystem
 \(\Rightarrow\) Unabhängige Einzelregelkreise\\
 

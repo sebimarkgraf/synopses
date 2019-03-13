@@ -6,9 +6,11 @@
 
 \lstset{language=Prolog,mathescape=true}
 
-\section{Logische Programmierung}
+\section{Logische Programmierung}%
+\label{lp:sec:logische-programmierung}
 
-\subsection{Prolog Syntax}
+\subsection{Prolog Syntax}%
+\label{lp:sub:prolog-syntax}
 \textbf{Logische Programmierung}\\
 Definiere Objekte und deren Beziehung, wird als Terme einer Termalgebra dargestellt.\\
 
@@ -46,7 +48,9 @@ Besteht aus \textit{Regelkopf} und \textit{Regelrumpf}. Dabei sind diese als Kon
 Eine Gruppe von Fakten/Regeln mit gleichem Funktor und gleicher Argumentzahl im Regelkopf heiß \enquote{Prozedur}
 oder \enquote{Prädikat}.
 
-\subsection{Backtracking}
+\newpage
+\subsection{Backtracking}%
+\label{lp:sub:backtracking}
 \textbf{Unifikation} findet Werte für Variablen, sodass 2 Terme gleich werden. Dabei ist zu beachten, dass Terme intern
 als Bäume dargestellt werden.\\
 \textbf{informeller Algorithmus}
@@ -61,20 +65,24 @@ als Bäume dargestellt werden.\\
   \item success der letzten Box gibt Substitutionaus
 \end{enumerate}
 
-\subsection{Arithmetik und Listen}
+\subsection{Arithmetik und Listen}%
+\label{lp:sub:arithmetik-listen}
 Arithmetik in Prolog als syntaktischer Zucker für normale Prädikate.\\
 Zusätzliche Erzwingung einer Auswertung mit is: \code{X is B*(C+3)}, aber Variablen
 in rechten Term müssen immer instanziiert sein!\\
 Für arithmetische Vergleiche müssen auch alle Variablen instanziiert sein.
 
-\subsection{Funktionen}
+\subsection{Funktionen}%
+\label{lp:sub:funktionen}
 Prolog hat außer der Erfüllbarkeit keinen Rückgabewert, also Rückgabewert als zusätzlicher Parameter (uninstanziierte Variable).
 
-\subsection{Generate and Test}
+\subsection{Generate and Test}%
+\label{lp:sub:generate-and-test}
 Entwurfsmuster für Prolog. Probiere alle Lösungen durch teste Lösungskandidaten. Benötigt oft Beschneidung des
 Lösungsbaums (Branch and Bound).
 
-\subsection{Cuts}
+\subsection{Cuts}%
+\label{lp:sub:cuts}
 \textbf{Determinismus}\\
 Ein Prädikat heißt deterministisch, wenns es stets auf höchstens eine Weise erfüllt werden kann; hat es
 möglicherweise mehrere Lösungen, so heißt es nichtdeterministisch.\\
@@ -87,14 +95,16 @@ möglicherweise mehrere Lösungen, so heißt es nichtdeterministisch.\\
 Der Cut darf erst kommen, wenn man weiß, dass man in der richtigen Regel ist, aber muss vor der
 Instanziierung der Ausgabevariablen stehen.
 
-\subsection{Negation}
+\subsection{Negation}%
+\label{lp:sub:negation}
 Negation in Prolog ohne Cut nicht möglich.
 \begin{lstlisting}
   not(X) :- call(X),!,fail.
   not(X).
 \end{lstlisting}
 
-\subsection{Manipulation Terme}
+\subsection{Manipulation Terme}%
+\label{lp:sub:manipulation-terme}
 Untersuche Terme:
 \begin{itemize}
   \item atom(X)
@@ -106,7 +116,8 @@ Untersuche Terme:
   \item X=..L , Konstruktion/Zerlegung von X, aus/in Liste L
 \end{itemize}
 
-\subsection{Optimierung}
+\subsection{Optimierung}%
+\label{lp:sub:optimierung}
 \textbf{Manuell}\\
 Anstatt alle Variable Werte erst zu generieren und dann zu überprüfen, schiebe Tests so weit nach vorne wie möglich.
 Dadurch Begrenzung der Möglichkeiten.\\
@@ -115,7 +126,8 @@ Dadurch Begrenzung der Möglichkeiten.\\
 Werte Datengetrieben aus, also wird \(T_i\) erst ausgewertet, wenn notwenig.
 In Prolog mit Hilfe von \code{freezeAll([$X_1,X_2,..$], T)}
 
-\subsection{Unifikation}
+\subsection{Unifikation}%
+\label{lp:sub:unifikation}
 \textbf{Unifikator}\\
 Eine Substitution \(\sigma\) unifiziert Gleichug \(\theta = \theta'\), falls \(\sigma\theta = \sigma\theta'\).
 \(\sigma\) unifiziert \(C\), falls \(\forall c \in C\) gilt: \(\sigma\) unifiziert \(c\).\\
@@ -147,7 +159,8 @@ Klassisicher Algorithmus ggf exponentiell.\\
 Paterson-Wegman-Unifikation: Terme als gerichtete azyklische Graphen.
 Verschmelzung von Variablen und sogar inneren Knoten der Terme mittels union/find.
 
-\subsection{Resolution}
+\subsection{Resolution}%
+\label{lp:sub:resolution}
 Regel:
 \[\frac{\tau_1, \tau_2, \ldots, \tau_n \text{Terme;}\quad \alpha \code{ :- } \alpha_, \ldots, \alpha_k \text{ eine Regel;}\quad \sigma \text{ mgu von } \alpha \text{ und } \tau_1}
   {\sigma(\alpha_1), \ldots, \sigma(\alpha_k), \sigma(\tau_2), \ldots, \sigma(\tau_n)}\]
@@ -163,10 +176,8 @@ Zielen (Termen).
 \end{itemize}
 Die Resolutionsregel ist vollständig + korrekt.
 
-
-
-
-\subsection{Vollständigkeit}
+\subsection{Vollständigkeit}%
+\label{lp:sub:vollstaendigkeit}
 Prolog ist nicht vollständig da es deterministisch arbeitet. Beweis kann leicht mit Gegenbeispiel erbracht werden:
 \begin{lstlisting}
   aua(X) :- aua(X).

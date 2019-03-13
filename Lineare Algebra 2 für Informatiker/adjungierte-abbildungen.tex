@@ -1,0 +1,52 @@
+\section{Adjungierte und normale Abbildungen}%
+\label{aa:sec:adjungierte_und_normale_abbildungen}
+
+Sei $K \in \{\realnumbers, \complexnumbers\}$, V, W seien K-Vektorräume sowie $\phi: V \rightarrow W$ eine lineare Abbildung. Die Vektorräume haben Skalarprodukte $\langle \cdot, \cdot\rangle_V$ und $\langle \cdot, \cdot\rangle_W$ sowie Orthonormalbasen $C_V, C_W$.
+
+\subsection{Adjungierte Abbildungen}%
+\label{aa:sub:adjungierte_abbildungen}
+
+Eine Abbildung $\phi^*: W \rightarrow V$ heißt \textbf{adjungiert} zu $\phi$, falls für alle $v, w \in V$ gilt:
+\begin{center}
+	$\langle \phi(v), w\rangle = \langle v, \phi^*(w)\rangle$
+\end{center}
+\textbf{Eigenschaften}:
+\begin{itemize}
+	\item Existiert eine zu $\phi$ adjungierte Abbildung, so ist diese \textbf{eindeutig}
+	\item Sind V und W endlichdimensional, so existiert $\phi^*$
+	\item Es gilt: $D_{C_VC_W}(\phi^*) = \overline{D_{C_VC_W}(\phi)}^T$ sowie $(\phi^*)^* = \phi$
+	\item Für einen weiteren K-Vektorraum Z mit Skalarprodukt und einer linearen Abbildung\\ $\psi: W \rightarrow Z$ mit adjungierter Abbildung $\phi^*$ gilt: $(\psi \circ \phi)^* = \phi^* \circ \psi^*$
+	\item Für jeden Eigenwert $\lambda$ von $\phi$ ist $\overline{\lambda}$ ein Eigenwert von $\phi^*$
+\end{itemize}
+\textbf{Berechnung der adjungierten Abbildung}:\\
+Mit einer Orthonormalbasis $C_V = \{c_1, c_2, ..., c_n\}$ von V gilt:
+\begin{center}
+	$v = \sum_{j = 1}^{n}\langle v, c_i\rangle c_i \Rightarrow \phi^*(w) = \sum_{i = 1}^{n}\langle \phi^*(w), c_i\rangle c_i = \sum_{i = 1}^{n}\langle w, \phi(c_i)\rangle c_i$
+\end{center}
+
+\subsection{Selbstadjungierte Homomorphismen}%
+\label{aa:sub:selbstadjungierte_homomorphismen}
+
+Selbstadjungierte Homomorphismen sind ein Spezialfall von adjungierten Abbildungen. Sei V ein Vektorraum mit Skalarprodukt, dann ist die Abbildung $\phi: V \rightarrow V$ \textbf{selbstadjungiert}, wenn gilt:
+\begin{center}
+	$\langle \phi(v), w\rangle = \langle v, \phi(w)\rangle\ \forall v, w\in V$
+\end{center}
+\textbf{Eigenschaften, wenn eine selbstadjungierte Abbildung existiert}:
+\begin{itemize}
+	\item Alle Eigenwerte von $\phi$ sind reell
+	\item Das char. Polynom von $\phi$ zerfällt in reelle Linearfaktoren
+\end{itemize}
+$\phi$ ist genau dann selbstadjungiert, wenn $\phi$ \textbf{nur reelle Eigenwerte} und eine \textbf{Orthonormalbasis aus Eigenvektoren} besitzt.
+
+\subsection{Normale Homomorphismen}%
+\label{aa:sub:normale_homomorphismen}
+
+Sei V ein Vektorraum mit Skalarprodukt und $\phi: V \rightarrow V$ eine lineare Abbildung. $\phi$ heißt \textbf{normal}, falls $\phi^*$ existiert und eine der folgenden Bedingungen erfüllt ist:
+\begin{itemize}
+	\item $\phi \circ \phi^* = \phi^* \circ \phi$
+	\item $\forall v,w \in V: \langle \phi(v), \phi(w)\rangle = \langle \phi^*(v), \phi^*(w)\rangle$
+\end{itemize}
+Mit einer \textbf{Abbildungsmatrix} $A = D_{CC}(\phi)$ bzgl. einer \textbf{Orthonormalbasis} C von V gilt auch:
+\begin{center}
+	$\phi$ ist normal $\Leftrightarrow A \overline{A}^T = \overline{A}^TA$
+\end{center}

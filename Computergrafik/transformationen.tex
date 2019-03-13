@@ -1,0 +1,120 @@
+\section{Transformationen}%
+\label{tf:sec:transformationen}
+
+\begin{itemize}
+	\item Transformationen bilden einen Punkt x auf einen Punkt x' ab
+	\item Lineare Transformationen sind Abbildungen mit Transformationsmatrizen $A \in \realnumbers^{mxn}$
+	\item Bekannte Transformationen: \textbf{Translation (Verschiebung), Rotation, uniforme/isotrope Skalierung}
+	\item Transformationen können durch Multiplikation der Transformationsmatrizen kombiniert werden, hierbei macht die Reihenfolge \textbf{einen Unterschied}; die Transformationen werden \textbf{von rechts nach links angewandt}
+	\item Die inverse Transformatinsmatrix führt die entsprechende inverse Transformation durch (Ausnahme: Skalierung um Faktor 0)
+\end{itemize}
+
+\subsection{Affiner Raum}%
+\label{tf:sub:affiner_raum}
+
+\begin{itemize}
+	\item Abbildungen, die teilverhältnistreu sind und parallele Linien erhalten, nennt man \textbf{affin}
+	\item Abbildungen, die Geraden auf Geraden abbilden, nennt man \textbf{projektiv}
+	\item \textbf{Alle affinen Abbildungen sind projektive Abbildungen}
+	\item Identität, Translation, Rotation, (nicht zwingend isotrope) Skalierung, Spiegelung, Scherung sind affine Abbildungen/Transformationen
+\end{itemize}
+
+\subsection{Homogene Koordinaten}%
+\label{tf:sub:homogene_koordinaten}
+
+\begin{itemize}
+	\item \textbf{Bisher}: Zum Beschreiben eines n-dimensionalen Körpers nutzen wir einen n-dimensionalen Raum (z.B einen dreidimensionalen Raum für einen Würfel)
+	\item \textbf{Problem}: Parallele Geraden im affinen Raum schneiden sich nicht, bei einer Projektion aber schon
+	\item \textbf{Lösung}: Ergänze zusätzliche Dimension zur Formalisierung
+	\item \textbf{Homogenisierung von Ortsvektoren}: $(x, y, z)_{3D} \rightarrow (x', y', z', w)_h$ sodass $(\frac{x'}{w}, \frac{y'}{w}, \frac{z'}{w}) = (x, y, z)$ (einfachste Homogenisierung: wähle $x' = x, y' = y, z' = z, w = 1$)
+	\item \textbf{Homogenisierung von Richtungsvektoren}: $(x, y, z)_{3D} \rightarrow (x, y, z, w)_h$ mit $w = 0$
+	\item \textbf{Dehomogenisierung von Ortsvektoren}: $(x, y, z, w)_h \rightarrow (\frac{x}{w}, \frac{y}{w}, \frac{z}{w})$
+\end{itemize}
+
+\subsection{Transformation von Normalen}%
+\label{tf:sub:transformation_von_normalen}
+
+\begin{itemize}
+	\item Normalen sind Bivektoren, d.h. sie stehen senkrecht auf der Tangentialfläche und sind nicht durch Differenz zweier Ortsvektoren definiert
+	\item Lineare und affine Transformationen sind nicht winkeltreu $\rightarrow$ Normalen können nicht einfach mittransformiert werden
+	\item \textbf{Stattdessen}: Nicht Normalenvektor, sondern Tangentenebene zur Normale transformieren; praktisch gesehen: transformiere Normalenvektor mit \textbf{transponiertem Inversen der Transformationsmatrix M} des Modells: $N' = (M^{-1})^T N$
+\end{itemize}
+
+\newpage
+\subsection{Translation}%
+\label{tf:sub:translation}
+
+Translation funktioniert nur mit homogenisierten Koordinaten. Zur Translation um den Vektor $(t_x, t_y)$ bzw. $(t_x, t_y, t_z):$
+\begin{center}
+	$A_{2D_h} = \begin{pmatrix} 1 & 0 & t_x\\0 & 1 & t_y \\ 0 & 0 & 1\end{pmatrix}$\hspace*{1cm}
+	$A_{3D_h} = \begin{pmatrix} 1 & 0 & 0 & t_x\\0 & 1 & 0 & t_y\\0 & 0 & 1 & t_z \\ 0 & 0 & 0 & 1\end{pmatrix}$
+\end{center}
+
+\subsection{Rotation}%
+\label{tf:sub:rotation}
+
+Sei $\phi$ im Folgenden der Rotationswinkel.\\\\
+\textit{Anmerkung:\\Die folgenden Matrizen beschreiben sog. Euler-Rotationen. Diese sind anfällig für Probleme wie den Gimbal Lock, jedoch intuitiver als Quaternions, welche in der Vorlesung nicht besprochen werden.}\\\\
+\textbf{Zweidimensional (Rotation um die y-Achse)}:
+\begin{center}
+	$A_{2D}(\phi) = \begin{pmatrix}cos \phi & -sin \phi \\ sin \phi & cos \phi\end{pmatrix}$\hspace*{0.5cm}
+	$A_{2D_h}(\phi) = \begin{pmatrix}cos \phi & -sin \phi & 0 \\ sin \phi & cos \phi & 0 \\ 0 & 0 & 1\end{pmatrix}$\vspace*{0.25cm}
+\end{center}
+\textbf{Dreidimensional (Rotation um die x-, y- oder z-Achse)}:
+\begin{center}
+	$A_{x}(\phi) = \begin{pmatrix}1 & 0 & 0\\ 0 & cos \phi & -sin \phi\\ 0 & sin \phi & cos \phi \end{pmatrix}$\hfill
+	$A_{y}(\phi) = \begin{pmatrix}cos \phi & 0 & sin \phi\\0 & 1 & 0\\-sin \phi & 0 & cos \phi\end{pmatrix}$\hfill
+	$A_{z}(\phi) = \begin{pmatrix}cos \phi & -sin \phi & 0\\ sin \phi & cos \phi & 0 \\ 0 & 0 & 1\end{pmatrix}$\vspace*{0.25cm}\\
+\end{center}
+\textbf{Dreidimensional, homogenisiert (Rotation um die x-, y- oder z-Achse)}:\\\\
+$A_{x}(\phi) = \begin{pmatrix}1 & 0 & 0 & 0\\ 0 & cos \phi & -sin \phi& 0\\ 0 & sin \phi & cos \phi & 0\\ 0 & 0 & 0 & 1\end{pmatrix}$
+$A_{y}(\phi) = \begin{pmatrix}cos \phi & 0 & sin \phi& 0\\0 & 1 & 0& 0\\-sin \phi & 0 & cos \phi & 0\\ 0 & 0 & 0 & 1\end{pmatrix}$
+$A_{z}(\phi) = \begin{pmatrix}cos \phi & -sin \phi & 0& 0\\ sin \phi & cos \phi & 0 & 0\\ 0 & 0 & 1 & 0\\ 0 & 0 & 0 & 1\end{pmatrix}$
+
+\newpage
+\subsection{Skalierung}%
+\label{tf:sub:skalierung}
+
+Sei $(s_x, s_y)$ bzw. $(s_x, s_y, s_z)$ im Folgenden der Vektor, der entlang der entsprechenden Achsen um den entsprechenden Betrag skaliert.
+
+\begin{center}
+	$A_{2D} = \begin{pmatrix} s_x & 0\\0 & s_y\end{pmatrix}$\hfill
+	$A_{2D_h} = \begin{pmatrix} s_x & 0 & 0\\0 & s_y & 0 \\ 0 & 0 & 1\end{pmatrix}$\hfill
+	$A_{3D} = \begin{pmatrix} s_x & 0 & 0\\0 & s_y & 0\\0 & 0 & s_z\end{pmatrix}$\hfill
+	$A_{3D_h} = \begin{pmatrix} s_x & 0 & 0 & 0\\0 & s_y & 0 & 0\\0 & 0 & s_z & 0 \\ 0 & 0 & 0 & 1\end{pmatrix}$\hfill
+\end{center}
+
+\subsection{Scherung/Transvektion}%
+\label{tf:sub:scherung_transvektion}
+
+\textbf{Zweidimensional}:
+\begin{center}
+	$A_{x} = \begin{pmatrix}1 & s \\ 0 & 1\end{pmatrix}$\hfill
+	$A_{x_h} = \begin{pmatrix}1 & s & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{pmatrix}$\hfill
+	$A_{y} = \begin{pmatrix}1 & 0 \\ s & 1\end{pmatrix}$\hfill
+	$A_{y_h} = \begin{pmatrix}1 & 0 & 0 \\ s & 1 & 0 \\ 0 & 0 & 1\end{pmatrix}$\hfill
+\end{center}	
+
+\subsection{Spiegelung}%
+\label{tf:sub:spiegelung}
+
+Spiegelungen sind realisierbar als negative Skalierungen.\\\textbf{Bsp.:} Spiegelung an der x-Achse ist eine x-Skalierung um den Faktor -1.
+
+\subsection{Koordinatensysteme}%
+\label{tf:sub:koordinatensysteme}
+
+\begin{itemize}
+	\item Objekte innerhalb einer Szene werden in ihrem eigenen \textbf{Objektkoordinatensystem} angegeben
+	\item Durch eine Modelltransformation (Translation, Skalierung, ...) werden Objekte im \textbf{Weltkoordinatensystem} platziert
+	\item Anhand der Kamera, aus der die Szene betrachtet wird, erfolgt dann die Transformation in das \textbf{Kamerakoordinatensystem}
+\end{itemize}
+
+\subsection{Szenengraphen}%
+\label{tf:sub:szenengraphen}
+
+\begin{itemize}
+	\item Modelltransformationen sind üblicherweise zusammengesetzte Transformationen
+	\item Transformation von Geometrie ist oftmals leichter relativ zu anderer Geometrie definierbar (z.B Lenkrad relativ zu Auto-Modell)
+	\item \textbf{Szenengraph}: Gerichteter azyklischer Graph mit Objekten als Knoten, die jeweils relativ zu ihren Eltern-Knoten transformiert werden müssen
+	\item \textbf{Matrix-Stack}: Stack auf dem Transformationen gespeichert werden, sodass diese leicht wiederverwendet werden können
+\end{itemize}

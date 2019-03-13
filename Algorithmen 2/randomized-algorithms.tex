@@ -1,0 +1,37 @@
+\section{Randomized Algorithms}%
+\label{ra:sec:randomized_algorithms}
+
+\begin{itemize}
+	\item \textbf{Idee}: Verwende Zufall(sbits) zur Beschleunigung/Vereinfachung von Algorithmen
+	\item Unterscheidung verschiedener Typen randomisierter Algorithmen:
+	\begin{itemize}
+		\item \textbf{Las Vegas Algorithmus}: Ergebnis am Ende immer korrekt (quicksort, hashing), Laufzeit entspricht der Zufallsvariable
+		\item \textbf{Monte Carlo Algorithmus}: Ergebnis mit Wahrscheinlichkeit $p$ inkorrekt, $k$-fache Wiederholung macht die Fehlerwahrscheinlichkeit exponentiell klein ($p^k$)
+	\end{itemize}
+\end{itemize}
+
+\subsection{Randomisiertes Hashing}%
+\label{ra:sub:randomisiertes_hashing}
+
+\begin{itemize}
+	\item \textbf{Perfektes Hashing} mit $\Omega(n)$ benötigtem Platzverbrauch
+	\item \textbf{Fast Space Efficient Hashing}:
+	\begin{itemize}
+		\item Platzverbrauch von $(1 + \epsilon)n$
+		\item Effiziente Implementierungen von \texttt{insert}, \texttt{delete}, \texttt{lookup}
+		\item Hashfunktion ist \textbf{zufällig}
+	\end{itemize}
+	\item \textbf{Cuckoo Hashing}:
+	\begin{itemize}
+		\item Platzverbrauch von $(2 + \epsilon)n$, jedes Element $x$ hat zwei mögliche Slots $h_1(x), h_2(x)$
+		\item \texttt{insert} in konstanter Zeit, \texttt{delete} und \texttt{lookup} ebenfalls sehr schnell
+		\item \texttt{insert} verschiebt möglicherweise Elemente, \texttt{rebuild} falls \texttt{insert} fehlschlägt
+		\item \textbf{Prüfen, ob insert fehlschlägt}:
+		\begin{itemize}
+			\item Generiere Graph, bei dem \textbf{jede Zelle ein Knoten} ist
+			\item \textbf{Ungerichtete Kanten} verbinden die zwei leeren Hashzellen eines Wertes
+			\item Ist eine Zelle gefüllt, so zeigt stattdessen eine \textbf{gerichtete Kante} vom Knoten der gefüllten Zelle zur Alternative
+			\item \texttt{insert} ist erfolgreich, \textbf{falls die Komponente, die $h_1(x)$, $h_2(x)$ enthält, nicht mehr Kanten als Knoten besitzt}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}

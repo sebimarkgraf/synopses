@@ -1,0 +1,36 @@
+\section{Lineare Ausgleichsrechnung}%
+\label{lar:sec:lineare-ausgleichsrechnung}
+\textbf{Problem}:\\Lineare Gleichungssysteme oft nicht oder nicht eindeutig lösbar.\\\\
+\textbf{Lösung}:\\Versuche die bestmögliche Lösung zu finden, sodass gilt: für $x \in \realnumbers^N$ ist $|Ax - b|_2$ minimal
+
+\subsection{Per QR-Zerlegung}%
+\label{lar:sub:qr}
+\textbf{Voraussetzung}:\\$A^TA$ ist invertierbar und gut konditioniert\\\\
+\textbf{Vorgehen}:
+\begin{enumerate}
+	\item Berechne QR-Zerlegung: $A = QR$, dann ist $A^TA = R^TR$ (s. Kapitel zu QR-Zerlegung)
+	\item Löse $Rx = Q^Tb$
+\end{enumerate}
+
+\subsection{Per Singulärwertzerlegung}%
+\label{lar:sub:singulaerwertzerlegung}
+\textbf{Idee}:\\\textbf{Alternative zum QR-Ansatz} falls gilt: $A^TA$ ist \textbf{singulär} (besitzt keine Inverse) oder \textbf{schlecht konditioniert}. Sei für diesen Fall $A \in \realnumbers^{K\times N}$. Zerlege A folgendermaßen:
+\begin{align*}
+	R &= rang(A)\\
+	V &= (v_1 | ... | v_R) \in \realnumbers^{K \times R}& (V^TV = I_R)\\
+	U &= (u_1 | ... | u_R) \in \realnumbers^{N \times R}& (U^TU = I_R)\\
+	\Sigma &= diag(\sigma_1, ..., \sigma_R) \in \realnumbers^{R\times R}& (\sigma_r > 0, r = 1,...,R)\\
+	A &= V\Sigma U^T = \sum^R_{r=1}\sigma_rv_ru_r^T &
+\end{align*}
+
+\subsection{Normalengleichung}%
+\label{lar:sub:normalengleichung}
+\begin{itemize}
+	\item \textbf{Pseudo-Inverse}: Die Pseudo-Inverse zu $A$ ist $A^+ = U\Sigma^{-1}V^T = \Sigma^R_{r = 1}\frac{1}{\sigma_r}u_rv_r^T$
+	\item \textbf{Normalengleichung}: $x$ minimiert den Term $|Ax - b|_2$ genau dann, wenn $x$ die\\Normalengleichung löst: $$A^TAx = A^Tb \Leftrightarrow x = A^+b$$
+\end{itemize}	
+
+\subsection{(Tikhonov)-Regularisierung}%
+\label{lar:sub:regularisierung}
+\textbf{Problem}:\\Eine Aufgabe ist potenziell schlecht konditioniert (sorgt für extreme Datenfehler) oder nicht sachgemäß gestellt (und damit nicht eindeutig lösbar oder nicht stetig abhängig von den Daten).\\\\
+\textbf{Lösung}:\\Regularisiere die Aufgabe, sodass sie gut konditioniert bzw. sachgemäß gestellt ist. Hierzu wird die sog. Tikhonov-Regularisierung ($F_\alpha(x)$) minimiert.

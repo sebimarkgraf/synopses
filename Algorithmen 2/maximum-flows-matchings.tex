@@ -1,0 +1,121 @@
+\section{Maximum Flows \& Matchings}%
+\label{mfm:sec:maximum_flows_matchings}
+
+\begin{itemize}
+	\item \textbf{Networks}:
+	\begin{itemize}
+		\item Gerichtete, gewichtete Graphen mit einer \textbf{Source Node s} (Quelle) und einer \textbf{Sink Node t} (Senke)
+		\item In die \textbf{Source Node} gehen keine Kanten \textbf{ein}, von der \textbf{Sink Node} gehen keine Kanten \textbf{aus}
+		\item Kantengewichte bezeichnet man auch als \textbf{Kapazität} einer Kante
+	\end{itemize}
+	\item \textbf{Flows}:
+	\begin{itemize}
+		\item Funktion $f$, die jeder Kante einen Wert \textbf{zwischen 0 und der Kapazität} zuordnet
+		\item Wert eines Flows \textbf{val(f)} entspricht dem gesamten ausgehenden Flow der aus $s$ kommt und in $t$ mündet
+		\item \textbf{Metapher}: Netzwerk als Rohrsystem zum Wassertransport
+		\item \textbf{Blocking Flows} erzeugen auf jedem möglichen Pfad von s zu t eine komplett gesättigte Kante
+		\item \textbf{Flow Conservation} bedeutet, dass \textbf{nur die Quelle Flow erzeugt} und \textbf{nur die Senke Flow aufnimmt}
+		\item \textbf{Ziel}: Flow mit maximalem Wert finden (Transportmaximierung)
+	\end{itemize}
+	\item \textbf{s-t Cuts}
+	\begin{itemize}
+		\item Partitionierung der Knoten in Teilmengen $S$ und $T$ mit $s \in S, t \in T$
+		\item Die \textbf{Kapazität des Cuts} entspricht der Summe der Kantengewichte aller Kanten die in einem S-Knoten starten und in einem T-Knoten münden
+		\item Die minimale Kapazität eines s-t Cuts entspricht dem Wert eines s-t \textbf{Max Flows}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Maximierung von Flow-Werten}%
+\label{mfm:sub:maximierung_von_flow_werten}
+
+\begin{itemize}
+	\item \textbf{Linear Programming}: Möglich, aber geht besser
+	\item \textbf{Ford Fulkerson Algorithmus (Augmenting Paths)}:
+	\begin{itemize}
+		\item \textbf{Idee}: Finde einen Pfad von Quelle zu Senke, entlang dessen der Fluss vergrößert werden kann, ohne die Kapazitäten zu überschreiten (augmentierender Pfad)
+		\item \textbf{Vorgehen}:
+		\begin{enumerate}
+			\item Finde (per BFS) einen möglichen Pfad von s zu t (keine Kante reizt ihre Kapazität komplett aus)
+			\item Sende einen Flow durch den Pfad und füge diesen dem Gesamtflow hinzu
+			\item Passe die Kapazitäten aller Kanten an (erzeugt \textbf{Residualgraph}) und wiederhole den Prozess mit dem neuen Graph
+			\item Sobald es keinen augmentierenden Pfad mehr gibt, ist der Gesamtflow der \textbf{Max Flow}
+		\end{enumerate}
+		\item \textbf{Anmerkung}: Beim Finden eines möglichen Pfades darf auch Flow \textbf{entgegen einer Kante fließen}, wodurch der Flow auf dieser Kante \textbf{reduziert} wird
+	\end{itemize}
+	\newpage
+	\item \textbf{Dinitz Algorithmus}
+	\begin{itemize}
+		\item \textbf{Idee}: Sende so lange Flows, bis ein \textbf{Blocking Flow} erreicht wurde
+		\item \textbf{Vorgehen}:
+		\begin{enumerate}
+			\item Generiere (per BFS) einen \textbf{Level Graph} (Graph, der jedem Knoten einen Level zuteilt, welcher der kürzesten Distanz zur Quelle entspricht) und teste, ob mehr Flow möglich ist
+			\item Falls mehr Flow möglich ist, finde einen \textbf{Blocking Flow} im \textbf{Level Graph} und füge diesen dem Gesamtflow hinzu, dann wiederhole 1.; ansonsten \texttt{return}
+		\end{enumerate}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Berechnung von Blocking Flows}%
+\label{mfm:sub:berechnung_von_blocking_flows}
+
+\begin{itemize}
+	\item \textbf{Idee}: Wiederholte Tiefensuche
+	\item \textbf{Vorgehen}:
+	\begin{enumerate}
+		\item Starte eine Tiefensuche bei der Quelle
+		\item Ist der nächste Knoten die Senke, so berechne den Flow und falls irgendeine Kante komplett ausgereizt wird
+		\begin{enumerate}
+			\item füge den \textbf{Blocking Flow} zur Liste hinzu
+			\item \textbf{entferne} die Kante
+			\item starte den Prozess \textbf{von vorne}
+		\end{enumerate}
+		\item Ist eine unbesuchte Kante verfügbar, gehe weiter (\texttt{extend})
+		\item Ist keine unbesuchte Kante verfügbar, gehe eine Kante zurück (\texttt{retreat})
+		\item Sobald ein \texttt{retreat} zum Startknoten stattgefunden hat, ist die Suche beendet
+	\end{enumerate}
+\end{itemize}
+
+\subsection{Matching}%
+\label{mfm:sub:matching}
+
+\begin{itemize}
+	\item \textbf{Definition}: Eine Teilmenge $M$ der Kantenmenge ist ein \textbf{Matching}, wenn $(V, M)$ maximal Grad 1 hat
+	\item Ein Matching ist \textbf{maximal}, wenn das Hinzufügen einer beliebigen weitere Kante aus der restlichen Kantenmenge die Matching-Eigenschaft verletzen würde
+	\item Ein Matching hat \textbf{maximale Kardinalität}, wenn es kein Matching mit einer größeren Kardinalität gibt
+\end{itemize}
+
+\newpage
+\subsection{Preflow-Push Algorithmen}%
+\label{mfm:sub:preflow_push_algorithmen}
+
+\begin{itemize}
+	\item \textbf{Definition}: Ein Preflow ist ein Flow mit gelockerter \textbf{Flow Conservation} - Knoten dürfen \textbf{Teile des Flows verbrauchen} (\textbf{Exzess)} und gelten, falls sie dies tun, als \textbf{aktiv}
+	\item \textbf{Ziel}: Finden eines \textbf{Max Flows}
+	\item \textbf{Push-Funktion}: \quotestyle{Verschieben des Exzesses in Richtung von t}
+	\begin{itemize}
+		\item Nimmt eine Kante $(v,w)$ und einen Wert $\delta$, der höchstens dem Exzess von $v$ entspricht
+		\item Zieht $\delta$ vom Exzess von $v$ ab und addiert ihn auf den Exzess von $w$
+		\item Falls die Kante \textbf{entgegen dem Flow} läuft, wird $\delta$ von diesem abgezogen, ansonsten \textbf{auf diesen aufaddiert}
+	\end{itemize}
+	\item \textbf{Level-Funktion}:
+	\begin{itemize}
+		\item $d(v)$ enthält eine Approximation der Distanz von $v$ zu $t$
+		\item $d(s) = n$ und $d(t) = 0$ und $d(v) \leq d(w) + 1 \forall$ Kanten $(v,w)$
+		\item Die Level-Funktion ordnet Kanten $(v,w)$ eine Richtungseigenschaft zu:
+		\begin{itemize}
+			\item \texttt{steep}: $d(w) < d(v) - 1$
+			\item \texttt{downward}: $d(w) < d(v)$
+			\item \texttt{horizontal}: $d(w) = d(v)$
+			\item \texttt{upward}: $d(w) > d(v)$
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Preflow-Flush}:
+	\begin{enumerate}
+		\item Pushe alle Kanten mit der Kapazität der Kante als $\delta$
+		\item Setze $d(v)$ auf $0$ für alle Knoten außer $s$, setze $d(s) = n$
+		\item Solange ein Knoten mit Exzess existiert, der nicht $s$ oder $t$ ist
+		\begin{itemize}
+			\item Falls die Kante \texttt{downward} verläuft: Verschiebe Exzess per \texttt{push} mit $\delta \leq min\{excess(v), c_e^f\}$
+			\item Ansonsten: Inkrementiere $d(v)$ (\texttt{relabel})
+		\end{itemize}
+	\end{enumerate}
+\end{itemize}

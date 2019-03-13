@@ -1,0 +1,72 @@
+\section{Rasterisierung und Projektion}%
+\label{rp:sec:rasterisierung_und_projektion}
+
+\begin{itemize}
+	\item Bildsynthese (\textbf{Rendering}) erzeugt ein Rasterbild aus einer Szenenbeschreibung
+	\item \textbf{Bildbasierte Bildsynthese}:
+	\begin{itemize}
+		\item Betrachte einen Pixel nach dem anderen, finde passendes Primitiv, bestimme Pixelfarbe
+	\end{itemize}
+	\item \textbf{Objektbasierte Bildsynthese}:
+	\begin{itemize}
+		\item Betrachte ein Objekt/Primitiv nach dem anderen, finde beeinflusste Pixel, bestimme Pixelfarbe
+	\end{itemize}
+	\item Raytracing ist konzeptionell einfach und realisiert komplexe Beleuchtungen sehr direkt, wird aber wegen Performanzgründen nur sparsam oder gar nicht in Echtzeit-Anwendungen eingesetzt (aber in \textbf{Offline-Rendering})
+	\item Rasterisierung effizienter als Raytracing und entsprechend \textbf{geeignet für Echtzeit-Anwendungen}, aber kann komplexe Beleuchtungseffekte i.d.R. nur über spezielle Techniken realisieren
+\end{itemize}
+
+\subsection{Rasterisierungsverfahren}%
+\label{rp:sub:rasterisierungsverfahren}
+
+\begin{itemize}
+	\item \textbf{Scanline-Verfahren}:
+	\begin{itemize}
+		\item Sortierung entlang der y-Achse, dann Bearbeitung einzelner \glqq scanlines\grqq (Pixelreihen)
+	\end{itemize}
+	\item \textbf{Kanten-basiertes Verfahren}:
+	\begin{itemize}
+		\item Aufstellen der Dreieckskanten, Finden aller nötigen Pixel in der positiven Halbebene aller Kanten
+	\end{itemize}
+\end{itemize}
+
+\subsection{Clipping}%
+\label{rp:sub:clipping}
+
+\begin{itemize}
+	\item Abschneiden von Polygon-Teilen außerhalb des gewünschten Bildbereichs
+\end{itemize}
+
+\subsection{Tiefenpuffer/Z-Buffering}%
+\label{rp:sub:tiefenpuffer_z_buffering}
+
+\begin{itemize}
+	\item Z-Buffer/Tiefenpuffer zusätzlich zum Farbpuffer für Tiefenwerte
+	\item Tiefenwert wird pro Vertex (Eckpunkt) berechnet und interpoliert
+	\item \textbf{Vorteile}: Beliebige Bearbeitungsreihenfolge der Dreiecke, standardmäßig vorhanden
+	\item \textbf{Probleme:} Begrenzte Genauigkeit, Transparente Flächen problematisch, \glqq Z-Fighting\grqq\ bei Geometrie mit grob identischem Tiefenwert
+	\item Probleme sind durch spezielle Lösungen und Rendering-Techniken meist lösbar!
+\end{itemize}
+
+\subsection{Kameratransformation}%
+\label{rp:sub:kameratransformation}
+
+\begin{itemize}
+	\item Transformation verschiebt alle Szenenobjekte relativ zur virtuellen Kamera
+	\item Kamera ist definiert durch Position, up-Vektor und Blickrichtung (\glqq vorne\grqq\ entspricht negativer z-Achse)
+\end{itemize}
+
+\subsection{Projektionstransformation}%
+\label{rp:sub:projektionstransformation}
+
+\begin{itemize}
+	\item Transformation, die das Sichtvolumen auf den Einheitswürfel abbildet (\textbf{Normalized Device Coordinates})
+	\item \textbf{Orthographische Projektion}: Parallele Sichtstrahlen, Objektdistanz wirkt sich nicht auf wahrgenommene Größe aus
+	\item \textbf{Perspektivische Projektion}: Sichtstrahlen ausgehend vom Projektionszentrum, Distanz macht Objekte größer oder kleiner
+	\item Zusätzlich: Beschränkter Tiefenbereich des View-Frustums mit Near und Far \textbf{Clipping Planes} (clippe Objekte die zu weit entfernt oder zu nah sind)
+	\item Nach eigentlicher Projektionstransformation:
+	\begin{enumerate}
+		\item Clipping in homogenen Koordinaten
+		\item perspektivische Division durch w für Normalized Device Coordinates
+		\item Viewport-Transformation (Abbildung des Einheitswürfels auf die Bildschirmauflösung)
+	\end{enumerate}
+\end{itemize}

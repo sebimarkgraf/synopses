@@ -1,0 +1,31 @@
+\documentclass[10pt,a4paper]{article}
+\author{Jannik Koch}
+\title{Lineare Algebra 2 für Informatiker}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{hyperref}
+
+\def\realnumbers{{\rm I\!R}}
+\def\naturalnumbers{{\rm I\!N}}
+\def\complexnumbers{{\mathbb{C}}}
+
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+
+\begin{document}
+	\pagenumbering{Roman}
+	{\let\newpage\relax\maketitle}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+
+	\include{jordan-normalform}
+	\include{skalarprodukte}
+	\include{orthogonalsysteme}
+	\include{isometrien}
+	\include{adjungierte-abbildungen}
+\end{document}

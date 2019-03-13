@@ -1,0 +1,96 @@
+\section{OpenGL und Grafik-Hardware}%
+\label{gl:sec:opengl_und_grafik_hardware}
+
+\textbf{OpenGL ist...}
+\begin{itemize}
+	\item ...\textbf{eine} plattformunabhängige low-level Rendering-API/Spezifikation
+	\item ...\textbf{eine} State-Machine (z.B Zustand: Beleuchtung an/aus, Texturen an/aus etc.; Zustand bleibt erhalten bis er \textbf{explizit} geändert wird; z.B Texturen werden erst \glqq gebunden\grqq, damit OpenGL diese nutzt)
+	\item ...\textbf{keine} Bibliothek im klassischen Sinne (externe Bibliotheken geben Anbindung \textbf{an} OpenGL)
+	\item ...\textbf{keine} Grafik-Engine (liefert kein Handling von Fenstern, Events, Menüs, Szenengraph, Animationen, Model-Loading etc.)
+\end{itemize}
+
+\subsection{Legacy OpenGL}%
+\label{gl:sub:legacy_opengl}
+
+\begin{itemize}
+	\item Befehle im \textbf{Immediate-Mode}, es wird bei jedem Befehl sofort gerendert
+	\item Transformationen nur über gegebenen \textbf{Matrix-Stack} (PushMatrix, PopMatrix)
+	\item Definition von Geometrie durch \textbf{Vertices in homogenen Koordinaten}; Primitive werden durch einen Strom aus Vertices zusammengesetzt (z.B setze 3 Vertices und zeichne mit TRIANGLES-Parameter für ein Dreieck)
+	\item Verschiedene Primitivtypen
+	\begin{itemize}
+		\item \textbf{Dreiecke}, Quadrate, Linien, Punkte
+		\item \textbf{Triangle-Strips} (die ersten drei Vertices definieren ein Dreieck, danach bildet jeder neue Vertex mit den letzten zwei Vertices ein neues Dreieck), analog Quad-Strips und Line-Strips
+		\item auch: konvexe Polygone, Triangle-Fan
+	\end{itemize}
+	\item Texturen und Textur-Koordinaten, Farben, Normalen etc. werden in der State-Machine analog zu Vertex-Positionen gesetzt
+	\item Vorimplementiertes Gouraud-Shading, Blinn-Phong-Beleuchtungsmodell
+	\item Zusätzliche States: Culling (Backface-Culling, Frontface-Culling etc.), Depth Testing (Z-Buffer)
+\end{itemize}
+
+\subsection{Grafik-Pipeline}%
+\label{gl:sub:grafik_pipeline}
+
+\begin{itemize}
+	\item Legacy OpenGL nutzt eine \textbf{Fixed-Function-Pipeline}, es existiert eine feste Standardimplementierung für Vertices und Fragmente
+	\item Geometrie-Verarbeitung (Transformationen, Bauen von Primitiven, Licht) $\rightarrow$ Rasterisierung $\rightarrow$ Fragment-Operationen (Texturierung, Schreiben in den Framebuffer)
+	\item \textbf{Vorteil}: Einfach, standardisiert
+	\item \textbf{Nachteil}: Starr, limitierend, u.U. nicht für alle Anwendungen passend geeignet
+\end{itemize}
+
+\subsection{Modernes OpenGL}%
+\label{gl:sub:modernes_opengl}
+
+\begin{itemize}
+	\item \textbf{Problem an Legacy-OpenGL}: Zu viel Overhead, Grafik-Pipeline ist zu starr
+	\item \textbf{Neuer Ansatz}:
+	\begin{itemize}
+		\item API wird schlank gemacht (\textbf{Entfernen/Deprecaten} der \textbf{Fixed Function Pipeline} und vieler \textbf{Hilfsfunktionen}, z.B Matrix Stack)
+		\item Pipeline wird programmierbar durch \textbf{Shader} (Programme auf der GPU)
+		\item Erhalten essenzieller vordefinierter Funktionen (z.B Supersampling, Depth-Testing, Blending bei Semitransparenz)
+	\end{itemize}
+	\item \textbf{Vorteil}: Flexiblere, schlankere API mit weniger Overhead, bessere \textbf{Adaptivität} (z.B Nutzung von Shadern für nicht direkt grafische Anwendungen)
+	\item \textbf{Nachteil}: Initiales Setup wird komplexer, Entwickler müssen selbst mehr programmieren (Fixed Function Pipeline ist aber über \textbf{Kompatibilitätsprofil} noch verfügbar)
+	\item \textbf{Buffer}:
+	\begin{itemize}
+		\item \textbf{Übertragung von Daten} in der Grafikpipeline über Buffer-Objekte
+		\item \textbf{Vertex Buffer} mit Vertices, \textbf{Vertex Array Object} beschreibt den Aufbau des Buffers (Vertex enthält oft mehr als nur die Position, sondern z.B auch eine Normale)
+		\item Texturkoordinaten, Farben, Normalen etc. werden meistens \textbf{mit Vertices in einen Buffer} gepackt
+		\item \textbf{Element Array Buffer} für Vertex-Indices (Idee: sende jeden Vertex nur einmal und nummeriere diese durch; beschreibe dann durch diese Indices welche Vertices ein Primitiv bilden, um Overhead zu reduzieren)
+		\item OpenGL ist weiterhin State-Machine, Buffer werden nach dem Erstellen erst \textbf{gebunden}, bevor sie befüllt oder genutzt werden
+	\end{itemize}
+	\item \textbf{Shader}:
+	\begin{itemize}
+		\item Programme der modernen Grafik-Pipeline, werden \textbf{auf der GPU ausgeführt}
+		\item Geschrieben in C-artiger Programmiersprache \textbf{GLSL} (GL Shading Language)
+		\item Unterstützung für bekannte mathematische Operationen wie normieren und Konstrukte wie Vektoren oder Matrizen
+	\end{itemize}
+	\newpage
+	\item \textbf{Neue Grafik-Pipeline}:
+	\begin{enumerate}
+		\item \textbf{Vertex Shader}
+		\begin{itemize}
+			\item Erhält jeweils einen Vertex und gibt einen \textbf{transformierten Vertex} zurück
+			\item Berechnet Attribute, die für Fragment Shader \textbf{interpoliert} werden sollen (z.B Normale für Phong-Shading)
+		\end{itemize}
+		\item \textbf{Primitive Assembly \& Tesselation Shaders}
+		\begin{itemize}
+			\item Assembly-Schritt setzt Vertices des Vertex Shaders zu \textbf{Primitiven} zusammen
+			\item Tesselation Shader (ab OpenGL 4.0) ist optional, \textbf{unterteilt} Primitive \textbf{in kleinere Dreiecke} (z.B für Displacement Mapping)
+		\end{itemize}
+		\item \textbf{Geometry Shader, Clipping, Rasterization}
+		\begin{itemize}
+			\item Geometry Shader (ab OpenGL 3.3) ist optional, \textbf{generiert einzelne Primitive} aus eingegebenen Primitiven (z.B Eingabe eines Punktes, Ausgabe eines prozedural generierten Grashalmes)
+			\item Clipping ist nicht programmierbar, verwirft unsichtbare Primitive
+			\item Rasterisierung für den Ausgangspuffer
+		\end{itemize}
+		\item \textbf{Fragment Shader}
+		\begin{itemize}
+			\item \textbf{Berechnet Farbe} und optional Tiefenwert pro Fragment (Pixel) mit automatisch interpolierten Eingangswerten
+			\item Frei programmierbare \textbf{Beleuchtung}, z.B über Phong-Shading
+		\end{itemize}
+		\item \textbf{Framebuffer}
+		\begin{itemize}
+			\item Besteht aus Farb- und Tiefenpuffer, ggf. noch Stencil Buffer (Stanz-Maske zum Ausstanzen eines Bereichs des finalen Bildes)
+		\end{itemize}
+	\end{enumerate}
+    \end{itemize}

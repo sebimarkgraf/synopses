@@ -4,13 +4,15 @@
 %%% TeX-master: "propa"
 %%% End:
 
-
-\section{Design by Contract}
-\subsection{Software Korrektheit}
+\section{Design by Contract}%
+\label{dbc:sec:design-by-contract}
+\subsection{Software Korrektheit}%
+\label{dbc:sub:software-korrektheit}
 Software ist korrekt, wenn die Spezifikation erfüllt ist.\\
 Idee: Spezifiziere Verhalten von Methoden mit Contracts + Teste / Beweise das Verhalten
 
-\subsection{Contract}
+\subsection{Contract}%
+\label{dbc:sub:contract}
 Definieren:
 \begin{itemize}
   \item P Precondition: Was muss der Client garantieren
@@ -19,7 +21,8 @@ Definieren:
 \end{itemize}
 Formal stellt dies ein \textit{Hoare Tripel} \(\{P\} C \{Q\}\) der Hoare Logik dar.
 
-\subsection{Java Modeling Language (JML)}
+\subsection{Java Modeling Language (JML)}%
+\label{dbc:sub:jml}
 Formale Definition von Interface für Java. Basiert auf Design by Contract. Definiton mit \code{@requires} und
 \code{@ensures}.\\
 Syntax:
@@ -34,16 +37,19 @@ Auch möglich \(\backslash forall\) oder \(\backslash exists\) zu verwenden.\\
 Ermöglicht außerdem Klassen invarianten anzugeben.\\
 Methoden können als \(@pure\) annotiert werden \(\Rightarrow\) keine Seiteneffekte erlaubt.
 
-\subsection{Liskov Substitution Principle}
+\subsection{Liskov Substitution Principle}%
+\label{dbc:sub:liskov}
 Für überschreibende Methoden gilt:\\
 Precondition darf nicht strenger sein.\\
 Postcondition muss mindestens so streng sein.\\
 
-\subsection{Precondition Availability}
+\subsection{Precondition Availability}%
+\label{dbc:sub:precondition}
 Alle Precondition Variablen müssen allen möglichen Callern auch zur Verfügung stehen. Dafür müssen ggf. getter / setter
 eingeführt werden.
 
-\subsection{Checking Contracts}
+\subsection{Checking Contracts}%
+\label{dbc:sub:checking}
 Können statisch / dynamisch oder durch Testcases gecheckt werden.
 In Java auch Assertion möglich, allerdings sollten Assertions nicht als Kontrollstruktur verwendet werden.
   

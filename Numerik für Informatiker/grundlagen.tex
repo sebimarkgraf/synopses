@@ -1,0 +1,119 @@
+\section{Grundlagen}%
+\label{gl:sec:grundlagen}
+Falls nicht anders genannt gilt für folgende Abschnitte: $A \in \realnumbers^{N \times N}, b \in \realnumbers^N$.
+
+\subsection{Vorwärts-/Rückwärtssubstitution}%
+\label{gl:sub:substitution}
+Zugrunde liegendes Problem ist die Lösung des linearen Gleichungssystems: $Ax = b$.\\\\
+\textbf{Voraussetzung:}\\A sei eine rechte obere oder linke untere Dreiecksmatrix.\\\\
+\textbf{Vorgehen:}
+\begin{enumerate}
+	\item Lese die Lösung an der Stelle der Dreiecksmatrix ab, wo die Zeile nur einen Wert $\neq 0$ enthält
+	\item Nutze diese Lösung in der nächsten Zeile um die nächste eindeutige Lösung zu ermitteln
+	\item Wiederhole dies, bis alle Lösungen gefunden sind
+	\item \textbf{Vorwärtssubstitution}:\\Matrix ist eine untere linke Dreiecksmatrix (Lösen von oben nach unten)
+	\item \textbf{Rückwärtssubstitution}:\\Matrix ist eine obere rechte Dreiecksmatrix (Lösen von unten nach oben)
+	\item Aufwand für Vor- bzw. Rückwärtssubstitution: ca. $\frac{N^2}{2}$
+\end{enumerate}
+\textbf{Bsp.:} Rückwärtssubstitution
+\begin{center}
+	$\begin{bmatrix} 1 & 1\\0 & 3\\\end{bmatrix}x = \begin{bmatrix}2 \\ 3\end{bmatrix} \Rightarrow
+	x_2 = 1 \Rightarrow x_1 + 1 = 2 \Rightarrow x_1 = 1 \Rightarrow x = \begin{bmatrix}1 \\ 1\end{bmatrix}$
+\end{center}
+
+\subsection{Gleitkommazahlen}%
+\label{gl:sub:gleitkommazahlen}
+\subsubsection{Darstellung}%
+\label{gl:ssub:darstellung}
+\begin{itemize}
+	\item Darstellung einer Gleitkommazahl z: $z = a * d^e$
+	\item $d$: \textbf{Basis}, im Zweiersystem eine Zweierpotenz (2, 4, 8 etc.)
+	\item $e$: \textbf{Exponent}, eine ganze Zahl zwischen $e_{min}$ und $e_{max}$
+	\item $a$: \textbf{Mantisse}, entweder 0 oder eine Zahl mit $d^{-1} \leq |a| < 1$ der Form $a = v \sum_{i = 1}^{l} a_id^{-i}$ mit dem Vorzeichenbit v und der Mantissenlänge l
+	\item \textbf{Relative Maschinengenauigkeit}: $eps = \frac{d^{(1-l)}}{2}$
+	\item \textbf{Rundungsfunktion} $rd(x)$ rundet auf ein maschinell darstellbares Format
+	\item \textbf{Normierung}:
+	\begin{itemize}
+		\item Eine Gleitkommazahl ist normiert, wenn der \textbf{Ganzzahlenteil der Mantisse} exakt $1$ ist
+		\item Normierung wird durch \textbf{Verschieben der Mantisse} und entsprechendes \textbf{Erhöhen/Vermindern des Exponents} erreicht
+		\item \textbf{Bsp}.: $1101.01 * 2^0 = 1.10101 * 2^3$
+	\end{itemize}
+\end{itemize}
+\newpage
+\subsubsection{Operationen}%
+\label{gl:ssub:operationen}
+\begin{itemize}
+	\item Standard-Operationen verfügbar, Rundung nach Ausführung $\Rightarrow$ Fehlerquelle!
+	\item Aufgrund Rundung sind Operationen nicht assoziativ
+	\item \textbf{Auslöschung}: Großer relativer Fehler bei der Subtraktion fast gleich großer Gleitkommazahlen
+	\begin{itemize}
+		\item Bsp.: Betrachte die untere Gleichung für ein $x \gg 1$: $\sqrt{x + \frac{1}{x}} - \sqrt{x - \frac{1}{x}}$
+		\item \textbf{Ist x groß genug, so ist das Ergebnis mathematisch gesehen 0}
+		\item Da aber bei der Subtraktion beider Wurzeln zwei ca. gleich große Zahlen subtrahiert werden, entsteht ein \textbf{großer relativer Fehler!}
+		\item \textbf{Umstellen der Gleichung schafft Abhilfe durch Entfernen der Subtraktion}:
+		\begin{center}
+			$\sqrt{x + \frac{1}{x}} - \sqrt{x - \frac{1}{x}}
+			= \frac{(\sqrt{x + \frac{1}{x}} - \sqrt{x - \frac{1}{x}})(\sqrt{x + \frac{1}{x}} + \sqrt{x - \frac{1}{x}})}{(\sqrt{x + \frac{1}{x}} + \sqrt{x - \frac{1}{x}})}
+			= \frac{\frac{2}{x}}{(\sqrt{x + \frac{1}{x}} + \sqrt{x - \frac{1}{x}})}$
+		\end{center}
+	\end{itemize}
+	\item Es gilt: $1 + |y| = 1,\ falls\ |y| < eps$
+\end{itemize}
+
+\subsection{Matrixnormen}%
+\label{gl:sub:matrixnormen}
+\begin{enumerate}
+	\item{\makebox[13cm]{\textbf{Spaltensummennorm}: Summiere Spalten, wähle Maximalwert\hfill} $\norm{A}_1$}
+	\item{\makebox[13cm]{\textbf{Spektralnorm}: Wurzel des größten Eigenwerts von $A^TA$\hfill} $\norm{A}_2$}
+	\item{\makebox[13cm]{\textbf{Zeilensummennorm}: Summiere Zeilen, wähle Maximalwert\hfill} $\norm{A}_\infty$}
+\end{enumerate}
+
+\subsection{Konditionen}%
+\label{gl:sub:konditionen}
+\textbf{Konditionszahl}:
+Sei $f: \realnumbers^N \rightarrow \realnumbers^K$ eine differenzierbare Funktion und $x \in \realnumbers^N$
+\begin{itemize}
+	\item Maß für den Einfluss der Störungen von A und b auf x (wie sensibel ist das LGS?)
+	\item Kondition einer Matrix: $1 \leq cond(A) := \norm{A}\norm{A^{-1}}$, wobei $cond(A) = cond(\alpha A), \alpha\in\realnumbers\setminus\{O\}$
+	\item Absolute Konditionszahl: $\kappa^{kn}_{abs}(x) = |\frac{\delta}{\delta x_n}f_k(x)|$
+	\item Relative Konditionszahl: $\kappa^{kn}_{rel}(x) = |\frac{\delta}{\delta x_n}f_k(x)| \frac{|x_n|}{|f_k(x)|}$ falls $f_k(x) \neq 0$
+\end{itemize}
+    Für die \textbf{Kondition} $\kappa$ eines Problems gilt die \textbf{Bewertung}:
+    \begin{itemize}
+            \item Für $\kappa \approx 1$ gut konditioniertes Problem
+            \item Für $\kappa > 1$ schlecht konditioniertes Problem
+            \item Für $\kappa \rightarrow \infty$ schlecht gestelltes Problem
+    \end{itemize}
+
+\newpage
+\subsection{Givens-Rotationen}%
+\label{gl:sub:givens-rotationen}
+\begin{itemize}
+	\item \textbf{Geometrisch}: Drehung in einer Ebene, die durch zwei Koordinaten-Achsen aufgespannt wird
+	\item Nützlich für \textbf{Eigenwertberechnung} und \textbf{QR-Zerlegung} (s. unten)
+	\item Darstellbar als \textbf{orthogonale} Matrix über $\realnumbers$; sei hierfür $\phi$ der Rotationswinkel, $s = sin \phi$ sowie $ c = cos \phi$:
+	\begin{center}
+		$\begin{bmatrix}
+			1 		& \dots 	& 0 	 & \dots 	& 0 	 & \dots 	& 0 	 \\
+			\vdots 	& \ddots 	& \vdots & 		 	& \vdots &  	 	& \vdots \\
+			0 		& \dots 	& c 	 & \dots 	& s 	 & \dots 	& 0 	 \\
+			\vdots 	&			& \vdots & \ddots 	& \vdots &  	 	& \vdots \\
+			0 		& \dots 	& -s 	 & \dots 	& c 	 & \dots 	& 0 	 \\
+			\vdots 	&			& \vdots & 		 	& \vdots & \ddots 	& \vdots \\
+			0 		& \dots 	& 0 	 & \dots 	& 0 	 & \dots 	& 1 	 \\
+		\end{bmatrix}$
+	\end{center}
+\end{itemize}
+
+\subsection{Householder-Spiegelungen}%
+\label{gl:sub:householder-spiegelungen}
+\begin{itemize}
+	\item \textbf{Geometrisch}: Spiegelung eines Vektors an einer Hyperebene durch Null im euklidischen Raum
+	\item \textbf{Hyperebene}: \quotestyle{Ebene} beliebiger Dimension
+	\item Nützlich für \textbf{QR-Zerlegung} (s. unten)
+	\item \textbf{Euklidischer Raum}: Über $\realnumbers$ definierter Vektorraum mit Skalarprodukt
+	\item Darstellbar als \textbf{symmetrische, orthogonale} Matrix $Q$ über $\realnumbers$, wobei $v$ der zur \textbf{Hyperebene gehörende Normalenvektor} ist:
+	\begin{center}
+		$Q = I - \frac{2}{v^Tv}vv^T$
+	\end{center}
+\end{itemize}

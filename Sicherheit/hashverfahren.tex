@@ -1,0 +1,35 @@
+\section{Hashverfahren}%
+\label{hv:sec:hashverfahren}
+
+\subsection{Kollisionsresistenz}%
+\label{hv:sub:kollisionsresistenz}
+\(H_k\) ist kollisionsresistent, wenn jeder PPT-Algorithmus mit höchstens vernachlässigbarer Wahrscheinlichkeit
+eine Kollision, also zwei verschiedene Nachrichten \(M \neq M'\) für die \(H(M) = H(M')\) gilt, findet.\\
+oder\\
+\(H_k\) ist kollisionsresistent, wenn für alle PPT-Algorithmen \(\mathcal{A}\) gilt:
+\[\Pr\Big[(M, M') \leftarrow \mathcal{A}(1^k) \Big| M \neq M' \and H_k(M) = H_k(M')\Big]\]
+ist vernachlässigbar (in k).
+
+\subsection{Key-Strenghtening}%
+\label{hv:sub:key-strengthening}
+\begin{itemize}
+\item Mehrfachanwendung (z.B. 1000 Mal)
+\item Suche kleinste Zahl i, sodass die ersten z.B. 20 Bits von \(H(m,i)\) gleich 0 sind.
+\end{itemize}
+
+\subsection{Birthday-Angriff}%
+\label{hv:sub:birthday-angriff}
+Wahrscheinlichkeit für Kollision steigt mit Quadrat.
+Vorgehen:
+\begin{itemize}
+\item Wähle \(2^{\frac{k}{2}})\) zufällige Urbilder und berechne Hashwert
+\item Sortiere nach Hashwert
+\item Suche nach identischen Hashwerten
+\end{itemize}
+Laufzeit: \(O(k \cdot 2^{\frac{k}{2}})\) (Grund für k: Sortieren)\\
+Speicherbedarf: \(O(k \cdot 2^{\frac{k}{2}})\)
+
+\subsection{HMAC}%
+\label{hv:sub:hmac}
+kurz für \textbf{Keyed-Hash Message Authentication Code} \\
+\[\mathit{HMAC}_{K}(M) = H((K \oplus \mathit{opad}) || H((K \oplus \mathit{ipad}) || M))\]

@@ -4,28 +4,32 @@
 %%% TeX-master: "robotik"
 %%% End:
 
-\section{Dynamik}
+\section{Dynamik}%
+\label{dyn:sec:dynamik}
 Untersuchung der Bewegung von Körpern als Folge der auf sie wirkenden Kräfte und Momente.
 
-\subsection{Dynamisches Modell}
+\subsection{Dynamisches Modell}%
+\label{dyn:sub:dynamisches-modell}
 Das dynamische Modell beschreibt den Zusammenhang von Kräften, Momenten und Bewegungen, welche in einem mechanischen
 Mehrkörpersystem auftreten.\\
 
 Zweck: Analyse der Dynamik, Synthese mechanischer Strukturen, Modellierung elasticher Strukturen, Reglerentwurf
 
-\subsection{Allgemein}
+\subsection{Allgemein}%
+\label{dyn:sub:allgemein}
 Roboter besteht aus \(n\) Partikeln mit Masse \(m_i\) und Position \(r_i\)\\
 Partikel können sich wegen Verbindungen und Gelenken nicht unabhängig voneinander bewegen.\\
 \(\rightarrow\) Einführung von Constraints der Form \(g_j(r_1, \ldots, r_n) = 0\)\\
 
 Parameteranzahl: \(3n + k\), aber tatsächlich \(3n-k\) Freiheitsgerade.
 
-\subsection{Generalisierte Koordinaten}
+\subsection{Generalisierte Koordinaten}%
+\label{dyn:sub:generalisierte-koordinaten}
 Minimaler Satz an unabhängigen Koordinaten, der den aktuellen Systemzustand vollständig beschreibt.
 Finde Koordinaten, welche gleichzeitig die Constraints einhalten.
 
-
-\subsection{Bewegungsgleichung}
+\subsection{Bewegungsgleichung}%
+\label{dyn:sub:bewegungsgleichung}
 \[\tau = M(q) \cdot \ddot{q} + c(\dot{q}, q) + g(q)\]
 \makebox[3cm][l]{\(\tau\): \(n \times 1\)} Vektor der generalisierten Kräfte\\
 \makebox[3cm][l]{\(M(q)\): \(n \times n\)} Massenträgheitsmatrix\\
@@ -33,20 +37,23 @@ Finde Koordinaten, welche gleichzeitig die Constraints einhalten.
 \makebox[3cm][l]{\(g(q)\): \(n \times 1 \)} Vektor der Gravitationskomponenten\\
 \makebox[3cm][l]{\(q, \dot{q}, \ddot{q}\): \(n \times 1\)} Vektor der generalisierten Koordinaten
 
-\subsection{Probleme}
+\subsection{Probleme}%
+\label{dyn:sub:probleme}
 \textbf{Direktes Problem}:\\
 Gegeben Randbedingungen + Kräfte \(\rightarrow\) Generalsierte Koordinaten\\
 
 \textbf{Inverses Problem}:\\
 Gegeben Generalisierte Koordiaten \(\rightarrow\) Kräfte
 
-\subsection{Lagrange}
+\subsection{Lagrange}%
+\label{dyn:sub:lagrange}
 Lagrange-Funktion:
 \[ L(q, \dot{q}) = E_{\mathit{kin}}(q, \dot{q}) - E_{\mathit{pot}}(q) \]
 Bewegungsgleichungen für jede Koordinate:
 \[\tau_i = \frac{d}{dt} \left(\frac{\delta L}{\delta \dot{q}_i}\right) - \frac{\delta L}{\delta q_i}\]
 
-\subsection{Newton-Euler}
+\subsection{Newton-Euler}%
+\label{dyn:sub:newton-euler}
 Bestimme Kraft nach zweitem Newtonschen Gesetz
 \[F_i = \frac{d}{dt} (m_i\ v_{s,i}) = m_i \dot{v}_{s,i}\]
 und Drehmoment
@@ -58,6 +65,6 @@ Kraft und Drehmoment vom nachfolgenden Armelement\\
 
 \(\Rightarrow\) Führt auf Vorwärts- und Rückwärtsgleichungen
 
-
-\subsection{Herausforderungen}
+\subsection{Herausforderungen}%
+\label{dyn:sub:herausforderungen}
 Modelle nur Approximation, da Störgrößen wie Reibung nicht exakt berechnet werden können.

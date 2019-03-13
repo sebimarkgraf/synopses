@@ -9,14 +9,14 @@ Dabei wird der Inhalt auf den Klausur relevanten Stoff beschränkt.
 * Lineare Algebra 2 für Informatiker
 * Numerik für Informatiker
 * Algorithmen 2
-
-## In Erstfassung verfügbar
 * Computergrafik
 * Robotik I
+
+## In Erstfassung verfügbar
 * Programmierparadigmen
 
 ## In Arbeit
 * Sicherheit
 
 ## Mitarbeit
-Fehlerkorrekturen und Erweiterungen der bestehenden Zusammenfassungen sind gerne als Pull Request gesehen.
+Fehlerkorrekturen und Erweiterungen der bestehenden Zusammenfassungen sind gerne als Pull Request gesehen. Bitte beachtet den [Styleguide](STYLEGUIDE.md)

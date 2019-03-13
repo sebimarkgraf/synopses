@@ -1,0 +1,63 @@
+\section{Polynom-Interpolation}%
+\label{pi:sec:polynom-interpolation}
+
+\textbf{Problem}:\\Nur eine endliche Punktmenge einer Funktion ist gegeben, zur Erschließung der Kurve kann nur zwischen diesen Punkten interpoliert werden
+Ermöglicht z.B \textbf{Datenkompression}, aber verursacht ebenfalls Interpolationsfehler\\\\
+\textbf{Ein Polynom von Grad N-1 benötigt eine Menge von N Punkten!}\\\\
+\textbf{Runge-Phänomen}:\\Der maximale Fehler einer Interpolation \textbf{steigt} mit Höhe des Grades des Interpolationspolynoms
+
+\subsection{Lagrange-Interpolation}%
+\label{pi:sub:lagrange-interpolation}
+\textbf{Interpolationsaufgabe}:\\Zu \textbf{Stützstellen} $\xi_0 < \xi_1 < ... < \xi_N$ und \textbf{Funktionswerten} $f_0, ..., f_N \in \realnumbers$ bestimme das eindeutige Polynom P mit $P(\xi_i) = f_i$ für $i = 0, ..., N$\\\\
+\textbf{Lagrange-Basis}: $$L_n(t) = \prod^{N}_{k = 0, k \neq n} \frac{t - \xi_k}{\xi_n - \xi_k}$$
+\textbf{Konstruktion über Lagrange-Basis}: $$P(t) = \sum^N_{n = 0}f_nL_n(t)$$
+\textbf{Vorteile}:\\Explizite Darstellung der Lösung\\\\
+\textbf{Nachteile}:\\Für große N \textbf{numerisch instabil}, Auswertung des Polynoms in $O(N^2)$, für neuen Wert muss alles \textbf{neu berechnet} werden
+
+\subsection{Newton-Interpolation}%
+\label{pi:sub:newton-interpolation}
+\textbf{Newton-Basis}:\\Zu den Stützstellen sei die Newton-Basis definiert als: $$\omega_0 \equiv 1,\ \omega_k(t) = (t - \xi_{k-1})\omega_{k-1}(t)$$
+\textbf{Polynom}:\\Polynom durch Interpolation besteht aus Newton-Basis und passenden Koeffizienten: $$p(x) = a_0 + a_1 * \omega_1 + ... + a_n * \omega_n$$
+Berechnung der Koeffizienten erfolgt über \textbf{Dividierten Differenzen}.
+\newpage
+\noindent\textbf{Dividierten Differenzen}:\\
+Seien folgende Funktionswerte an Stützstellen gegeben:
+\begin{center}
+	\begin{tabular}{c | c c c}
+		n & 0 & 1 & 2\\
+		\hline
+		x & 1 & $\frac{3}{2}$ & 2\\
+		y & -1 & 0 & $\frac{1}{2}$
+	\end{tabular}
+\end{center}
+Berechne paarweise nach folgendem Schema:
+\begin{center}
+	\begin{tabular}{l l l}
+		$y[1] = -1$ 				&																		&\\
+									& $y[1, \frac{3}{2}] = \frac{0 - (-1)}{\frac{3}{2} - 1} = 2$ 			&\\
+		$y[\frac{3}{2}] = 0$		& 																		& $y[1, \frac{3}{2}, 2] = \frac{1 - 2}{2 - 1} = -1$\\
+									& $y[\frac{3}{2}, 2] = \frac{\frac{1}{2} - 0}{2 - \frac{3}{2}} = 1$		&\\
+		$y[2] = \frac{1}{2}$		&																		&
+	\end{tabular}
+\end{center}
+Das \textbf{oberste Ergebnis jeder Spalte} ergibt einen \textbf{Koeffizienten}, d.h.: $a_0 = -1, a_1 = 2, a_2 = -1$. Damit:
+$$p(x) = -1 + 2(x - 1) -1(x - 1)(x - \frac{3}{2})$$
+
+\subsection{Neville-Schema}%
+\label{pi:sub:neville-schema}
+\textbf{Alternativ zum Newton-Schema}:\\Berechnung \textbf{eines Funktionswertes} einer bestimmten Stelle \textbf{statt des kompletten expliziten Polynoms}. \textbf{Rekursionsformel} für den Funktionswert des Interpolationspolynoms an einer bestimmten Stelle mit \textbf{Berücksichtigung der Stützstellen} $i$ bis $j$:
+\begin{center}
+	$p[x_i,...,x_j](x) = \frac{(x - x_i) p[x_{i + 1},...,x_j](x) - (x - x_j)p[x_i,...,x_{j-1}](x)}{x_j - x_i}$
+\end{center}
+Rekursives Schema (gesucht ist der Funktionswert an Stelle $x = 4$):\\
+\begin{center}
+	\begin{tabular}{c | c l c c}
+		$\xi_i$ & $f(\xi_i)$ & & &\\
+		\hline
+		0 & 1 & &\\
+		1 & 2 & $\frac{4 - 0}{1 - 0} * 2 - \frac{4 - 1}{1 - 0} * 1 = 5$ & &\\
+		2 & 0 & $\frac{4 - 1}{2 - 1} * 0 - \frac{4 - 2}{2 - 1} * 2 = -4$ & -13 &\\
+		3 & 1 & $\frac{4 - 2}{3 - 2} * 1 - \frac{4 - 3}{3 - 2} * 0 = 2$ & 5 & 11 = $P_3(4)$
+	\end{tabular}
+\end{center}
+Das Newton-Schema ist aufwendiger, lohnt sich jedoch, wenn viele Stellen ausgewertet werden müssen. Das Neville-Schema ist gut für wenige Suchen geeignet. Für einen weiteren Stützpunkt wird hier \textbf{eine zusätzliche Zeile berechnet, die alten Ergebnisse bleiben valide!}
