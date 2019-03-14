@@ -14,10 +14,10 @@ Dabei wird der Inhalt auf den Klausur relevanten Stoff beschränkt.
 
 ## In Erstfassung verfügbar
 * Programmierparadigmen
+* Mechano Informatik
 
 ## In Arbeit
 * Sicherheit
-* Mechano Informatik
 
 ## Mitarbeit
 Fehlerkorrekturen und Erweiterungen der bestehenden Zusammenfassungen sind gerne als Pull Request gesehen. Bitte beachtet den [Styleguide](STYLEGUIDE.md)
