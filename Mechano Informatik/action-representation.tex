@@ -1,0 +1,205 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "mechano"
+%%% End:
+
+\section{Action Representation}%
+\label{ar:sec:action_representation}
+
+\subsection{Wished properties}%
+\label{ar:sub:wished_properties}
+\begin{itemize}
+\item Reusability
+\item Flexibility
+\item Adaptivity
+\item Portability
+\end{itemize}
+
+Therefore we need:
+\begin{itemize}
+\item Formalism to describe function, e.g.\ robot movements, as dynamic system
+\item Learnable from demonstration
+\item Movement generalized to arbitrary start points/goals and duration
+\end{itemize}
+
+\subsection{Dynamic Movement Primitives}%
+\label{ar:sub:dynamic_movement_primitives}
+\textbf{Given}:
+\begin{itemize}
+\item Demonstration by human (position \& velocity for each time step): \(y_D, v_D\)
+\item Start position \(y_0\), velocity \(v_0\)
+\item Goal position \(g\)
+\item duration (temporal factor) \(\tau\)
+\end{itemize}
+\textbf{Desired}:\\
+Trajectory from \(y_0\) to \(g\) in duration \(\tau\) with characteristic shape of demonstration \(y_D\)\\
+\textbf{Solution}:\\
+Dynamical Systems; critically damped spring-mass system with perturbation
+
+\subsubsection{DMPs in General}%
+\label{ar:ssub:dmps_in_general}
+Consist of two parts
+\begin{align}
+  \dot{s}(t) &= \text{Canoncial}(t, s)\\
+  \dot{y}(t) &= \text{Transform}(t, y) + \text{Perturbation}(s)
+\end{align}
+Canonical system:
+\begin{itemize}
+\item State of the DMP in time
+\item Drives perturbation to control transformation system
+\end{itemize}
+
+Transformation system:
+\begin{itemize}
+\item Generates motion of the robot according to state of canonical
+\end{itemize}
+
+\subsubsection{Damped spring-mass system}%
+\label{ar:ssub:damped_spring_mass_system}
+\[\ddot{x} = K(g-x)-D\dot{x}\]
+Transform in 1st order system
+\begin{align*}
+  \dot{v} &= K(g-x) - D \cdot v\\
+  \dot{x} &= v
+\end{align*}
+Add Temporal scaling with \(\tau \rightarrow \tau > 1\) is slower
+\begin{align*}
+  \tau\dot{v} &= K(g-x) - D \cdot v\\
+  \tau\dot{x} &= v
+\end{align*}
+Add perturbation force to shape trajectory:
+\begin{align*}
+  \tau\dot{v} &= K(g-x) - D \cdot v + (g - x_0) \cdot f \cdot u\\
+  \tau\dot{x} &= v
+\end{align*}
+ODE system is called the transformation system of a DMP.\\
+Perturbation force learned from demonstration\\
+
+Problem: System oscillates \(\rightarrow\) use critically damped spring-mass system
+
+\subsubsection{Canonical system}%
+\label{ar:ssub:canonical_system}
+Perturbation term \(f\) depends on time \(\rightarrow\) time-variant system hard to handle\\
+Solution: Use of canonical system (with phase variable \(u\))
+\[\tau \dot{u} = - \alpha u\]
+
+\subsubsection{Learning the perturbation force}%
+\label{ar:ssub:learning_the_perturbation_force}
+Discrete: Calculate for points with \[f = \frac{-K(g-x) + Dv + \tau\dot{v}}{(g - x_0)u}\]
+
+Approximate to get a continuous representation
+
+\subsection{Radial Basis Function Networks}%
+\label{ar:sub:radial_basis_function_networks}
+Modelled as neural network with one hidden layer and one output neuron\\
+Approximate Function
+\[\hat{f}(x) = w_0 + \sum_{u=1}^k w_u \cdot K_u(x)\]
+with Kernel function
+\[K_u (x) = e^{-\frac{1}{2\sigma^2_u} || \mu_u - x||^2}\]
+
+\subsubsection{Training a RBF}%
+\label{ar:ssub:training_a_rbf}
+\begin{enumerate}
+\item determine the receptive fields
+\item determine the weights \(w_u\)
+\end{enumerate}
+
+\subsubsection{Weighted RBFs}%
+\label{ar:ssub:weighted_rbfs}
+Approximate the perturbation force\\
+Locally weighted regression:
+\[f_\mathit{approx.}(u) = \frac{\sum_{i=1}^N w_i \Psi_i(u)}{\sum_{i=1}^N \psi_i(u)}\]
+RBF:
+\[\psi_i(u) = e^{h_i (u-c_i)^2}\]
+
+Benefits:
+\begin{itemize}
+\item Can remove jitter from original demonstration
+\item Can reduce memory consumption
+\end{itemize}
+
+\subsection{Execution of a DMP}%
+\label{ar:sub:execution_of_a_dmp}
+Parameterize the DMP and integrate the ordinary differential equation
+
+\subsection{Online Feedback}%
+\label{ar:sub:online_feedback}
+One way: Phase stopping: Slow down until external perturbation force is gone\\
+Change canonical system
+\[\tau\dot{u} = \frac{-\alpha u}{1 + \alpha_{pu}|\tilde{x} - x|}\]
+\(a_{pu}\) controls how fast the phase slows down\\
+Change transformation sytem
+\begin{align*}
+  \tau \dot{v} &= K (g-x) - Dv + (g - x_0)u\\
+  \tau \dot{x} &= v + \alpha_{px}|\tilde{x} -x |
+\end{align*}
+
+Online changing the goal would lead to jump in acceleration \(\rightarrow\) filter with ODE:
+\[\dot{g} = \lambda(g-g_d)\]
+
+\subsection{Periodic DMPs}%
+\label{ar:sub:periodic_dmps}
+\begin{itemize}
+\item Start with discrete part called transient
+\item Have no fixed start
+\item Transients cannot be reconstructed from the period \(\rightarrow\) have to be learned
+\end{itemize}
+
+\textbf{Changing the system}
+\begin{itemize}
+\item Canonical system with frequency \(\Omega = \dot{\Phi}\) 
+\item \(\tau\) with \(\frac{1}{\Omega}\)
+\item Perturbation force
+  \begin{align*}
+    f(\Phi) &= \frac{\sum_{i=1}^N w_i \Gamma_i (\phi)}{\sum_{i=1}^N \Gamma_i (\Phi)}r\\
+    \Gamma_i (\Phi) &= e^{h_i (\cos(\Phi - c_i) - 1)}
+  \end{align*}
+\item Transformation System
+  \begin{align*}
+    \dot{v} &= \Omega K(g - x) - Dv + (g - x_0)f(\Phi)\Phi\\
+    \dot{x} &= \Omega v
+  \end{align*}
+\end{itemize}
+
+\subsection{Extension of periodic DMPs}%
+\label{ar:sub:extension_of_periodic_dmps}
+DMP should be able to
+\begin{itemize}
+\item encode the periodic movement itself and
+\item all corresponding transients
+\end{itemize}
+into a single dynamical system\\
+
+\subsubsection{Canonical System}%
+\label{ar:ssub:canoncial_system}
+Idea: 2 different basis functions
+\begin{itemize}
+\item outside the limit cycle (transient)
+\item on the limit circle (periodic pattern)
+\end{itemize}
+
+Two-dimensional i.e. \(s(t) := (\varphi(t), r(t)) \in \realnumbers \times (0, \infty)\) for \(\varphi, r\) solution
+\begin{align*}
+  \dot{\Phi} &= \Omega\\
+  \dot{r} &= \eta (\mu^\alpha - r^\alpha)r^\beta\\
+  \Phi (0) &= \Phi_0,\ r(0) = r_0
+\end{align*}
+Interpret \((\varphi, r)\) as polar coordinates
+
+\subsubsection{Transformation System}%
+\label{ar:ssub:transformation_system}
+We use well known transformation system from [Ijspeert et al. 2002]
+\begin{align*}
+  \dot{z} &= \Omega (\alpha_z (\beta_z ( g - y ) - z ) + f(\Phi, r))\\
+  \dot{y} &= \Omega z
+\end{align*}
+\(g\) is anchor point in \(\realnumbers\)
+
+\subsubsection{Shaping Term}%
+\label{ar:ssub:shaping_term}
+Extend perturbation force of [Gams et al. 2009]
+\[
+  f(\Phi, r) = \frac{\sum_{j=1}^M \psi_j(\Phi, r) \tilde{w}_j + \sum_{i=1}^N \varphi_i(\Phi, r)w_i}
+  {\sum_{j=1}^M \psi_j(\Phi, r) + \sum_{i=1}^N \varphi_i(\Phi, r)}
+\]
