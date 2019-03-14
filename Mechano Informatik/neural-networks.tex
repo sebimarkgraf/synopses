@@ -1,0 +1,185 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "mechano"
+%%% End:
+
+\section{Neural Networks}%
+\label{nn:sec:neural_networks}
+Idea: Build mathematical model inspred by the brain
+
+\subsection{Classification of ML}%
+\label{nn:sub:classification_of_ml}
+\begin{itemize}
+\item Inductive vs. Deductive
+\item Symbolic vs. Subsymbolic
+\item Supervised vs. Unsupervised
+\end{itemize}
+Neural networks are inductive, subsymbolic and supervised
+
+\subsection{Composition of functions}%
+\label{nn:sub:composition_of_functions}
+Flow determined through topology structure
+\begin{itemize}
+\item Loop-free structure: Deterministic calculation
+\item Structure with loops: recursive calculation taking time into account
+\end{itemize}
+
+\subsection{ANN as graph}%
+\label{nn:sub:ann_as_graph}
+ANN is abstract model consisting of connections (edges) and nodes\\
+Nodes are calculating, edges only transfer information
+
+\subsection{Perceptron}%
+\label{nn:sub:perceptron}
+\[
+  o(x_1, \ldots, x_n) = \begin{cases}1, & \text{if } w_0 + w_1 \cdot x_1 + \cdots + w_n \cdot x_n > 0\\
+    -1, & \text{otherwise}\end{cases}
+  \qquad x_i, w_i \in \realnumbers
+\]
+Binary output (\(\{-1, 1\}, \{0, 1\}\))
+
+Simplified:
+\begin{align*}
+  o(x) &= \sigma (\langle w, x \rangle)\\
+  x := (1, x_1, x_2, \ldots, x_n), \quad w :&= (w_0, w_1, \ldots, w_n), \quad x,w \in \realnumbers^{n+1}
+\end{align*}
+With binary activation function
+\[
+  \sigma (y) = \mathit{sgn}(y) = \begin{cases} 1, & \text{if } y > 0\\ -1, & \text{otherwise}\end{cases}
+  \qquad y \in \realnumbers
+\]
+
+Perceptron only classifies linear separable data \(\rightarrow\) Cannot reproduce XOR
+
+\subsubsection{Perceptron Training Rule}%
+\label{nn:ssub:perceptron_training_rule}
+Basic learning rule [Rosenblatt 1957]
+\begin{align*}
+  w_i &\leftarrow w_i + \Delta w_i\\
+  \Delta w_i &= \eta (t-o) \cdot x_i
+\end{align*}
+Incrementally updates the weights \(w_i\) of the input signals\\
+
+\subsubsection{Gradient descent}%
+\label{nn:ssub:gradient_descent}
+\textit{Gradient-Descent(training\_examples, \(\eta\))}\\
+Each training example is a pair of the form \(\langle x, t\rangle\), where \(x\) is the vector of input
+values, and \(t\) is the target output value. \(\eta\) is the learning rate (e.g., 0.05)
+\begin{itemize}
+\item Initialize each \(w_i\) to some small random value
+\item Until the termination condition is met, Do
+  \begin{itemize}
+  \item Initialize each \(\Delta w_i\) to 0
+  \item For each \(\langle x, t \rangle\) in \textit{training\_examples}, Do
+  \item Input the instance \(x\) to the unit and compute the output \(o\)
+  \item For each linear unit weight \(w_i\), Do
+    \[\Delta w_i \leftarrow \Delta w_i + \eta (t - o) x_i\]
+  \end{itemize}
+\item For each linear unit \(w_i\), Do
+  \[w_i \leftarrow w_i + \Delta w_i\]
+\end{itemize}
+
+Drawbacks:
+\begin{itemize}
+\item Slow convergence
+\item Not guaranteed to find global minimum
+\item All training samples at the same time
+\end{itemize}
+
+\subsubsection{Delta-Rule}%
+\label{nn:ssub:delta_rule}
+Incremental or stochastic version of the gradient descent\\
+Calculate the error for each individual example in \(D\)\\
+\[E_d (w) = \frac{1}{2}(t_d - o_d(x))^2 = \frac{1}{2}(t_d - \langle x, w\rangle)^2\]
+Update rule:
+\begin{align*}
+  w_i &\leftarrow w_i + \Delta w_{id}, \quad \forall d \in D\\
+  \delta_d &= (t_d - o_d (x))\\
+  \Delta w_{id} &= \eta \cdot \delta_d \cdot \frac{\delta E_d (w)}{\delta w_i} = \eta \cdot \delta_d \cdot x_i
+\end{align*}
+Is fundament of the backpropagation algorithm.
+
+\subsection{Feed-forward network}%
+\label{nn:sub:feed_forward_network}
+Acyclic, directed graph of connected neurons also called Multilayer Perceptron (MLP)\\
+Activatoin function:
+\[o = \sigma (\langle w, x\rangle)\]
+Sigmoid function:
+\[\sigma (y) := \frac{1}{1 + e^{-y}}\]
+With:
+\[\frac{\delta \sigma (y)}{\delta y} = \sigma (y) \cdot (1 - \sigma (y))\]
+
+Can express non-linear decision surfaces.
+
+\subsection{Backpropagation}%
+\label{nn:sub:backpropagation}
+The error
+\[E_d (w) = \frac{1}{2}  \sum_{k \in O} (t_{kd} - o_{kd}(x))^2\]
+is successively propagated backwards from the output layer to the input layer\\
+
+Algorithm:
+\begin{itemize}
+\item Initialize all weights to small random numbers.
+\item Until satisfied, Do
+  \begin{itemize}
+  \item For each training example, Do
+    \begin{itemize}
+    \item Input the training example to the network and compute the network output
+    \item For each output unit k
+      \[\delta_k \leftarrow o_k (1 - o_k)(t_k - o_k)\]
+    \item For each hidden unit \(h\)
+      \[\delta_h \leftarrow o_h(1 - o_h) \sum_{k \in \mathit{outputs} w_{hk}\delta_k}\]
+    \item Update each network weight \(w_{ij}\)
+      \[w_{ij} \leftarrow w_{ij} + \Delta w_{ij} \qquad \text{where } \Delta w_{ij} = \eta \cdot \delta_j \cdot x_{ij}\]
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\subsection{Other types of ANN}%
+\label{nn:sub:other_types_of_ann}
+\begin{itemize}
+\item Stochastic real-values Neural Units
+\item self-organizing map
+\item recurrent networks
+\end{itemize}
+
+\subsection{Deep Learning}%
+\label{nn:sub:deep_learning}
+Use networks with many hidden layers. Problems:
+\begin{itemize}
+\item Vanishing gradient problem --- First layers not really affected by learning
+\item Exploding gradient problem
+\end{itemize}
+Solved by abstraction and formation of complex concepts
+
+\subsubsection{Convolutional Neural Networks}%
+\label{nn:ssub:convolutional_neural_networks}
+Very popular feed-forward neural network (especially for image data).\\
+
+Motivation:\\
+Features should be the same independently of where they occur in images\\
+Hierarchy of cells of different complexity in animals\\
+
+Architecture:\\
+\begin{itemize}
+\item Alternating layers
+  \begin{itemize}
+  \item Convolutional layer: Local receptive field
+  \item Pooling Layer: Down-sampling
+  \end{itemize}
+\item Final Set of fully-connected layers
+\item Often simple activation function
+\end{itemize}
+
+
+\subsection{Application in Robotics}%
+\label{nn:sub:application_in_robotics}
+\begin{itemize}
+\item Learning the kinematics with CNN
+\item Using Autoencoders for DMPs
+\item Path Planning
+\item Vision based navigation
+\item Decision making
+\item \ldots
+\end{itemize}
