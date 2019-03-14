@@ -1,0 +1,177 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "mechano"
+%%% End:
+
+\section{Machine Learning}%
+\label{ml:sec:machine_learning}
+
+\subsection{Definition: Machine Learning}%
+\label{ml:sub:definition_machine_learning}
+A computer program is said to learn from experience \(E\) with respect to some class of tasks \(T\)
+and performance measure \(P\), if its performance at tasks in \(T\), as measured by \(P\), improves with
+Experience \(E\).
+
+\subsection{ML Foundations}%
+\label{ml:sub:ml_foundations}
+
+\subsubsection{Linear Algebra Basics}%
+\label{ml:ssub:linear_algebra_basics}
+\begin{itemize}
+\item Tensor: Generalization of vectors and matrices an array of numbers with a variable number of axes
+\item Linear combination: \(\sum_i c_i v^{(i)}\)
+\item Span of vectors: Set of all points that can be obtained by linear combination of these vectors
+\item Linear independence: No vector in the set can be obtained as a linear combination of the other vectors
+\item Norms: function \(f\) that follows
+  \begin{itemize}
+  \item \(f(x) = 0 \Rightarrow x = 0\)
+  \item \(f(x+y) \leq f(x) + f(y)\)
+  \item \(\forall \alpha \in \realnumbers, f(\alpha x) = |\alpha|f(x)\)
+  \end{itemize}
+\item \(L^1 \) Norm: \(||x||_1 = \sum_i |x_i|\)
+\item \(L^2\) Norm: \(||x||_2 = \sqrt{x_1^2 + \cdots + x_n^2}\)
+\item \(L^\infty\) Norm: \(||x||_\infty = \max_i |x_i|\)
+\item Diagonal Matrix: matrix where only entries on the diagonal are non-zero
+\item Vectors \(x\) and \(y\) are orthogonal: \(x^T y = 0\)
+\item Matrix \(A\) is orthogonal: \(A^T A = A A^T = I \Rightarrow A^{-1} = A^T\)
+\item Eigenvectors and eigenvalues of a matrix \(A\): \(Av = \lambda v\) with \(\lambda \in \realnumbers\)
+\item Determinant of matrix \(A\ \det(A)\): Product of all Eigenvalues of \(A\)
+\item Singular Value Decomposition (SVD): factorize matrix \(A\) in matrices \(U, D\) and \(V\) such that \(A = UDV^T\)
+\end{itemize}
+
+\subsubsection{Principal Component Analysis}%
+\label{ml:ssub:principal_component_analysis}
+\[\frac{w^T A^T A w}{w^T w}\] is called Rayleigh quotient.
+\(w\) that maximizes quotient coincides with the eigenvector of \(A^T A\)\\
+Maximization:
+\[\max w^T X w \text{ s.t. } w^t w = 1 \text{ where } X = A^T A\]
+Lagrangian function: \(L = w^T X w - \lambda (w^T w - 1)\)\\
+Derivative with respect to \(w\): \[\nabla_w L = Xw - \lambda w = 0\]
+\(\rightarrow\) w is the eigenvector of \(X\)
+
+\subsubsection{Definitions}%
+\label{ml:ssub:definitions}
+\begin{itemize}
+\item Continuous probability distribution \(p\) for (continuous) random variable \(x\):\\
+  \[\forall x \in X: p(x) \geq 0 \quad \land \quad \int p(x) dx = 1\]
+\item Expected value
+  \[ \mathbb{E}_{X~p}[f(x)] = \int p(x)f(x)dx\]
+\item Variance
+  \[\mathit{Var}(f(x)) = \mathbb{E}[{(f(x) - \mathbb{E}[f(x)])}^2]\]
+\end{itemize}
+
+\subsubsection{Probability Distributions}%
+\label{ml:ssub:probability_distributions}
+\begin{itemize}
+\item Gaussian (normal) Distribution
+  \[f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp (-\frac{(x - \mu)^2}{2 \sigma^2})\]
+\item Exponential distribution
+\item Laplace distribution
+\item mixture distribution: Create more complex by combining simple stochastic distributions:
+  \[P(z, x) = P(z = i)p(x|z = i)\]
+  \begin{itemize}
+  \item \(P(z)\) Multinomial distribution
+  \item \(P(x)\) Mixture component, can take different distributions
+  \end{itemize}
+\end{itemize}
+
+\subsection{Mathematical Optimization}%
+\label{ml:sub:mathematical_optimization}
+Algorithms to find parameters to minimize/maximize a given function \(f(x)\)
+
+\subsubsection{Gradient Descent}%
+\label{ml:ssub:gradient_descent}
+\[\Delta_x f(x) = {(\frac{\delta}{\delta x_1} f(x), \ldots, \frac{\delta}{\delta x_n} f(x))}^T\]
+Idea: Move in direction of gradient --- \enquote{method of steepest descent}
+\[x' = x - \eta \cdot \delta_x f(x)\]
+With learning rate \(0 < \eta < 1\)
+
+\subsubsection{Newton's Method}%
+\label{ml:ssub:netwons_method}
+Include second-order derivate Heassian matrix:
+\[H(f)(x)_{i,j} = \frac{\delta^2}{\delta x_i \delta x_j} f(x)\]
+And approximate \(f(x)\) around \(x_0\) using Taylor series:
+\[f(x) \approx f(x_0) + {(x - x_0)}^T \cdot \nabla_x f(x_0) + \frac{1}{2} {(x - x_0)}^T \cdot H (f)(x_0) \cdot (x - x_0)\]
+
+\subsection{Basic Concepts}%
+\label{ml:sub:basic_concepts}
+\begin{itemize}
+\item Supervised Learning: Dataset (training set) is labeled, i.e.\ each training sample is associated with a
+  label (classification) or a target value (regression)
+\item Unsupervised Learning: Dataset (training set) is not labeled, learning algorithm must establish structure
+  of the dataset by itself
+\item Test set: Dataset, disjunct from the training set, to evaluate model performance
+\item Generalization: Ability of a learned model to perform well on previously unobserved inputs, such as the test set
+\item Overfitting: Model reproduces training data well, but cannot generalize
+\item Underfitting: Model cannot even reproduce training data
+\item Model capacity: \enquote{Power} of the model, amount of data that model can learn
+\item N-Fold Cross Validation: Splitting into training and test set. Split into n equally-sized partitions and fun folds
+\end{itemize}
+
+\subsection{Linear Regression}%
+\label{ml:sub:linear_regression}
+Estimate value of one variable \(y\) given an arbitrary number of input variables (in the n-dimensional vector \(X\))\\
+
+Prediction: \(\hat{Y} = w^T X + b\)\\
+
+How to determine w? Minimize:
+\[\frac{1}{m} || (\hat{Y} - Y)||^2_2\]
+for Training data \(X / Y\)
+
+\subsection{Support Vector Machines}%
+\label{ml:sub:support_vector_machines}
+Popular binary classifier for supervised linear classification\\
+Divide 2 data classes through hyperplane:
+\[wx - b = 0\]
+sign of \(wx - b\) defines side of data points.\\
+
+Idea: Only points close are relevant \(\rightarrow\) support vectors\\
+
+Training is optimization problem:
+\[\max_w \frac{2}{|| w ||} \text{ or } \min_w ||w||^2\]
+
+How to deal with non-linearly separable data\\
+\(\rightarrow\) Soft-margin SVM\\
+\(\rightarrow\) Kernel-Trick (Projection in feature space)
+
+
+\subsection{k-means Clustering}%
+\label{ml:sub:k_means_clustering}
+Establish a structure in unlabeled data set by assigning points to \(k\) clusters
+
+Goal: Minimize variance inside each cluster:
+\[
+  \sum_{j=1}^k \sum_i b_{i.j} \cdot || x_i - m_j ||^2_2
+  \text{ with } b_{i,j} = \begin{cases} 1 & x_i \text{ is assigned to cluster } j\\ 0 & \text{ otherwise}\end{cases}
+\]
+
+
+\subsubsection{Lloyd's Algorithm}%
+\label{ml:ssub:lloyds_algorithm}
+Initialize clusters \(m_j\) randomly\\
+Iterative approach in 2 steps:
+\begin{enumerate}
+\item Assignment: Associate each point \(x_i\) to closest cluster:
+  \[
+    b_{i, j} \leftarrow \begin{cases}1 & \text{if } || x_i - m_j ||_2 = \min_k || x_i - m_k ||_2\\
+      0 & \text{otherwise}\end{cases}
+  \]
+\item Update step: Recompute all \(m_i\) from the assigned samples:
+  \[
+    m_j \leftarrow \frac{\sum_i b_{i,j} x_i}{\sum_i b_{i,j}}
+  \]
+\item Terminate when \(m_j\) do not change anymore
+\end{enumerate}
+
+Advantages:
+\begin{itemize}
+\item simple and efficient
+\item guaranteed to converge
+\end{itemize}
+Problems:
+\begin{itemize}
+\item \(k\) needs to be known in advance
+\item initialization of cluster means crucially affects result
+\item no way to detect/handle outlier
+\end{itemize}
