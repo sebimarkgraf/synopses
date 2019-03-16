@@ -17,7 +17,8 @@ Dabei wird der Inhalt auf den klausurrelevanten Stoff der von uns besuchten Vorl
 * Mechano-Informatik
 
 ## In Arbeit
-* Sicherheit
+* Softwaretechnik 2
+* Sicherheit (vorerst pausiert)
 
 ## Mitarbeit
 Fehlerkorrekturen und Erweiterungen der bestehenden Zusammenfassungen sind gerne als Pull Request gesehen. Bitte beachtet den [Styleguide](STYLEGUIDE.md)!
