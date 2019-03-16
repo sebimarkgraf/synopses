@@ -3,7 +3,7 @@
 
 ## Vorlesungen
 Zusammenfassungen zu Vorlesungen werden während der Vorlesungen und in der Vorbereitung auf Klausuren erstellt.
-Dabei wird der Inhalt auf den Klausur relevanten Stoff beschränkt.
+Dabei wird der Inhalt auf den klausurrelevanten Stoff der von uns besuchten Vorlesung beschränkt.
 
 ## Fertige Fassungen
 * Lineare Algebra 2 für Informatiker
@@ -14,10 +14,10 @@ Dabei wird der Inhalt auf den Klausur relevanten Stoff beschränkt.
 
 ## In Erstfassung verfügbar
 * Programmierparadigmen
-* Mechano Informatik
+* Mechano-Informatik
 
 ## In Arbeit
 * Sicherheit
 
 ## Mitarbeit
-Fehlerkorrekturen und Erweiterungen der bestehenden Zusammenfassungen sind gerne als Pull Request gesehen. Bitte beachtet den [Styleguide](STYLEGUIDE.md)
+Fehlerkorrekturen und Erweiterungen der bestehenden Zusammenfassungen sind gerne als Pull Request gesehen. Bitte beachtet den [Styleguide](STYLEGUIDE.md)!
