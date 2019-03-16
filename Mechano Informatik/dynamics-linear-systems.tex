@@ -119,7 +119,14 @@ where \(s\) is called complex frequency \(s = \delta + i\omega\)
 \label{dls:ssub:resolving_the_state_transition}
 \(e^{At}\) called sate-transition matrix\\
 Laplace transform: \(\resolvent(s) = {(s \cdot I - A)}^{-1}\) called resolvent\\
-Characterizes the dynamic behavior of the system
+Characterizes the dynamic behavior of the system\\
+
+\textbf{Calculate State-Transition with Resolvent}
+\begin{enumerate}
+\item Calculate \((s \cdot I - A)\)
+\item Obtain the resolvent by inverting \((s \cdot I - A)\)
+\item State-transition matrix by element-wise inverse Laplace transform
+\end{enumerate}
 
 \subsection{Transfer Functions}%
 \label{dls:sub:transfer_functions}
