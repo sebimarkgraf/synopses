@@ -1,0 +1,162 @@
+\section{Clean Code}
+\label{cc:sec:clean_code}
+
+\begin{itemize}
+\item \textbf{Problem}:
+	\begin{itemize}
+		\item Deshalb \textbf{Broken Window Problem}: \itquote{One broken window starts the process towards decay}
+		\item \textbf{Lehman's First Law}: \itquote{A system that is used will be changed}
+		\item \textbf{Lehman's Second Law}: \itquote{An evolving system increases its complexity unless work is done to reduce it}
+	\end{itemize}
+\item \textbf{Object-Oriented Design (OOD)}:
+	\begin{itemize}
+		\item Designstrategie, System besteht aus interagierenden Objekten, welche ihren eigenen internen Zustand bewahren und Schnittstellen für diesen bereitstellen
+	\end{itemize}
+\end{itemize}
+
+\subsection{SOLID-Principles}
+\label{cc:sub:solid_principles}
+
+\begin{enumerate}
+	\item \textbf{SRP}: Single Responsibility Principle
+	\begin{itemize}
+		\item \itquote{There should never be more than one reason for a class to change.}
+		\item \textbf{Beispiel für Nichteinhaltung}: Modem-Klasse, welche sowohl eine Verbindung aufbauen und abbrechen als auch Senden und Empfangen kann
+		\item \textbf{Korrektur}: Aufteilung in Connector und Communicator
+		\item \textbf{Command-Query-Separation}: Trenne \textbf{Commands} (z.B Würfel rollen) von \textbf{Queries} (z.B Würfelwert auslesen)
+	\end{itemize}
+	\item \textbf{OCP}: Open Closed Principle
+	\begin{itemize}
+		\item \itquote{Software entities should be open for extension but closed for modification.}
+		\item Modifiziere Verhalten durch \textbf{Hinzufügen von neuem Code} statt \textbf{Bearbeiten von altem Code} (vgl. \textbf{Geheimnisprinzip})
+		\item \textbf{Beispiel für Nichteinhaltung}: Switch-Statement für das Zeichnen von Dreiecken, Vierecken etc. je nach Typ
+		\item \textbf{Korrektur}: For-Schleife für beliebige Elemente vom Typ Geometrie
+	\end{itemize}
+	\item \textbf{LSP}: Liskov Substitution Principle
+	\begin{itemize}
+		\item \itquote{Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it.}
+		\item \textbf{Design-by-Contract}: \itquote{When redefining a routine in a derivative, you may only replace the precondition by a weaker one and its postcondition by a stronger one.}
+		\item \textbf{Beispiel für Nichteinhaltung}: Ein \textbf{Quadrat} ist \textbf{kein Spezialfall von Rechteck}, da bei Quadraten Breite und Höhe voneinander abhängig sind
+		\item \textbf{Korrektur}: Sowohl Quadrate als auch Rechtecke erben von \textbf{Shape}, welche keine Schnittstelle für Höhe und Breite bereitstellt
+	\end{itemize}
+	\item \textbf{ISP}: Interface Segregation Principle
+	\begin{itemize}
+		\item \itquote{Clients should not be forced to depend upon interfaces that they do not use.}
+		\item \textbf{Hohe Kohäsion}: Interfaces sollten nur einem einzelnen Zweck dienen
+		\item \textbf{Interface Pollution}: Interfaces sollten nicht auf anderen Interfaces basieren, weil eine Subklasse diese benötigt
+		\item \textbf{Beispiel für Nichteinhaltung}: Jeder Arbeiter muss arbeiten und essen, auch Roboter sind Arbeiter, obwohl sie nicht essen müssen
+		\item \textbf{Korrektur}: Aufteilung des Worker-Interfaces in Workable und Feedable
+	\end{itemize}
+	\item \textbf{DIP}: Dependency Inversion Principle
+	\begin{itemize}
+		\item \itquote{High level modules should not depend upon low level modules, both should depend on abstractions. Abstractions should not depend on details, details should depend upon abstractions.}
+		\item \textbf{Beispiel für Nichteinhaltung}: Kopier-Modul, welches Zugriff auf die Tastatur für Eingabe und einen Drucker für Ausgabe hat
+		\item \textbf{Korrektur}: Abstraktion von Tastatur zu Reader und Drucker zu Writer, sodass letztere austauschbar und der Code wiederverwendbar ist
+	\end{itemize}
+\end{enumerate}
+
+\subsection{Law Of Demeter}
+\label{cc:sub:law_of_demeter}
+
+\begin{itemize}
+	\item \itquote{Don't talk to strangers.}
+	\item Module sollten die \textbf{Implementation} eines Moduls, mit dem sie interagieren, \textbf{nicht kennen}
+	\item Eine Klassenmethode sollte nur mit \textbf{Feldern der Klasse, Parametern, eigenen Objekten und der Klasse selbst} interagieren
+\end{itemize}
+
+\subsection{Boy Scout Rule}
+\label{cc:sub:boy_scout_rule}
+
+\begin{itemize}
+	\item \itquote{Leave the campground cleaner than you found it.}
+	\item Codequalität aktiv erhalten, vgl. \textbf{Lehman's Second Law}
+	\item Agile-Methoden integrieren Aufräumen in die Definition von \quotestyle{erledigt sein}
+\end{itemize}
+
+\subsection{Principle Of Least Surprise}
+\label{cc:sub:principle_of_least_surprise}
+
+\begin{itemize}
+	\item \itquote{Any function or class should implement the behaviours that another programmer could reasonably expect.}
+	\item Fördert \textbf{intuitiven Umgang} mit Funktionen und Klassen und \textbf{spart später Zeit}
+\end{itemize}
+
+\subsection{Coding Conventions}
+\label{cc:sub:coding_conventions}
+
+\begin{itemize}
+	\item \textbf{Standardisierung} und \textbf{konsequente Anwendung} von bedeutungsvollen Namen für Klassen, Funktionen etc.
+	\item \textbf{Präfixe}, z.B um private Klassen-Felder zu markieren
+	\item \textbf{Kontext} klarstellen, z.B durch Integrieren des Typs oder Klassennamens (\quotestyle{nameString}, \quotestyle{IFeedable})
+	\item \textbf{Kommentare}, welche \textbf{erklärend, warnend, informativ und nicht redundant sind}
+	\item \textbf{Konsequentes Löschen} von Code statt Auskommentieren, Versionskontrolle hat den alten Code bei Bedarf
+	\item \textbf{Formatierung}, welche \textbf{einheitlich} ist und \textbf{Lesbarkeit durch vertikale und horizontale Offenheit} fördert
+\end{itemize}
+
+\subsection{Don't Repeat Yourself}
+\label{cc:sub:don_t_repeat_yourself}
+
+\begin{itemize}
+	\item Code-Duplikation stört \textbf{Wartbarkeit, Verständlichkeit und Weiterentwicklung}
+\end{itemize}
+
+\subsection{Keep It Simple, Stupid}
+\label{cc:sub:keep_it_simple_stupid}
+
+\begin{itemize}
+	\item \itquote{Make everything as simple as possible, but not simpler.}
+	\item Schreibe den \textbf{einfachsten möglichen Code}, welcher das Problem \textbf{adequat löst}
+\end{itemize}
+
+\subsection{You Ain't Gonna Need It}
+\label{cc:sub:you_ain_t_gonna_need_it}
+
+\begin{itemize}
+	\item Implementiere nur, was \textbf{nötig ist}
+	\item Verringerung der \textbf{Kosten} von zusätzlichen \textbf{Tests} und \textbf{Dokumentation}
+	\item Auch: Verhindern frühzeitiger \textbf{Optimierung}, welche u.U. die wichtigere grundlegende Entwicklung stört
+\end{itemize}
+
+\subsection{Single Level Of Abstraction}
+\label{cc:sub:single_level_of_abstraction}
+
+\begin{itemize}
+	\item \textbf{Gleicher Abstraktionslevel} für alle Statements in einer Funktion
+	\item Abstraktionslevel in \textbf{Funktionen einer Klasse} sollte von oben nach unten geringer werden
+\end{itemize}
+
+\subsection{Separation Of Concerns}
+\label{cc:sub:separation_of_concerns}
+
+\begin{itemize}
+	\item \itquote{Each module should be focused on a single concern.}
+	\item Vereinfacht Schreiben von \textbf{Tests}
+\end{itemize}
+
+\subsection{Refactoring}
+\label{cc:sub:refactoring}
+
+\begin{itemize}
+	\item \itquote{A disciplined technique for restructuring an existing body of code, altering its internal structure without changing its external behaviour.}
+	\item \textbf{Refactoring} sollte \textbf{nur mit funktionierenden Tests} durchgeführt werden!
+	\item \textbf{Bad Smells} weisen auf notwendiges Refactoring hin, u.a.:
+	\begin{itemize}
+		\item \textbf{Lange Klassen/Methoden, evtl. God-Class}
+		\item \textbf{Code-Duplikation}
+		\item \textbf{Feature Envy} (Klasse ruft exzessiv Methoden anderer Klasse auf) oder \textbf{Inappropriate Intimacy} (Verlass einer Klasse auf Implementationsdetails einer anderen Klasse)
+		\item Implementierung \textbf{ohne Dokumentation oder Kommentare komplett unverständlich}
+	\end{itemize}
+	\item Beachtung von \textbf{Limitierungen}:
+	\begin{itemize}
+		\item Performance-impact
+		\item \textbf{Nutzer} verlassen sich evtl. auf existierende Implementation
+	\end{itemize}
+\end{itemize}
+
+\subsection{Weitere Hinweise}
+\label{cc:sub:weitere_hinweise}
+
+\begin{itemize}
+	\item \textbf{Order of Implementation}: \itquote{Try to move from the least-coupled to the most-coupled classes.}
+	\item \textbf{Test-Driven-Development, Versionskontrolle, Static Analysis und Code Reviews} sind nützlich für Codequalität
+\end{itemize}

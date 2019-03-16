@@ -1,0 +1,50 @@
+\documentclass[10pt,a4paper]{article}
+\author{Jannik Koch}
+\title{Softwaretechnik 2}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage[a4paper, total={7in, 9in}]{geometry}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{hyperref}
+
+\def\realnumbers{{\rm I\!R}}
+\def\polynomials{{\rm I\!P}}
+
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\renewcommand{\arraystretch}{1.5}
+\newcommand{\quotestyle}[1]{\enquote{#1}}
+\newcommand{\itquote}[1]{\textit{\enquote{#1}}}
+
+\begin{document}
+	\pagenumbering{Roman}
+	{\let\newpage\relax\maketitle}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+
+	\include{clean-code}
+	\include{continuous-integration}
+	\include{reviews}
+	\include{software-development-processes}
+	\include{agile}
+	\include{requirements}
+	\include{use-cases}
+	\include{analysis}
+	\include{software-design}
+	\include{architecture}
+	\include{enterprise-application-patterns}
+	\include{clean-architecture}
+	\include{components}
+	\include{cloud-architecture}
+	\include{microservices}
+	\include{model-driven-development}
+	\include{real-time-design-patterns}
+	\include{security}
+	\include{bonus_andrena}
+\end{document}
