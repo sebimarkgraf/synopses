@@ -1,2 +1,112 @@
 \section{Reviews}
 \label{rvs:sec:reviews}
+
+\begin{itemize}
+	\item Meetings, bei denen Software-Artefakte (z.B Plan, Design, Architektur, Code) auf \textbf{Qualität und Korrektheit} geprüft werden
+	\item Verschiedene Formen, z.B \textbf{Inspection, Team Review, Walkthrough, Pair Programming}
+	\item \textbf{Vorteile}:
+	\begin{itemize}
+		\item \textbf{Sehr effektive} Qualitätssicherung, wenn richtig durchgeführt
+		\item Verbesserung des \textbf{Verständnisses des Projekts} und der \textbf{Lesbarkeit}
+		\item Weitergabe von Erfahrung an \textbf{Novizen}
+	\end{itemize}
+	\item \textbf{Probleme}:
+	\begin{itemize}
+		\item Tests werden ausgelassen, Frustration für Autoren, \textbf{Verlassen auf Reviews}
+		\item Schlechte Vorbereitung von Reviews macht diese zu \textbf{Zeitverschwendung}
+		\item \textbf{Obfuscation} durch Autoren zum \textbf{Selbstschutz}
+	\end{itemize}
+	\item \textbf{Validierung}: Prüfung auf erwartetes Verhalten
+	\item \textbf{Verifizierung}: Prüfung der Relation zwischen Artefakten (z.B Design-Plan und Code)
+	\item \textbf{Phasen}: Planning, Overview, Preparation, Meeting, Rework, Follow-Up, Causal Analysis
+	\item \textbf{Rollen}: Author, Moderator, Reader, Recorder, Verifier
+\end{itemize}
+
+\subsection{Inspection Process}
+\label{rvs:sub:inspection_process}
+
+\textbf{Documents involved}
+\begin{center}
+	\begin{tabular}{| l | l | l |}
+		\hline
+		Document 					& Comes from 		& Goes to\\\hline
+		Author objectives 			& Author 			& Moderator, other inspectors\\\hline
+		Meeting notice				& Moderator 		& Inspectors, other attendees\\\hline
+		Inspection package  		& Moderator, Author & Inspectors\\\hline
+		Specification				& Author of spec.	& Inspectors\\\hline
+		Typo list					& Inspectors 		& Author\\\hline
+		Issue log 					& Recorder 			& Author, moderator, verififier\\\hline
+		Corrected deliverable 		& Author 			& Verifier\\\hline
+		Inspection summary report	& Moderator 		& Management\\\hline
+		Lessons learned 			& Moderator 		& Coordinator of QS\\\hline
+		Process Improvements 		& Inspectors 		& Process Group\\
+		\hline
+	\end{tabular}
+\end{center}
+\newpage
+\noindent\textbf{Review Types}
+\begin{center}
+	\begin{tabular}{| l | l | l | l | l | l |}
+		\hline
+		Review Type 			& Planning & Preperation & Meeting    & Correction & Verification\\\hline
+		inspection 				& x 	   & x 			 & x 	   	  & x 		   & x\\\hline
+		Team Reviews 			& x        & x 			 & x 	      & x		   & \\\hline
+		Walkthrough 			& x 	   & 			 & x          & x		   & \\\hline
+		Pair Programming 		& x 	   & 			 & continuous & x		   & x\\\hline
+		Peer Deskchecks 		&  		   & x 			 & possibly   & x		   & \\\hline
+		Ad hoc pass around 		&  		   &  			 & x 		  & x		   & \\\hline
+		Change-based review 	& x 	   & x 			 & 			  & x		   & x\\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Psychological Interaction Patterns}
+\label{rvs:sub:psychological_interaction_patterns}
+
+\begin{itemize}
+	\item \textbf{Alcoholic}:
+	\begin{itemize}
+		\item \textbf{Rollen}: Addicted (hat schlechte Gewohnheit, z.B fehlende Vorbereitung), Helper, Punisher, Ashamed
+		\item Addicted reizt seine Grenzen durchgehend aus
+	\end{itemize}
+	\item \textbf{Now I Have Got You}:
+	\begin{itemize}
+		\item \textbf{Rollen}: A macht einen Fehler, B findet dies heraus
+		\item A ist nun auf die Gnade von B angewiesen
+	\end{itemize}
+	\item \textbf{See What You Did To Me}:
+	\begin{itemize}
+		\item \textbf{Rollen}: A bearbeitet eine Aufgabe, B stört die Ausführung, A macht einen Fehler
+		\item Schuldzuweisungen
+	\end{itemize}
+	\item \textbf{Hurried}:
+	\begin{itemize}
+		\item \textbf{Rollen}: A ist überarbeitet, aber nimmt immer weiter Aufgaben an, B erhöht den Workload von A
+		\item A macht immer weiter Fehler
+	\end{itemize}
+	\item \textbf{If It Were Not For You}:
+	\begin{itemize}
+		\item \textbf{Rollen}: A gibt B die Schuld dafür, ein bestimmtes Ziel nicht erreicht zu haben
+		\item B kann sich kaum wehren, da Erreichen des Ziels rein hypothetisch
+	\end{itemize}
+	\item \textbf{Look How Hard I Tried}:
+	\begin{itemize}
+		\item \textbf{Rollen}: A arbeitet an einem zum Scheitern verurteilten Projekt, arbeitet plötzlich härter als sonst
+		\item A versucht B später zu überzeugen, dass es nicht seine Schuld gewesen sein kann
+	\end{itemize}
+	\item \textbf{Schlemiel}:
+	\begin{itemize}
+		\item \textbf{Rollen}: A ist der Schlemiel, macht Fehler die B bei der Arbeit behindern
+		\item B beschwert sich vorsichtig, A entschuldigt sich halbherzig, endlose Iteration, mangelhafter Fortschritt
+	\end{itemize}
+	\item \textbf{Yes, But}:
+	\begin{itemize}
+		\item \textbf{Rollen}: A schlägt Problemlösung für Fehler von B vor, B lenkt zum Selbstschutz ab
+		\item A muss B zwingen, konstruktiv zu denken
+	\end{itemize}
+	\item \textbf{Wouldn't It Be Nice If}:
+	\begin{itemize}
+		\item \textbf{Rollen}: A schlägt Problemlösung vor, B schlägt Zusatz vor, um seine Reputation zu steigern
+		\item B konstruiert i.d.R. selbst keine Systeme, Pattern geht in \textbf{Yes, But}-Pattern über
+	\end{itemize}
+\end{itemize}

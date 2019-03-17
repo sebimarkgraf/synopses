@@ -1,2 +1,30 @@
 \section{Continuous Integration}
 \label{ci:sec:continuous_integration}
+
+\begin{itemize}
+	\item Software-Development Praxis, bei welcher Mitarbeiter ihre Ergebnisse \textbf{regelmäßig integrieren} und somit durch automatisierte Qualitätssicherung \textbf{validieren}
+	\item Neben Qualitätssicherung auch \textbf{automatisches Deployment} (\quotestyle{Continuous Delivery})
+	\item \textbf{Voraussetzungen}: Automatisierungstools (Build System, Test Framework etc.), CI-Software (z.B Travis, Jenkins), Server, Versionskontrolle
+\end{itemize}
+
+\subsection{Motivation und Ziele}
+\label{ci:sub:motivation_und_ziele}
+
+\begin{itemize}
+	\item Vermeiden der \itquote{Works on my machine!}-Problematik durch \textbf{steriles Environment}
+	\item \textbf{Qualitätssicherung} durch \textbf{automatisierte Tests} und \textbf{Feedback}
+	\item Automatisierung von repetitiven Aufgaben wie \textbf{Testen, Kompilieren und Deployment}
+	\item Statistiken (z.B Qualitätsmetriken) einer CI dienen als \textbf{Kommunikations- und Planungsmittel} des Teams
+\end{itemize}
+
+\subsection{Best Practices}
+\label{ci:sub:best_practices}
+
+\begin{itemize}
+	\item Korrekte Nutzung von \textbf{Versionskontrolle} (v.a. \textbf{Einchecken aller relevanten Artefakte!})
+	\item Vermeiden von \textbf{dupliziertem Konfigurationscode}, stattdessen \textbf{parametrisierte Build-Jobs/-Scripts}
+	\item Fokussieren auf \textbf{Fast Feedback} (zuerst schnelle, kritische Tests)
+	\item Build-Jobs sollten \textbf{Deployment Artefacts} für \textbf{alle Environments} produzieren
+	\item \textbf{Separate Builds} für einzelne \textbf{Deployment Units} (schnellerer Build, Aufteilung der Maintainance)
+	\item \textbf{Feedback-Mechanismen bei Builds} (E-Mail, Slack etc.)
+\end{itemize}
