@@ -117,7 +117,10 @@ Prediction: \(\hat{Y} = w^T X + b\)\\
 
 How to determine w? Minimize:
 \[\frac{1}{m} || (\hat{Y} - Y)||^2_2\]
-for Training data \(X / Y\)
+for Training data \(X / Y\)\\
+
+This is equivalent with:
+\[ w = {(X^T X)}^{-1} X^T Y\]
 
 \subsection{Support Vector Machines}%
 \label{ml:sub:support_vector_machines}
@@ -130,7 +133,15 @@ Idea: Only points close are relevant \(\rightarrow\) support vectors\\
 
 Training is optimization problem:
 \[\max_w \frac{2}{|| w ||} \text{ or } \min_w ||w||^2\]
-
+subject to
+\[
+  wx_i - b
+  \begin{cases}
+    \geq \  \ 1  &\text{if } x_i \text{ belongs to class }+\\
+    \leq -1  &\text{if } x_i \text{ belongs to class } -
+  \end{cases}
+\]
+  
 How to deal with non-linearly separable data\\
 \(\rightarrow\) Soft-margin SVM\\
 \(\rightarrow\) Kernel-Trick (Projection in feature space)

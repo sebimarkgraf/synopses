@@ -4,6 +4,20 @@
 %%% TeX-master: "mechano"
 %%% End:
 
-\section{Mathematische Grundlagen}
-\label{mat:sec::mathematische_grundlagen}
-Mathematische Grundlagen identisch mit Robotik I.
+\section{Mathematical basics}%
+\label{mat:sec:mathematical_basics}
+Basics are identical with \enquote{Robotik I}
+
+\subsection{Quaternions short}%
+\label{mat:sub:quaternione_short}
+\[ q = (a, b, c, d) = a + bi + cj + dk\]
+\[ ijk = -1,\ ij = k,\ jk = i,\ ki = j\]
+Einheitsquaternionen
+\[ ||q|| = 1\]
+Konjugierte
+\[ q* = (a, -b, -c, -d)\]
+Inverse
+\[ q^{-1} = \frac{q^*}{||q||}\]
+Rotationen immer nur mit Einheitsquaternionen!\\
+Rotation:
+\[ p' = qpq^*\]
