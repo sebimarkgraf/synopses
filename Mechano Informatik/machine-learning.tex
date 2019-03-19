@@ -117,7 +117,10 @@ Prediction: \(\hat{Y} = w^T X + b\)\\
 
 How to determine w? Minimize:
 \[\frac{1}{m} || (\hat{Y} - Y)||^2_2\]
-for Training data \(X / Y\)
+for Training data \(X / Y\)\\
+
+This is equivalent with:
+\[ w = {(X^T X)}^{-1} X^T Y\]
 
 \subsection{Support Vector Machines}%
 \label{ml:sub:support_vector_machines}
