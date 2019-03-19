@@ -46,7 +46,7 @@ way that its output matches the desired output as close as possible, despite the
     \draw [->] (controller) -- (system);
     \draw [->] (system) -- node[name=y] {$y$} (way);
     \node [output, right of=way] (output) {};
-    \node [block, below of=y] (measurements) {Plant};
+    \node [block, below of=y] (measurements) {Sensors};
 
     \draw [draw, ->] (input) -- node {$w$} (sum);
     \draw [->] (sum) -- node {$x_d$} (controller);
