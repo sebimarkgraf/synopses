@@ -110,7 +110,14 @@ Sigmoid function:
 With:
 \[\frac{\delta \sigma (y)}{\delta y} = \sigma (y) \cdot (1 - \sigma (y))\]
 
-Can express non-linear decision surfaces.
+Can express non-linear decision surfaces.\\
+
+Alternatively:
+\[\sigma (y) := \tanh (y) = 1 - \frac{2}{e^{2y} + 1}\]
+Then:
+\[\frac{\delta \sigma (y)}{\delta y} = 1 - \sigma^2 (y)\]
+
+
 
 \subsection{Backpropagation}%
 \label{nn:sub:backpropagation}
