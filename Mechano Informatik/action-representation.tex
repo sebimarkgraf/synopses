@@ -55,6 +55,26 @@ Transformation system:
 \item Generates motion of the robot according to state of canonical
 \end{itemize}
 
+\textbf{Standard notation:}
+\begin{align*}
+  \tau \dot{v} &= \alpha_v (\beta_v ( g - y)  - v) + (g - y_0) \cdot f(x)\\
+  \tau \dot{y} &= v\\
+  \tau \dot{x} &= \alpha_x x
+\end{align*}
+
+\begin{center}
+  \begin{tabular}{|l|l|}
+    \hline
+    Term & Meaning  \\ \hline
+    \(\tau\) & temporal factor \\
+    \(\alpha_v, \beta_v\) & characteristic of damped spring-mass  \\
+    \(y, v, \dot{v}\) & position, velocity, acceleration  \\ 
+    \(y_0, g\) & start- and goal position\\
+    \(f(x)\) & forcing term\\ 
+    \(\alpha_x\) & characteristic of canonical system\\ \hline
+  \end{tabular}
+\end{center}
+
 \subsubsection{Damped spring-mass system}%
 \label{ar:ssub:damped_spring_mass_system}
 \[\ddot{x} = K(g-x)-D\dot{x}\]
