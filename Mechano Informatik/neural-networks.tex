@@ -136,7 +136,7 @@ Algorithm:
     \item For each output unit k
       \[\delta_k \leftarrow o_k (1 - o_k)(t_k - o_k)\]
     \item For each hidden unit \(h\)
-      \[\delta_h \leftarrow o_h(1 - o_h) \sum_{k \in \mathit{outputs} w_{hk}\delta_k}\]
+      \[\delta_h \leftarrow o_h(1 - o_h) \sum_{k \in \mathit{outputs}} w_{hk}\delta_k\]
     \item Update each network weight \(w_{ij}\)
       \[w_{ij} \leftarrow w_{ij} + \Delta w_{ij} \qquad \text{where } \Delta w_{ij} = \eta \cdot \delta_j \cdot x_{ij}\]
     \end{itemize}

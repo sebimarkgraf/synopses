@@ -91,7 +91,7 @@ or
 \label{dls:ssub:time_varying_dynamics}
 Write \(\dot{x} = A(t)x\) as
 \[x(t) = \statetrans(t,\tau)x(\tau)\]
-Where \(\Phi(t,\tau)\) is the State-Transition matrix:\\
+Where \(\phi(t,\tau)\) is the State-Transition matrix:\\
 It relates the state at time \(t\) to the state at time \(\tau\) and defines how state \(x(\tau)\) transitions
 into \(x(t)\)
 \begin{itemize}
@@ -124,7 +124,7 @@ where \(s\) is called complex frequency \(s = \delta + i\omega\)
 
 \subsubsection{Resolving the State-Transition}%
 \label{dls:ssub:resolving_the_state_transition}
-\(e^{At}\) called sate-transition matrix\\
+\(e^{At}\) called state-transition matrix\\
 Laplace transform: \(\resolvent(s) = {(s \cdot I - A)}^{-1}\) called resolvent\\
 Characterizes the dynamic behavior of the system\\
 
@@ -139,7 +139,7 @@ Characterizes the dynamic behavior of the system\\
 \label{dls:sub:transfer_functions}
 Relates Laplace transform of the output to the Laplace transform of the input\\
 With output \(y(s) = C \cdot x(s)\)  the Transfer-function matrix is
-\[H(s) = C \cdot {(s \cdot I - A)}^{-1} \cdot B)\]
+\[H(s) = C \cdot \Phi (s) \cdot B = C \cdot {(s \cdot I - A)}^{-1} \cdot B\]
 And impulse-response(inverse Laplace transformation of the transfer-function matrix)
 \[H(t) = \mathcal{L}^{-1} [H(s)] = C \cdot e^{A \cdot t} \cdot B\]
 
