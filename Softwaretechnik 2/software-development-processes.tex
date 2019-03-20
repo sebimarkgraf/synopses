@@ -1,2 +1,60 @@
 \section{Software Development Processes}
 \label{sdp:sec:software_development_processes}
+
+\begin{itemize}
+	\item \textbf{Code-and-Fix}: Simpelster Ansatz, hat aber viele \textbf{Nachteile}:
+	\begin{itemize}
+		\item Oftmals schlechte Codestruktur, Verbesserungen sind nicht systematisch
+		\item Planung von Tasks und damit Teamarbeit kaum möglich
+		\item Kein Design, oft keine Dokumentation, schwer maintainbar, skaliert schlecht
+	\end{itemize}
+	\item Stattdessen: Strukturierte \textbf{Development Processes} (Vorgehensmodelle)
+	\begin{itemize}
+		\item Abstrakte Repräsentation des Prozesses
+		\item Stellt Richtlinien für \textbf{Aktivitäten, Rollen, Produkte} und ggf. Techniken und Tools auf
+		\item Darunter: \textbf{Life Cycle Models}, welche nur Phasen und Phasenübergangskriterien aufstellen (z.B Wasserfall-Modell)
+	\end{itemize}
+\end{itemize}
+
+\subsection{Wasserfall-Modell}
+\label{sdp:sub:wasserfall_modell}
+
+\begin{itemize}
+	\item \textbf{Phasen}: Planung, Definition, Entwurf, Implementierung, Testen, Wartung
+	\item Standardmäßig keine Korrektur älterer Phasenergebnisse erlaubt (\textbf{Rückkopplung})
+	\item \textbf{Problem}: Frühzeitiges Abschätzen der Projektdetails (v.a. Zeitaufwand) selten genau möglich
+\end{itemize}
+
+\subsection{Unified Process}
+\label{sdp:sub:unified_process}
+
+\begin{itemize}
+	\item \textbf{Idee}:
+	\begin{itemize}
+		\item Statt sequentiellem Prozess, führe \textbf{iterativ und inkrementell} immer wieder kleine Planungs-, Design-, Implementations- und Testphasen durch
+		\item Konzentriere auf jeweils aktuelle \textbf{Risiken (risk-driven)} und \textbf{Ansprüche des Kunden (client-driven)}
+		\item Prozess besteht aus 4 abstrakten Phasen (\textbf{nicht äquivalent} zum Wasserfall-Modell!) und 9 Disziplinen (\quotestyle{Mini-Wasserfälle})
+	\end{itemize}
+	\item \textbf{Phasen}:
+	\begin{enumerate}
+		\item \textbf{Inception}: Klärung von \textbf{Grundfragen} bzgl. Kosten, Vision, Durchführbarkeit, Bauen oder Kaufen etc.
+		\item \textbf{Elaboration}: Entwicklung der riskanteren Kernkomponenten, Festigen der Voraussetzungen
+		\item \textbf{Construction}: Iterative Implementierung, Vorbereitung von Deployment
+		\item \textbf{Transition}: Beta-Tests, Deployment
+	\end{enumerate}
+	\item \textbf{Disziplinen}:
+	\begin{enumerate}
+		\item \textbf{Business Modelling}: Firmenspezifische Prozesse
+		\item \textbf{Requirements}: Grobe Planung, Analyse, Dokumentation, Validierung, Management
+		\item \textbf{Design}: Software-Modellierung (Klasendiagramme etc.)
+		\item Rest selbsterklärend: \textbf{Implementation, Test, Deployment, Configuration \& Change Management, Project Management, Environment}
+	\end{enumerate}
+\end{itemize}
+
+\subsection{Rational Unified Process}
+\label{sdp:sub:rational_unified_process}
+
+\begin{itemize}
+	\item \textbf{Spezifizierung des UP}, welche zusätzlich Rollen, Aktivitäten und Artefakte festlegt
+	\item Im Detail zu kompliziert und entsprechend nicht genauer relevant
+\end{itemize}
