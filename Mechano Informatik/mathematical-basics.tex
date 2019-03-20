@@ -21,3 +21,20 @@ Inverse
 Rotationen immer nur mit Einheitsquaternionen!\\
 Rotation:
 \[ p' = qpq^*\]
+
+\subsection{Important Laplace terms}%
+\label{mat:sub:important_laplace_terms}
+\[\mathcal{L}\left[f(t)\right] = F(s) = \int_0^\infty f(t) \cdot e^{-st} dt\]
+\begin{tabular}{l|l}
+  Function \(f(t)\) & Laplace \(\mathcal{L}\{f(t)\}\)\\\hline
+  \(a f(t) + b g(t)\) & \(aF(s)+bG(s)\)\\
+  \(f'(t)\) & \(sF(s) - f(0^+)\)\\
+  \(f''(t)\) & \(s^2 F(s) - sf(0^+) - f'(0^+)\) \\
+  \(\int_0^t f(\tau)d\tau\) & \(\frac{1}{s} F(s)\)\\
+  \(e^{at} f(t)\) & \(F(s - a)\)\\
+  \(\delta(t)\) & \(1\)\\
+  \(\sigma(t)\) & \(\frac{1}{s}\)\\
+  \( e^{-\alpha t}\) & \(\frac{1}{s + \alpha}\)\\
+  \(1\) & \(\frac{1}{s}\)\\
+  \(t^n\) & \(\frac{n!}{s^{n+1}}\)\\
+\end{tabular}
