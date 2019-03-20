@@ -1,2 +1,30 @@
 \section{Software Design}
 \label{sd:sec:software_design}
+
+\subsection{Responsibility-Driven Design}
+\label{sd:sub:responsibility_driven_design}
+
+\begin{itemize}
+	\item Betrachte \textbf{Responsibilities} der Softwareobjekte
+	\item Unterteilung in \textbf{Doing Responsibilities} (was tut das Objekt?) und \textbf{Knowing Responsibilities} (was weiß das Objekt?)
+	\item \textbf{Zuweisung von Responsibilities} beginnt oft bei \textbf{Operation Contracts}
+	\item \textbf{Agile Methoden} arbeiten Responsibilities iterativ und informell aus, z.B auf Whiteboards mit \textbf{Interaktionsdiagrammen}
+	\item \textbf{Design Class Diagrams (DCDs)} illustrieren u.a. Klassen, Assoziationen, Attribute, Interfaces, Methoden, Dependencies
+\end{itemize}
+
+\subsection{GRASP}
+\label{sd:sub:grasp}
+
+\textbf{G}eneral \textbf{R}esponsibility \textbf{A}ssignment \textbf{S}oftware \textbf{P}atterns
+
+\begin{enumerate}
+	\item \textbf{Information Expert}: Die Klasse, welche \textbf{alle notwendigen Informationen hat}, hat die Verantwortung
+	\item \textbf{Creator}: Die Klasse, welche das Objekt \textbf{erstellt}, \textbf{erstellen kann} oder es \textbf{hauptsächlich nutzt}, hat die Verantwortung
+	\item \textbf{Controller}: Ein \textbf{dedizierter Controller} (oder ein Fassaden-Objekt) hat die Verantwortung für (System)Events
+	\item \textbf{Low Coupling}: Die Klasse mit den \textbf{wenigsten Dependencies} (lowest coupling) hat die Verantwortung
+	\item \textbf{High Cohesion}: Die Klasse mit den \textbf{wenigsten verschiedenen Aufgaben} (highest cohesion) hat die Verantwortung
+	\item \textbf{Polymorphism}: Statische \textbf{Factory-Methods} in der Base-Class haben die Verantwortung für die Erstellung von Objekten polymorpher Typen
+	\item \textbf{Pure Fabrication}: Falls keine passende Klasse existiert, delegiere Verantwortung an eine \textbf{extra dafür hergestellte} Klasse um Coupling und Kohäsion zu erhalten
+	\item \textbf{Indirection}: Delegiere Verantwortung für Kommunikation zwischen Klassen an \textbf{Adapter-Klassen}
+	\item \textbf{Protected Variations}: Generelle Prinzipien zum Schutz vor Variationen (z.B \itquote{Don't talk to strangers})
+\end{enumerate}
