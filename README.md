@@ -11,10 +11,10 @@ Dabei wird der Inhalt auf den klausurrelevanten Stoff der von uns besuchten Vorl
 * Algorithmen 2
 * Computergrafik
 * Robotik I
+* Mechano-Informatik
 
 ## In Erstfassung verfügbar
 * Programmierparadigmen
-* Mechano-Informatik
 
 ## In Arbeit
 * Sicherheit
