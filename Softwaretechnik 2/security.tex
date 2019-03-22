@@ -1,2 +1,41 @@
 \section{Security}
 \label{sc:sec:security}
+
+\begin{itemize}
+	\item \textbf{Ziele}: Verfügbarkeit, Vertraulichkeit und Integrität von Daten und System
+	\item \textbf{Weitere Ziele}: Nutzer-Authentifizierung, Verfolgbarkeit, Anonymität
+	\item Sicherheitslücken entstehen oft durch \textbf{Zeitmangel, Geldmangel, Erfahrungsmangel der Entwickler} oder anderem \textbf{Einsatz-Kontext}
+	\item \textbf{Technische Gründe}: Nutzung von Pseudo-Zufall, Race Conditions, fehlende Input-Validierung (Overflows)
+	\item Security muss \textbf{früh beachtet werden}; präventives \textbf{Penetration Testing (pentesting)}
+	\item Security-Management at run-time: \textbf{Resilience}
+\end{itemize}
+
+\subsection{Principles for Building Secure Software}
+\label{sc:sub:principles_for_building_secure_software}
+
+\begin{enumerate}
+	\item \textbf{Secure the weakest link}: selbsterklärend; beachte: weakest link ist nicht zwingend Software (social engineering)
+	\item \textbf{Practice defence in depth}: Mehrere Schutzschichten
+	\item \textbf{Fail securely}: Keine Exposure von Systemdetails bei Fehlschlag
+	\item \textbf{Secure by default}: Aktiviere standardmäßig alle Sicherheitsfeatures
+	\item \textbf{Principle of least privilege}: Jeder erhält nur minimale nötige Privilegien
+	\item \textbf{No security through obscurity}: Keine versteckten magic URLs, Logins, Cheats o.ä. (reverse engineering möglich)
+	\item \textbf{Minimize attack surface}: Weniger Code reduziert Angriffsfläche
+	\item \textbf{Privileged Core}: Isolierter Kern mit Sicherheits-Privilegien
+	\item \textbf{Input Validation and Output Encoding}: Nur valide Inputs erlauben, Outputs sollten nicht ausführbar sein
+	\item \textbf{Don't Mix Data and Code}: Overflows vermeiden, Daten externalisieren (z.B Passwörter)
+\end{enumerate}
+
+\subsection{Weitere Sicherheitsmaßnahmen}
+\label{sc:sub:weitere_sicherheitsmassnahmen}
+
+\begin{itemize}
+	\item \textbf{Federated Identity Management} (z.B LDAP), nicht das Rad neu erfinden
+	\item Starke \textbf{Passwörter}, niemals im Client auswerten, stattdessen auf dem Server hashen und auswerten
+	\item \textbf{Session Handling} in Web-Apps
+	\item Fokus auf Dokumentation
+	\item Lerne \textbf{Schwächen der genutzten Software} und \textbf{Programmiersprachen}
+	\item \textbf{Code Coverage Tools}
+	\item \textbf{Externe Evaluation}, Sicherheitszertifikate
+	\item Korrektes Handling von \textbf{Threads}: Atomare Operationen nutzen, Critical Sections, Semaphoren etc.
+\end{itemize}

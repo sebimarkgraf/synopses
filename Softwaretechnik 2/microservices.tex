@@ -1,2 +1,30 @@
 \section{Microservices}
 \label{ms:sec:microservices}
+
+\begin{itemize}
+	\item \textbf{Architektur-Stil}, bei dem eine Applikation aus vielen \textbf{kleinen Services} zusammengestellt ist
+	\item Laufen in \textbf{eigenen Prozessen} und kommunizieren möglichst \textbf{lightweight} (HTTP resource API, REST)
+	\item \textbf{Dezentralisierung}, z.B separate Datenbanken
+	\item Unabhängigkeit jedes Services bzgl. \textbf{Deployment}, \textbf{Skalierbarkeit}, \textbf{Programmiersprache} und \textbf{Entwicklerteam}
+	\item Gegenstück: \textbf{Monolith}
+	\item \textbf{Typische Patterns}:
+	\begin{itemize}
+		\item \textbf{Tolerant Reader}: Ignoriere unbekannte Elemente, mache so wenig Annahmen wie möglich für Robustheit
+		\item \textbf{Consumer-Driven-Contracts}: Repräsentation aller Erwartungen der Nutzer
+		\item \textbf{Design for Failure}: Erwarte, erkenne und repariere fehlschlagende Services
+		\item \textbf{Evolutionary Design}: Ständige Erweiterung, Ersetzung und Aktualisierung des Codes
+	\end{itemize}
+	\item \textbf{Vorteile}:
+	\begin{itemize}
+		\item Fokus auf \textbf{Modularität}, gut für große Teams
+		\item \textbf{Unabhängige Entwicklung}, gut für viele Teams
+		\item \textbf{Diversität} von Technologie (Programmiersprachen, Frameworks, Datenbanksystemen etc.)
+	\end{itemize}
+	\item \textbf{Nachteile}:
+	\begin{itemize}
+		\item \textbf{Fehleranfälligkeit} bei Kommunikation der Services
+		\item \textbf{Schwere Konsistenz-Maintainance}
+		\item \textbf{Koordination} der Services ist anspruchsvoll, benötigt erfahrene Teams
+	\end{itemize}
+	\item Mit steigender Komplexität \textbf{holen Microservices Monolithen ein}
+\end{itemize}
