@@ -1,2 +1,78 @@
 \section{Architecture}
 \label{arch:sec:architecture}
+
+\begin{itemize}
+	\item Resultat einer Menge von \textbf{Designentscheidungen}, welche die Struktur des Systems umfasst, darunter die \textbf{Komponenten}, ihre \textbf{Beziehungen} sowie ihr Mapping auf \textbf{Execution Environments}
+	\item \textbf{View}: Repräsentation einer kohärenten Menge an Architekturelementen und ihrer Beziehungen aus der Sicht der Stakeholder (software architecture documentation)
+	\item \textbf{Structure}: Die eigentlichen Architekturelemente (software architecture)
+	\item \textbf{View Point}: Gruppiert Views nach Concerns
+	\item Jedes System hat eine Struktur und damit eine \textbf{Architektur}, aber nicht zwingend eine aus bewussten Entscheidungen einer \textbf{Architektur-Dokumentation}
+	\item Explizite Architektur fördert \textbf{Kommunikation, Analyse, Wiederverwertbarkeit, Planungseffizienz, Sicherheit, Performanz und Wartbarkeit}
+	\item Architektur ist auch wichtig bei \textbf{agilen Methoden!}
+	\item Zum Aufbau einer Architektur können \textbf{Referenz-Architekturen} herangezogen werden
+\end{itemize}
+
+\subsection{UP Architectural Views}
+\label{arch:sub:up_architectural_views}
+
+\begin{center}
+	\begin{tabular}{| c | c | c |}
+		\hline
+		\textbf{View} 		& \textbf{Beschreibung}																				& \textbf{Diagramme}\\\hline
+		Logical 			& \makecell{Wichtigste Layer,\\Subsysteme, Klassen etc.}											& \makecell{Klassen-, Paket- und\\Interaktionsdiagramme}\\\hline
+		Process 			& \makecell{Prozesse, Threads\\und deren Interaktionen}												& \makecell{Klassen- und Interaktionsdiagramme\\mit Thread-Notation}\\\hline
+		Deployment 			& Deployment von Prozessen																			& Deployment-Diagramme\\\hline
+		Data 				& \makecell{Persistente Daten/Datenbanken\\und ihre Interaktionen}									& Klassendiagramme\\\hline
+		Security 			& n/a 																								& n/a\\\hline
+		Implementation 		& \makecell{Beschreibung der Organisation von\\Deliverables und ihren Quellen (z.B Source Code)} 	& keine\\\hline
+		Development 		& n/a 																								& n/a \\\hline
+		Use Case 			& Wichtigste Use Cases																				& Use Cases\\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{RUP Architectural Views}
+\label{arch:sub:rup_architectural_views}
+
+Auch \textbf{4+1 Architectural Views}:
+
+\begin{center}
+	\begin{tabular}{| c | c | c |}
+		\hline
+		\textbf{View} 									& \textbf{Beschreibung} 															& \textbf{Diagramme}\\\hline
+		Logical View									& \makecell{Funktionalitäten für\\den Endnutzer} 									& \makecell{Klassen-, Kommunikations-\\und Sequenzdiagramme}\\\hline
+		\makecell{Development/\\Implementation View}	& \makecell{Perspektive des\\Programmierers} 										& Paketdiagramme\\\hline
+		Process View									& \makecell{Dynamische Aspekte, z.B\\Performanz, Concurrency, Scalability} 			& Aktivitätsdiagramme\\\hline
+		Physical View									& \makecell{Perspektive des System-Engineers,\\Topologie auf dem Physical Layer} 	& Deploymentdiagramme\\\hline
+		Scenarios/Use Cases								& \makecell{Validierung des Architekturdesigns} 									& Use Cases\\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Architectural Patterns}
+\label{arch:sub:architectural_patterns}
+
+\begin{itemize}
+	\item \textbf{Layered Architecture}:
+	\begin{itemize}
+		\item Einteilung in \textbf{Schichten}, welche \textbf{nur mit direkt benachbarten Schichten} kommunizieren
+		\item Reduziert Komplexität, vereinfacht Testen, Separation of Concerns
+		\item Erhöht oft die Klassenzahl durch Fassaden oder Transferobjekte
+	\end{itemize}
+	\item \textbf{Separation of Concerns}:
+	\begin{itemize}
+		\item Bspw. Trennung von UI (View) und Logik (Model)
+		\item Ermöglicht ggf. Austauschen oder Erweitern um neue Module
+	\end{itemize}
+	\item \textbf{Model-View-Controller}:
+	\begin{itemize}
+		\item Aufteilung in \textbf{Kontroll-Logik} (Controller), \textbf{UI} (View) und \textbf{restlicher Logik} (Model)
+		\item Nützliche Anwendung von \textbf{Separation of Concerns}
+	\end{itemize}
+	\item \textbf{Observer}:
+	\begin{itemize}
+		\item Design-Pattern, welches häufig im Zusammenhang mit MVC auftritt
+		\item Mache Klasse \textbf{observable}, benachrichtige bei Änderungen andere Klassen (\textbf{Observer}), die sich bei ersterer registriert haben
+		\item Observable benötigt \textbf{kein Wissen} über die beobachtenden Klassen
+	\end{itemize}
+\end{itemize}
