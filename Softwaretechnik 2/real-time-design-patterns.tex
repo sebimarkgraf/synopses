@@ -1,2 +1,52 @@
 \section{Real-Time Design Patterns}
 \label{rtdp:sec:real_time_design_patterns}
+
+\begin{itemize}
+	\item \textbf{Echtzeitsysteme / Real-time systems}:
+	\begin{itemize}
+		\item Systeme die ihre Umgebung beobachten und kontrollieren, oft \textbf{Embedded Systems} wie Sensoren
+		\item \textbf{Zeit} als kritischer Faktor neben logischer Korrektheit (vgl. Airbag-System)
+		\item \textbf{Soft real-time systems} operieren bei Zeitfehlern schlechter
+		\item \textbf{Hard real-time systems} operieren bei Zeitfehlern fehlerhaft
+	\end{itemize}
+	\item \textbf{(A)periodische Stimuli} ereignen sich in (un)vorhersehbaren Zeitintervallen
+	\item \textbf{Interrupts} übergeben bei Bedarf schlagartig die Kontrolle an eine vordefinierte Routine
+	\item \textbf{Periodic Processes} managen weiter in passenden Zeitintervallen zusätzlich die korrekte Operation
+	\item \textbf{Monitoring Systems} führen eine Operation aus, wenn sich ein bestimmter Stimulus ereignet (z.B Airbags)
+	\item \textbf{Control Systems} kontrollieren das Verhalten durchgehend (z.B automatische Temperaturregelung)
+	\item \textbf{Design}:
+	\begin{itemize}
+		\item Aufteilung in \textbf{Sensor} (registriert Stimulus) und \textbf{Actuator} (reagiert auf den Stimulus)
+		\item Jedes \textbf{Sensor-Actuator-Paar} sollte einen eigenen Prozess haben
+		\item \textbf{Schnelles Switching} zwischen Paaren muss durch die Systemarchitektur ermöglicht werden, nutze spezielle \textbf{Echtzeit-Betriebssysteme} mit \textbf{wenig Overhead}
+		\item Programmierung in \textbf{Assembly}, aber auch zunehmend in C
+		\item \textbf{Hardware Co-Design} für bestmögliche Performance und Kontrolle
+	\end{itemize}
+\end{itemize}
+
+\subsection{Design Patterns}
+\label{rtdp:sub:design_patterns}
+
+\begin{itemize}
+	\item \textbf{Channel}:
+	\begin{itemize}
+		\item Abstraktes Rohr, welches Daten sequenziell transformiert
+		\item Mehrere Channel verbessern Performance, Reliability und Safety
+		\item \textbf{Homogeneous Redundancy / Switch to Backup}: Gebe einem Channel einen \textbf{Zweitchannel} mit einem \textbf{anderen Sensor} als \textbf{Fallback}, sollte der erste Channel einen Fehler erkennen
+		\item \textbf{Triple Modular Redundancy}: Verarbeitung des Sensorwertes mit drei Channeln, Vergleich der Ergebnisse prüft auf Random Faults
+		\item \textbf{Heterogeneous Redundancy}: Vereinigt Vorteile der vorherigen Ansätze mit nur zwei Channeln; wie Hom. Red. mit zusätzlichem Ergebnisvergleich beider Channel
+	\end{itemize}
+	\item \textbf{Monitor-Actuator}:
+	\begin{itemize}
+		\item Spezialfall von Heterogeneous Redundancy
+		\item Beobachtung eines Actuator Channels durch einen Monitoring Channel
+		\item Davon abgeleitete Verallgemeinerung: \textbf{Sanity Check Pattern}
+	\end{itemize}
+	\item \textbf{Watchdog}: Ähnlich zu Monitor-Actuator, Channel sendet regelmäßigen Heartbeat an den \textbf{Watchdog}, der \itquote{bellt wenn er nicht gestreichelt wird}
+	\item \textbf{Safety Executive}:
+	\begin{itemize}
+		\item Actuation-Channel mit \textbf{Integritätscheck und Watchdog}, der ein Signal verarbeitet und an einen Actuator weitergibt
+		\item \textbf{Fail-safe Processing Channel}, der ebenfalls ein Signal erhält und an einen anderen Actuator weitergibt
+		\item \textbf{Monitor} beobachtet beide Channel, \textbf{kann beide Channel abschalten}, falls der Actuation-Channel fehlschlägt oder den Watchdog alarmiert
+	\end{itemize}
+\end{itemize}

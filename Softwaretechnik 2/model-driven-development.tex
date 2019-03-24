@@ -1,2 +1,69 @@
-\section{Model-Driven-Development}
+\section{Model-Driven Development}
 \label{mdd:sec:model_driven_development}
+
+\begin{itemize}
+	\item \textbf{Charakteristika eines Modells}:
+	\begin{itemize}
+		\item \textbf{Representation Feature}: Modelle sind Repräsentationen natürlicher oder künstlicher Originale
+		\item \textbf{Reduction Feature}: Modelle erfassen nur relevante Aspekte
+		\item \textbf{Pragmatic Feature}: Modelle sind ihren Originalen nicht per se eindeutig zugeordnet
+	\end{itemize}
+	\item Modelle die \quotestyle{vor dem Original} hergestellt wurden sind \textbf{präskriptiv}, das Original \textbf{instanziiert} das Modell
+	\item \textbf{Self-descriptive Models}: Modelle, die sich selbst erklären (z.B ein Klassendiagramm, das die Struktur eines Klassendiagramms beschreibt)
+	\item \textbf{Metamodel}: Modell zur Beschreibung von Modellierung, meist mit einer formalen Sprache beschrieben (\textbf{Object Constraint Language, OCL})
+	\begin{itemize}
+		\item \textbf{Abstract Syntax}: Abstrakte Beschreibung der Konstrukte, aus denen das Modell besteht, ihrer Relationen und Eigenschaften (\textit{Locomotive: [power:int]})
+		\item \textbf{Concrete Syntax}: Konkrete Beschreibung eines von der abstrakten Syntax beschriebenen Modells\\(\textit{Locomotive: [power = 1840]})
+		\item \textbf{Static Semantics}: Beschreibung der Modellierungsregeln und Restriktionen\\(\textit{context Locomotive inv: self.power $>=$ 0})
+		\item \textbf{Dynamic Semantics}: Beschreibung der Bedeutung der genutzten Konstrukte, meist in Fließtext\\(\textit{Das Metamodell beschreibt...})
+	\end{itemize}
+\end{itemize}
+
+\subsection{Model-Driven Software Development}
+\label{mdd:sub:model_driven_software_development}
+
+\begin{itemize}
+	\item \textbf{Model-driven Engineering (MDE)}: Beschreibung in einer Modellierungssprache mit Generatoren (z.B Code-Generatoren)
+	\item \textbf{Model-driven Software Development (MDD)}: Anwendung von MDE für Software-Entwicklung
+	\item \textbf{Model-based}:
+	\begin{itemize}
+		\item Modelle sind manchmal \textbf{Secondary Artifacts}
+		\item Modelle werden für \textbf{Kommunikation und Dokumentation} genutzt
+		\item Manuelle Analyse und Evaluation
+	\end{itemize}
+	\item \textbf{Model-driven}:
+	\begin{itemize}
+		\item Modelle sind \textbf{Primary Artifacts}
+		\item Modelle dürfen nicht ausgelassen werden, sind ein integraler Bestandteil des Systems
+		\item Explizites Spezifizieren, Entwickeln, Versionieren etc. von Modellen
+		\item Analyse durch \textbf{Model Transformations}
+	\end{itemize}
+	\item \textbf{Ziele}:
+	\begin{itemize}
+		\item \textbf{Plattform-Unabhängigkeit} und -Interoperabilität
+		\item Schnellere Entwicklung besserer, wartbarer Software
+		\item Einfachere Bewältigung von \textbf{Komplexität} und \textbf{technologischem Wandel}
+		\item Wiederverwertbarkeit
+		\item Optimalere \textbf{Separation of Concerns}
+	\end{itemize}
+	\item \textbf{Erwartete Vorteile}: Geringere Kosten, schnellere Entwicklung besserer Software
+\end{itemize}
+
+\subsection{Model-driven Architecture}
+\label{mdd:sub:model_driven_architecture}
+
+\begin{itemize}
+	\item \textbf{Model-driven Architecture (MDA)}: Standardisierter Prozess von MDD der \textit{Object Management Group}
+	\item \textbf{Computation-Independent Model (CIM)}: Beschreibung von Requirements
+	\item \textbf{Platform-Independent Model (PIM)}: Operationsbeschreibungen ohne Implementationsdetails der Plattform
+	\item \textbf{Platform-Specific Model (PSM)}: PIM mit zusätzlichem Fokus auf plattformspezifische Aspekte
+\end{itemize}
+
+\subsection{Model Transformations}
+\label{mdd:sub:model_transformations}
+
+\begin{itemize}
+	\item \textbf{Transformation}: Automatische Generierung eines Zielmodells aus einem Quellmodell (z.B Code aus UML)
+	\item \textbf{Transformationsdefinition}: Beschreibung des Transformationsprozesses von einem Modell ins andere
+	\item \textbf{Transformationsregel}: Beschreibung des Transformationsprozesses eines einzelnen Konstruktes
+\end{itemize}

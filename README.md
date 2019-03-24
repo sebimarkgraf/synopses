@@ -15,9 +15,9 @@ Dabei wird der Inhalt auf den klausurrelevanten Stoff der von uns besuchten Vorl
 ## In Erstfassung verfügbar
 * Programmierparadigmen
 * Mechano-Informatik
+* Softwaretechnik 2
 
 ## In Arbeit
-* Softwaretechnik 2
 * Sicherheit (vorerst pausiert)
 
 ## Mitarbeit
