@@ -8,7 +8,8 @@ files=("Algorithmen 2/algorithmen2.tex"
        "Numerik für Numerik für Informatiker/numerik.tex"
        "Programmierparadigmen/propa.tex"
        "Robotik I/robotik.tex"
-       "Sicherheit/sicherheit.tex")
+       "Sicherheit/sicherheit.tex"
+       "Softwaretechnik 2/softwaretechnik2.tex")
 for f in "${files[@]}"; do
     echo "Changing to $basepath/$(dirname "$f")"
     cd "$basepath/$(dirname "$f")"
