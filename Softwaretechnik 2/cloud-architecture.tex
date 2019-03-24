@@ -1,2 +1,58 @@
 \section{Cloud Architecture}
 \label{cla:sec:cloud_architecture}
+
+\begin{itemize}
+	\item \textbf{5 essenzielle Charakteristika von Cloud Services}:
+	\begin{enumerate}
+		\item \textbf{Elastic Scalability}
+		\item \textbf{On-demand Self-Service}
+		\item \textbf{Ubiquitous Network Access}
+		\item \textbf{Resource Pooling}
+		\item \textbf{Measured Service}
+	\end{enumerate}
+	\item \textbf{Service Delivery Models}:
+	\begin{itemize}
+		\item \textbf{Software as a Service (SaaS)}: Web-Applikationen wie z.B Google Apps
+		\item \textbf{Platform as a Service (Paas)}: Development-/Execution-Environments wie Windows Azure
+		\item \textbf{Infrastructure as a Service (IaaS)}: Infrastruktur, z.B Storage-Solutions wie Google Drive
+	\end{itemize}
+	\item \textbf{Service Deployment Models}:
+	\begin{itemize}
+		\item \textbf{Private Cloud}: Organisationsinterne Cloud (z.B File-Server eines Unternehmens)
+		\item \textbf{Public Cloud}: Organisationsübereifende Cloud (z.B Google Drive für Privatnutzer)
+		\item \textbf{Hybrid Cloud}: Mischung aus private und public Cloud
+	\end{itemize}
+	\item \textbf{Single Tenant Architecture}: Jeder Nutzer erhält einen gleich großen Anteil an Ressourcen (Hardware, OS, Applikationen)
+	\item \textbf{Multi Tenant Architecture}: Unterschiedliche Aufteilung der Gesamtressourcen für jeden Nutzer
+\end{itemize}
+
+\subsection{Virtualisierung}
+\label{cla:sub:virtualisierung}
+
+\begin{itemize}
+	\item \textbf{Allgemein}: Bereitstellen einer logischen Abstraktion von physischen Ressourcen
+	\item Beispiel: \textbf{Virtuelle Maschinen}
+	\begin{itemize}
+		\item Emuliere ein Computersystem innerhalb eines anderen Computersystems
+		\item \textbf{Hypervisor}: Kontrolliert installierte virtuelle Maschinen und ihre Nutzung von echter Hardware
+		\item \textbf{Partitionierung}: Mehrere Maschinen mit eigenen Betriebssystemen auf demselben Server
+		\item \textbf{Isolation}: Virtuelle Maschinen beeinflussen sich nicht gegenseitig
+	\end{itemize}
+	\item \textbf{Vorteile}: Energie-Effizienz, Verfügbarkeit (leichte Migration), einfacheres Management, kaum Performance-Verlust
+\end{itemize}
+
+\subsection{Architecture Principles}
+\label{cla:sub:architecture_principles}
+
+\begin{itemize}
+	\item \textbf{Decentralization}: Kein \textbf{Single Point of Failure}, vermindere Bottlenecks bei der Skalierung
+	\item \textbf{Asynchrony}: Das System macht in jedem Fall Fortschritt
+	\item \textbf{Autonomy}: Individuelle Komponenten können Entscheidungen basierend auf lokalen Informationen treffen
+	\item \textbf{Local Responsibility}: Jede Komponente ist verantwortlich für ihre eigene Konsistenz
+	\item \textbf{Controlled Concurrency}: Keine oder limitierte Concurrency Control ist benötigt
+	\item \textbf{Failure Tolerant}: Fehlschlagende Komponenten sorgen nicht für Unterbrechungen
+	\item \textbf{Controlled Parallelism}: Granulare Abstraktionen ermöglichen Parallelität für Robustheit und Performance
+	\item \textbf{Building Blocks}: Kleine Komponenten, die den Service zusammensetzen
+	\item \textbf{Symmetry}: Keine spezifische Konfiguration für jeden Knoten, symmetrischer Umfang an Funktionalität
+	\item \textbf{Simplicity}: Das System sollte so simpel sein wie möglich, aber nicht simpler
+\end{itemize}

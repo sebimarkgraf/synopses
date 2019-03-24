@@ -1,2 +1,33 @@
 \section{Components}
 \label{c:sec:components}
+
+\begin{itemize}
+	\item \textbf{Component}: Baustein einer Software, welcher ohne Wissen über interne Details genutzt werden kann
+	\item \textbf{Component Model}: Konkrete Festlegung, was ein Component ist, woraus er besteht und wie Components kommunizieren (z.B SOFA, ROBOCOP, KobrA, Palladio)
+\end{itemize}
+
+\subsection{Palladio Component Model (PCM)}
+\label{sub:palladio_component_model}
+
+\begin{itemize}
+	\item \textbf{Domain Specific Modeling Language (DSL)} für frühe Performance-Vorhersagen
+	\item Simulation und Analyse von Modellen ergibt Performance-Metrics
+	\item Stelle alle Einflussfaktoren dar, \textbf{Context Changes} (Änderungen bzgl. Hardware, Nutzerbasis oder Aufbau) sind möglich
+	\item Modellierte Components werden in einem \textbf{Repository} gesammelt
+	\item Beschreibe Component-Behaviour anhand der \textbf{Service Effect Specification (SEFF)}
+	\item \textbf{Vorteil}: Vereinfacht Erweiterung von Legacy Systems, frühe Performance-Vorhersage, ermöglicht analytisches Vorgehen und Simulation
+	\item \textbf{Rollen}:
+	\begin{itemize}
+		\item \textbf{Component Developer}: Spezifizierung, Implementierung und Testen von Components, Interfaces, Datentypen
+		\item \textbf{Software Architect}: Spezifizierung der Component-Architecture, Design-Entscheidungen, spezifiziert Components und Interfaces, delegiert Implementierung an Component Developer, übernimmt Performance-Vorhersagen und leitet den gesamten Prozess
+		\item \textbf{System Deployer}: Modellierung und Setup des Environments (OS, Hardware etc.) und der Allokation, Maintainance
+		\item \textbf{Domain Expert}: Spezifiziert Nutzerverhalten (Nutzerzahl, Anfragen, Eingabeparameter) in einem \textbf{Usage Model}
+	\end{itemize}
+	\item \textbf{Views und View Points}:
+	\begin{itemize}
+		\item \textbf{Structural View Point}: Component Repository und Assembly, modelliert von Software Architect und Component Developer
+		\item \textbf{Behavioural View Point}: Intra- und Intercomponent Behaviour, modelliert von Software Architect und Component Developer
+		\item \textbf{Deployment View Point}: Allocation, modelliert vom System Deployer
+		\item \textbf{Decision View Point}: Übergreifend für alle anderen View Points und modelliert von allen genannten Rollen
+	\end{itemize}
+\end{itemize}

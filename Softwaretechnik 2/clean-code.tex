@@ -4,7 +4,7 @@
 \begin{itemize}
 \item \textbf{Problem}:
 	\begin{itemize}
-		\item Deshalb \textbf{Broken Window Problem}: \itquote{One broken window starts the process towards decay}
+		\item \textbf{Broken Window Problem}: \itquote{One broken window starts the process towards decay}
 		\item \textbf{Lehman's First Law}: \itquote{A system that is used will be changed}
 		\item \textbf{Lehman's Second Law}: \itquote{An evolving system increases its complexity unless work is done to reduce it}
 	\end{itemize}
@@ -30,7 +30,7 @@
 		\item \itquote{Software entities should be open for extension but closed for modification.}
 		\item Modifiziere Verhalten durch \textbf{Hinzufügen von neuem Code} statt \textbf{Bearbeiten von altem Code} (vgl. \textbf{Geheimnisprinzip})
 		\item \textbf{Beispiel für Nichteinhaltung}: Switch-Statement für das Zeichnen von Dreiecken, Vierecken etc. je nach Typ
-		\item \textbf{Korrektur}: For-Schleife für beliebige Elemente vom Typ Geometrie
+		\item \textbf{Korrektur}: For-Schleife für beliebige Elemente vom Typ \texttt{Geometrie}
 	\end{itemize}
 	\item \textbf{LSP}: Liskov Substitution Principle
 	\begin{itemize}
@@ -50,7 +50,7 @@
 	\item \textbf{DIP}: Dependency Inversion Principle
 	\begin{itemize}
 		\item \itquote{High level modules should not depend upon low level modules, both should depend on abstractions. Abstractions should not depend on details, details should depend upon abstractions.}
-		\item \textbf{Beispiel für Nichteinhaltung}: Kopier-Modul, welches Zugriff auf die Tastatur für Eingabe und einen Drucker für Ausgabe hat
+		\item \textbf{Beispiel für Nichteinhaltung}: Kopier-Modul, welches Zugriff auf die Tastatur für Eingabe und einen Drucker für die Ausgabe hat
 		\item \textbf{Korrektur}: Abstraktion von Tastatur zu Reader und Drucker zu Writer, sodass letztere austauschbar und der Code wiederverwendbar ist
 	\end{itemize}
 \end{enumerate}
@@ -88,7 +88,7 @@
 	\item \textbf{Standardisierung} und \textbf{konsequente Anwendung} von bedeutungsvollen Namen für Klassen, Funktionen etc.
 	\item \textbf{Präfixe}, z.B um private Klassen-Felder zu markieren
 	\item \textbf{Kontext} klarstellen, z.B durch Integrieren des Typs oder Klassennamens (\quotestyle{nameString}, \quotestyle{IFeedable})
-	\item \textbf{Kommentare}, welche \textbf{erklärend, warnend, informativ und nicht redundant sind}
+	\item \textbf{Kommentare}, welche \textbf{erklärend, warnend oder informativ sind und nicht redundant}
 	\item \textbf{Konsequentes Löschen} von Code statt Auskommentieren, Versionskontrolle hat den alten Code bei Bedarf
 	\item \textbf{Formatierung}, welche \textbf{einheitlich} ist und \textbf{Lesbarkeit durch vertikale und horizontale Offenheit} fördert
 \end{itemize}

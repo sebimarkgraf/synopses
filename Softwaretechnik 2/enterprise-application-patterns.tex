@@ -1,2 +1,92 @@
 \section{Enterprise Application Patterns}
 \label{eap:sec:enterprise_application_patterns}
+
+\subsection{Domain Logic Patterns}
+\label{eap:sub:domain_logic_patterns}
+
+\itquote{How to represent the business logic?}
+
+\begin{itemize}
+	\item \textbf{Transaction Script}:
+	\begin{itemize}
+		\item Organisiere Logik für jeden Transaktionstyp in einer Prozedur, visualisiere als Sequenzdiagramm
+		\item \textbf{Vorteil}: Simple Prozeduren, einfache Handhabung von Data Sources und Transaction Boundaries
+		\item \textbf{Nachteil}: Schlechte Skalierung für komplexe Logik, Duplikation
+	\end{itemize}
+	\item \textbf{Domain Model}:
+	\begin{itemize}
+		\item Nutze Domain Model (Objektorientierte Modellierung)
+		\item \textbf{Vorteil}: Gut für komplexe Logik
+		\item \textbf{Nachteil}: Schwer wenn kein Verständnis von OOP, Mapping zur Data Source ist komplexer
+	\end{itemize}
+	\item \textbf{Table Module}:
+	\begin{itemize}
+		\item Einzelne Klasse implementiert die Business Logic für eine Tabelle, erhält Zeile einer Datenbank
+		\item \textbf{Vorteil}: Mapping auf die Data Source ist einfach, Logik wird separiert
+		\item \textbf{Nachteil}: Schlecht für komplexe Logik, da keine Objektinstanzen
+	\end{itemize}
+	\item Table Module am geeignetsten bis zu einer gewissen Komplexität, danach Domain Model
+\end{itemize}
+
+\subsection{Data Source Architectural Patterns}
+\label{eap:sub:data_source_architectural_patterns}
+
+\itquote{How to separate domain logic and data source?}
+
+\begin{itemize}
+	\item \textbf{Record Set}:
+	\begin{itemize}
+		\item In-memory Objekt, welches von überall im System einfach generiert und manipuliert werden kann
+		\item Sieht aus wie das Ergebnis einer SQL Query
+	\end{itemize}
+	\item \textbf{Table Data Gateway}:
+	\begin{itemize}
+		\item Einzelne Instanz, welche den Zugriff auf eine Datenbank regelt
+		\item Funktioniert nicht gut mit Domain Model, dafür mit Transaction Scripts
+	\end{itemize}
+	\item \textbf{Active Record}:
+	\begin{itemize}
+		\item Kapselt eine Datenbankzeile und die Logik für den Zugriff auf diese
+		\item Gut für simple Logik, Data Mapper (siehe unten) für komplexe Logik
+	\end{itemize}
+	\item \textbf{Row Data Gateway}:
+	\begin{itemize}
+		\item Table Data Gateway für eine einzelne Datenbankzeile
+	\end{itemize}
+	\item \textbf{Identity Map}:
+	\begin{itemize}
+		\item Map aller bisher geladenen Objekte, um wiederholtes Laden zu vermeiden
+	\end{itemize}
+	\item \textbf{Data Mapper}:
+	\begin{itemize}
+		\item Layer von Mappern, welche Datenbankzeilen und in-memory Objekte getrennt hält und die Vermittlung übernimmt
+		\item Geeignet, wenn Datenbankschema und Objektmodell separat entwickelt werden, für komplexe Logik oder wenn ein Domain Model genutzt wird
+	\end{itemize}
+\end{itemize}
+
+\subsection{Object-Relational Mapping Structural Patterns}
+\label{eap:sub:object_relational_mapping_structural_patterns}
+
+\itquote{How to map objects to relational databases?}
+
+\begin{itemize}
+	\item \textbf{Single Table Inheritance}:
+	\begin{itemize}
+		\item Repräsentiere Vererbungshierarchie als \textbf{Tabelle mit Spalten für alle möglichen Felder}
+		\item \textbf{Vorteil}: Einfach, keine Joins nötig, Verschieben von Feldern in der Hierarchie lässt Datenbank unverändert
+		\item \textbf{Nachteil}: Unbenutzte Felder macht Handhabung verwirrend, oft große Tabellen, nur ein Namespace für alle Felder
+	\end{itemize}
+	\item \textbf{Class Table Inheritance}:
+	\begin{itemize}
+		\item Repräsentiere Vererbungshierarchie \textbf{mit einer Tabelle für jede Klasse}
+		\item \textbf{Vorteil}: Nur relevante Spalten, da Felder der Basisklassen nicht in Kindklassen dupliziert werden, gut implementierbar für bestehende Schemata
+		\item \textbf{Nachteil}: Mehrere Tabellen (d.h. Joins nötig, Performanceprobleme), Refactoring erschwert, Basisklassen können Bottleneck werden
+	\end{itemize}
+	\item \textbf{Concrete Table Inheritance}:
+	\begin{itemize}
+		\item Repräsentiere Vererbungshierarchie \textbf{mit einer Tabelle für jede konkrete Klasse}
+		\item \textbf{Konkret}: Klassen duplizieren Felder der Basisklassen, d.h. Kindtabelle hat alle Spalten der Elternklassen
+		\item \textbf{Vorteil}: Keine nutzlosen Felder, keine Joins wenn man von konkreten Mappern liest
+		\item \textbf{Nachteil}: Refactoring bleibt erschwert, Änderung eines Feldes der Basisklasse beeinflusst alle Subklassen-Tabellen
+	\end{itemize}
+\end{itemize}
