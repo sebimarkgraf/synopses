@@ -33,7 +33,7 @@ Die Funktionsanwendung ist \textit{linksassoziativ}: \code{\(\lambda\)x. f x y =
 \subsection{\(\alpha\)-Äquivalenz}%
 \label{tg:sub:alpha-aequivalenz}
 Gedanke: 2 Terme sind äquivalent, wenn die Variablen in Lambdas des einen Terms in den anderen umbennant werden können.\\
-Definition: \(t_1\) und \(t_2\) heißen \(\alpha\)-äquivalent (\(t_1 \alphaeq t_2\)), wenn \(t_1\) in \(t_2\) durch konsitente
+Definition: \(t_1\) und \(t_2\) heißen \(\alpha\)-äquivalent (\(t_1 \alphaeq t_2\)), wenn \(t_1\) in \(t_2\) durch konsistente
 Umbennung der \(\lambda\)-gebundenen Variablen überführt werden kann.
 
 \subsection{\(\eta\)-Äquivalenz}%
@@ -116,9 +116,9 @@ Mit diesen Mitteln lässt sich Syntaktische Herleitbarkeit \(\psi \vdash \varphi
 \label{tg:sub:typen}
 Weise sicheren Programmen Typen zu und lehne unsichere ab
 \begin{itemize}
-  \item Basistypen: bool, int,...
+  \item Basistypen: bool, int,\ldots
   \item Funktionstyp: \(\tau_1 \rightarrow \tau_2\) (rechtsassoziativ)
-  \item Typvariablen: \(\alpha, \alpha_1, \beta,...\)
+  \item Typvariablen: \(\alpha, \alpha_1, \beta,\ldots \)
 \end{itemize}
 \textbf{Typsystem}\\
 Typsystem \(\Gamma \vdash t: \tau\) --- im Typkontext \(\Gamma\) hat Term \(t\) Typ \(\tau\). Dabei ordnet \(\Gamma\)
@@ -132,7 +132,7 @@ Um komplexere Typen zu realisieren werden mehrere Regeln verwendet, mit welchen 
 \end{align*}
 \textbf{Untypisierbar}\\
 \(t\) typisierbar im Kontext \(\Gamma\), falls \(\tau\) mit \(\Gamma \vdash t: \tau\) existiert.
-Demnach existieren auch nicht typisierbare Terme, z.B. \((\lambda x.\ x + 42) \mathit{true}\).
+Demnach existieren auch nicht typisierbare Terme, z.B. \((\lambda x.\ x + 42)\ \mathit{true}\).
 Dies wäre allerdings ein sicherer Term, welcher immer zu \(\mathit{true}\) auswertet. Also ist Typsystem nicht vollständig
 bzgl. \(\beta\)-Reduktion.
 

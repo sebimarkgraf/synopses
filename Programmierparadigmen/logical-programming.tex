@@ -58,11 +58,11 @@ als Bäume dargestellt werden.\\
   \item Erstelle Box, call-Eingang
   \item Falls keine Regel, verlasse durch fail-Ausgang und lösche
   \item Für passende Regel anlegen von Kind-Boxen + Success zum call-Eingang des Kindes
-  \item Falls keine Kinder -> Success auf call Eingang des Kindes
+  \item Falls keine Kinder \(\rightarrow\) Success auf call Eingang des Kindes
   \item Fail zeigt auf redo des vorherigen Teilziels
-  \item Box durch redo -> Suche Choice Points. Falls kein Choice Point -> fail
+  \item Box durch redo \(\rightarrow\) Suche Choice Points. Falls kein Choice Point \(\rightarrow\) fail
   \item fail-Ausgang der ersten Box erzeugt \code{no}
-  \item success der letzten Box gibt Substitutionaus
+  \item success der letzten Box gibt Substitution aus
 \end{enumerate}
 
 \subsection{Arithmetik und Listen}%
@@ -88,7 +88,7 @@ Ein Prädikat heißt deterministisch, wenns es stets auf höchstens eine Weise e
 möglicherweise mehrere Lösungen, so heißt es nichtdeterministisch.\\
 
 \textbf{Blauer Cut} beeinflusst weder Programmlaufzeit, noch -verhalten\\
-\textbf{Grüner Cut} beeinflustt Programmlaufzeit, aber nicht -verhalten\\
+\textbf{Grüner Cut} beeinflusst Programmlaufzeit, aber nicht -verhalten\\
 \textbf{Roter Cut} beeinflusst das Programmverhalten\\
 
 \textbf{Faustregel}\\
@@ -119,7 +119,7 @@ Untersuche Terme:
 \subsection{Optimierung}%
 \label{lp:sub:optimierung}
 \textbf{Manuell}\\
-Anstatt alle Variable Werte erst zu generieren und dann zu überprüfen, schiebe Tests so weit nach vorne wie möglich.
+Anstatt alle Variablenwerte erst zu generieren und dann zu überprüfen, schiebe Tests so weit nach vorne wie möglich.
 Dadurch Begrenzung der Möglichkeiten.\\
 
 \textbf{Freeze}\\

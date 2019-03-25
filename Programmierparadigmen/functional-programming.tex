@@ -120,8 +120,8 @@ Schreibe Funktionsparameter auf rechte Seite
           (\x -> x * x) 3 $\Rightarrow$ 3 * 3
 \end{lstlisting}
 \textbf{Defintion}\\
-Funktionen, die andere Funktionen als Parameter erhalten oder Funktionen als Rückgabewerte liefer, heißen Funktionen höherer Ordnung.
-Vgl. Mathematik - Ableitung\\\\
+Funktionen, die andere Funktionen als Parameter erhalten oder Funktionen als Rückgabewert liefern, heißen Funktionen höherer Ordnung.
+Vgl. Mathematik --- Ableitung\\\\
 \textbf{Funktionen als Parameter}\\
 Funktionsanwendung auf Listen:\\
 \code{map :: (s -> t) -> [s] -> t}\\
@@ -164,10 +164,10 @@ Innere Bindungen verdecken äußere.
 Vorsicht insbesondere bei \code{let} Klauseln!
 \begin{lstlisting}
           unknown = let x = 3 in
-                      let x = 3 * x in 4 +x
+                      let x = 3 * x in 4 + x
 \end{lstlisting}
 \code{x} in \code{3 * x} gebunden durch inneres \code{let}
-\(\Rightarrow\) Auswetung terminiert nicht.
+\(\Rightarrow\) Auswertung terminiert nicht.
 
 \subsection{Folds}%
 \label{hsk:sub:folds}
@@ -197,7 +197,7 @@ Wann ist eine Auswertung nötig?
   \item Arithmetische Operatoren
   \item in Bedingungen
   \item Beim Pattern-Matching bis Muster gematched
-  \item Boolsche Operatoren -> Short-circuit
+  \item Boolsche Operatoren \(\rightarrow\) Short-circuit
 \end{itemize}
 
 \subsection{Streams}%
@@ -223,7 +223,7 @@ Vorteile Statisch
   \item Double
   \item Bool
   \item Char
-  \item struktuierte Typen: Listen, Tupel, ...
+  \item struktuierte Typen: Listen, Tupel, \ldots 
 \end{itemize}
 
 \subsection{Polymorphe Typen}%
@@ -321,5 +321,5 @@ Standard-Typklassen:
 Tupel und Listen lassen sich auch generisch instanziieren.
 \begin{lstlisting}
          instance (Eq s, Eq t) => Eq (s, t) where
-           (a, b) == (a', b') = (a==a') && (b==b')
+           (a, b) == (a', b') = (a == a') && (b == b')
 \end{lstlisting} 
