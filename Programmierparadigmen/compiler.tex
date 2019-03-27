@@ -23,7 +23,7 @@ z.B. Java-Bytecode, Pascal P-Code, Python\\
 z.B. C/C++, Fortran (Compiler)\\
 
 \textbf{Just-in-time-Compiler}\\
-Übersetze zur Laufzeit bei Bedarf. Ist schneller als reine Interpretation.\\ gs
+Übersetze zur Laufzeit bei Bedarf. Ist schneller als reine Interpretation.\\
 z.B. .NET
 
 \subsection{SIMPLE}%
@@ -49,7 +49,7 @@ Kontextsensitive Analyse nach Deklaration und Verwendung, Typanalyse und Konsist
 Erstellt attributierten Syntaxbaum.\\
 
 \textbf{Zwischencodegenerator, Optimierung}\\
-Bringt Code in sprach- und zielunabhängige Zwischensprache. Wende Optimierungstechniken an.\\
+Bringt Code in sprach- und zielunabhängige Zwischensprache. Wendet Optimierungstechniken an.\\
 
 \textbf{Codegenerierung}\\
 Erzeuge Code angepasst auf Zielsystem / Codeauswahl / Scheduling / Register.
@@ -80,15 +80,15 @@ Aufgebaut durch Grammatiken. Gewünschte Eigenschaften:
 Deshalb Faustregeln:
 \begin{itemize}
   \item Ein Nichtterminal pro Prioritätsebene
-  \item nicht zweimal dasselbe Nichtterminal auf rechter Seite
-  \item Assoziativität durch Links / Rechtsrekursive Regeln
+  \item Nicht zweimal dasselbe Nichtterminal auf rechter Seite
+  \item Assoziativität durch links- / rechtsrekursive Regeln
 \end{itemize}
 
 \textbf{Parserkonstruktion}\\
 Viele Techniken, nur \textit{LL} und \textit{LR} lesen einmal und erkennen Fehler bei erstem Zeichen t.\\
-Parser rekonstruiert für Grammatik schrittweise die Ableitung.
+Parser rekonstruiert für Grammatik schrittweise die Ableitung.\\
 
-\textbf{First und Follow}\\
+\textbf{First und Follow}
 \begin{align*}
   \mathit{First}_k(\eta) &= \{\beta \in \Sigma^k | \exists \tau \in \Sigma^*: \chi \Rightarrow^* \tau
   \and \beta = k : \tau \}\\
@@ -101,7 +101,7 @@ Eine (kontextfreie) Grammatik ist genau dann eine SLL(k)-Grammatik, wenn für al
 \(A \rightarrow \alpha|\beta, \alpha \neq \beta\), gilt:
 \[\mathit{First}_k(\alpha\mathit{Follow}_k(A)) \cap \mathit{First}_k(\beta\mathit{Follow}_k(A)) = \varnothing\]
 
-In der Praxis werden die 2 getrennten für Spezialfall \(k=1, \alpha \not \implies^* \epsilon, \beta \not \implies^* \epsilon\)
+In der Praxis werden die 2 getrennt für den Spezialfall \(k=1, \alpha \not \implies^* \epsilon, \beta \not \implies^* \epsilon\)
 \begin{align*}
   \mathit{First}(\alpha) &\cap \mathit{First}(\beta) = \varnothing \\
   \mathit{Follow}(A) &\cap \mathit{First}(\beta) = \varnothing
@@ -118,17 +118,17 @@ Anfang ausklammern:
   X' \rightarrow \alpha | \beta
 \end{align*}
 
-\textbf{SLL(1)-Parser mit rekursivem Abstieg}\\
+\textbf{SLL(1)-Parser mit rekursivem Abstieg}
 \begin{itemize}
  \item Eingabe: Sequenz von Tokens
- \item eine Prozedur pro Nichtterminal
+ \item Eine Prozedur pro Nichtterminal
  \item Prozeduranfang: erstes Token der Phrase in aktuellem Token t
  \item Ergebnis von Prozeduraufruf:
    \begin{itemize}
    \item erstes Token folgender Phrase ist aktuelles Token
-   \item Rückgabe: abstrakter Syntaxbaum
+   \item Rückgabe: Abstrakter Syntaxbaum
    \end{itemize}
- \item alternative Produktionen: Fallunterscheidung nach aktuellem Token stets eindeutig wegen SLL(1)
+ \item Alternative Produktionen: Fallunterscheidung nach aktuellem Token stets eindeutig wegen SLL(1)
 \end{itemize}
 
 \subsection{Semantische Analyse}%
@@ -138,12 +138,12 @@ Analysiere Beziehung zwischen Definition und Verwendung.
 Probleme:
 \begin{itemize}
 \item Namensbereiche verschachtelt
-\item getrennte Namensräume
+\item Getrennte Namensräume
 \item Verwendung von Definitionen
 \end{itemize}
 
 \textbf{Vorgehen}\\
-Durchlaufe AST + sammle Informationen in Symboltabelle.
+Durchlaufe AST + sammle Informationen in Symboltabelle.\\
 
 \textbf{Symboltabelle}\\
 Zentrale Datenstruktur außerhalb von AST. Zugriff sollte in \(O(1)\) erfolgen.\\
@@ -151,7 +151,7 @@ Ansatz:
 \begin{itemize}
 \item Eintrag in Stringtabelle auf aktuelle Definition
 \item Stack von Namensbereichen
-\item Merken von vorherigen Definitionen, bei verlassen des Bereiches widerherstellen
+\item Merken von vorherigen Definitionen, bei Verlassen des Bereiches wiederherstellen
 \end{itemize}
 
 \textbf{Traversierung}\\
@@ -159,7 +159,7 @@ Bei Definitionen vor Verwendung nur 1 Durchlauf. Sonst muss Visitor Pattern für
 
 \subsection{Java-Bytecode}%
 \label{cmp:sub:java-bytecode}
-Portable Zwischensprache für Java virtuelle Maschine\\
+Portable Zwischensprache für Javas virtuelle Maschine\\
 
 \textbf{Bytecode, Operandenstack}\\
 Stackbasierter Bytecode: Operanden + Rückgabewerte auf Operandenstack\\
@@ -174,12 +174,12 @@ Klassen:
 \item Sprungbefehler
 \item Methodenaufruf
 \item Objekterzeugung
-\item Arithmeitsche Berechnung
+\item Arithmetische Berechnung
 \end{itemize}
 
 \textbf{Activation Records}\\
 Enthält lokale Variablen der Methode, Aufruf neuer AR, Rückkehr wieder entfernt.\\
-Aufbau: Rücksprungadresse, Dynamischer Vorgänger, lokale Variablen, Operandenstack
+Aufbau: Rücksprungadresse, Dynamischer Vorgänger, lokale Variablen, Operandenstack\\
 
 \textbf{Deskriptoren}\\
 Namen von Typen, Feldern und Methoden nach Schema
@@ -199,4 +199,4 @@ Natürliche Repräsentation für Stackmaschinen.\\
 
 \textbf{Kontrollstrukturen}\\
 Realisierung mit bedingten Sprüngen.\\
-Negation wird oft mit Vertauschen der Sprungzielen realisiert
+Negation wird oft mit Vertauschen der Sprungziele realisiert

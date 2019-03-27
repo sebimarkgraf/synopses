@@ -32,8 +32,9 @@ Die Funktionsanwendung ist \textit{linksassoziativ}: \code{\(\lambda\)x. f x y =
 
 \subsection{\(\alpha\)-Äquivalenz}%
 \label{tg:sub:alpha-aequivalenz}
-Gedanke: 2 Terme sind äquivalent, wenn die Variablen in Lambdas des einen Terms in den anderen umbennant werden können.\\
-Definition: \(t_1\) und \(t_2\) heißen \(\alpha\)-äquivalent (\(t_1 \alphaeq t_2\)), wenn \(t_1\) in \(t_2\) durch konsitente
+Gedanke: 2 Terme sind äquivalent, wenn die Variablen in Lambdas des einen Terms in den anderen umbenannt werden können.\\
+
+Definition: \(t_1\) und \(t_2\) heißen \(\alpha\)-äquivalent (\(t_1 \alphaeq t_2\)), wenn \(t_1\) in \(t_2\) durch konsistente
 Umbennung der \(\lambda\)-gebundenen Variablen überführt werden kann.
 
 \subsection{\(\eta\)-Äquivalenz}%
@@ -45,9 +46,9 @@ nicht freie Variable von \(f\).
 \subsection{Ausführung von \(\lambda\)-Termen}%
 \label{tg:sub:ausfuehrung-von-lambda-termen}
 Redex: Von Englisch \textit{Reducable Expression} ein vereinfachbarer \(\lambda\)-Term\\
-\(\beta\)-Reduktion: Ausführen der Funktionsanwendung auf einem Redex \[(\lambda x.\ t_1)\ t_2 \Rightarrow t_1 [x \rightarrow t_2]\]\\
+\(\beta\)-Reduktion: Ausführen der Funktionsanwendung auf einem Redex \[(\lambda x.\ t_1)\ t_2 \Rightarrow t_1 [x \rightarrow t_2]\]
 Substitution: \(t_1 [x \rightarrow t_2]\) ersetze freie Vorkommen von \(x\) in \(t_1\) durch \(t_2\)\\
-Normalform: Termn kann nicht weiter reduziert werden.
+Normalform: Term kann nicht weiter reduziert werden.
 
 \newpage
 \subsection{Auswertungsstrategien}%
@@ -73,7 +74,7 @@ Idee: Verstehe natürliche Zahlen, als Anzahl der Funktionsanwendungen \code{s}.
 
 \end{lstlisting}
 Um die nächste Church Zahl zu erhalten wird die Nachfolgerfunktion \code{succ} definiert.
-Außerdem lassen sich auch Mathematische Operationen definieren.
+Außerdem lassen sich auch mathematische Operationen definieren.
 \begin{lstlisting}
   succ = $\lambda$n. $\lambda$s. $\lambda$z. s (n s z)
   plus = $\lambda$m. $\lambda$n. $\lambda$s. $\lambda$z. m s (n s z)
@@ -107,8 +108,10 @@ Damit erhält man Rekursion in der Form \(Y\ f = f\ (Y\ f)\) da \(f\) Fixpunkt v
 \label{tg:sub:regelsysteme}
 \textbf{Frege'scher Schlussstrich}\\
 \(\frac{\varphi_1\ \varphi_2\ \varphi_3\ \ldots\ \varphi_n}{\varphi}\) \(\varphi_i\) Voraussetzungen, \(\varphi\) Konklusion.\\
+
 \textbf{Herleitungsbäume}\\
 Herleitungen von Konklusionen können durch mehrere Schlusstriche als Bäume dargestellet werden.\\
+
 \textbf{Syntaktische Herleitbarkeit}\\
 Mit diesen Mitteln lässt sich Syntaktische Herleitbarkeit \(\psi \vdash \varphi\) zeigen.
 
@@ -116,9 +119,9 @@ Mit diesen Mitteln lässt sich Syntaktische Herleitbarkeit \(\psi \vdash \varphi
 \label{tg:sub:typen}
 Weise sicheren Programmen Typen zu und lehne unsichere ab
 \begin{itemize}
-  \item Basistypen: bool, int,...
+  \item Basistypen: bool, int,\ldots
   \item Funktionstyp: \(\tau_1 \rightarrow \tau_2\) (rechtsassoziativ)
-  \item Typvariablen: \(\alpha, \alpha_1, \beta,...\)
+  \item Typvariablen: \(\alpha, \alpha_1, \beta,\ldots \)
 \end{itemize}
 \textbf{Typsystem}\\
 Typsystem \(\Gamma \vdash t: \tau\) --- im Typkontext \(\Gamma\) hat Term \(t\) Typ \(\tau\). Dabei ordnet \(\Gamma\)
@@ -132,7 +135,7 @@ Um komplexere Typen zu realisieren werden mehrere Regeln verwendet, mit welchen 
 \end{align*}
 \textbf{Untypisierbar}\\
 \(t\) typisierbar im Kontext \(\Gamma\), falls \(\tau\) mit \(\Gamma \vdash t: \tau\) existiert.
-Demnach existieren auch nicht typisierbare Terme, z.B. \((\lambda x.\ x + 42) \mathit{true}\).
+Demnach existieren auch nicht typisierbare Terme, z.B. \((\lambda x.\ x + 42)\ \mathit{true}\).
 Dies wäre allerdings ein sicherer Term, welcher immer zu \(\mathit{true}\) auswertet. Also ist Typsystem nicht vollständig
 bzgl. \(\beta\)-Reduktion.
 
@@ -142,7 +145,7 @@ bzgl. \(\beta\)-Reduktion.
 Wenn \(\Gamma, x: \tau_2 \vdash t_1: \tau_1\) und \(\Gamma \vdash t_2: \tau_2\), dann \(\Gamma \vdash t_1[x \mapsto t_2]: \tau_1\).\\
 \textbf{Typerhaltungstheorem}\\
 Wenn \(\Gamma \vdash t: \tau\) und \(t \Rightarrow t'\), dann \(\Gamma \vdash t': \tau\).
-
+\newpage
 \subsection{Polymorpie}%
 \label{tg:sub:polymorphie}
 Verhalten oft unabhängig vom Typ \(\Rightarrow\) Abstrahiere über Typ.\\

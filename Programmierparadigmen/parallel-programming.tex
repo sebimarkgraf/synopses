@@ -10,7 +10,7 @@
 \subsection{Motivation}%
 \label{pp:sub:motivation}
 \begin{itemize}
-  \item Moore's law erreicht Grenzen für Anzahl der Schaltkreise / Taktung
+  \item Moore's Law erreicht Grenzen für Anzahl der Schaltkreise / Taktung
   \item Trotzdem Rechenpower für Medizin, Wetter, \ldots
   \item Performance durch mehrere Kerne und Parallelverarbeitung
 \end{itemize}
@@ -25,39 +25,37 @@ Concurrency ist die Verallgemeinerung von Parallelism.
 \subsection{Ansätze}%
 \label{pp:sub:ansaetze}
 \textbf{Geteilter Speicher}\\
-Jeder Prozess kann jeden Speicher bearbeiten. Auf Mehrkernprozessoren.\\
+Jeder Prozess kann jeden Speicher bearbeiten (z.B auf Mehrkernprozessoren).\\
 \textbf{Verteilter Speicher}\\
-Prozesse schicken sich gegenseitig Nachrichten. Z.B. in Clustern.
+Prozesse schicken sich gegenseitig Nachrichten (z.B. in Clustern).
 
 \subsection{Flynn's Taxonomy}%
 \label{pp:sub:flynns-taxonomy}
 \begin{enumerate}
   \item SISD:\@ Single Instruction x Single Data --- von Neumann
-  \item SIMD:\@ Single Instruction x Multiple Data --- Vector Prozessoren
+  \item SIMD:\@ Single Instruction x Multiple Data --- Vektor Prozessoren
   \item MIMD:\@ Multiple Instruction x Multiple Data --- Mehrkernprozessor
   \item MISD:\@ Multiple Instruction x Single Data --- Pipelines / Redundante Systeme
 \end{enumerate}
 
 \subsection{Aufteilung des Problems}%
 \label{pp:sub:aufteilung-des-problems}
-\textbf{Task parallelism}: Aufteilung in verschiedene Funktionen.\\
-\textbf{Data prallelism}: Aufteilen der Daten auf verschiedene Prozesse.\\
+\textbf{Task Parallelism}: Aufteilung in verschiedene Funktionen.\\
+\textbf{Data Parallelism}: Aufteilen der Daten auf verschiedene Prozesse.
 
 \subsection{Amdahl's Law}%
 \label{pp:sub:amdahls-law}
 Berechnung der Beschleunigung \(S(n) = \frac{T(1)}{T(n)} = \frac{\text{Zeit eines Prozessors}}{\text{Zeit von n Prozessoren}}\)\\
-Nach Amdahl's Law kann maximal eine Beschleunigung erreicht werden, bei \(p\) Prozent des Programms parallelisierbar von:
+Nach Amdahl's Law kann, wenn \(p\) Prozent des Programms parallelisierbar, maximal folgende Beschleunigung erreicht werden:
 \[S(n) = \frac{1}{(1-p) + \frac{p}{n}}\]
 
 \subsection{MPI}%
 \label{pp:sub:mpi}
-Kommunikation von Prozession durch Nachrichten.
-MPI ist ein offenes Interface, welches Wert auf best practices legt.\\
-Grundlegend wird SIMD verwendet.\\
+Kommunikation von Prozession durch Nachrichten. MPI ist ein offenes Interface, welches Wert auf best practices legt. Grundlegend wird SIMD verwendet.\\
 
 \textbf{Communicators}\\
 Ist eine Gruppe von Prozessen. Der Standard ist \code{MPI\_COMM\_WORLD}, die Sammlung aller Prozesse.\\
-Jeder Prozess ist durch seinen Rang \(R_j\ (0 \leq R_j \leq N) \) eindeutig identifiziert. Wird durch \code{MPI\_Comm\_rank} erhalten.
+Jeder Prozess ist durch seinen Rang \(R_j\ (0 \leq R_j \leq N) \) eindeutig identifiziert. Der Rang kann durch \code{MPI\_Comm\_rank} erhalten werden.
 \code{MPI\_Comm\_size} gibt die Anzahl aller Prozesse zurück.
 \begin{lstlisting}
 int size, my_rank;
@@ -66,7 +64,7 @@ int MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
 \end{lstlisting}
 
 \textbf{Kommunikation}\\
-Baut auf send und receive Operationen auf. Diese sind für Kommunikation zwischen einzelnen Prozessen.
+Baut auf send und receive Operationen auf. Diese sind für Kommunikation zwischen einzelnen Prozessen gedacht.
 Für Kommunikation mit allen anderen spezifiziert MPI Broadcast Operationen.
 \begin{lstlisting}
 int MPI_Send(void* buffer, int count, MPI_Datatype datatype, int dest,
@@ -82,7 +80,7 @@ int MPI_Barrier(MPI_COMM_WORLD);
 \end{lstlisting}
 
 \textbf{Temporal Sorting}\\
-Nachrichten sind non-overtaking. Also erste Nachricht eines Senders kommt auch als erstes an. Setzt vorraus, das auch ein
+Nachrichten sind non-overtaking, d.h. die erste Nachricht eines Senders kommt auch als erstes an. Dies setzt vorraus, das auch ein
 Empfänger dafür verfügbar ist.\\
 
 \textbf{Kommunikationsmodi}\\
@@ -126,7 +124,7 @@ Kann durch Broadcast erreicht werden. Root versendet Daten an alle.
 Vektorvarianten sind mit angehängtem v verfügbar\\
 
 \textbf{Reduce}\\
-Verschiedene Reduce Varianten, wenden Gather an und berechnen aus Werten einen Wert durch Funktion.
+Verschiedene Reduce Varianten, wenden Gather an und berechnen aus Werten einen Wert durch eine Funktion.
 Verschiedene Varianten verfügbar:
 \begin{itemize}
   \item Reduce
@@ -137,13 +135,12 @@ Verschiedene Varianten verfügbar:
 
 
 \textbf{MapReduce}\\
-Programmiermodell von Google entwickelt.
-Besteht aus 3 Schritten: Map, Shuffle und Reduce.
+Programmiermodell, von Google entwickelt. Besteht aus 3 Schritten: Map, Shuffle und Reduce.
 
 \newpage
 \subsection{Java Parallel}%
 \label{pp:sub:javas-parallel}
-Grundlagen sollten aus SWTI bekannt sein. Demnach werden hier nur die erweiterten Konzepte vorgestellt.\\
+Grundlagen sollten aus SWT1 bekannt sein. Demnach werden hier nur die erweiterten Konzepte vorgestellt.\\
 
 \textbf{Atomic Types}\\
 Typen in Java welche Thread-safe verwendet können, da sie sich selbst synchronisieren.
@@ -155,30 +152,30 @@ Java stellt das \code{ReentrantLock} und \code{ReentrantReadWriteLock} zur Verf�
 Außerdem stellt Java auch Counting Semaphores und Barriers bereit.\\
 
 \textbf{Executor}\\
-Eine Executor abstrahiert von der Erstellung eines Threads. Dabei ist Executor ein Interface, welches Dienst Threads zu erstellen
-oder vorhandene Threads wieder zu verwenden.\\
+Ein Executor abstrahiert von der Erstellung eines Threads. Dabei ist Executor ein Interface, welches dazu dient, Threads zu erstellen
+oder vorhandene Threads wiederzuverwenden.\\
 
 \textbf{ExecutorService}\\
-Ein Subinterface von Executor welches einfaches Erstellen von Threadpools ermöglicht.\\
+Ein Subinterface von Executor, welches einfaches Erstellen von Threadpools ermöglicht.\\
 
 \textbf{Callable}\\
-Interface welches es ermöglicht Ergebnisse von Threads zurück zu geben.
+Interface, welches es ermöglicht, Ergebnisse von Threads zurückzugeben.
 Definiert die Methode \code{public String call()}\\
 
 \textbf{Futures}\\
-Vergleichbar mit Promises in JavaScript ermöglichen Futures den Zukünftigen Rückgabewert zur Verfügung zu stellen.
+Vergleichbar mit Promises in JavaScript. Ermöglichen Futures den zukünftigen Rückgabewert zur Verfügung zu stellen.
 Die \code{get}-Methode blockt, bis der Thread abgeschlossen ist.\\
 
 \textbf{Fork-Join}\\
-Effektiv für divide-and-conquer Algorithmen. Erstelle ForkJoinTask und führe Ihn mit ForkJoinPool aus.\\
+Effektiv für divide-and-conquer Algorithmen. Erstelle ForkJoinTask und führe ihn mit ForkJoinPool aus.\\
 
 \textbf{Thread-Safe Classes}\\
-BlockingQuee inklusive einiger Implementierungen.\\
+BlockingQueue inklusive einiger Implementierungen.\\
 
 \textbf{Streams}\\
 Jede Collection kann durch \code{collection.stream()} als Stream verwendet werden.
-Dabei können häufige Operationen wie filter, map, reduce und andere verwendet werden.
-Diese werden vergleichbar mit Haskell Lazy ausgewertet.
+Dies erlaubt Operationen wie filter, map, reduce.
+Diese werden vergleichbar mit Haskell lazy ausgewertet.
 Streams existieren auch als Int/Double/...-Stream. Diese erhält man durch mapToInt/Double/...
 Nur auf Zahlenstreams existieren Operationen wie average.
 
@@ -186,24 +183,30 @@ Nur auf Zahlenstreams existieren Operationen wie average.
 \subsection{Actor Model}%
 \label{pp:sub:actor-model}
 Konzeptuelles Model für paralleles Rechnen. Basiert auf Aktoren und Nachrichten.\\
-Aktoren können nur auf Ihren eigenen Zustand und eigenen Speicher zugreifen. Kommunikation mit anderen Aktoren geschieht
+Aktoren können nur auf ihren eigenen Zustand und eigenen Speicher zugreifen. Kommunikation mit anderen Aktoren geschieht
 durch Austausch von Nachrichten. \\
 Ein Aktor kann entweder durch die Umgebung erstellt werden (Root Aktor),
-oder durch einen anderen Aktor. In diesem Fall wird der andere Aktor sein Supervisor und delegiert Arbeit an Ihn und
+oder durch einen anderen Aktor. In diesem Fall wird der andere Aktor sein Supervisor und delegiert Arbeit an ihn und
 kann ihn im Zweifel eines Crashes neustarten.\\
 Das Modell ermöglicht gute Skalierbarkeit, da es egal ist auf welcher Instanz andere Aktoren laufen.\\
+
 \textbf{Implementierungen}
 \begin{itemize}
   \item Erlang
   \item Akka (Java/Scala)
   \item Akka.NET
 \end{itemize}
+
 \textbf{Akka Java}\\
-Kreiren eines Aktors \code{extends AbstractActor} und implementiere \code{Receive createReceive();}\\
-Dabei hilft \code{receiveBuilder()} und \code{match(Class<P> type, UnitApply<P> apply)}
-Alternativ noch \code{match} und \code{matchAny}.\\
-Aktoren werden durch Props erstellt. \code{Props Props.create(Class<?> actorType, Object... parameters)}.
-Und durch die ActorRefFactory instanziiert \code{ActorRef actorOf(Props props)}.\\
+Erstelle einen Aktor \code{extends AbstractActor} und implementiere \code{Receive createReceive();}\\
+Dabei hilft \code{receiveBuilder()} und \code{match(Class<P> type, UnitApply<P> apply)}, alternativ noch \code{match} und \code{matchAny}.\\
+
+Aktoren werden durch Props erstellt und durch die ActorRefFactory instanziiert:
+\begin{center}
+  \code{Props Props.create(Class<?> actorType, Object... parameters)}\\\code{ActorRef actorOf(Props props)}
+\end{center}
+
 Nachrichten werden mit \code{void tell(Object message, ActorRef sender)} und\\\code{Future<?> Patterns.ask(ActorRef target, Object msg, Timeout timeout)}
 versandt.\\
-Stoppen von Akoren erfolgt durch \code{void stop(ActorRef actorToStop)} oder \code{PoisonPill.getInstance} und senden dieser.
+
+Stoppen von Aktoren erfolgt durch \code{void stop(ActorRef actorToStop)} oder \code{PoisonPill.getInstance} und senden dieser.

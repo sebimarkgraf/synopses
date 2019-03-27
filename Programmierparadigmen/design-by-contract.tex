@@ -13,7 +13,7 @@ Idee: Spezifiziere Verhalten von Methoden mit Contracts + Teste / Beweise das Ve
 
 \subsection{Contract}%
 \label{dbc:sub:contract}
-Definieren:
+Definiere:
 \begin{itemize}
   \item P Precondition: Was muss der Client garantieren
   \item C Statements: Was passiert
@@ -23,11 +23,11 @@ Formal stellt dies ein \textit{Hoare Tripel} \(\{P\} C \{Q\}\) der Hoare Logik d
 
 \subsection{Java Modeling Language (JML)}%
 \label{dbc:sub:jml}
-Formale Definition von Interface für Java. Basiert auf Design by Contract. Definiton mit \code{@requires} und
+Formale Definition von Interface für Java. Basiert auf Design by Contract. Definition mit \code{@requires} und
 \code{@ensures}.\\
 Syntax:
 \begin{itemize}
-  \item \(a ==> b\) --- a implziert b
+  \item \(a ==> b\) --- a impliziert b
   \item \(a <==> b\) --- a iff b
   \item \(a <=!=> b\) --- \(!(a<==>b)\)
   \item \(\backslash result\) --- Ergebnis der Methode
@@ -41,11 +41,11 @@ Methoden können als \(@pure\) annotiert werden \(\Rightarrow\) keine Seiteneffe
 \label{dbc:sub:liskov}
 Für überschreibende Methoden gilt:\\
 Precondition darf nicht strenger sein.\\
-Postcondition muss mindestens so streng sein.\\
+Postcondition muss mindestens so streng sein.
 
 \subsection{Precondition Availability}%
 \label{dbc:sub:precondition}
-Alle Precondition Variablen müssen allen möglichen Callern auch zur Verfügung stehen. Dafür müssen ggf. getter / setter
+Alle Precondition Variablen müssen allen möglichen Callern auch zur Verfügung stehen. Dafür müssen ggf. Getter / Setter
 eingeführt werden.
 
 \subsection{Checking Contracts}%

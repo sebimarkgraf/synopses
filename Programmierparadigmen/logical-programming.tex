@@ -29,23 +29,23 @@ Programmierer ist verantwortlich für deren Korrektheit.
 Atome stehen nur für sich selbst. Variablen sind hingegen Platzhalter für unbekannte Terme.\\
 
 \textbf{Abfragen}\\
-Alle Fakten in Datenbank zur Laufzeit. Abfragen daran können mit \enquote{?} eingeleitet werden.
-z.B. \code{?liebt(fritz, fisch).}
-Bei erfolgreich gefunder Lösung wird die Variablenbelegung ausgegeben. Mit \enquote{;} kann nach weiteren Lösungen
-gesucht werden. Keine weiteren Lösungen werden mit \code{no} angegeben.
+Alle Fakten in Datenbank zur Laufzeit. Abfragen daran können mit \enquote{?} eingeleitet werden, z.B. \code{?liebt(fritz, fisch).}
+Bei erfolgreich gefunder Lösung wird die Variablenbelegung ausgegeben.\\
+
+Mit \enquote{;} kann nach weiteren Lösungen gesucht werden. Bei keinen weiteren Lösungen wird \code{no} angegeben.
 Mit \enquote{,} können Anfragen als Logisches Und konjugiert werden.\\
 
 \textbf{Verarbeitung}\\
 Teilziele werden von links nach rechts erfüllt. Dabei wird nach passenden Instanziierungen gesucht und diese werden
-an das nächste Teilziel weiter vererbt. Falls keine Lösung für Teilziel wird \textit{Backtracking} von vorherigem Teilziel
+an das nächste Teilziel weiter vererbt. Falls keine Lösung für Teilziel wird \textit{Backtracking} zum vorherigen Teilziel
 durchgeführt, demnach also eine neue Belegung dafür gesucht.\\
 
 \textbf{Regeln}\\
-Besteht aus \textit{Regelkopf} und \textit{Regelrumpf}. Dabei sind diese als Konklusion und Voraussetzungen zu sehen.
+Besteht aus \textit{Regelkopf} und \textit{Regelrumpf}. Dabei sind diese als Konklusion und Voraussetzungen zu sehen:
 \code{term :- termlist .}\\
 
 \textbf{Prädikate}\\
-Eine Gruppe von Fakten/Regeln mit gleichem Funktor und gleicher Argumentzahl im Regelkopf heiß \enquote{Prozedur}
+Eine Gruppe von Fakten/Regeln mit gleichem Funktor und gleicher Argumentzahl im Regelkopf heißt \enquote{Prozedur}
 oder \enquote{Prädikat}.
 
 \newpage
@@ -53,16 +53,17 @@ oder \enquote{Prädikat}.
 \label{lp:sub:backtracking}
 \textbf{Unifikation} findet Werte für Variablen, sodass 2 Terme gleich werden. Dabei ist zu beachten, dass Terme intern
 als Bäume dargestellt werden.\\
-\textbf{informeller Algorithmus}
+
+\textbf{Informeller Algorithmus}
 \begin{enumerate}
   \item Erstelle Box, call-Eingang
   \item Falls keine Regel, verlasse durch fail-Ausgang und lösche
   \item Für passende Regel anlegen von Kind-Boxen + Success zum call-Eingang des Kindes
-  \item Falls keine Kinder -> Success auf call Eingang des Kindes
+  \item Falls keine Kinder \(\rightarrow\) Success auf call Eingang des Kindes
   \item Fail zeigt auf redo des vorherigen Teilziels
-  \item Box durch redo -> Suche Choice Points. Falls kein Choice Point -> fail
+  \item Box durch redo \(\rightarrow\) Suche Choice Points. Falls kein Choice Point \(\rightarrow\) fail
   \item fail-Ausgang der ersten Box erzeugt \code{no}
-  \item success der letzten Box gibt Substitutionaus
+  \item success der letzten Box gibt Substitution aus
 \end{enumerate}
 
 \subsection{Arithmetik und Listen}%
@@ -78,7 +79,7 @@ Prolog hat außer der Erfüllbarkeit keinen Rückgabewert, also Rückgabewert al
 
 \subsection{Generate and Test}%
 \label{lp:sub:generate-and-test}
-Entwurfsmuster für Prolog. Probiere alle Lösungen durch teste Lösungskandidaten. Benötigt oft Beschneidung des
+Entwurfsmuster für Prolog. Probiere alle Lösungen durch, teste Lösungskandidaten. Benötigt oft Beschneidung des
 Lösungsbaums (Branch and Bound).
 
 \subsection{Cuts}%
@@ -87,9 +88,9 @@ Lösungsbaums (Branch and Bound).
 Ein Prädikat heißt deterministisch, wenns es stets auf höchstens eine Weise erfüllt werden kann; hat es
 möglicherweise mehrere Lösungen, so heißt es nichtdeterministisch.\\
 
-\textbf{Blauer Cut} beeinflusst weder Programmlaufzeit, noch -verhalten\\
-\textbf{Grüner Cut} beeinflustt Programmlaufzeit, aber nicht -verhalten\\
-\textbf{Roter Cut} beeinflusst das Programmverhalten\\
+\textbf{Blauer Cut}: Beeinflusst weder Programmlaufzeit, noch -verhalten\\
+\textbf{Grüner Cut}: Beeinflusst Programmlaufzeit, aber nicht -verhalten\\
+\textbf{Roter Cut}: Beeinflusst das Programmverhalten\\
 
 \textbf{Faustregel}\\
 Der Cut darf erst kommen, wenn man weiß, dass man in der richtigen Regel ist, aber muss vor der
@@ -113,17 +114,17 @@ Untersuche Terme:
   \item X = Y, unifizere X mit Y
   \item X == Y, erfolgreich, falls bereits unifiziert
   \item X =:= Y, arithmetischer Vergleich
-  \item X=..L , Konstruktion/Zerlegung von X, aus/in Liste L
+  \item X=..L, Konstruktion/Zerlegung von X, aus/in Liste L
 \end{itemize}
 
 \subsection{Optimierung}%
 \label{lp:sub:optimierung}
 \textbf{Manuell}\\
-Anstatt alle Variable Werte erst zu generieren und dann zu überprüfen, schiebe Tests so weit nach vorne wie möglich.
+Anstatt alle Variablenwerte erst zu generieren und dann zu überprüfen, schiebe Tests so weit nach vorne wie möglich.
 Dadurch Begrenzung der Möglichkeiten.\\
 
 \textbf{Freeze}\\
-Werte Datengetrieben aus, also wird \(T_i\) erst ausgewertet, wenn notwenig.
+Werte datengetrieben aus, also wird \(T_i\) erst ausgewertet, wenn notwendig.
 In Prolog mit Hilfe von \code{freezeAll([$X_1,X_2,..$], T)}
 
 \subsection{Unifikation}%
@@ -131,13 +132,14 @@ In Prolog mit Hilfe von \code{freezeAll([$X_1,X_2,..$], T)}
 \textbf{Unifikator}\\
 Eine Substitution \(\sigma\) unifiziert Gleichug \(\theta = \theta'\), falls \(\sigma\theta = \sigma\theta'\).
 \(\sigma\) unifiziert \(C\), falls \(\forall c \in C\) gilt: \(\sigma\) unifiziert \(c\).\\
+
 \textbf{Allgemeinster Unifikator (mgu)}\\
 \(\sigma\) \textbf{mgu}, falls \(\forall\) Unifikator \(\gamma\ \exists\) Substitution \(\delta\). \( \gamma = \delta\ \circ\ \sigma\).\\
-
+\newpage
 \textbf{Unifikationsalgorithmus}\\
 Informell:
 \begin{enumerate}
-  \item Ziehe Umbenennungen aus der Contraint Menge
+  \item Ziehe Umbenennungen aus der Constraint Menge
   \item Wende diese auf die Constraint Menge an
   \item Schreibe Sie als Komposition hinten dran
   \item Wende Algorithmus erneut auf verbleibende Constraint Menge an
