@@ -21,7 +21,7 @@ Es gibt keine Variablen in Haskell, Zustand über Parameter \& Rückgabewert.
 \subsection{Funktionsdefinition}%
 \label{hsk:sub:funktionsdefinition}
 \code{f x = sin x / x}\\
-Defininiere Funktionen mit Leerzeichen um Parameter zu trennen.\\
+Defininiere Funktionen mit Leerzeichen um Parameter zu trennen.
 
 \subsection{Rekursive Definitionen}%
 \label{hsk:sub:rekursive-definitionen}
@@ -32,17 +32,15 @@ Definition mit if-else-then:
             then 1
             else binom (n-1) (k-1) + binom (n-1) k
 \end{lstlisting}
-Oder mit Type Guard Notation:
+Oder mit Type Guard Notation (vergleichbar mit mathematischer Notation):
 \begin{lstlisting}
           binom n k
             | (k == 0) || (k == n) = 1
             | otherwise = binom (n-1) (k-1) + binom (n-1) k
 \end{lstlisting}
-Vergleichbar mit Mathematischer Notation
 
-\subsection{Ausführung}%
+\subsection{Ausführung mit ghci}%
 \label{hsk:sub:ausfuehrung}
-Ausführung mit \code{ghci}\\
 Programm \code{simple.hs}:
 \begin{lstlisting}
           square x = x * x
@@ -75,7 +73,7 @@ Idee: Speichere partielle Ergebnisse
 
 \subsection{Endrekursion}%
 \label{hsk:sub:endrekursion}
-Funktion heiß endrekursiv, falls in jedem Zweig der rekursive Aufruf nicht in einen anderen Aufruf eingebettet ist.
+Eine Funktion heiß endrekursiv, falls in jedem Zweig der rekursive Aufruf nicht in einen anderen Aufruf eingebettet ist.
 
 \subsection{Listen}%
 \label{hsk:sub:listen}
@@ -86,10 +84,11 @@ Liste ist entweder
 \end{itemize}
 \code{(:)} ist Listenkonstruktor, genannt const.
 Lässt sich zum Pattern Matching auf Listen verwenden.\\
+
 \textbf{Operationen}
 \begin{itemize}
   \item \code{null l} - Teste ob leer
-  \item \code{head} und \code{tail} berechnen Kopf und Restliste.
+  \item \code{head} und \code{tail} berechnen Kopf und Restliste
   \item \code{app left right} - Elemente aus \code{left} gefolgt von Elementen aus \code{right}
   \item \code{rev list} - Elemente aus \code{list} in umgedrehter Reihenfolge
   \item \code{take n l} - Erste \code{n} Elemente von \code{l}
@@ -109,31 +108,31 @@ Muster sind Konstanten, Variablen oder Konstruktoren.
 
 \subsection{Funktionen höherer Ordnung}%
 \label{hsk:sub:funktionen-hoeherer-ordnung}
-\textbf{Lambda Notation}
+\textbf{Lambda Notation}:
 Schreibe Funktionsparameter auf rechte Seite
 \begin{lstlisting}
           f = \x -> x * x - 3*x
           g = \x y -> x - 2/y
 \end{lstlisting}
-        Lassen sich auf Parameter anwenden
+Anwendung von Parametern:
 \begin{lstlisting}
           (\x -> x * x) 3 $\Rightarrow$ 3 * 3
 \end{lstlisting}
-\textbf{Defintion}\\
-Funktionen, die andere Funktionen als Parameter erhalten oder Funktionen als Rückgabewert liefern, heißen Funktionen höherer Ordnung.
-Vgl. Mathematik --- Ableitung\\\\
+\textbf{Definition}\\
+Funktionen, die andere Funktionen als Parameter erhalten oder Funktionen als Rückgabewert liefern, heißen Funktionen höherer Ordnung (vgl. Ableitung in der Mathematik)\\\\
 \textbf{Funktionen als Parameter}\\
 Funktionsanwendung auf Listen:\\
-\code{map :: (s -> t) -> [s] -> t}\\
+\code{map :: (s -> t) -> [s] -> [t]}\\
+
 Filtern von Listen:\\
 \code{filter :: (t -> Bool) -> [t] -> [t]}\\\\
 \textbf{Funktion als Rückgabewert}\\
 Funktionskomposition: \code{f . g}\\
-n-fache Anwedung: \code{iter :: (t -> t) -> Integer -> (t -> t)}
+n-fache Anwendung (nicht Teil der stdlib): \code{iter :: (t -> t) -> Integer -> (t -> t)}
 
 \subsection{Currying}%
 \label{hsk:sub:currying}
-Ersetzung einer mehrstelligen Funktion durch Schachtelung einstelliger Funktionen\\
+Ersetzen einer mehrstelligen Funktion durch Schachtelung einstelliger Funktionen\\
 z.B. \(f = \lambda a, b.F(a,b)\) und \(f_c = \lambda a.\lambda b. F(a, b)\)\\
 \(f_c\) kann unterversorgt werden!\\\\
 \textbf{Unterversorgung}\\
@@ -143,7 +142,7 @@ Wende `mehrstellige` Funktionen auf zu wenige Parameter an.
 \label{hsk:sub:namensbindung}
 Bindungskonstrukte legen Bedeutung und Geltungsbereich von Variablen fest.
 \begin{itemize}
-  \item Globale Bindung durch Defintion
+  \item Globale Bindung durch Definition
   \item Parameter im Rumpf gebunden
   \item x in Lambda Ausdruck gebunden
 \end{itemize}
@@ -151,7 +150,7 @@ Bindungskonstrukte legen Bedeutung und Geltungsbereich von Variablen fest.
 \subsection{Lokale Bindung}%
 \label{hsk:sub:lokale-bindung}
 \textbf{let} ermöglicht Deklarierung in Block.\\
-\textbf{where} vor Allem für Hilfsfunktionen.
+\textbf{where} vor allem für Hilfsfunktionen.
 \begin{lstlisting}
           let c = 299792458 in m * c * c
           energy m = m * c * c
@@ -180,7 +179,7 @@ Verallgemeinere Summe und andere Operationen auf Listen zu \textit{Initialwert, 
           foldl op i (x:xs) = foldl op (op i x) xs
 \end{lstlisting}
 Gibt selbes Ergebnis, falls Operation assoziativ.\\
-Besonders bei Kurzschlussauswertung empfiehlt sich \code{foldr} zu verwenden, obwohl es nicht die Endrekursion ausnutzt.
+Besonders bei Kurzschlussauswertung empfiehlt es sich \code{foldr} zu verwenden, obwohl es nicht die Endrekursion ausnutzt.
 
 \subsection{List Comprehensions}%
 \label{hsk:sub:list-comprehensions}
@@ -191,6 +190,7 @@ Generierung von Listen \code{\([e | q_1, ..., q_m]\)}, wobei die \code{\(q_i\)} 
 \label{hsk:sub:lazy-evaluation}
 Auswertung von Audrücken geschieht nur dann, wenn sie auch wirklich benötigt wird. Ermöglicht durch \textbf{Sharing}:
 Ausdrücke werden als Graph repräsentiert.\\
+
 Wann ist eine Auswertung nötig?
 \begin{itemize}
   \item Vergleichs-Operatoren
@@ -209,7 +209,7 @@ Selbes Konzept wird auch in Java und anderen neuen Programmiersprachen verwendet
 \label{hsk:sub:typen}
 Statische Typisierung: Variable hat vom \textit{Compiler} einen festen Typ.\\
 Dynamische Typisierung: Typ der Variable zur \textit{Laufzeit} veränderbar.\\
-Vorteile Statisch
+Vorteile statischer Typisierung:
 \begin{itemize}
   \item Code verständlicher
   \item Compiler kann effizienter arbeiten
@@ -230,20 +230,22 @@ Vorteile Statisch
 \label{hsk:sub:polymorphe-typen}
 Verwende Typvariablen um Polymorphie auszudrücken.
 \code{[t]} ist Liste von Typ \code{t} für alle Typen \code{t}.
-Dementsprechend ist dann \code{s -> t} Typ einer Funktion von Typ \code{s} nach Typ \code{t}.
+Dementsprechend ist dann \code{s -> t} Typ einer Abbildung von Typ \code{s} nach Typ \code{t}.
         
 \subsection{Infixnotation}%
 \label{hsk:sub:infixnotation}
 Jeder binäre Operator lässt sich mit Hilfe von Backquote-Notation als Infixoperator schreiben.
 z.B. \code{l `app` r}.\\
+
 Außerdem lassen sich Operatoren auch als Infix deklarieren mit \code{infix n s} mit Bindungsstärke \code{n} und Symbol \code{s}.
 
 \subsection{Typangabe}%
 \label{hsk:sub:typangabe}
 \textbf{Typinferenz}\\
 Typen werden durch den Compiler errechnet. Spart explizite Deklaration und ermöglicht dadurch kompaktere Programme.\\
-\textbf{Typdeklartion}\\
-Manualles Angeben des Typs. Erhöhen Lesbarkeit und helfen beim Finden von Fehlern.
+
+\textbf{Typdeklaration}\\
+Manuelles Angeben des Typs. Erhöht Lesbarkeit und hilft beim Finden von Fehlern.
 
 \subsection{Typsynonyme}%
 \label{hsk:sub:typsynonyme}
@@ -254,8 +256,8 @@ Weise einem Typ einen neuen Namen zu. IST KEIN NEUER TYP!
 
 \subsection{Backtracking}%
 \label{hsk:sub:backtracking}
-Ansatz zum Lösen von Problemen mit Haskell.
-Bestimme mögliche Kombinationen, prüfe ob Kombination zulässig, püfe ob zulässe Lösung.
+Ansatz zum Lösen von Problemen mit Haskell:
+Bestimme mögliche Kombinationen, prüfe ob Kombination zulässig, prüfe ob zulässe Lösung.
 
 \subsection{Algebraische Datentypen}%
 \label{hsk:sub:algebraische-datentypen}
@@ -283,15 +285,16 @@ Ein binärer Baum ist entweder ein Blatt, oder ein Knoten mit Teilbäumen rechts
                     | Node (Tree t) t (Tree t)
         someTree = Node (Node Leaf 1 Leaf) 3 Leaf 
 \end{lstlisting}
-
+\newpage
 \subsection{Typklassen}%
 \label{hsk:sub:typklassen}
-Idee: QuickSort oder andere Algorithmen lassen sich allgemein definieren, sobald gewisse Operationen verfügbar.
-\(\Rightarrow\) Definieren Typklassen, welche diese Operatoren vorschreiben.
+Idee: QuickSort oder andere Algorithmen lassen sich allgemein definieren, sobald gewisse Operationen verfügbar sind
+\(\Rightarrow\) Definiere Typklassen, welche diese Operatoren vorschreiben.
 \begin{lstlisting}
         qsort :: Ord t => [t] -> [t]
 \end{lstlisting}
 Damit kann qsort verwendet werden, falls \code{t} Instanz von \code{Ord}\\
+
 Standard-Typklassen:
 \begin{itemize}
   \item Eq --- Gleichheit und Ungleichheit
@@ -300,7 +303,6 @@ Standard-Typklassen:
   \item Show --- Typen lassen sich anzeigen mit show
   \item Enum --- Jeder Wert hat Nachfolger
 \end{itemize}
-\newpage
 \textbf{Typklassen-Definition}
 \begin{lstlisting}
         class Eq t where
