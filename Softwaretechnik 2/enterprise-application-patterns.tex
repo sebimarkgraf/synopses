@@ -1,6 +1,15 @@
 \section{Enterprise Application Patterns}
 \label{eap:sec:enterprise_application_patterns}
 
+\subsection{Schichten von EA nach Fowler}
+\label{eap:sub:schichten_von_ea_nach_fowler}
+
+\begin{enumerate}
+	\item \textbf{Presentation/Front-End}: Nutzer-Interaktion
+	\item \textbf{Domain}: Verarbeitung von Daten aus Data Source für Front-End
+	\item \textbf{Data Source}: Kommunikation mit Datenquelle (z.B Datenbank)
+\end{enumerate}
+
 \subsection{Domain Logic Patterns}
 \label{eap:sub:domain_logic_patterns}
 
@@ -53,6 +62,7 @@
 	\begin{itemize}
 		\item Table Data Gateway für eine einzelne Datenbankzeile
 	\end{itemize}
+	\newpage
 	\item \textbf{Identity Map}:
 	\begin{itemize}
 		\item Map aller bisher geladenen Objekte, um wiederholtes Laden zu vermeiden
@@ -64,8 +74,8 @@
 	\end{itemize}
 \end{itemize}
 
-\subsection{Object-Relational Mapping Structural Patterns}
-\label{eap:sub:object_relational_mapping_structural_patterns}
+\subsection{Object-Relational Structural Patterns}
+\label{eap:sub:object_relational_structural_patterns}
 
 \itquote{How to map objects to relational databases?}
 

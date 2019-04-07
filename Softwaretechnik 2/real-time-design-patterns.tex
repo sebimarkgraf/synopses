@@ -14,6 +14,7 @@
 	\item \textbf{Periodic Processes} managen weiter in passenden Zeitintervallen zusätzlich die korrekte Operation
 	\item \textbf{Monitoring Systems} führen eine Operation aus, wenn sich ein bestimmter Stimulus ereignet (z.B Airbags)
 	\item \textbf{Control Systems} kontrollieren das Verhalten durchgehend (z.B automatische Temperaturregelung)
+	\item \textbf{Dimensionen von Dependability}: Availability, Reliability, Security, Safety (und Resilience)
 	\item \textbf{Design}:
 	\begin{itemize}
 		\item Aufteilung in \textbf{Sensor} (registriert Stimulus) und \textbf{Actuator} (reagiert auf den Stimulus)
@@ -21,6 +22,18 @@
 		\item \textbf{Schnelles Switching} zwischen Paaren muss durch die Systemarchitektur ermöglicht werden, nutze spezielle \textbf{Echtzeit-Betriebssysteme} mit \textbf{wenig Overhead}
 		\item Programmierung in \textbf{Assembly}, aber auch zunehmend in C
 		\item \textbf{Hardware Co-Design} für bestmögliche Performance und Kontrolle
+	\end{itemize}
+	\item \textbf{Scheduling}: Prozess-Management noch wichtiger als sonst, viele Strategien sind möglich, welche als \textbf{statisch/dynamisch} sowie \textbf{preemptive und non preemptive} kategorisiert werden:
+	\begin{itemize}
+		\item First In First Out (dynamisch, non preemptive, keine Prioritäten)
+		\item Fixed Priorities (dynamisch, statische Prioritäten)
+		\item Earliest-Deadline-First (EDF) (dynamisch, dynamische Prioritäten)
+		\item Time-Slice-Scheduling (dynamisch, preemptive, keine Prioritäten)
+		\item \textbf{Least-Laxity-First} (LLF, dynamisch, dynamische Prioritäten)
+		\begin{itemize}
+			\item Es gilt: $laxity = deadline - now - remaining\ process\ time$
+			\item Negative laxity bedeutet, dass der Task seine Deadline \textbf{nicht mehr erreichen kann}
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
