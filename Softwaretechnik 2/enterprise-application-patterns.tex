@@ -90,13 +90,13 @@
 	\begin{itemize}
 		\item Repräsentiere Vererbungshierarchie \textbf{mit einer Tabelle für jede Klasse}
 		\item \textbf{Vorteil}: Nur relevante Spalten, da Felder der Basisklassen nicht in Kindklassen dupliziert werden, gut implementierbar für bestehende Schemata
-		\item \textbf{Nachteil}: Mehrere Tabellen (d.h. Joins nötig, Performanceprobleme), Refactoring erschwert, Basisklassen können Bottleneck werden
+		\item \textbf{Nachteil}: Mehrere Tabellen (d.h. Joins nötig, Performanceprobleme), Refactoring schwerer als STI, Basisklassen können Bottleneck werden
 	\end{itemize}
 	\item \textbf{Concrete Table Inheritance}:
 	\begin{itemize}
 		\item Repräsentiere Vererbungshierarchie \textbf{mit einer Tabelle für jede konkrete Klasse}
 		\item \textbf{Konkret}: Klassen duplizieren Felder der Basisklassen, d.h. Kindtabelle hat alle Spalten der Elternklassen
-		\item \textbf{Vorteil}: Keine nutzlosen Felder, keine Joins wenn man von konkreten Mappern liest
-		\item \textbf{Nachteil}: Refactoring bleibt erschwert, Änderung eines Feldes der Basisklasse beeinflusst alle Subklassen-Tabellen
+		\item \textbf{Vorteil}: Keine nutzlosen Felder, kaum bis keine Joins wenn man von konkreten Mappern liest
+		\item \textbf{Nachteil}: Refactoring weiterhin schwer wie bei CTI, Änderung eines Feldes der Basisklasse beeinflusst alle Subklassen-Tabellen
 	\end{itemize}
 \end{itemize}
