@@ -12,13 +12,11 @@ Dabei wird der Inhalt auf den klausurrelevanten Stoff der von uns besuchten Vorl
 * Computergrafik
 * Robotik I
 * Mechano-Informatik
-
-## In Erstfassung verfügbar
 * Programmierparadigmen
 * Softwaretechnik 2
 
-## In Arbeit
-* Sicherheit (vorerst pausiert)
+## Pausiert 
+* Sicherheit
 
 ## Mitarbeit
 Fehlerkorrekturen und Erweiterungen der bestehenden Zusammenfassungen sind gerne als Pull Request gesehen. Bitte beachtet den [Styleguide](STYLEGUIDE.md)!
