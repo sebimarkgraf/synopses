@@ -15,8 +15,11 @@ Dabei wird der Inhalt auf den klausurrelevanten Stoff der von uns besuchten Vorl
 * Programmierparadigmen
 * Softwaretechnik 2
 
-## Pausiert 
+## In Arbeit
 * Sicherheit
+* Kognitive Systeme
+* Moderne Physik für Informatiker
+* Physik für Informatiker
 
 ## Mitarbeit
 Fehlerkorrekturen und Erweiterungen der bestehenden Zusammenfassungen sind gerne als Pull Request gesehen. Bitte beachtet den [Styleguide](STYLEGUIDE.md)!
