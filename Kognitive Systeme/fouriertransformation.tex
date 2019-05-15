@@ -1,2 +1,100 @@
 \section{Fouriertransformationen}%
 \label{four:sec:fouriertransformationen}
+
+\begin{itemize}
+	\item Jede \textbf{stückweise stetige und periodische Funktion} lässt sich als \textbf{Summe von Sinus- und Cosinusfunktionen} darstellen
+	\item \textbf{Fouriertransformation} findet die passende Darstellung
+\end{itemize}
+
+\subsection{Fourierreihe}%
+\label{four:sub:fourierreihe}
+
+\begin{itemize}
+	\item Sei $f(t)$ eine \textbf{periodische} und \textbf{stückweise stetige} Funktion
+	\item \textbf{Reelle Darstellung}: für die Funktion $f(t)$ entspricht die reelle Darstellung
+	$$f(t) = \sum^\infty_{k=0}(A_k\ cos\ k\omega t + B_k\ sin\ k\omega t)\text{, wobei}$$
+	$$A_k = \frac{2}{T}\int^{\frac{T}{2}}_{-\frac{T}{2}}f(t)\ cos\ k\omega t\ dt\ \mathbf{und}\ B_k = \frac{2}{T}\int^{\frac{T}{2}}_{-\frac{T}{2}}f(t)\ sin\ k\omega t\ dt$$
+	mit der Periodendauer $T$ und der Kreisfrequenz $\omega = \frac{2\pi}{T}$
+	\item \textbf{Komplexe Darstellung}: für die Funktion $f(t)$ entspricht die komplexe Darstellung
+	$$f(t) = \sum^\infty_{k=-\infty}C_ke^{ik\omega t}\text{, wobei}\ C_k = \frac{1}{T}\int^{\frac{T}{2}}_{-\frac{T}{2}}f(t)e^{-ik\omega t}dt$$
+	\item \textbf{Eigenschaften der Fourierreihe}:
+	\begin{itemize}
+		\item \textbf{Linearität}: Entwicklung ist lineare Operation, Summanden einer Funktion können \textbf{einzeln entwickelt und dann addiert werden}
+		\item \textbf{Verschiebung der Zeit}: Verschiebung der Zeit verändert \textbf{die Amplituden der Frequenzen}
+		\item \textbf{Verschiebung der Fourierkoeffizienten}: Verschiebung der Koeffizienten um $a$ multipliziert die Funktion mit $e^{-i\omega at}$
+		\item \textbf{Skalierung}: Streckung auf der Zeitskala entspricht einer Stauchung auf der Frequenzskala und umgekehrt
+	\end{itemize}
+\end{itemize}
+
+\subsection{Kontinuierliche Fouriertransformation}%
+\label{four:sub:kontinuierliche_fouriertransformation}
+
+\begin{itemize}
+	\item Fourierreihe erzeugt Summe von Schwingungen \textbf{diskreter Frequenzen}, stattdessen nun kontinuierliche Transformation für \textbf{kontinuierliches Frequenzspektrum}
+	\item \textbf{Fouriertransformation}:
+	$$F(\omega) = \int^\infty_{-\infty}f(t)\ e^{-i\omega t}dt$$
+	\item \textbf{Fourier-Rücktransformation}:
+	$$f(t) = \frac{1}{2\pi}\int^\infty_{-\infty}F(\omega)\ e^{+i\omega t}d\omega$$
+	\item \textbf{Eigenschaften der Fouriertransformation}:
+	\begin{itemize}
+		\item \textbf{Linearität, Zeitverschiebung, Koeffizientenverschiebung} sind \textbf{wie bei der Fourierreihe}
+		\item \textbf{Skalierung}: Streckung auf der Zeitskala um $a$ entspricht Stauchung auf der Frequenzskala und der Amplitude um $a$ und umgekehrt
+	\end{itemize}
+	\item \textbf{Zusammenhänge von Funktion und Transformierter}:
+	\begin{center}
+		\begin{tabular}{r c l}
+			\textbf{Funktion} 	& 					& \textbf{Transformierte}\\
+			periodisch 			& $\leftrightarrow$ & diskret\\
+			diskret 			& $\leftrightarrow$ & periodisch\\
+			reell 				& $\leftrightarrow$ & gerade\\
+			imaginär 			& $\leftrightarrow$ & ungerade
+		\end{tabular}
+	\end{center}
+\end{itemize}
+
+\subsection{Faltungen}%
+\label{four:sub:faltungen}
+
+\begin{itemize}
+	\item \itquote{Eine Art Produkt von Funktionen}
+	\item \textbf{Faltung zweier Funktionen} im \textbf{Zeitbereich} entspricht einer \textbf{Multiplikation} ihrer Fouriertransformierten im \textbf{Frequenzbereich} und umgekehrt
+	\item \textbf{Mathematisch}: $$f(t) * g(t) = \int^\infty_{-\infty}f(\xi)g(t - \xi)d\xi$$
+\end{itemize}
+
+\subsection{Diskrete Fouriertransformation}%
+\label{four:sub:diskrete_fouriertransformation}
+
+\begin{itemize}
+	\item \textbf{Praxis}: Statt bekannten kontinuierlichen Funktionen analysiert man meist $N$ \textbf{Abtastwerte} und möchte ein \textbf{diskretes, endliches Frequenzspektrum} erhalten; dies erreicht die \textbf{diskrete Fouriertransformation}
+	\item \textbf{Fouriertransformation}: Für Messwerte $f[k], k = 0..N-1$ ergeben sich die Amplituden $F[\omega], \omega = 0..N-1$ mit:
+	$$F[\omega] = \frac{1}{N}\sum^{N-1}_{k=0}f[k]\ e^{-i2\pi\frac{k}{N}\omega}$$
+	\item \textbf{Fourier-Rücktransformation}:
+	$$f[k] = \sum^{N-1}_{\omega=0}F[\omega]\ e^{+i2\pi\frac{\omega}{N}k}$$
+	\item \textbf{Fast-Fourier-Transform}: Nutze Fakt, dass $F[0] = f[0]$; halbiere Messreihe (Zahl an Abtastwerten muss \textbf{Zweierpotenz} sein!) bis Länge 1 und rekombiniere die Teilergebnisse in $O(N log N)$
+\end{itemize}
+
+\subsection{Bildverarbeitung}%
+\label{four:sub:bildverarbeitung}
+
+\begin{itemize}
+	\item \textbf{Idee}: Fourier-Transformierte ermöglichen einfaches Anwenden von \textbf{Frequenzfiltern} per Multiplikation (ohne Fourier wäre Faltung notwendig)
+	\begin{itemize}
+		\item \textbf{Idealer Filter}: Filter, welche Frequenzen außerhalb eines Bereiches komplett auslöscht
+		\item \textbf{Hochpassfilter}: Erhält hohe Frequenzen, eliminiert niedrige (\textbf{Tiefpassfilter} analog)
+		\item \textbf{Bandpassfilter}: Erhält nur Frequenzen innerhalb eines Intervalles
+		\item \textbf{Gaußfilter}: Nicht-idealer Hoch- bzw. Tiefpassfilter, welcher Bereiche außerhalb langsam abschwächt statt sie auszulöschen
+	\end{itemize}
+\end{itemize}
+
+\subsection{Funktionen und ihre Fouriertransformierten}%
+\label{four:sub:funktionen_und_ihre_fouriertransformierten}
+
+\begin{center}
+	\begin{tabular}{r c l}
+		$\mathbf{f(t)}$ 							& 					& $\mathbf{F(\omega)}$\\
+		$e^{i\alpha t}$ 							& $\leftrightarrow$ & $\delta(\omega - \alpha)$\\
+		$A\ sin(2\pi\alpha t)$ 						& $\leftrightarrow$ & $\frac{A}{2}i\delta(\omega + \alpha) - \frac{A}{2}i\delta(\omega - \alpha)$\\
+		$A\ cos(2\pi\alpha t)$ 						& $\leftrightarrow$ & $\frac{A}{2}\delta(\omega + \alpha) + \frac{A}{2}\delta(\omega - \alpha)$\\
+		$\sum^\infty_{n=-\infty}\delta(t - nT)$ 	& $\leftrightarrow$ & $\frac{1}{T}\sum^\infty_{n=-\infty}\delta(\omega - \frac{n}{T})$
+	\end{tabular}
+\end{center}
