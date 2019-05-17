@@ -4,6 +4,14 @@
 \begin{itemize}
 	\item Jede \textbf{stückweise stetige und periodische Funktion} lässt sich als \textbf{Summe von Sinus- und Cosinusfunktionen} darstellen
 	\item \textbf{Fouriertransformation} findet die passende Darstellung
+	\item Nützlich für \textbf{Signalverarbeitung} (Digitalisierung, Filtern, Kompression etc.), Signal entspricht hinlänglich glatter, wertbeschränkter \textbf{Funktion}
+	\item \textbf{Digitalisierung}:
+	\begin{itemize}
+		\item \textbf{Abtastung/Sampling} erzeugt diskrete Funktion durch (meist gleichmäßiges) Auswählen von Funktionswerten, Häufigkeit entspricht der \textbf{Abtastrate} (in Hz)
+		\item \textbf{Quantisierung} rundet Messwerte für ein digitales Format, Auflösung bestimmt Qualität
+		\item \textbf{Aliasing} ist ein Fehler durch Unterabtastung, wichtige Funktionswerte werden nicht abgetastet; Lösung ist höhere Abtastrate oder Anti-Aliasing-Filter
+		\item \textbf{Nyquist-Shannon-Theorem}: \itquote{Ein kontinuierliches, bandbegrenztes Signal mit Grenzfrequenz F muss mit einer Frequenz \textbf{größer} als 2F abgetastet werden, damit das ursprüngliche Signal wieder rekonstruiert werden kann.}
+	\end{itemize}
 \end{itemize}
 
 \subsection{Fourierreihe}%
@@ -56,11 +64,12 @@
 \label{four:sub:faltungen}
 
 \begin{itemize}
-	\item \itquote{Eine Art Produkt von Funktionen}
+	\item Faltung zweier Funktionen kann als \textbf{Signalfilterung} verstanden werden
 	\item \textbf{Faltung zweier Funktionen} im \textbf{Zeitbereich} entspricht einer \textbf{Multiplikation} ihrer Fouriertransformierten im \textbf{Frequenzbereich} und umgekehrt
 	\item \textbf{Mathematisch}: $$f(t) * g(t) = \int^\infty_{-\infty}f(\xi)g(t - \xi)d\xi$$
 \end{itemize}
 
+\newpage
 \subsection{Diskrete Fouriertransformation}%
 \label{four:sub:diskrete_fouriertransformation}
 
