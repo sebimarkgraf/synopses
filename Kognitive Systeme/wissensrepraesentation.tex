@@ -73,7 +73,7 @@
 \end{itemize}
 
 \subsubsection{Davis-Putnam-Logemann-Loveland-Algorithmus (DPLL)}%
-\label{ssub:davis_putnam_logemann_loveland_algorithmus}
+\label{wrep:ssub:davis_putnam_logemann_loveland_algorithmus}
 %%
 \begin{itemize}
 	\item \textbf{Voraussetzung}: Zu prüfende Formel muss in \textbf{KNF} vorliegen
@@ -85,4 +85,19 @@
 		\item Hat eine Klausel den Wert \textit{falsch}, so ist die Formel \textbf{unerfüllbar}
 	\end{itemize}
 	\item Sind alle Vereinfachungen ausgeschöpft, wird die Formel wie bisher geprüft (worst case: exponentielle Laufzeit)
+\end{itemize}
+
+\subsection{Prädikatenlogik}%
+\label{wrep:sub:praedikatenlogik}
+
+\begin{itemize}
+	\item \textbf{Erweiterung der Aussagenlogik}
+	\item \textbf{Neu}:
+	\begin{itemize}
+		\item \textbf{Universum}: Neuer Wertebereich, i.d.R. kurz bezeichnet als $\mathbf{D}$
+		\item \textbf{Funktionen}: Funktion die beliebig viele Parameter aus D auf einen anderen Wert aus D abbilden, z.B $max(x, y)$
+		\item \textbf{Prädikate}: Abbildungen von $D^k$ nach $\{true, false\}$, z.B $IsBigger(x, y)$
+		\item \textbf{Allquantor} $\forall$ (\itquote{für alle X gilt} $\dots$) und \textbf{Existenzquantor} $\exists$ (\itquote{für mindestens ein X gilt} $\dots$)
+	\end{itemize}
+	\item \textbf{Beispiel}: $\forall x\ \exists y\ IsBigger(x, y)$
 \end{itemize}
