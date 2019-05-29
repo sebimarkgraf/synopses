@@ -1,2 +1,21 @@
 \section{Robotik}%
 \label{rob:sec:robotik}
+
+\begin{itemize}
+	\item Roboter sind \textbf{klassische kognitive Systeme}
+	\item Unterscheidung zwischen spezialisierten \textbf{Industrierobotern}, \textbf{autonomen mobilen Robotern} sowie \textbf{Servicerobotern und humanoiden Assistenzsystemen}
+\end{itemize}
+
+\subsection{Kinematik}%
+\label{rob:sub:kinematik}
+
+\begin{itemize}
+	\item \textbf{Kinematische Kette}: Kette starrer Körper, verbunden mit Gelenken
+	\item Komponenten können anhand ihrer \textbf{Orientierung im Raum} (geometrischer Raum), aber auch anhand ihrer Orientierung \textbf{zueinander} (Gelenkwinkelraum) betrachtet werden
+	\item \textbf{Kinematik}: Übergang zwischen beiden Konfigurationsräumen schaffen
+	\begin{itemize}
+		\item \textbf{Direkte-/Vorwärtskinematik}: Gelenkwinkelraum zu geometrischer Raum, recht trivial über \textbf{Denavit-Hartenberg-Konvention}
+		\item \textbf{Inverse-/Rückwärtskinematik}: Geometrischer Raum zu Gelenkwinkelraum, oft sehr komplex wegen viel möglicher Freiheit
+	\end{itemize}
+	\item \textbf{Denavit-Hartenberg-Konvention}: Standard zur Berechnung des Übergangs zwischen den \textbf{Ortskoordinatensystemen} einzelner Komponenten (z.B Armgelenke)
+\end{itemize}
