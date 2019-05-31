@@ -15,9 +15,11 @@ Dabei wird der Inhalt auf den klausurrelevanten Stoff der von uns besuchten Vorl
 * Programmierparadigmen
 * Softwaretechnik 2
 
+## In Erstfassung verfügbar
+* Kognitive Systeme
+
 ## In Arbeit
 * Sicherheit
-* Kognitive Systeme
 * Moderne Physik für Informatiker
 * Physik für Informatiker
 
