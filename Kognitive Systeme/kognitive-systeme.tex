@@ -1,0 +1,38 @@
+\documentclass[10pt,a4paper]{article}
+\author{Jannik Koch}
+\title{Kognitive Systeme}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{hyperref}
+
+\def\realnumbers{{\rm I\!R}}
+\def\polynomials{{\rm I\!P}}
+
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\renewcommand{\arraystretch}{1.5}
+\newcommand{\quotestyle}[1]{\enquote{#1}}
+\newcommand{\itquote}[1]{\textit{\enquote{#1}}}
+
+\begin{document}
+	\pagenumbering{Roman}
+	{\let\newpage\relax\maketitle}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+
+	\include{fouriertransformation}
+	\include{geometrische-transformationen}
+	\include{objekt-tracking}
+	\include{wissensrepraesentation}
+	\include{planung}
+	\include{geometrische-wissensrepraesentation}
+	\include{robotik}
+\end{document}

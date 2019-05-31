@@ -1,0 +1,132 @@
+\section{Geometrische Transformationen}%
+\label{gtrans:sec:geometrische_transformationen}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Objekte/Punkte (Ortsvektoren) im Raum \textbf{transformieren}
+	\item \textbf{Beispiel}: \textbf{Verschiebung (Translation) und Rotation} einer Kugel über einen Billardtisch
+\end{itemize}
+
+\subsection{Homogene Koordinaten}%
+\label{gtrans:sub:homogene_koordinaten}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Darstellung der gesamten Vektortransformation mit Matrizen, (unhomogenisierte) Translation z.B so jedoch nicht darstellbar
+	\item \textbf{Homogenisierung eines Vektors} durch Hinzufügen eines \textbf{Skalierungsfaktors} (i.d.R. 1):
+	$$p = \begin{pmatrix} p_0 \\ p_1 \\ p_2 \end{pmatrix} \xrightarrow[]{Homogenisierung} \hat{p} = \begin{pmatrix} p_0 \\ p_1 \\ p_2 \\ 1 \end{pmatrix}$$
+	Der Skalierungsfaktor kann beliebig sein, solang für den nicht-homogenisierten N-Vektor $p$ und seinen homogenisierten N+1-Vektor $\hat{p}$ gilt:
+	$$p_k = \frac{\hat{p}_k}{\hat{p}_{N+1}}, k = 0..N$$
+\end{itemize}
+
+\subsection{Translationen}%
+\label{gtrans:sub:translationen}
+
+\begin{itemize}
+	\item \textbf{3D Translation/Verschiebung} eines homogenen Vektors $p$ um einen Vektor $u$ mit Hilfe des \textbf{Skalierungsfaktors} per Translationsmatrix $T$ möglich, \textbf{zweidimensional analog}:
+	$$u = \begin{pmatrix}
+		u_0 \\ u_1 \\ u_2
+	\end{pmatrix} \Rightarrow T = \begin{pmatrix}
+		1 & 0 & 0 & u_0\\
+		0 & 1 & 0 & u_1\\
+		0 & 0 & 1 & u_2\\
+		0 & 0 & 0 & 1
+	\end{pmatrix}
+	\hspace*{1cm}T \cdot p = \begin{pmatrix}
+		1 & 0 & 0 & u_0\\
+		0 & 1 & 0 & u_1\\
+		0 & 0 & 1 & u_2\\
+		0 & 0 & 0 & 1
+	\end{pmatrix} \begin{pmatrix}p_0 \\ p_1 \\ p_2 \\ 1\end{pmatrix} = \begin{pmatrix}
+		p_0 + u_0 \\ p_1 + u_1 \\ p_2 + u_2 \\ 1
+	\end{pmatrix}$$
+\end{itemize}
+
+\subsection{Rotationen}%
+\label{gtrans:sub:rotationen}
+
+\begin{itemize}
+	\item \textbf{Rotationsmatrizen} in einer Ebene (zweidimensional) um den Winkel $\phi$ gegen den Uhrzeigersinn entsprechen:
+	$$\begin{pmatrix}
+		cos\phi & -sin\phi\\
+		sin\phi & cos\phi
+	\end{pmatrix} \xrightarrow[]{Homogenisierung} \begin{pmatrix}
+		cos\phi & -sin\phi & 0\\
+		sin\phi & cos\phi & 0\\
+		0 & 0 & 1
+	\end{pmatrix}$$
+	\newpage
+	\item \textbf{Dreidimensionale Rotationsmatrizen} unterscheiden sich anhand der Rotationsebene (XY, XZ, YZ), jede beliebige Rotation kann als \textbf{Kombination dieser Rotationen} ausgedrückt werden:
+	$$R_x(\phi) = \begin{pmatrix}
+		1 & 0 & 0\\
+		0 & cos\phi & -sin\phi\\
+		0 & sin\phi & cos\phi
+	\end{pmatrix} \xrightarrow[]{Homogenisierung} \begin{pmatrix}
+		1 & 0 & 0 & 0\\
+		0 & cos\phi & -sin\phi & 0\\
+		0 & sin\phi & cos\phi & 0\\
+		0 & 0 & 0 & 1
+	\end{pmatrix}$$
+	$$R_y(\phi) = \begin{pmatrix}
+		cos\phi & 0 & sin\phi\\
+		0 & 1 & 0\\
+		-sin\phi & 0 & cos\phi
+	\end{pmatrix} \xrightarrow[]{Homogenisierung} \begin{pmatrix}
+		cos\phi & 0 & sin\phi & 0\\
+		0 & 1 & 0 & 0\\
+		-sin\phi & 0 & cos\phi & 0\\
+		0 & 0 & 0 & 1
+	\end{pmatrix}$$
+	$$R_z(\phi) = \begin{pmatrix}
+		cos\phi & -sin\phi & 0\\
+		sin\phi & cos\phi & 0\\
+		0 & 0 & 1
+	\end{pmatrix} \xrightarrow[]{Homogenisierung} \begin{pmatrix}
+		cos\phi & -sin\phi & 0 & 0\\
+		sin\phi & cos\phi & 0 & 0\\
+		0 & 0 & 1 & 0\\
+		0 & 0 & 0 & 1
+	\end{pmatrix}$$
+	\item \textbf{Eigenschaften}: Jede Rotationsmatrix $R$ ist orthogonal, d.h. $R^T = R^{-1}$
+	\item \textbf{Hinweis}: Transformationsmatrizen (Translationen, Rotationen etc.) lassen sich per Multiplikation kombinieren, die resultierende Matrix entspricht einer \textbf{Durchführung aller Transformationen von rechts nach links}; Transformationen sind \textbf{nicht immer eindeutig!}
+\end{itemize}
+
+\subsection{Quaternionen}%
+\label{gtrans:sub:quaternionen}
+
+\begin{itemize}
+	\item \textbf{Problem}: Rotationsmatrizen sind \textbf{ineffizient} und können Probleme wie z.B das \textbf{Gimbal Lock} hervorrufen
+	\item \textbf{Lösung}: \textbf{Quaternionen} definieren Rotationen anhand einer normierten \textbf{Rotationsachse} und dem \textbf{Rotationswinkel}
+	\item Jede Rotation hat genau \textbf{zwei Quaternionen (im und entgegen dem Uhrzeigersinn)}
+	\item \textbf{Eigenschaften}:
+	\begin{itemize}
+		\item Darstellung als Vektor oder analog zu den \textbf{komplexen Zahlen}: $h = h_0 + ih_1 + jh_2 + kh_3$
+		\item $h_0$ ist der Realteil, $h_1, h_2, h_3$ der Imaginärteil, wobei:
+		\begin{enumerate}
+			\item $i^2 = j^2 = k^2 = -1$
+			\item $ijk = -1$
+		\end{enumerate}
+	\end{itemize}
+	\newpage
+	\item \textbf{Operationen}:
+	\begin{itemize}
+		\item Alle Quaternion-Operationen erfüllen das \textbf{Distributivgesetz}
+		\item \textbf{Addition}: Erfolgt komponentenweise, ist assoziativ und kommutativ:
+		$$h + \hat{h} = (h_0 + \hat{h}_0) + i(h_1 + \hat{h}_1) + j(h_2 + \hat{h}_2) + k(h_3 + \hat{h}_3)$$
+		\item \textbf{Multiplikation}: Erfolgt durch Ausmultiplizieren und Vereinfachen der Ausdrücke, ist assoziativ aber nicht kommutativ
+		\item \textbf{Multiplikatives Inverses}:
+		$$h^{-1} = (\frac{h_0}{l} - i\frac{h_1}{l} - j\frac{h_2}{l} - k\frac{h_3}{l}),\ l = h_0^2 + h_1^2 + h_2^2 + h_3^2$$
+		\item \textbf{Konjugiertes Quaternion} $\bar{h}$ entspricht dem Quaternion mit \textbf{invertierten Vorzeichen} der \textbf{imaginären} Komponenten
+		\item \textbf{Betrag} eines Quaternions analog zu Vektoren: $$|h| = \sqrt{h\bar{h}} = \sqrt{h_0^2 + h_1^2 + h_2^2 + h_3^2}\ (d.h.\ h^{-1} = \frac{\bar{h}}{|h|^2})$$
+		\item \textbf{Übliche Schreibweise}: $(s, v)$ mit $s$ als reelle Komponente und $v$ als Vektor der imaginären Komponente (z.B $(1, 0)$)
+	\end{itemize}
+	\item \textbf{Quaternion zu Rotationsmatrix}: Sei $q = (s, (x, y, z))$, dann gilt:
+	$$R_q = \begin{pmatrix}
+		1 - 2(y^2 + z^2) & 2xy - 2sz & 2sy + 2xz\\
+		2xy + 2sz & 1 - 2(x^2 + z^2) & -2sx + 2yz\\
+		-2sy + 2xz & 2sx - 2yz & 1 - 2(x^2 + y^2)
+	\end{pmatrix}$$
+	\item \textbf{Rotationsmatrix zu Quaternion}: Sei $R$ eine Rotationsmatrix mit Einträgen $r_{i,j}, j \in \{1, 2, 3\}$, dann gilt:
+	$$s = \frac{1}{2}\sqrt{1 + r_{11} + r_{22} + r_{33}}$$
+	$$x = \frac{r_{32} - r_{23}}{4s}$$
+	$$y = \frac{r_{13} - r_{31}}{4s}$$
+	$$z = \frac{r_{21} - r_{12}}{4s}$$
+\end{itemize}

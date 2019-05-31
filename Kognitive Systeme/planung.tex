@@ -1,0 +1,90 @@
+\section{Planung}%
+\label{plan:sec:planung}
+
+\subsection{Planungssprachen}%
+\label{plan:sub:planungssprachen}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Zustand der \textbf{Umgebung} sowie \textbf{mögliche Handlungen} repräsentieren
+\end{itemize}
+
+\subsubsection{STRIPS}% 
+\label{plan:ssub:strips}
+
+\begin{itemize}
+	\item \textbf{Zustand}: Konjunktion positiver Literale, Prädikate dürfen \textbf{nur Konstanten} erhalten
+	\item \textbf{Geschlossene Welt-Annahme}: Jeder Zustand ist vollständig bekannt, alle nicht angegebenen Literale sind implizit \textbf{falsch}
+	\item \textbf{Aktion}: Übergang eines Zustands in einen anderen (\textbf{Zielzustand}), definiert durch \textbf{Name, Parameter, Vorbedingungen und Effekte}
+	\item \textbf{Vorbedingung}: Konjunktion positiver Literale
+	\item \textbf{Effekte}: Konjunktion positiver und negativer Literale
+	\item Ein Zustand \textbf{erfüllt einen Zielzustand}, wenn (mindestens) alle im Zielzustand angegebenen Literale auch in dem Ursprungszustand positiv sind
+	\item Eine Aktion ist \textbf{ausführbar}, wenn die Vorbedingungen erfüllt sind; die in den \textbf{Effekten} angegebenen Literale ändern dann ihren Wert entsprechend
+	\item \textbf{Beispiel}:
+	\begin{itemize}
+		\item \texttt{Startzustand}: $Durst\ \land\ IstVolleTasse(t)$
+		\item \texttt{Ziel}: $KeinDurst$
+		\item \texttt{Aktionen}: $Action(Trinke,\ (t),\ IstVolleTasse(t),\ KeinDurst\ \land\ \neg Durst)$
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{ADL}% 
+\label{plan:ssub:adl}
+
+\begin{itemize}
+	\item \textbf{Erweiterung von STRIPS}
+	\item \textbf{Offene Welt} im Gegensatz zu STRIPS, Zustände enthalten positive \textbf{und negative} Literale, ungenannte Literale sind \textbf{unbekannt}
+	\item Ziele dürfen \textbf{negative Literale} enthalten, Disjunktionen und quantifizierte Variablen sind auch erlaubt
+	\item Variablen können auf \textbf{Gleichheit} geprüft werden
+	\item \textbf{Implizite Typisierung} ist möglich (\itquote{k ist vom Typ Knopf})
+	\begin{align*}
+		Action(&Aktiviere(k: Knopf),\ Vorbed:\ Deaktiviert(k),\\ &Effekt:\ Aktiviert(k)\ \land\ \neg\ Deaktiviert(k))
+	\end{align*}
+\end{itemize}
+
+\newpage
+\subsection{Planungsalgorithmen}%
+\label{plan:sub:planungsalgorithmen}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Ermittlung einer Aktionsfolge, mit der von einem \textbf{Startzustand} zu einem \textbf{Zielzustand} gelangt werden kann
+	\item \textbf{Netzwerk von Zuständen} wird hierfür als \textbf{Baum betrachtet}
+	\item \textbf{Vorwärtssuche}: Konstruiere rekursiv alle möglichen Zustände vom Start aus, Finde alle Wege die zum Zielzustand führen
+	\begin{itemize}
+		\item Für große Instanzen \textbf{sehr ineffizient}, besser A* mit guter Heuristik
+	\end{itemize}
+	\item \textbf{Rückwärtssuche}: Konstruiere rekursiv alle möglichen Zustände vom Ziel aus, Finde alle Wege die zum Startzustand führen
+	\begin{itemize}
+		\item Besser als Vorwärtssuche, da der Suchraum auf \textbf{relevante Aktionen beschränkt wird}
+	\end{itemize}
+	\item \textbf{Partial-Order Planner (POP)}: Planungsalgorithmus, welcher \textbf{Reihenfolge} mancher Aktionen \textbf{offen lässt}
+\end{itemize}
+
+\subsubsection{A*-Algorithmus}% 
+\label{plan:ssub:a_algorithmus}
+
+\begin{itemize}
+	\item \textbf{Heuristik}: Funktion zur optimistischen Abstandsschätzung zum Zielknoten ($\leq$ dem echten Abstand)
+	\item \textbf{Vorgehen}:
+	\begin{enumerate}
+		\item Schätze Abstand zum Zielknoten über Heuristik
+		\item Wähle Knoten, bei dem \textbf{Schätzwert + bisher dorthin zurückgelegte Strecke} minimal ist
+		\item Wiederhole bis das Ziel erreicht wurde
+	\end{enumerate}
+\end{itemize}
+
+\subsubsection{Planungsgraphen}% 
+\label{plan:ssub:planungsgraphen}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Graphische Plangewinnung zur Erstellung einer \textbf{Heuristik}
+	\item \textbf{Aufbau}:
+	\begin{itemize}
+		\item Einteilung in \textbf{Abschnitte} für jeden \textbf{Zeitschritt}, sequenzieller Verlauf von links nach rechts
+		\item Links von jedem Zeitschritt sind die möglichen \textbf{vorherigen Literalzustände}
+		\item Rechts von jedem Zeitschritt sind die möglichen \textbf{resultierenden Literalzustände}
+		\item Resultierende Zustände die sich widersprechen werden mit \textbf{Mutex-Link} symbolisiert
+		\item Mutex-Links und unveränderte Literale werden in den nächsten Abschnitt \textbf{weitergetragen}
+	\end{itemize}
+	\item \textbf{Mögliche Heuristikgewinnung}: \textbf{Abschnittszahl} im Planungsgraph als Anzahl notwendiger Schritte interpretieren
+	\item \textbf{Mögliche Plangewinnung}: \textbf{Graphplan-Algorithmus}
+\end{itemize}

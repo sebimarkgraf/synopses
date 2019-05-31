@@ -1,0 +1,103 @@
+\section{Wissensrepräsentation}%
+\label{wrep:sec:wissensrepraesentation}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Definition einer Logik (Aussagen- und Prädikatenlogik), mit der Schlüsse gezogen werden können
+	\item \textbf{Logik}: Symbolmenge + Belegungsmenge + Syntax + Semantik + Folgerungsoperator ($\models$) + Elementaraussagen (\textit{wahr, falsch})
+	\item \textbf{Symbolmenge}: Symbole der Logik, denen ein gültiger Wert zugewiesen werden kann
+	\item \textbf{Belegungsmenge}: Menge aller möglichen Belegungen für Symbole
+	\item \textbf{Syntax}: Aufbauvorschriften eines Satzes, syntaktisch korrekte Sätze sind \textbf{wohlgeformt}
+	\item \textbf{Semantik}: Folgerungsvorschriften, mit denen für einen Satz mit gewählter Belegung auf einen der beiden Wahrheitswerte geschlossen werden kann
+	\item \textbf{Folgerungsoperator}: $\alpha \models \beta$ bedeutet $\beta$ ist eine Folgerung aus $\alpha$
+	\item \textbf{Wissensbasis}: Sammlung hilfreicher gültiger logischer Sätze
+	\item \textbf{Deduktion}: Folgerung einer neuen logischen Aussage aus einer bereits bekannten
+	\item \textbf{Deduktionsalgorithmus}: Algorithmus zur Bestimmung, ob ein Satz aus einem anderen (auch: Satz einer Wissensbasis) ableitbar ist
+	\begin{itemize}
+		\item \textbf{Vollständigkeit}: Algorithmus kann jede aus einer Wissensbasis folgerbare Aussage tatsächlich ableiten
+		\item \textbf{Korrektheit}: Algorithmus kann nur Aussagen ableiten, die auch wirklich aus der Wissensbasis folgen
+	\end{itemize}
+\end{itemize}
+
+\subsection{Aussagenlogik}%
+\label{wrep:sub:aussagenlogik}
+
+\begin{itemize}
+	\item \textbf{Elemente eines Satzes}: \textbf{Variablen} (P, Q, R, $\dots$), \textbf{Elementaraussagen} (\textit{wahr, falsch}), \textbf{logische Symbole} ($\neg, \land, \lor, \Rightarrow, \Leftrightarrow$)
+	\item \textbf{Literal}: Negierte oder nichtnegierte Variable
+	\item \textbf{Modell}: Beliebige Belegung aller in einem Satz enthaltenen Variablen mit einer Elementaraussage
+	\item \textbf{Syntax}:
+		\begin{align*}
+			Satz 	&\rightarrow 	&Atom\ |\ Komplex				&\\
+			Atom 	&\rightarrow 	&true\ |\ false\ |\ Symbol 		&\\
+			Symbol 	&\rightarrow 	&P\ |\ Q\ |\ R\ |\ \dots 		&\\
+			Komplex &\rightarrow 	&\neg Satz 						&\hspace*{1cm} (\text{Negation bzw. Verneinung})\\
+					& 				|\ &(Satz \land Satz) 			&\hspace*{1cm} (\text{Konjunktion bzw. Und-Operation})\\
+					& 				|\ &(Satz \lor Satz) 			&\hspace*{1cm} (\text{Disjunktion bzw. Oder-Operation})\\
+					& 				|\ &(Satz \Rightarrow Satz) 	&\hspace*{1cm} (\text{Implikation bzw. Folgerung})\\
+					& 				|\ &(Satz \Leftrightarrow Satz) &\hspace*{1cm} (\text{Äquivalenz bzw. beidseitige Implikation})
+		\end{align*}
+	\item \textbf{Disjunktive Normalform (DNF)}: Disjunktion von Konjunktionen, z.B $(P \land Q) \lor (R \land S \land T)$
+	\item \textbf{Konjunktive Normalform (KNF)}: Konjunktion von Disjunktionen, z.B $(P \lor Q) \land (R \lor S \lor T)$
+	\item \textbf{Semantik}: Für eine Belegung kann der Wahrheitswert folgendermaßen bestimmt werden:
+		\begin{align*}
+			\neg\alpha\ wahr 						&\ \mathbf{gdw.} & \alpha\ falsch\\
+			(\alpha \land \beta)\ wahr 				&\ \mathbf{gdw.} & \alpha\ wahr\ \text{und}\ \beta\ wahr\\
+			(\alpha \lor \beta)\ wahr 				&\ \mathbf{gdw.} & \alpha\ wahr\ \text{oder}\ \beta\ wahr\\
+			(\alpha\ \Rightarrow \beta)\ wahr 		&\ \mathbf{gdw.} & \alpha\ falsch\ \text{oder}\ \beta\ wahr\\
+			(\alpha \Leftrightarrow \beta)\ wahr 	&\ \mathbf{gdw.} & \alpha\ wahr\ \text{und}\ \beta\ wahr\\
+												 	& 				 &\text{oder}\ \alpha\ falsch\ \text{und}\ \beta\ falsch
+		\end{align*}
+\end{itemize}
+
+\subsubsection{Resolutionsalgorithmus}%
+\label{wrep:ssub:auss_resolutionsalgorithmus}
+
+\begin{itemize}
+	\item \textbf{Resolutionsregel}: $(X \lor P \lor Q \lor \dots) \land (\neg X \lor R \lor S \lor \dots) \Rightarrow (P \lor Q \lor \dots \lor R \lor S \lor \dots)$
+	\item \textbf{Klausel}: Menge aller in einer Disjunktion enthaltenen Literale (z.B $(P \lor Q) \land (X \lor Y)$ hat Klauselmenge $\{\{P, Q\}, \{X, Y\}\}$)
+	\item Resolutionsregel auf Klauseln anwenden: $\{X, Y, \neg Z\}$ und $\{\neg X, \neg P, Q\}$ werden zu $\{Y, \neg Z, \neg P, Q\}$ abgeleitet
+	\item Klausel (und zugrundeliegende Formel) ist \textbf{unerfüllbar}, wenn mittels Resolution die \textbf{leere Klausel} $\{\}$ ableitbar ist
+	\item \textbf{Ableitbarkeit aus Klauselmenge beweisen}: Abzuleitende Aussage \textbf{negieren}, in Klauselform bringen und mit ursprünglicher Klauselmenge zu \textbf{leerer Klausel} ableiten
+\end{itemize}
+
+\subsubsection{Horn-Klauseln}%
+\label{wrep:ssub:horn_klauseln}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Laufzeit des Resolutionsalgorithmus verbessern (von exponentiell zu quadratisch)
+	\item \textbf{Vorgehen}: Beschränkung auf \textbf{Horn-Formeln}
+	\item \textbf{Horn-Formeln}: Formeln in \textbf{KNF}. deren Disjunktionen \textbf{Horn-Klauseln} sind
+	\item \textbf{Horn-Klausel}: Klausel mit \textbf{beliebig vielen negierten} und \textbf{höchstens einem} positiven Literal
+	\item \textbf{Forward-Chaining}: Ermittlung aller möglichen Schlussfolgerungen durch \textbf{Markieren aller bekannten Fakten} als \textit{wahr} und wiederholtes \textbf{Markieren aller damit implizierten Fakten} als \textit{wahr}, bis sich nichts mehr ändert (alle nun wahren Variablen sind somit folgerbar)
+	\item \textbf{Backward-Chaining}: Prüfen einer Aussage durch Markieren \textbf{aller bekannten Fakten} als \textit{wahr} und Verfolgen der zu prüfenden Aussage über ihre \textbf{Voraussetzungen}; die Aussage ist genau dann folgerbar, wenn man auf \textbf{allen entstehenden Pfaden} zu einem \textbf{bekannten Fakt} gelangt
+\end{itemize}
+
+\subsubsection{Davis-Putnam-Logemann-Loveland-Algorithmus (DPLL)}%
+\label{wrep:ssub:davis_putnam_logemann_loveland_algorithmus}
+%%
+\begin{itemize}
+	\item \textbf{Voraussetzung}: Zu prüfende Formel muss in \textbf{KNF} vorliegen
+	\item \textbf{Vereinfachung}: Reduziere mögliche Variablenbelegungen mit folgenden Regeln:
+	\begin{itemize}
+		\item \textbf{Einheitsklauseln} enthalten nur ein Literal und sind eindeutig bestimmt, da diese zu \textit{wahr} ausgewertet werden müssen
+		\item \textbf{Reine Variablen} kommen in der ganzen Formel nur positiv bzw. nur negiert vor und können überall mit \textit{wahr} bzw. \textit{falsch} belegt werden
+		\item Ist ein Literal in einer Klausel \textit{wahr}, so ist die \textbf{ganze Klausel} \textit{wahr} und damit erledigt
+		\item Hat eine Klausel den Wert \textit{falsch}, so ist die Formel \textbf{unerfüllbar}
+	\end{itemize}
+	\item Sind alle Vereinfachungen ausgeschöpft, wird die Formel wie bisher geprüft (worst case: exponentielle Laufzeit)
+\end{itemize}
+
+\subsection{Prädikatenlogik}%
+\label{wrep:sub:praedikatenlogik}
+
+\begin{itemize}
+	\item \textbf{Erweiterung der Aussagenlogik}
+	\item \textbf{Neu}:
+	\begin{itemize}
+		\item \textbf{Universum}: Neuer Wertebereich, i.d.R. kurz bezeichnet als $\mathbf{D}$
+		\item \textbf{Funktionen}: Funktion die beliebig viele Parameter aus D auf einen anderen Wert aus D abbilden, z.B $max(x, y)$
+		\item \textbf{Prädikate}: Abbildungen von $D^k$ nach $\{true, false\}$, z.B $IsBigger(x, y)$
+		\item \textbf{Allquantor} $\forall$ (\itquote{für alle X gilt} $\dots$) und \textbf{Existenzquantor} $\exists$ (\itquote{für mindestens ein X gilt} $\dots$)
+	\end{itemize}
+	\item \textbf{Beispiel}: $\forall x\ \exists y\ IsBigger(x, y)$
+\end{itemize}
