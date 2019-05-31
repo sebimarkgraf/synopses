@@ -1,2 +1,78 @@
 \section{Geometrische Wissensrepräsentation und Planung}%
 \label{grep:sec:geometrische_wissensrepraesentation_und_planung}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Repräsentation des geometrischen Wissens und daraus folgende Planung (\itquote{Wo ist mein Arm? Wie komme ich zu dem Objekt, was ich greifen will?})
+\end{itemize}
+
+\subsection{Objektmodellierung}%
+\label{grep:sub:objektmodellierung}
+
+\begin{itemize}
+	\item \textbf{Sensoren} liefern benötigte Daten, die \textbf{hinreichend detailliert} aber \textbf{rechnerisch einfach strukturiert} modelliert werden müssen
+	\begin{itemize}
+		\item \textbf{Beispiel}: Hindernisse für Bahnplanung können als \textbf{einfache Polygone} auf einen Bodenplan projiziert werden
+	\end{itemize}
+	\item \textbf{Kantenmodell}: Finden markanter Punkte (meist Ecken und wichtige Zwischenpunkte), Verbinden über Geraden, Kreisbögen o.ä.
+	\item \textbf{Oberflächenmodell}: Oberfläche wird durch Ebenen oder gekrümmte Flächenelemente angenähert
+	\item \textbf{Volumenmodell/Festkörpermodell}: \itquote{Liegt ein Punkt in einem Objekt?}, verschieden repräsentierbar:
+	\begin{itemize}
+		\item \textbf{Begrenzungsflächen}: Annäherung durch die begrenzenden Flächen des Objektes
+		\item \textbf{Grundkörperdarstellung}: Annäherung durch einfache Grundkörper (Block, Zylinder, Kugel etc.), verknüpft durch \textbf{Vereinigung-, Schnitt- und Differenzoperationen}
+		\item \textbf{Volumenapproximation}: Annäherung durch eine Menge Würfel festgelegter Größe
+	\end{itemize}
+\end{itemize}
+
+\subsection{Umweltmodellierung}%
+\label{grep:sub:umweltmodellierung}
+
+\begin{itemize}
+	\item \textbf{Dimensionalität}: Zweidimensional oder dreidimensional
+	\begin{itemize}
+		\item Komplexere Probleme werden i.d.R. im 2D- oder 3D-Raum gelöst und dann übertragen 
+		\item \textbf{Beispiel}: Bewegungsplanung für Roboterarm mit mehreren Gelenken (d.h. mehrere Freiheitsgrade); löse im 3D-Raum und übertrage auf den Gelenkwinkelraum des Armes (vgl. Robotik-Kapitel, \textbf{inverse Kinematik})
+		\item \textbf{Beispiel}: Bewegungsplanung für mobile Systeme durch \textbf{zweidimensionalen Bodenplan}
+	\end{itemize}
+	\item \textbf{Freiraum und Hindernisraum}: Aufteilung in passierbaren und unpassierbaren Raum zur \textbf{Kollisionserkennung}; Roboter agiert z.B nur im Freiraum
+	\item \textbf{Konfigurationsraum}: Raum der verschiedenen Konfigurationen z.B des Roboters (Dimension ist Anzahl der Bewegungsparameter); analog eingeteilt in Freiraum und Hindernisraum
+	\begin{itemize}
+		\item \textbf{Trick}: Skaliere Hindernisse entsprechend der Größe des Roboters, behandle Roboter nun als Punkt ohne Ausmaß; dies verhindert diverse Komplikationen
+	\end{itemize}
+\end{itemize}
+
+\subsection{Überführung in Graphen}%
+\label{grep:sub:ueberfuehrung_in_graphen}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Konstruktion eines ungerichteten Graphs, der Zustände im Konfigurationsraum und mögliche Übergänge widerspiegelt
+	\item \textbf{Pfadsuche} über A* oder Dijkstra im Graph, Einschränkungen wie z.B maximaler Sicherheitsabstand zu Hindernissen werden im Graph berücksichtigt
+	\item \textbf{Polygonmethode (2D)}: z.B für Bodenpläne; unterteile Freiraum in konvexe Polygone, verbinde benachbarte Polygone im Graphen
+	\begin{itemize}
+		\item \textbf{Umsetzung}: Ziehe vertikale Linien an jeder Ecke bis zur nächsten Hinderniskante nach oben und unten; verwerfe Polygone, die zu einem Hindernis gehören
+		\item \textbf{Graphgenerierung}: Konstruiere Mitte des Trennlinienabschnitts benachbarter Polygone, verbinde jeweils mit Polygonmittelpunkt; wähle z.B euklidischen Abstand als Kantengewicht
+		\item \textbf{Problem}: Beachtliche Umwege sind zu erwarten
+	\end{itemize}
+	\item \textbf{Quadtreemethode (2D, analog in 3D mit Octree)}:
+	\begin{itemize}
+		\item \textbf{Umsetzung}: Unterteile Raum rekursiv in vier gleich große Quadrate, Rekursion bricht nur dann ab, wenn Quadrat nicht sowohl Frei- als auch Hindernisraum enthält
+		\item \textbf{Graphgenerierung}: Graph mit Knoten für jedes Freiraum-Quadrat und Verbindungen zwischen Freiraum-Nachbarn, Gewichtung z.B analog zur Polygonmethode
+		\item \textbf{Problem}: Qualität der Wegfindung stark abhängig von der Auflösung der Quadrate
+	\end{itemize}
+	\item \textbf{Voronoi-Diagrammmethode (2D)}:
+	\begin{itemize}
+		\item \textbf{Umsetzung}: Unterteile Raum disjunkt in derartige Flächen, dass jedes Hindernis von genau einer Fläche eingeschlossen wird und innerhalb dieser Fläche genau die Punkte liegen, für die das eingeschlossene Hindernis das am nächsten liegende ist
+		\item \textbf{Graphgenerierung}: Knoten sind Punkte, an denen 3 oder mehr Voronoi-Linien (Kanten) aufeinandertreffen
+		\item \textbf{Problem}: Beachtliche Umwege sind zu erwarten
+	\end{itemize}
+	\item \textbf{Potentialfeldmethode}: Statt Graphgenerierung definiere Potential, welches maximal am Start und in Hindernissen ist und minimal am Ziel; dazwischen stetiger Abfall
+	\begin{itemize}
+		\item \textbf{Umsetzung}: Definiere Potenzialfunktion, bewege durchgehend in die Richtung des stärksten Potentialabfalls
+		\item \textbf{Problem}: Lokale Minima lassen Roboter feststecken und terminiert eventuell nicht; mit Hacks wie z.B Anheben der Position, falls der Roboter sich nicht mehr bewegt, manchmal kompensierbar 
+	\end{itemize}
+	\item \textbf{Sichtgraphmethode}: \itquote{Der schnellste Weg um Hindernisse ist direkt um sie herum!}
+	\begin{itemize}
+		\item \textbf{Umsetzung}: Definiere Graph der direkt zu den Hindernissen und dann um sie herum verläuft
+		\item \textbf{Graphgenerierung}: Verbinde Ecken jedes Hindernis-Polygons mit anderen sichtbaren Hindernis-Ecken; gleicher Sichtbarkeitstest für Start- und Zielpunkt, Gewichtung mit Kantenlänge
+		\item \textbf{Problem}: Kaum Sicherheitsabstand zu den Hindernissen, hohe Kollisionsgefahr
+	\end{itemize}
+\end{itemize}
