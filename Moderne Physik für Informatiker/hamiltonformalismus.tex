@@ -1,2 +1,100 @@
-\section{Hamilton-Formalismus}%
-\label{hform:sec:hamilton_formalismus}
+\section{Hamiltonformalismus}%
+\label{hform:sec:hamiltonformalismus}
+
+\begin{itemize}
+	\item \textbf{Alternative} zu Lagrangeformalismus
+	\item Keine praktischen Vorteile zu Lagrange, aber wichtig für Relation \textbf{Mechanik-Quantenmechanik}
+	\item Betont \textbf{verallgemeinerte Impulse} gleichwertig zu \textbf{verallgemeinerten Koordinaten}
+\end{itemize}
+
+\section{Kanonische Gleichungen}
+\label{hform:sec:kanonische_gleichungen}
+
+\begin{itemize}
+	\item \textbf{Verallgemeinerte Impulse}: $p_i = \frac{\partial L}{\partial \dot{q}_i}, i = 1, \dots, f$
+	\item \textbf{Hamiltonfunktion}:
+	$$
+		H(q, p, t) = \sum^f_{i=1}\dot{q}_ip_i - L = \sum_i\dot{q}_i(q, p, t)p_i - L(q, \dot{q}(q, p, t), t)
+	$$
+	\item \textbf{Kanonische/Hamiltonsche Bewegungsgleichungen}:
+	$$
+		\dot{q}_i = \frac{\partial H}{\partial p_i}, \dot{p}_i = -\frac{\partial H}{\partial q_i}\ \text{mit}\ i = 1, 2, \dots, f
+	$$
+	\item \textbf{Vorgehen zur Problemlösung mit Hamiltonformalismus}:
+	\begin{enumerate}
+		\item Finde generalisierte Koordinaten: $\vec{q} = (q_1, \dots, q_f)$
+		\item Finde Transformationen: $\vec{r}_k = \vec{r}_k(q_1, \dots, q_f, t), \dot{\vec{r}}_k = \dot{\vec{r}}_k(\vec{q}, \dot{\vec{q}}, t)$
+		\item Drücke kinetische und potentielle Energie in den Teilchenkoordinaten durch verallgemeinerte Koordinaten aus
+		\item Bestimme generalisierte Impulse: $p_j = \frac{\partial L}{\partial \dot{q}_j} \Rightarrow p_j = p_j(\vec{q}, \dot{\vec{q}}, t)$
+		\item Löse für $\dot{q_j}$: $\dot{q_j} = \dot{q_j}(\vec{q}, \dot{\vec{q}}, t)$
+		\item Ersetze dies in der Lagrangefunktion: $L(\vec{q}, \dot{\vec{q_j}}(\vec{q}, \vec{p}, t), t) = \widetilde{L}(\vec{q}, \vec{p}, t)$
+		\item Bestimme H per Legendre-Transformation: $H(\vec{q}, \vec{p}, t) = \sum^f_{j=1}p_j\dot{q}_j(\vec{q}, \vec{p}, t) - \widetilde{L}(\vec{q}, \vec{p}, t)$
+		\item Stelle die kanonische Bewegungsgleichungen auf und löse sie
+	\end{enumerate}
+\end{itemize}
+
+\section{Poissonklammer}
+\label{hform:sec:poissonklammer}
+
+\begin{itemize}
+	\item \textbf{Alternative Form} der Bewegungsgleichungen
+	\item \textbf{Definition}:
+	$$
+		\{F, K\} = \sum^f_{i=1}(\frac{\partial F}{\partial q_i}\frac{\partial K}{\partial p_i} - \frac{\partial F}{\partial p_i}\frac{\partial K}{\partial q_i})
+	$$
+	\newpage
+	\item \textbf{Eigenschaften}:
+	\begin{enumerate}
+		\item $\{F, K\} = -\{K, F\}, \{F, F\} = 0$
+		\item $\frac{\partial F}{\partial p_j} = -\{F, q_j\}, \frac{\partial F}{\partial q_j} = -\{F, p_j\}$
+		\item $\{q_i, q_j\} = 0, \{p_i, p_j\} = 0, \{p_i, q_j\} = -\delta_{ij}$
+		\item $\{F, c\} = 0,\ c = const.$
+		\item $\{F_1 + F_2, K\} = \{F_1, K\} + \{F_2, K\}$
+		\item $\frac{\partial}{\partial t}\{F, K\} = \{\frac{\partial F}{\partial t}, K\} + \{F, \frac{\partial K}{\partial t}\}$
+		\item $\{F, \{K, J\}\} = \{K, \{J, F\}\} + \{J, \{F, K\}\} = 0\ (\mathbf{Jacobi-Identitaet})$
+		\item $\frac{dF}{dt} = \{F, H\} + \frac{\partial F}{\partial t}$
+	\end{enumerate}
+\end{itemize}
+
+\section{Hamiltonsches Prinzip}
+\label{hform:sec:hamiltonsches_prinzip}
+
+\begin{itemize}
+	\item \textbf{Aussage}: Die Wirkung S für die tatsächliche Bewegung ist \textbf{stationär}, d.h.
+	$$
+		\delta S[q] = \delta \int^{t_2}_{t_1}dt\ L = \delta \int^{t_2}_{t_1}dt\ (\sum^f_{i=1}p_i\dot{q}_i - H(q, p, t)) = 0
+	$$
+	\item \textbf{Hamiltonsches Prinzip}:
+	$$
+		\delta S = \delta S[q, p] = 0
+	$$
+\end{itemize}
+
+\section{Zustand eines Systems}
+\label{hform:sec:zustand_eines_systems}
+
+\begin{itemize}
+	\item Unterschiedliche \textbf{Räume} zur Beschreibung eines Systems
+	\item \textbf{Konfigurationsraum}:
+	\begin{itemize}
+		\item f-dimensionaler Raum der möglichen \textbf{generalisierten Koordinaten}, keine zeitlichen Informationen
+	\end{itemize}
+	\item \textbf{Ereignisraum}:
+	\begin{itemize}
+		\item (f+1)-dimensionaler Raum, Konfigurationsraum \textbf{mit Zeit}, keine Impulsinformationen
+	\end{itemize}
+	\item \textbf{Phasenraum}:
+	\begin{itemize}
+		\item 2f-dimensional, verallgemeinerte Koordinaten \textbf{und Impulse}, beschreibt alle möglichen Zustände, keine zeitlichen Informationen
+	\end{itemize}
+	\item \textbf{Zustandsraum}:
+	\begin{itemize}
+		\item (2f+1)-dimensional, Phasenraum \textbf{mit Zeit}, Darstellungsraum mit größter Information
+		\item Konfigurations-, Ereignis- und Phasenraum sind \textbf{Projektionen} des Zustandsraumes
+	\end{itemize}
+	\item \textbf{Zustand} $\mathbf{\psi}$:
+	\begin{itemize}
+		\item \textbf{Gesamtheit} aller Informationen, die zur vollständigen Beschreibung der momentanten Eigenschaften des Systems erforderlich sind
+		\item Punkt im \textbf{Phasenraum}, Bewegung wird als \textbf{Differentialgleichung 1. Ordnung} beschrieben: $\dot{\psi}(t) = \widetilde{f}(\psi(t))$
+	\end{itemize}
+\end{itemize}
