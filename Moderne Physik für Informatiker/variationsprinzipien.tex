@@ -1,0 +1,27 @@
+\section{Variationsprinzipien}%
+\label{var:sec:variationsprinzipien}
+
+\begin{itemize}
+	\item \textbf{Variationsrechnung}: Lösung von Problemen, bei denen der \textbf{Extremwert einer Größe} gefunden werden soll, die als \textbf{Integral über einen Funktionalausdruck} darzustellen ist
+	\item \textbf{Variationsprinzip}: Allgemeine Methode der Variationsrechnung
+	\item \textbf{Funktional}: Funktion von Funktionen, bildet \textbf{Funktionen auf Zahlen} ab
+	\item \textbf{Euler-Lagrange-Gleichung}:
+	\begin{itemize}
+		\item \textbf{Problem}: Finde Funktion $y(x)$ mit Randwerten $y(x_1) = y_1$ und $y(x_2) = y_2$, welche das Funktional $J = J[y] = \int^{x_2}_{x_1} dx F(y, y', x)$ minimiert
+		\item Differentialgleichung für \textbf{eine Funktion}:
+		$$
+			\frac{\partial F}{\partial y} - \frac{d}{dx}(\frac{\partial F}{\partial y'}) = 0
+		$$
+		\item Differentialgleichung für \textbf{mehrere Funktionen} $y_i(x)$,\\d.h. $F(y_1(x), \dots, y_n(x), y'_1(x), \dots, y'_n(x), x)$:
+		$$
+			\frac{\partial F}{\partial y_i} - \frac{d}{dx}(\frac{\partial F}{\partial y_i'}) = 0,\ i = 1, \dots, n
+		$$
+	\end{itemize}
+	\item \textbf{Hamiltonsches Prinzip}:
+	\begin{itemize}
+		\item \textbf{Variationsprinzip}, dessen Euler-Lagrange-Gleichungen die \textbf{Lagrangegleichungen} der Mechanik sind
+		\item \textbf{Stationaritätsprinzip}: $S = \int^{t_2}_{t_1} dt L(q, \dot{q}, t) = stationaer$
+		\item \textbf{S} bezeichnet man auch als \textbf{Wirkungsfunktional} oder kurz \textbf{Wirkung}
+		\item \textbf{Hamiltonsches Prinzip}: $\delta S[q] = 0$
+	\end{itemize}
+\end{itemize}

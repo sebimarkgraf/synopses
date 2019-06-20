@@ -1,0 +1,89 @@
+\section{Lagrangeformalismus}%
+\label{lag:sec:lagrangeformalismus}
+
+\begin{itemize}
+	\item Umformulierung der Newtonschen Mechanik
+	\item \textbf{Lagrangefunktion}: Skalare Funktion, umfasst gesamte klassische Mechanik
+	\item \textbf{Vorteil}: Einfache Behandlung von Problemen mit Zwangsbedingungen (z.B Bewegung von verbundenen Kugeln)
+\end{itemize}
+
+\subsection{Lagrangegleichungen 1. Art}%
+\label{lag:sub:lagrangegleichungen_1_art}
+
+\begin{itemize}
+	\item \textbf{Gegeben}: System aus $N$ Massenpunkten mit Massen $m_i,\ i = 1, \dots, N$
+	\item \textbf{Freiheitsgrade}: Massenpunkte können sich in z.B $3$ Dimensionen bewegen $\Rightarrow$ $3N$ Freiheitsgrade
+	\item \textbf{Holonome Zwangsbedingungen}: $N_Z$ Zwangsbedingungen von $N$ Teilchen mit Koordinaten $\vec{r_1}, \dots, \vec{r_N}$ sind \textbf{holonom}, wenn sie sich folgendermaßen schreiben lassen: $$A_\mu(\vec{r_1}, \dots, \vec{r_N}, t) = 0,\ \mu = 1, \dots, N_Z$$ ansonsten sind sie \textbf{nichtholonom} (z.B Ungleichungen)
+	\item \textbf{Skleronome \& Rheonome Zwangsbedingungen}: Zwangsbedingungen mit expliziter Zeitabhängigkeit sind \textbf{rheonom}, alle anderen \textbf{skleronom}
+	\item \textbf{Zwangskräfte} $\mathbf{\vec{Z}_i}$:
+	\begin{itemize}
+		\item Hilfsmittel zur Beschreibung der Einwirkung von Zwangsbedingungen auf die Bewegung der Massepunkte, $m_i\ddot{\vec{r_i}} = \vec{F}_i + \vec{Z}_i,\ i= 1, \dots, N$
+		\item Zwangskraft auf Teilchen $i$ ergibt sich aus allen wirkenden Zwangsbedingungen
+		$$
+			\vec{Z}_i = \sum^{N_Z}_{\mu=1}\lambda_\mu(t)\frac{\partial}{\partial\vec{r}_i}A_\mu(\vec{r}_1, \dots, \vec{r}_N, t),\ i = 1,\dots,N
+		$$
+		\item \textbf{Proportionalitätsfaktor}: $\mathbf{\lambda_i(t)}$
+		\item \textbf{Gradient der auf das Teilchen wirkenden Zwangsbedingung}: $\frac{\partial}{\partial\vec{r}_i}A_\mu(\vec{r}_1, \dots, \vec{r}_N, t)$
+		\item \textbf{Weiter}: $A_\mu(\vec{r}_1, \dots, \vec{r}_N, t) = 0,\ \mu = 1, \dots, N_Z$
+	\end{itemize}
+	\item \textbf{Damit: Lagrangegleichungen 1. Art}
+	\begin{align*}
+		m_i\ddot{\vec{r}_i} &= \vec{F}_i + \sum^{N_Z}_{\mu=1}\lambda_\mu(t)\frac{\partial}{\partial\vec{r}_i}A_\mu(\vec{r}_1, \dots, \vec{r}_N, t) &i &= 1,\dots,N\\
+		A_\mu(\vec{r}_1, \dots, \vec{r}_N, t) &= 0 &\mu &= 1, \dots, N_Z
+	\end{align*}
+\end{itemize}
+
+\newpage
+\subsection{Lagrangegleichungen 2. Art}%
+\label{lag:sub:lagrangegleichungen_2_art}
+
+\begin{itemize}
+	\item \textbf{Idee}: Geschickte Wahl der Koordinaten (verallgemeinerte Koordinaten, z.B Polarkoordinaten für Pendel) statt Zwangskräfte
+	\item \textbf{Verallgemeinerte Koordinaten}:
+	\begin{itemize}
+		\item $N$ Massepunkte mit $3N$ Koordinaten haben bei $N_Z$ Zwangsbedingungen genau\\$f = 3N - N_Z$ verbleibende Freiheitsgrade
+		\item Damit existieren \textbf{f unabhängige Koordinaten}, jede beliebige Wahl davon nennt man \textbf{generalisierte/verallgemeinerte Koordinaten} $q = \{q_1, \dots, q_f\}$
+		\item Wahl der Koordinaten ist \textbf{nicht eindeutig}, strebe \textbf{größtmögliche Einfachheit} an
+		\item \textbf{Beispiel}: Pendel mit Fadenlänge $L(t)$ hat nur Winkel $\phi(t)$ als Freiheitsgrad, wähle also
+		\begin{align*}
+			x(t) &= L(t)sin\phi(t)\\
+			y(t) &= 0\\
+			z(t) &= -L(t)cos\phi(t)\\
+			x^2 + z^2 &= L(t)^2
+		\end{align*}
+	\end{itemize}
+	\item \textbf{Anmerkungen}:
+	\begin{itemize}
+		\item $L(q, \dot{q}, t)$ bezeichnet die \textbf{Lagrangefunktion}, abhängig von den verallgemeinerten Koordinaten $q$, deren Geschwindigkeiten $\dot{q}$ sowie der Zeit $t$
+		\item $T = \frac{1}{2}\sum_im_i\dot{\vec{r}}_i^2$ ist die \textbf{kinetische Energie} des Systems
+		\item $V(q, t) = V(\vec{r}_i(q, t), \dots, \vec{r}_N(q, t))$ ist die \textbf{potentielle Energie} des Systems
+		\item \textbf{Zwangsbedingungen} sind eliminiert und treten nicht mehr auf
+		\item \textbf{Aufstellung der Bewegungsgleichungen eines Systems}: Wähle verallgemeinerte Koordinaten, bestimme $T$ und $V$, bestimme $L$, stelle Lagrangegleichungen auf
+	\end{itemize}
+	\item \textbf{Damit: Lagrangegleichungen 2. Art}
+	\begin{align*}
+		\frac{d}{dt}(\frac{\partial L}{\partial \dot{q}_\alpha}) &= \frac{\partial L}{\partial q_\alpha} &\alpha = 1, \dots, f\\
+		L(q, \dot{q}, t) &= T(q, \dot{q}, t) - V(q, t) &
+	\end{align*}
+\end{itemize}
+
+\newpage
+\subsection{Erhaltungsgrößen}%
+\label{lag:sub:erhaltungsgroessen}
+
+\begin{itemize}
+	\item \textbf{Energieerhaltung}: Lagrangefunktion nicht explizit zeitabhängig: $\frac{\partial L}{\partial t} = 0$; daraus folgt der Erhaltungssatz
+	\begin{align*}
+		\frac{d}{dt}H &= 0\\
+		H &= (\sum_\alpha\frac{\partial L}{\partial \dot{q}_\alpha}\dot{q}_\alpha) - L = 2T - L = T + V = E
+	\end{align*}
+	\item $H$ bezeichnet man als die \textbf{Hamiltonfunktion}, sie ist gleich der \textbf{Energie des Systems}
+	\item \textbf{Zyklische Koordinaten}: Ist L unabhängig von einer verallgemeinerten Koordinate $q_\beta$, d.h $\frac{\partial L}{\partial q_\beta} = 0$, ist $q_\beta$ eine \textbf{zyklische Koordinate} und es folgt
+	\begin{align*}
+		\frac{d}{dt}\frac{\partial L}{\partial \dot{q}_\beta} &= \frac{\partial L}{\partial q_\beta} = 0\\
+		p_\beta &\equiv \frac{\partial L}{\partial \dot{q}_\beta} = zeitlich\ konstant
+	\end{align*}
+	\item $p_\beta$ ist der \textbf{verallgemeinerte Impuls}
+	\item Möglichst viele Koordinaten einer Problemstellung sollten zur Vereinfachung zyklisch sein
+	\item Zeitlich konstante Koordinaten nennt man \textbf{Konstanten der Bewegung}
+\end{itemize}
