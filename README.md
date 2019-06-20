@@ -17,10 +17,10 @@ Dabei wird der Inhalt auf den klausurrelevanten Stoff der von uns besuchten Vorl
 
 ## In Erstfassung verfügbar
 * Kognitive Systeme
+* Moderne Physik für Informatiker
 
 ## In Arbeit
 * Sicherheit
-* Moderne Physik für Informatiker
 * Physik für Informatiker
 
 ## Mitarbeit
