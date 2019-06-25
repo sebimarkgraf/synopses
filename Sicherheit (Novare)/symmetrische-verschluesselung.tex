@@ -1,2 +1,146 @@
 \section{Symmetrische Verschlüsselung}%
 \label{symver:sec:symmetrische_verschluesselung}
+
+\begin{itemize}
+	\item \textbf{Ansatz}: \textbf{Ein Schlüssel} zur Ver- und Entschlüsselung, den jeder Teilnehmer haben muss
+	\item \textbf{Problem}: Sichere Übermittlung des Schlüssels (Schlüsselaustausch)
+	\item Umfasst alle \textbf{klassischen Verschlüsselungsverfahren}
+	\item \textbf{Stromchiffren} kombinieren Klartextzeichen sequentiell mit einem variierenden Schlüsselstrom
+	\item \textbf{Blockchiffren} teilen Klartext in Blöcke und verschlüsseln diese gesamt
+\end{itemize}
+
+\subsection{Stromchiffren}%
+\label{symver:sub:stromchiffren}
+
+\begin{itemize}
+	\item \textbf{Klartext} sei $M = (M_i) = (M_1, M_2, \dots, M_n)$ mit Zeichen $M_i, i = 1, \dots, n$
+	\item \textbf{Idee}: Ersetze jedes Klartextzeichen $M_i$ (meist einzelne Bits) durch ein Chiffratzeichen $C_i$ aus einem Chiffratalphabet
+	\item \textbf{Interner Zustand} $K^{(i)} \in \{0, 1\}^k$, steht initial auf dem Schlüsselwert $K$
+	\item \textbf{Stream-Cipher-Funktion} $SC(K^{(i)}) \in \{0, 1\} \times \{0, 1\}^k$ aktualisiert den Zustand $K^{(i)}$ auf $K^{(i+1)}$
+	\item \textbf{Generator} $G(K) := (b^{(1)}, \dots, b^{(n)})$ extrahiert die Folge der Verschlüsselungsbits mit Hilfe von $SC$ aus $K$
+	\item \textbf{Polyalphabetische Substitution}: Gleiche Klartextzeichen an verschiedenen Positionen werden nicht zwingend auf dasselbe Chiffratzeichen abgebildet
+	\item \textbf{Caesar-Chiffre}:
+	\begin{itemize}
+		\item \textbf{Idee}: Verschiebe jedes Zeichen um eine feste Anzahl an Schritten im Alphabet weiter (im Fall von Caesar um 3)
+		\begin{align*}
+			ENC(K, M_i) &= M_i + K\ mod\ 26\\
+			DEC(K, C_i) &= C_i - K\ mod\ 26\\
+		\end{align*}
+		\item \textbf{Problem}: 26 Zeichen lassen sich leicht durchtesten (\textbf{Exhaustive Search/Brute-Force-Angriff})
+		\item \textbf{Erkenntnis}: Sichere Verschlüsselungsverfahren benötigen einen Schlüsselraum, der nicht durch Brute-Force angreifbar ist
+	\end{itemize}
+	\item \textbf{Vigenère-Chiffre}:
+	\begin{itemize}
+		\item \textbf{Idee}: Analog zu Caesar, benutze aber Zeichenfolge der Länge $k \geq 1$ als Schlüssel
+		$$
+			C_i := M_i + K_{(i-1\ mod\ k) + 1}\ mod\ 26
+		$$
+		\item \textbf{Problem}: Einfach per Häufigkeitsverteilung zu brechen, sobald man Schlüssellänge kennt
+	\end{itemize}
+	\item \textbf{One-Time-Pad}: Wähle Schlüssel mit derselben Länge wie die Nachricht, verknüpfe per XOR zur Ver- und Entschlüsselung
+	\item Zufällige Schlüssel werden i.d.R. über \textbf{Pseudozufallszahlen-Generatoren} berechnet
+	\item \textbf{Linear Feedback Shift Register (LFSR)}:
+	\begin{itemize}
+		\item Historisch interessante, aber unsichere pseudozufälliger Stromchiffren-Implementierung
+		\item Schieberegister mit n Speicherzellen befüllt mit einem Startwert (\textbf{Seed}), jede Zelle hat einen spezifischen Koeffizienten $\alpha_i$
+		\item \textbf{Zustandsinkrement}: Verknüpfe Zelleninhalt mit Koeffizient und summiere auf (mod 2), dann schiebe Ergebnis an der höchsten Stelle nach, kleinstwertigste Stelle fällt raus
+	\end{itemize}
+\end{itemize}
+
+\subsection{Blockchiffren}%
+\label{symver:sub:blockchiffren}
+
+\begin{itemize}
+	\item \textbf{Formal}: Schlüssellänge $k$, Blocklänge $l$
+	$$
+		ENC: \{0, 1\}^k \times \{0, 1\}^l \rightarrow \{0, 1\}^l
+	$$
+	\item \textbf{Nichtunterscheidbarkeit}: Permutation der Blockchiffre darf sich nicht von einer echten zufälligen Permutation derselben Menge unterscheiden
+	\item \textbf{Confusion}: Jedes Zeichen des Chiffrats ist von mehreren Teilen des verwendeten Schlüssels abhängig
+	\item \textbf{Diffusion}: Ändern eines einzelnen Zeichens in Nachricht oder Chiffrat führt zu großen Änderungen in Chiffrat oder Nachricht
+	\item \textbf{Feistel Networks}:
+	\begin{itemize}
+		\item Blockchiffre wird aus mehreren \textbf{Rundenfunktionen} $F_1, F_2, \dots, F_n$ aufgebaut, die nacheinander ausgeführt werden
+		\item Rundenfunktion besteht aus Permutationen und Funktionen, genannt \textbf{S-Boxen} (Substitution-Boxen) $S: \{0, 1\}^m \rightarrow \{0, 1\}^n$
+		\item S-Boxen sind \textbf{nicht invertierbar}, ein geändertes Bit in der Eingabe verändert \textbf{mindestens zwei Bits der Ausgabe} und Ausgabe-Bits einer Rundenfunktion werden so permutiert, dass alle Ausgabe-Bits einer S-Box auf \textbf{unterschiedliche S-Boxen} in der nächsten Runde verteilt werden
+		\item \textbf{Feistel-Strukturen} sind \textbf{invertierbar}, auch wenn ihre Komponenten es \textbf{nicht} sind
+	\end{itemize}
+\end{itemize}
+
+\newpage
+\subsubsection{Standards}%
+\label{symver:ssub:standards}
+
+\begin{itemize}	
+	\item \textbf{Data Encryption Standard (DES)}:
+	\begin{itemize}
+		\item Bis heute \textbf{ungebrochen}, aber \textbf{zu kleiner Schlüsselraum}
+		\item 64-Bit Blöcke und Schlüssel (56-Bit Schlüssel, Rest Paritätsbits für Fehlererkennung)
+		\item \textbf{Initialpermutation (IP)} der Blöcke für effiziente Hardwarenutzung, am Ende \textbf{inverse IP}
+		\item \textbf{16 Verschlüsselungsrunden} mit Schlüsseln, die sich aus dem Hauptschlüssel ergeben, Rundenfunktion bleibt immer gleich
+		\item Einteilen des Eingabeblocks in \textbf{zwei Hälften L und R} nach IP, danach Berechnung der Hälften in jeder Runde:
+		\begin{align*}
+			L^{(i)} &= R^{(i-1)} 						  	& L^{(16)} &= L^{(15)} \oplus F(R^{(15)}, K^{(16)})\\
+			R^{(i)} &= L^{(i-1)} \oplus F(R^{(i-1)}, K^{(i)}) & L^{(16)} &= R^{(15)}\\
+		\end{align*}
+	\end{itemize}
+	\item \textbf{2DES (Double DES)}:
+	\begin{itemize}
+		\item \textbf{Idee}: Verschlüssele Klartextblock zweimal mit DES mit verschiedenen Schlüsseln
+		\item \textbf{Problem}: Effektivität eingeschränkt dank \textbf{Meet-in-the-Middle-Angriffen} (funktionieren oft bei mehrfachen Anwendungen desselben Verschlüsselungsalgorithmus)
+		\item \textbf{Meet-in-the-Middle-Angriff}:
+		\begin{enumerate}
+			\item Erstelle Liste aller im ersten Schritt erzeugbaren Chiffrate $C_{K'_1} = ENC_{DES}(K'_1, M)$, sortiere lexikographisch für binäre Suche
+			\item Berechne iterativ $C_{K'_2} = DEC_{DES}(K'_2, C)$ bis $C_{K'_2} = C_{K'_1}$, dann gebe $(K'_1, K'_2)$ aus
+		\end{enumerate}
+	\end{itemize}
+	\item \textbf{3DES (Triple DES)}:
+	\begin{itemize}
+		\item Analog zu 2DES, nur dreifach, aber wende mittlere Verschlüsselung in umgekehrter Richtung an, d.h.
+		$$
+			ENC_{3DES}(K, M) := ENC_{DES}(K_3, DEC_{DES}(K_2, ENC_{DES}(K_1, M)))
+		$$
+		\item \textbf{Meet-in-the-Middle-Angriff} ist noch möglich, aber deutlich weniger praktikabel
+	\end{itemize}
+	\item \textbf{Advanced Encryption Standard (AES)}:
+	\begin{itemize}
+		\item Bis heute \textbf{ungebrochen} und zugelassen für \textbf{staatliche Dokumente höchster Geheimhaltungsstufe}
+		\item 128-Bit Blöcke, Schlüssellänge entweder 128-, 192- oder 256-Bit
+		\item Datenblock wird in 4x4-Tabelle (\quotestyle{state}) geschrieben
+		\item Verschlüsselung weiterhin \textbf{rundenbasiert}, jede Runde besteht aus:
+		\begin{enumerate}
+			\item \textbf{AddRoundKey}: Spezifischer Rundenschlüssel wird per XOR mit dem State verknüpft
+			\item \textbf{SubBytes}: Anwendung der S-Box auf die Tabelle
+			\item \textbf{ShiftRows}: Rotiere Zeile zwei um ein Byte, Zeile drei um zwei Byte, Zeile vier um drei Byte nach links
+			\item \textbf{MixColumns}: Wende auf jede Spalte eine lineare Transformation an
+		\end{enumerate}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Angriffsstrategien}%
+\label{symver:ssub:angriffsstrategien}
+
+\begin{itemize}
+	\item \textbf{Lineare Kryptoanalyse}:
+	\begin{enumerate}
+		\item Bestimme lineare Abhängigkeiten zwischen Ein- und Ausgabe und erweitere diese auf die ersten $n - 1$ Feistel-Runden
+		\item Suche über letzten Rundenschlüssel, prüfe Schlüsselkandidaten durch die bekannten linearen Abhängigkeiten
+		\item Wenn letzter Rundenschlüssel gefunden, fahre mit dem davor fort
+	\end{enumerate}
+	\item \textbf{Differentielle Kryptoanalyse}:
+	\begin{enumerate}
+		\item Finde die wahrscheinlichsten Zusammenhänge zwischen Ein- und Ausgabedifferenzen der vorletzten Runde
+		\item Suche für letzten Rundenschlüssel
+		\item Überprüfe Kandidaten durch Testen der Konsistenz bezüglich den Ein- und Ausgabedifferenzen
+	\end{enumerate}
+\end{itemize}
+	
+\subsubsection{Betriebsmodi}%
+\label{symver:ssub:betriebsmodi}
+
+\begin{itemize}
+	\item \textbf{Electronic Codebook Mode (ECB-Modus)}: Verschlüssele Nachrichtenblock einzeln unabhängig voneinander, gleicher Klartext liefert gleiches Chiffrat
+	\item \textbf{Cipher Block Chaining Mode (CBC-Modus)}: ECB mit Vorchiffrierung (verknüpfe aktuellen Block per XOR mit dem letzten Geheimtextblock (\quotestyle{Initialisierungsvektor IV})), nur sequenziell ver- und entschlüsselbar
+	\item \textbf{Counter Mode (CTR-Modus)}: CBC, aber IV ist nicht letzter Block sondern Zufallszahl verknüpft mit einem Blockzähler
+	\item \textbf{Authentifizierte Modi}: Betriebsmodi mit Signaturverfahren (erstelle Fingerprints von Nachrichten)
+\end{itemize}
