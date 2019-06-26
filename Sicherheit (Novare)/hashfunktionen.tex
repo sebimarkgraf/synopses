@@ -1,2 +1,44 @@
 \section{Hashfunktionen}%
 \label{hash:sec:hashfunktionen}
+
+\begin{itemize}
+	\item \textbf{Hashfunktionen} bilden eine große, potentiell unbeschränkte Menge in eine kleinere Menge ab. Mit Sicherheitsparameter $k$:
+	$$
+		H_k: \{0, 1\}^* \rightarrow \{0, 1\}^k
+	$$
+	\item \textbf{Sicherheitseigenschaften}:
+	\begin{itemize}
+		\item \textbf{Collision Resistance}: Zwei Urbilder mit demselben Hashwert zu finden sollte möglichst schwierig sein
+		\item \textbf{Pre-Image Resistance}: Hashfunktion darf nur in eine Richtung berechenbar sein (Urbild finden ist möglichst schwierig)
+		\item \textbf{Target Collision Resistance}:
+		\begin{itemize}
+			\item Zwischenschritt zwischen Collision Resistance und Pre-Image Resistance
+			\item Es muss schwierig sein, für ein \textbf{gegebenes} Urbild $X$ ein $X' \neq X$ zu finden, für das gilt: $H(X') = H(X)$
+		\end{itemize}
+		\item Collision Resistance $\Rightarrow$ Target Collision Resistance $\Rightarrow$ Pre-Image Resistance
+	\end{itemize}
+	\item \textbf{Merkle-Damgard-Transformation}:
+	\begin{itemize}
+		\item \textbf{Ziel}: Hashfunktion, die obige Eigenschaften einhält und aus Eingaben beliebiger Länge Ausgaben konstanter Länge erzeugt
+		\item \textbf{Struktur}: 
+		\begin{enumerate}
+			\item Aufteilung einer Nachricht in Blöcke $M_1, \dots, M_n$ fester Länge $l$
+			\item Iterative Kompression der einzelnen Blöcke mit dem Initialisierungsvektor $IV$ und der Kompressionsfunktion $F$ zu Bitströmen $Z_1, \dots, Z_n$ fester Länge $k \leq l$. $Z_n$ ist der Hashwert:
+			\begin{align*}
+				Z_0 &= IV\\
+				\forall i \in \{1, \dots, n\}: Z_i &= F(Z_{i-1}\ ||\ M_i)
+			\end{align*}
+		\end{enumerate}
+	\end{itemize}
+	\item \textbf{Secure Hash Algorithm (SHA)}:
+	\begin{itemize}
+		\item \textbf{Theoretisch gebrochen}, aber immer noch verbreitet (z.B für Prüfsummen), basiert auf Merkle-Damgard-Konstruktion
+		\item \textbf{MD5}: Alternative Hashfunktion, ist aber auch gebrochen, mindestens SHA-2 ist zu empfehlen (verwundbar, aber wegen größerem Bildraum sicherer)
+	\end{itemize}
+	\item \textbf{Angriffsmöglichkeiten}:
+	\begin{itemize}
+		\item \textbf{Ziel}: Andere Daten finden, die denselben Hashwert ergeben (Brechen der Datenintegrität)
+		\item \textbf{Birthday-Attack}: Berechne viele Hashwerte aus gleichverteilten Urbildern, ordne in sortierte Liste und suche nach Kollisionen
+		\item \textbf{Meet-in-the-Middle}: Funktioniert, wenn Hashfunktion eine \quotestyle{Rückwärtsberechnung} zulässt
+	\end{itemize}
+\end{itemize}
