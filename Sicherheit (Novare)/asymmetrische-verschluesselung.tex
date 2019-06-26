@@ -1,2 +1,79 @@
 \section{Asymmetrische Verschlüsselung}%
 \label{asver:sec:asymmetrische_verschluesselung}
+
+\begin{itemize}
+	\item \textbf{Idee}: Ein Schlüssel zur Verschlüsselung (\quotestyle{public key}, von jedem einsehbar), ein Schlüssel zur Entschlüsselung (\quotestyle{private key}, wird geheim gehalten)
+	\item \textbf{Wichtig}:
+	\begin{itemize}
+		\item Es muss schwer sein, vom öffentlichen Schlüssel auf den privaten zu schließen
+		\item Der öffentliche Schlüssel eines anderen darf vor dem Erhalt nicht durch Dritte manipuliert werden
+	\end{itemize}
+	\item \textbf{Erweiterter Euklidischer Algorithmus (EEA)}: Bestimmt das inverse Element zu einem Element einer multiplikativen Gruppe
+\end{itemize}
+
+\subsection{RSA}%
+\label{asver:sub:rsa}
+
+\begin{itemize}
+	\item \textbf{Bestandteile}:
+	\begin{enumerate}
+		\item \textbf{Generator-Algorithmus}:
+		\begin{enumerate}
+			\item Wähle zwei große Primzahlen $P, Q, P \neq Q$ mit Bitlänge $k$
+			\item Berechne: $N = P \cdot Q$ und $\phi(N) = (P - 1)(Q - 1)$
+			\item Wähle $e \in \{3, \dots, \phi(N) - 1\}, ggT(e, \phi(N)) = 1$
+			\item Berechne das zu e multiplikativ-inverse Element $d$ per EEA
+			\item \textbf{Privater Schlüssel}: $sk = (N, d)$, \textbf{Öffentlicher Schlüssel}: $pk = (N, e)$
+		\end{enumerate}
+		\item \textbf{Ver- und Entschlüsselungsalgorithmus}:
+		\begin{align*}
+			ENC(pk, M) &= M^e\ mod\ N\\
+			DEC(sk, C) &= C^d\ mod\ N
+		\end{align*}
+	\end{enumerate}
+	\item \textbf{Sicherheit}:
+	\begin{itemize}
+		\item Bisher gezeigter RSA, auch \textbf{Textbook-RSA}, weist einige Schwächen auf
+		\item \textbf{Probleme von Textbook-RSA}:
+		\begin{enumerate}
+			\item RSA ist \textbf{deterministisch}, Nachricht wird mit demselben Schlüssel immer zur selben Chiffre
+			\item Löst man das Problem der \textbf{Faktorisierung von natürlichen Zahlen in Polynomialzeit} ist RSA \textbf{gebrochen}
+			\item Weitere Angriffsmöglichkeiten ergeben sich, wählen mehrere Benutzer dasselbe e \textbf{oder} N
+		\end{enumerate}
+	\end{itemize}
+	\item \textbf{Sicheres RSA (RSA-OAEP)}:
+	\begin{itemize}
+		\item \quotestyle{RSA optimal asymmetric encryption padding} ist IND-CCA-sicher
+		\item \textbf{Verschlüsselung}: Zufallszahl wandelt Nachricht vor Verschlüsselung ab (\textbf{Padding}); ist rekonstruierbar, kann also danach verworfen werden
+		\item \textbf{Entschlüsselung}: Entschlüssele Nachricht, rekonstruiere Zufallszahl, mache Padding rückgängig
+	\end{itemize}
+	\item \textbf{Bedeutung von RSA}: Muss angepasst werden, um konkurrenzfähige Laufzeiten zu erhalten, danach aber in der Praxis oft anzutreffen
+\end{itemize}
+
+\subsection{ElGamal}%
+\label{asver:sub:elgamal}
+
+\begin{itemize}
+	\item \textbf{Idee}: Basiere Verschlüsselung auf DLOG-Problem (Berechnung diskreter Logarithmen in zyklischen Gruppen)
+	\item \textbf{Zyklische Gruppen}: Gruppe $G$ mit Erzeugerelement $g$, sodass jedes Gruppenelement eine (ganzzahlige) Potenz des Erzeugerelements ist
+	\item \textbf{Schlüsselerzeugung}: Wähle $x \in \{2, \dots, p - 1\}, h \equiv g^x$, damit folgt dann:
+	\begin{align*}
+		pk &= (G, g, h)\\
+		sk &= (G, g, x)
+	\end{align*}
+	\item \textbf{Ver- und Entschlüsselung}: Wähle zur Verschlüsselung $y \in \{2, \dots, p - 1\}$ zufällig, dann gilt:
+	\begin{align*}
+		ENC(pk, M) &= (g^y, h^yM)\\
+		DEC(sk, (g^y, C)) &= \frac{C}{(g^y)^x}
+	\end{align*}
+	\item \textbf{Sicherheit}:
+	\begin{itemize}
+		\item Wahl von $G$ entscheidend, ist nur IND-CPA-sicher, wenn in $G$ die DDH-Annahme gilt; $G$ benötigt hierzu ausreichend Elemente
+		\item \textbf{Decisional Diffie-Hellman-Annahme}: In einer Gruppe $G$ sind die Tupel $(g^a, g^b, g^{ab})$ und $(g^a, g^b, g^c)$ für zufällig und unabhängig gewählte $a, b, c$ von jedem PPT-Angreifer nur mit im Sicherheitsparameter $k$ vernachlässigbarer Wahrscheinlichkeit unterscheidbar
+	\end{itemize}
+	\item \textbf{Problem}: Nur Nachrichten, die in $G$ liegen, können verschlüsselt werden; \textbf{Lösungsansätze} sind wie folgt:
+	\begin{itemize}
+		\item Verfahren zur \textbf{Nachrichtenumwandlung} übersetzen zwischen Binärdarstellung und einer Nachricht in $G$, ist aber ineffizient
+		\item Das \textbf{Hash-ElGamal-Kryptosystem} verwendet ElGamal mit einer Hashfunktion; dies vergrößert den Urbildraum und ist \textbf{nicht identisch mit Nachrichtenumwandlung}, da nicht auf $G$ abgebildet wird
+	\end{itemize}
+\end{itemize}
