@@ -1,2 +1,27 @@
 \section{Symmetrische Authentifikation von Nachrichten}%
 \label{symauth:sec:symmetrische_authentifikation_von_nachrichten}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Bestätigung, dass eine erhaltene Nachricht nicht verändert wurde (\textbf{Integrität}) und vom richtigen Absender stammt (\textbf{Authentizität})
+	\item \textbf{Lösung}: \quotestyle{Unterschrift} $\sigma$ zusätzlich zur eigentlichen Nachricht
+	\item \textbf{MAC}:
+	\begin{itemize}
+		\item \textbf{Message Authentication Code}, symmetrisches Verfahren für Signatur- und Verifikation einer Nachricht $M$ mit einem gemeinsamen Geheimnis $K$ (meist zufällig gewählter Bitstring, analog zu Verschlüsselung)
+		\item \textbf{Signatur}: $\sigma \leftarrow SIG(K, M)$
+		\item \textbf{Verifikation}: $VER(K, M, \sigma) \in \{0, 1\}$
+		\item \textbf{Korrektheit}: $\forall M \forall K: VER(K, M, SIG(K, M)) = 1$
+	\end{itemize}
+	\item \textbf{Symmetrische EUF-CMA-Sicherheit}:
+	\begin{itemize}
+		\item Kein PPT-Angreifer sollte selbstständig ein gültiges \textbf{Nachrichten-Signatur-Paar} finden können
+		\item \textbf{EUF-CMA-Sicherheit} ist gegeben, falls jeder PPT-Algorithmus $A$ folgendes Spiel mit im Sicherheitsparameter $k$ vernachlässigbarer Wahrscheinlichkeit gewinnt:
+		\begin{enumerate}
+			\item A erhält \textbf{Signaturorakel}, mit dem er polynomiell beschränkt viele Nachrichten signieren lassen kann
+			\item A gibt als potentielle Fälschung ein Nachrichten-Signatur-Paar aus
+			\item A gewinnt, wenn er eine gültige Signatur für eine Nachricht ausgegeben hat, die er nicht in Schritt 1. hat signieren lassen
+		\end{enumerate}
+	\end{itemize}
+	\item \textbf{Hash-then-Sign Paradigma}: Signiere Hashwert einer Nachricht statt die Nachricht selbst; Signaturverfahren signieren nur Nachrichten fester Länge, Hashing-Verfahren schaffen Abhilfe
+	\item \textbf{Pseudorandomisierte Funktionen}: MAC-Berechnung sollte keine Regelmäßigkeiten aufweisen; pseudorandomisierte Funktionen $PRF$ verteilen Funktionswerte zufällig auf Urbilder (z.B durch Hash-Funktionen); \textbf{aber}: basieren diese auf Merkle-Damgard-Konstruktionen, gibt es oft Probleme mit EUF-CMA-Sicherheit!
+	\item \textbf{Keyed-Hash MAC (HMAC)}: Basiert auf Merkle-Damgard-Konstruktion, aber erzeugt EUF-CMA-sichere pseudorandomisierte Funktionen für MACs
+\end{itemize}
