@@ -14,17 +14,17 @@
 		\forall c \in \naturalnumbers_0 \exists k_0 \in \naturalnumbers \forall k \geq k_0: |f(k)| \leq \frac{1}{k^c}
 	$$
 	\item \textbf{Semantische Sicherheit}: \quotestyle{Alle Informationen, die mit C effizient über M berechnet werden können, sind auch ohne das Chiffrat berechenbar}
-	\item \textbf{IND-CPA}:
+	\item \textbf{INDistinguishability under Chosen-Plaintext Attacks (IND-CPA)}:
 	\begin{itemize}
-		\item \textbf{INDistinguishability under Chosen-Plaintext Attacks}, polynomiell beschränkte Angreifer können Chiffrate von selbstgewählten Klartexten nicht unterscheiden
+		\item Polynomiell beschränkte Angreifer können Chiffrate von selbstgewählten Klartexten nicht unterscheiden
 		\item Angreifer hat ein \textbf{Orakel}, welches zu \textbf{jedem Klartext} das entsprechende \textbf{Chiffrat} berechnet (wie ist unklar), andersherum geht dies jedoch nicht
 		\item Angreifer wählt zwei Nachrichten gleicher Länge und erhält zufällig das Chiffrat (\quotestyle{Challenge-Chiffrat C*}) einer der beiden Nachrichten
 		\item Symmetrisches Verfahren ist IND-CPA-sicher, wenn $Pr[A\ gewinnt] - \frac{1}{2}$ für alle PPT-Algorithmen $A$ vernachlässigbar in $k$ ist
 		\item Ein Verfahren ist \textbf{genau dann semantisch sicher}, wenn es IND-CPA-sicher ist
 	\end{itemize}
-	\item \textbf{IND-CCA}:
+	\item \textbf{INDistinguishability under Chosen-Cyphertext Attacks (IND-CCA)}:
 	\begin{itemize}
-		\item \textbf{INDistinguishability under Chosen-Cyphertext Attacks}, stärker als IND-CPA
+		\item Stärker als IND-CPA
 		\item Angreifer hat jeweils \textbf{Orakel} zur \textbf{Ver- und Entschlüsselung}
 		\item Angreifer kann sich \textbf{jedes beliebige C entschlüsseln lassen} (außer C*)
 		\item Angreifer wählt wieder zwei Nachrichten gleicher Länge und erhält C*
