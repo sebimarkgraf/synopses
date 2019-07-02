@@ -1,0 +1,48 @@
+\documentclass[10pt,a4paper]{article}
+\author{Jannik Koch}
+\title{Sicherheit}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\def\realnumbers{{\rm I\!R}}
+\def\polynomials{{\rm I\!P}}
+\def\naturalnumbers{{\rm I\!N}}
+
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\renewcommand{\arraystretch}{1.5}
+\newcommand{\quotestyle}[1]{\enquote{#1}}
+\newcommand{\itquote}[1]{\textit{\quotestyle{#1}}}
+
+\begin{document}
+	\pagenumbering{Roman}
+	{\let\newpage\relax\maketitle}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+
+	\include{grundlagen}
+	\include{symmetrische-verschluesselung}
+	\include{sicherheitsbegriffe}
+	\include{hashfunktionen}
+	\include{asymmetrische-verschluesselung}
+	\include{symmetrische-authentifikation}
+	\include{asymmetrische-authentifikation}
+	\include{schluesselaustauschprotokolle}
+	\include{identifikationsprotokolle}
+	\include{zero-knowledge}
+	\include{benutzerauthentifikation}
+	\include{zugriffskontrolle}
+	\include{analyse-umfangreicher-protokolle}
+	\include{implementierungsprobleme}
+	\include{seitenkanalangriffe}
+\end{document}

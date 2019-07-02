@@ -1,0 +1,25 @@
+\section{Seitenkanalangriffe}%
+\label{skangr:sec:seitenkanalangriffe}
+
+\begin{itemize}
+	\item \textbf{Seitenkanal}: Mögliche Quelle eines Informations-Leaks abseits von bisher besprochenen Komponenten
+	\begin{itemize}
+		\item Stromverbrauch, Laufzeiten, elektromagnetische und akustische Abstrahlung etc.
+	\end{itemize}
+	\item \textbf{Simple Power Analysis (SPA)}:
+	\begin{itemize}
+		\item Messe Stromverbrauch der CPU bei der Ausführung des Algorithmus, schließe damit auf Einsen und Nullen
+		\item \textbf{Gegenmaßnahmen}: Konstanten Stromverbrauch halten, bedingte Sprünge in Abhängigkeit von Geheimnissen im Algorithmus verwenden
+	\end{itemize}
+	\item \textbf{Differential Power Analysis (DPA)}:
+	\begin{itemize}
+		\item Sind die Implementierung des Algorithmus und viele Trace-Message-Paare (Stromverbrauch und Nachricht bei der Entschlüsselung) verfügbar, dann ist statistisches Errechnen des Geheimnisses durch Testen des Stromverbrauchs eines geratenen Teils des Schlüssels möglich
+		\item \textbf{Gegenmaßnahmen}: Stromverbrauch durch Zusatzberechnungen verrauschen
+	\end{itemize}
+	\item \textbf{Cold-Boot-Attacks}:
+	\begin{itemize}
+		\item Kühlen von Arbeitsspeicher erhält Daten ggf. mehrere Stunden lang ohne Strom
+		\item Speichersparendes System ermöglicht Auslesen des Speichers und damit des geheimen Schlüssels
+		\item \textbf{Gegenmaßnahmen}: Automatische Neu-Initialisierung des Hauptspeichers per BIOS bei jedem Boot; Schlüssel im Prozessor-Cache speichern statt dem Hauptspeicher
+	\end{itemize}
+\end{itemize}

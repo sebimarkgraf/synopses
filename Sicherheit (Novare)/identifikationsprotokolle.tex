@@ -1,0 +1,20 @@
+\section{Identifikationsprotokolle}%
+\label{idprot:sec:identifikationsprotokolle}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Nachweisen, dass der Kommunikationspartner tatsächlich im Besitz des privaten Schlüssels zum öffentlichen Schlüssel ist
+	\item \textbf{Prover P}: Beweist, dass er der echte Kommunikationspartner ist
+	\item \textbf{Verifier V}: Prüft die Echtheit von $P$
+	\textbf{Sicherheitsmodell}:
+	\begin{itemize}
+		\item \textbf{Public-Key-Identifikationsprotokoll}: 3-Tupel $(GEN, P, V)$ von PPT-Algorithmen, \textbf{GEN} gibt bei Eingabe eines Sicherheitsparameters das Schlüsselpaar $(pk, sk)$ aus
+		\item \textbf{Ablauf}:
+		\begin{enumerate}
+			\item $P$ erhält den geheimen Schlüssel $sk$
+			\item $V$ erhält den öffentlichen Schlüssel $pk$ als Eingabe und gibt $out_V$ aus
+			\item $P$ erhält $out_V$ von $V$ und gibt $out_P$ aus
+			\item $V$ erhält $out_P$ von $P$ und gibt $out_V$ aus
+			\item Ist $out_V \in \{0, 1\}$, beende die Interaktion, ansonsten springe zurück zu 2.
+		\end{enumerate}
+	\end{itemize}
+\end{itemize}

@@ -1,0 +1,63 @@
+\section{Asymmetrische Authentifikation von Nachrichten}%
+\label{asauth:sec:asymmetrische_authentifikation_von_nachrichten}
+
+\begin{itemize}
+	\item \textbf{Problem}: Symmetrische Authentifikation hat ähnliche Probleme wie symmetrische Verschlüsselung
+	\item \textbf{Lösung}: Asymmetrische Authentifikation; Signieren mit privatem Schlüssel $pk$ und Verifizieren mit öffentlichem Schlüssel $pk$ $(pk, sk) \leftarrow KEYGEN(1^k)$
+	\item \textbf{Asymmetrische EUF-CMA-Sicherheit}: PPT-Angreifer $A$ muss das folgende Spiel mit in $k$ vernachlässigbarer Wahrscheinlichkeit gewinnen:
+	\begin{enumerate}
+		\item $A$ generiert Schlüsselpaar $(pk, sk)$, erhält Signaturorakel und den zugehörigen öffentlichen Schlüssel
+		\item $A$ darf per Orakel polynomiell viele Nachrichten signieren, gibt dann eine potentielles gefälschtes Nachrichten-Signatur-Paar aus
+		\item $A$ gewinnt, ist das Nachrichten-Signatur-Paar gültig und die enthaltene Nachricht nicht über das Orakel signiert worden
+	\end{enumerate}
+	\item \textbf{RSA-Signaturen}:
+	\begin{itemize}
+		\item Analog zur Verschlüsselung können Nachrichten signiert und verifiziert werden
+		\item \textbf{Probleme}:
+		\begin{itemize}
+			\item Angreifer kann beliebige Signatur wählen und dazu passende Nachricht generieren; Versendung unsinniger Nachrichten
+			\item Homomorphie von RSA bedeutet, dass Angreifer aus zwei Signaturen zu zwei Nachrichten $M_1, M_2$ eine Signatur für die Nachricht $M_3 = M_1 \cdot M_2\ mod\ N$ bauen kann; hiermit kann man das EUF-CMA-Experiment gewinnen; lösbar mit \textbf{RSA-OAEP}, damit entsteht das Signaturverfahren \textbf{RSA-PSS} (Probabilistic Signature Scheme)
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{ElGamal-Signaturen}:
+	\begin{itemize}
+		\item \textbf{Schlüsselwahl}: $sk = (G, g, x), pk = (G, g, g^x)$
+		\item \textbf{Signaturerzeugung}:
+		\begin{itemize}
+			\item Wähle zufällige, in den ganzen Zahlen invertierbare Zahl $e \in \{1, \dots, p - 1\}, p - 1 = |G|$
+			\item \textbf{Signatur}: $SIG(sk, M) = (a, b)$ mit
+			\begin{align*}
+				a &:= g^e \in G\\
+				b &:= (M - a \cdot x) \cdot e^{-1}\ mod\ |G|
+			\end{align*}
+			\item \textbf{Verifikation}: $VER(pk, \sigma, M) = 1 \Leftrightarrow v_1 = v_2$ mit
+			\begin{align*}
+				v_1 &= (g^x)^a \cdot a^b\\
+				v_2 &= g^M
+			\end{align*}
+		\end{itemize}
+		\item \textbf{Probleme}:
+		\begin{itemize}
+			\item Doppelte Verwendung von $e$ ermöglicht Berechnung des geheimen Schlüssels; sollte vermieden werden
+			\item Günstige Parameterwahl ermöglicht Erzeugung gültiger \quotestyle{unsinniger} Signaturen ohne Schlüsselkenntnis
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Hash-Then-Sign}: Analog zu symmetrisch, ermöglicht Signieren von Nachrichten beliebiger Länge
+	\item \textbf{DSA (Digital Signature Algorithm)}:
+	\begin{itemize}
+		\item Hash-Then-Sign-Paradigma + ElGamal-Signaturverfahren + kollisionsresistente Hashfunktion $H$
+		\item Zweitwichtigster Signaturalgorithmus (nach RSA)
+	\end{itemize}
+	\item \textbf{Digitale Zertifikate}:
+	\begin{itemize}
+		\item \textbf{Public Key Infrastructures (PKIs)} ermöglichen Bestätigung der Integrität des öffentlichen Schlüssels
+		\item \textbf{Certificate Authority} stellen Zertifikate aus, welche Aussteller, Schlüssel und Inhaber assoziieren und mit dem privaten Schlüssel des Inhabers signiert sind
+		\item \textbf{Zertifikate} stellen sicher, dass ein Schlüssel tatsächlich zu einer Person/Institution gehört
+		\item \textbf{Alle} Certificate Authorities müssen \textbf{vertrauenswürdig} sein, damit das System funktioniert
+	\end{itemize}
+	\item \textbf{X.509}:
+	\begin{itemize}
+		\item \textbf{Zertifikatsstandard}
+		\item Unterteilt Zertifikat in \textbf{Data-Block} (eigentliche Zertifikatsdaten) und den \textbf{Signature-Algorithm}, der das Signaturverfahren enthält
+	\end{itemize}
+\end{itemize}

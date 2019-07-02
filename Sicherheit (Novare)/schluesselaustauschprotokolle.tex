@@ -1,0 +1,53 @@
+\section{Schlüsselaustauschprotokolle}%
+\label{schaus:sec:schluesselaustauschprotokolle}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Sicherer Austausch von Schlüsseln über eine unsichere Leitung
+	\item \textbf{Schlüsselzentrale}: Jeder Teilnehmer hat die Möglichkeit zur sicheren Kommunikation mit einem zentralen dritten Partner
+	\item \textbf{Symmetrische Verfahren}: Es sei angenommen, beide Partner können mit der Schlüsselzentrale kommunizieren
+	\begin{itemize}
+		\item \textbf{Kerberos}:
+		\begin{itemize}
+			\item A stellt Anfrage an Schlüsselzentrale, erhält zwei verschlüsselte Pakete mit dem Sitzungsschlüssel und dessen Lebensdauer
+			\item A öffnet das für A verschlüsselte Paket und sendet das für B verschlüsselte Paket an B
+			\item A sendet eine weitere Nachricht mit der eigenen Identität und einem Zeitstempel an B
+			\item A und B können nun sicher kommunizieren
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Asymmetrische Verfahren}: Es sei angenommen, dass jeder Teilnehmer ein eigenes Schlüsselpaar hat und die öffentlichen Schlüssel an einer vertrauenswürdigen Stelle hinterlegt sind
+	\begin{itemize}
+		\item \textbf{Public-Key Transport}: A erzeugt einen Sitzungsschlüssel, chiffriert diesen mit dem öffentlichen Schlüssel von B und versendet ihn (ggf. auch mit Signaturen)
+		\item \textbf{Diffie-Hellman-Schlüsselaustausch}:
+		\begin{itemize}
+			\item Ursprung der ElGamal-Verschlüsselung
+			\item A und B wählen ganze Zufallszahlen $x, y$ und senden sich gegenseitig $g^x$ bzw. $g^y$, $g$ ist das Erzeugerelement der zyklischen Gruppe $G$; beide können nun das gemeinsame Geheimnis $g^{xy}$ berechnen, Angreifer jedoch nicht, da diese nur $g$, $g^x$ und $g^y$ kennt
+			\item \textbf{Man-in-the-Middle-Angriff} ist möglich, wenn $x, y$ jeweils abgefangen und ersetzt werden; dagegen helfen \textbf{Signaturen}
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Transport Layer Security (TLS)}:
+	\begin{itemize}
+		\item Weiterentwicklung von \textbf{SSL (Secure Socket Layer)}; hier vor allem die \textbf{Handshake-Phase} interessant, die den Schlüsselaustausch durchführt
+		\begin{enumerate}
+			\item Client schickt Server Zufallszahl und nach Präferenz sortierte Liste von Algorithmen (Hashfunktionen, Verschlüsselungen, Schlüsselaustauschprotokolle)
+			\item Server sendet seine Wahl sowie ein Zertifikat mit seinem öffentlichen Schlüssel zurück, fordert nun das Zertifikat des Clients
+			\item Client antwortet mit seinem Zertifikat und seinem öffentlichen Schlüssel sowie dem signierten Hashwert der bisherigen Nachrichten
+			\item Client wählt weitere Zufallszahl (\textbf{Premaster Secret (PMS)}), sendet diesen an den Server, beide berechnen aus den Zufallszahlen den \textbf{Master Key (MS)}
+			\item Client signalisiert, dass nun verschlüsselt kommuniziert wird und beendet den Handshake, Server antwortet analog
+			\item Kommunikation läuft fortan über den \textbf{Session Key}, welcher aus dem \textbf{Master Key} pseudozufällig abgeleitet wird
+		\end{enumerate}
+		\item TLS ist mit idealer Verschlüsselung \textbf{sicher}, Angriffe meist durch Implementierung bedingt
+		\item \textbf{ChangeCipherSpec-Drop-Angriff}: Unterdrücke vorletzten Schritt, Server kommuniziert noch unverschlüsselt, Nutzdaten werden ausgelesen
+		\item \textbf{RSA-Padding-Angriff}: RSA mit \quotestyle{naivem} Padding und veraltete SSL-Versionen ermöglichen Einblick in den Session Key
+		\item \textbf{CRIME-Angriff}: Angreifer kann sich bei aktivierter Kompression Stück für Stück dem Klartext nähern
+		\item \textbf{Logjam-Angriff}: Angreifer überzeugt per Man-in-the-Middle den Server, ein unsicheres Verfahren zu verwenden
+	\end{itemize}
+	\item \textbf{Internet Protocol Security (IPsec)}: Protokoll zur Integritätssicherung, Erkennung falscher IP-Adressen (IP-Spoofing) und Verschlüsselung von IP-Paketen
+	\item \textbf{Password Authentication Key Exchange (PAKE)}:
+	\begin{itemize}
+		\item \textbf{Grundlegendes Prinzip, kein Protokoll}
+		\item A und B besitzen bereits ein gemeinsames Passwort, über das sie kommunizieren wollen
+		\item Sollte ein Angreifer das Passwort knacken, sollte bisherige Kommunikation nicht mehr nachvollziehbar sein (\textbf{forward-secrecy})
+		\item \textbf{Funktionierende Konstruktion: Encrypted Key Exchange (EKE)} startet Kommunikation mit verschlüsseltem öffentlichem Schlüssel, danach werden asymmetrische Verfahren genutzt
+		\item \textbf{Basis von EAP und WPA}
+	\end{itemize}
+\end{itemize}

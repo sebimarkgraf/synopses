@@ -1,0 +1,23 @@
+\section{Zero Knowledge}%
+\label{zknow:sec:zero_knowledge}
+
+\begin{itemize}
+	\item \textbf{Problem}: Bisheriges Identifikationsprotokoll erlaubt Identifikation des geheimen Schlüssels über einen gewissen Zeitraum
+	\item \textbf{Ziel}: Der Verifier soll \textbf{nichts} über den geheimen Schlüssel von $P$ lernen
+	\item \textbf{Ununterscheidbarkeit}: Für zwei (möglicherweise von $k$ abhängige) Verteilungen $X, Y$ sind ununterscheidbar ($X \stackrel{c}{\approx} Y$), wenn für alle PPT-Algorithmen $A$ die folgende Differenz vernachlässigbar in $k$ ist, Elemente von $X$ also nicht effizient von $Y$ unterscheidbar sind:
+	$$
+		Pr[A(1^k, x) = 1 : x \leftarrow X] - Pr[A(1^k, y) = 1 : y \leftarrow Y]
+	$$
+	\item \textbf{Zero-Knowledge}: Ein Identifikationsprotokoll $(GEN, P, V)$ ist Zero-Knowledge, falls für jeden PPT-Algorithmus $A$ ein PPT-Algorithmus $S$ existiert, für den gilt:
+	$$
+		(pk, \langle P(sk), A(1^k, pk)\rangle) \text{ und } (pk, S(1^k, pk))
+	$$
+	\item \textbf{Commitment-Schema}:
+	\begin{itemize}
+		\item \textbf{Komponenten}: PPT-Algorithmus $COM$ bzw. dessen Ausführung $COM(M; R)$ mit der Input-Nachricht $M$ und dem Zufall $R$
+		\item \textbf{Hiding}: $COM(M; R)$ verrät zunächst keinerlei Informationen über $M$
+		\item \textbf{Binding}: $COM(M; R)$ legt fest, dass $M$ der Ersteller des Commitments ist
+		\item \textbf{Bsp. Sportwette}: Wettender und Bank vertrauen sich nicht, deshalb: Berechne Commitment für Wettschein, damit Bank diesen nicht manipulieren kann (Hiding); Commitment-Schema garantiert der Bank, dass der Schein nicht bei Bekanntwerden der Ergebnisse manipuliert wird (Binding)
+	\end{itemize}
+	\item \textbf{Proof-of-Knowledge}: Ein Identifikationsprotokoll ist Proof-of-Knowledge, wenn ein PPT-Algorithmus (Extraktor) $\epsilon$ existiert, der bei Zugriff auf einen beliebigen erfolgreichen Prover einen geheimen Schlüssel $sk$ zu $pk$ extrahiert
+\end{itemize}

@@ -1,0 +1,33 @@
+\section{Kryptographische Sicherheitsbegriffe}%
+\label{kseb:sec:kryptographische_sicherheitsbegriffe}
+
+\begin{itemize}
+	\item \textbf{Sicherheitsparameter k}: \quotestyle{Sicherheitsniveau der Funktion}, z.B Parameter des Schlüsselraumes
+	\item \textbf{Effizienz}:
+	\begin{itemize}
+		\item Algorithmus ist bei Eingabe eines Bit-Strings der Länge $n$ genau dann effizient, wenn $c \in \naturalnumbers$ existiert, sodass der Algorithmus in $O(n^c)$ liegt
+		\item Für präzise Argumentation wird ein Bit-String der Länge $k$ aus $1en$ betrachtet; ein effizienter Algorithmus muss also in $O(k^c)$ Schritten eine Lösung berechnen
+	\end{itemize}
+	\item \textbf{PPT}: Angreifer, der probabilistische Algorithmen verwendet, bezeichnet man als \textbf{probabilistic polynomial time (PPT) Angreifer}
+	\item \textbf{Vernachlässigbarkeit}: $f: \naturalnumbers \rightarrow \realnumbers$ ist \textbf{vernachlässigbar in k}, wenn gilt:
+	$$
+		\forall c \in \naturalnumbers_0 \exists k_0 \in \naturalnumbers \forall k \geq k_0: |f(k)| \leq \frac{1}{k^c}
+	$$
+	\item \textbf{Semantische Sicherheit}: \quotestyle{Alle Informationen, die mit C effizient über M berechnet werden können, sind auch ohne das Chiffrat berechenbar}
+	\item \textbf{INDistinguishability under Chosen-Plaintext Attacks (IND-CPA)}:
+	\begin{itemize}
+		\item Polynomiell beschränkte Angreifer können Chiffrate von selbstgewählten Klartexten nicht unterscheiden
+		\item Angreifer hat ein \textbf{Orakel}, welches zu \textbf{jedem Klartext} das entsprechende \textbf{Chiffrat} berechnet (wie ist unklar), andersherum geht dies jedoch nicht
+		\item Angreifer wählt zwei Nachrichten gleicher Länge und erhält zufällig das Chiffrat (\quotestyle{Challenge-Chiffrat C*}) einer der beiden Nachrichten
+		\item Symmetrisches Verfahren ist IND-CPA-sicher, wenn $Pr[A\ gewinnt] - \frac{1}{2}$ für alle PPT-Algorithmen $A$ vernachlässigbar in $k$ ist
+		\item Ein Verfahren ist \textbf{genau dann semantisch sicher}, wenn es IND-CPA-sicher ist
+	\end{itemize}
+	\item \textbf{INDistinguishability under Chosen-Cyphertext Attacks (IND-CCA)}:
+	\begin{itemize}
+		\item Stärker als IND-CPA
+		\item Angreifer hat jeweils \textbf{Orakel} zur \textbf{Ver- und Entschlüsselung}
+		\item Angreifer kann sich \textbf{jedes beliebige C entschlüsseln lassen} (außer C*)
+		\item Angreifer wählt wieder zwei Nachrichten gleicher Länge und erhält C*
+		\item Symmetrisches Verfahren ist IND-CCA-sicher, wenn $Pr[A\ gewinnt] - \frac{1}{2}$ für alle PPT-Algorithmen $A$ vernachlässigbar in $k$ ist
+	\end{itemize}
+\end{itemize}
