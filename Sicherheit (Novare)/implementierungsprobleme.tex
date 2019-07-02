@@ -1,2 +1,31 @@
 \section{Implementierungsprobleme}%
 \label{improb:sec:implementierungsprobleme}
+
+\begin{itemize}
+	\item \textbf{Buffer Overflows}:
+	\begin{itemize}
+		\item Zugriff auf Puffer ohne Größenprüfung ermöglicht Lesen und Schreiben von Daten hinter dem Puffer, z.B in C
+		\item Lenken des Programmflusses durch Überschreiben der Rücksprungadresse, Einfügen von eigenem Programmcode
+		\item \textbf{Gegenmaßnahmen}: Größenprüfung, ggf. automatisch durch Datenstrukturen wie bei Java-Arrays; alternativ Stack Canaries, Data Execution Prevention und Address Space Layout Randomization
+		\item \textbf{Stack Canaries}: Zufällige Dummy-Zahlen werden vor Rücksprungadressen platziert die nicht verändert werden dürfen; Compiler fügt automatisch Alarmcode ein, der bei Entdecken von Veränderungen ausschlägt
+		\item \textbf{Data Execution Prevention}: Prozessor erzwingt Trennung von Code- und Speicherbereichen; abhängig von Prozessor und Betriebssystem
+		\item \textbf{Address Space Layout Randomization}: Betriebssystem platziert Speicherbereiche des Programms nicht mehr deterministisch sondern zufällig
+	\end{itemize}
+	\item \textbf{SQL-Injection}:
+	\begin{itemize}
+		\item Einfache Implementierung von Benutzereingabe ermöglicht senden von SQL-Code an die internen Datenbanken
+		\item \textbf{Gegenmaßnahmen}: Benutzereingaben gründlich prüfen, Sonderzeichen \quotestyle{escapen}, Prepared Statements
+		\item \textbf{Prepared Statements}: Abfrage mit Platzhalter an die Datenbank schicken, dann Benutzereingabe übergeben, damit diese nicht als Befehl interpretiert wird
+	\end{itemize}
+	\item \textbf{Cross-Site-Scripting (XSS)}:
+	\begin{itemize}
+		\item Analog zu SQL-Injection, nur werden HTML-Elemente in Websiten eingefügt statt SQL in Benutzereingaben
+		\item \textbf{Gegenmaßnahme}: Daten von Nutzern maskieren, damit sie nicht als HTML interpretier werden können
+	\end{itemize}
+	\item \textbf{Denial of Service}:
+	\begin{itemize}
+		\item Lege Dienst lahm, z.B durch \textbf{Distributed Denial of Service (DDoS)}
+		\item \textbf{DDoS}: Überhäufe Server durch viele Clients (z.B ein Botnet) gleichzeitig mit Anfragen, bis er in die Knie geht
+		\item \textbf{SYN-Flooding}: DDoS über TCPs SYN-Pakete, welche zum Verbindungsaufbau versendet werden
+	\end{itemize}
+\end{itemize}

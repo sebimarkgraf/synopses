@@ -1,2 +1,22 @@
 \section{Analyse umfangreicher Protokolle}%
 \label{aup:sec:analyse_umfangreicher_protokolle}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Strukturiertes Untersuchen der Sicherheit von umfangreichen Protokollen
+	\item \textbf{Security-Ansatz}: Einzelne Sicherheitseigenschaften, die nachzuweisen sind
+	\begin{enumerate}
+		\item \textbf{Vertraulichkeit (Confidentiality)}: Welche Informationen frei gegeben werden dürfen muss genau definiert sein, bestimmte Informationen bleiben geheim
+		\item \textbf{Integrität (Integrity)}: Informationen bleiben unverändert
+		\item \textbf{Authentizität (Authenticity)}: Nachrichten unter fremder Identität verschicken ist unmöglich
+		\item \textbf{Verfügbarkeit (Availability)}: Ein Service bleibt auch unter Angriffen verfügbar (z.B DDoS)
+		\item \textbf{Autorisierung (Authorization)}: Benutzer können nur Aktionen durchführen/Informationen einsehen, zu denen sie berechtigt sind
+		\item \textbf{Nicht-Abstreitbarkeit (Non-Repudiability)}: Urheber einer Information zu sein lässt sich nicht abstreiten
+		\item \textbf{Abstreitbarkeit (Plausable Deniability)}: Man kann nicht beweisen, dass jemand Urheber einer Informatio nist
+	\end{enumerate}
+	\item \textbf{Kryptographischer Ansatz}: Vergleich mit hypothetischem, idealisiertem, optimalem Protokoll
+	\begin{itemize}
+		\item \textbf{Vorteile}: Einfache Formulierung von Sicherheitszielen, modulare Analyse möglich dank Kompositionstheorem
+		\item \textbf{Simulierbarkeit}: Protkoll $\pi_1$ ist \textbf{so sicher wie} Protokoll $\pi_2$ ($\pi_1 \geq \pi_2$), falls für jeden effizienten Angreifer $A$ auf $\pi_1$ ein effizienter Simulator $S$ auf $\pi_2$ existiert, sodass nicht effizient zwischen $(\pi_1, A)$ und $(\pi_2, S)$ unterschieden werden kann
+		\item \textbf{Kompositionstheorem}: Sei $\pi^\tau$ ein Protokoll, das ein Unterprotokoll $\tau$ benutzt. Sei weiter $\rho$ ein Protokoll mit $\rho \geq \tau$, und sei $\pi^\rho$ das Protokoll, welches $\rho$ statt $\tau$ als Unterprotokoll benutzt. Dann gilt $\pi^\rho \geq \pi^\tau$.
+	\end{itemize}
+\end{itemize}

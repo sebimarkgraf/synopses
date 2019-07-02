@@ -1,2 +1,39 @@
 \section{Zugriffskontrolle}%
 \label{zugkon:sec:zugriffskontrolle}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Rechteverteilung an Nutzer, um Zugriff auf Informationen zu kontrollieren
+	\item \textbf{Ansatz}: Feste Rechtezuweisung an jeden Nutzer, bspw. wie bei UNIX-Rechteverwaltung
+	\item \textbf{Problem}: Leserechte auf ein Dokument und Schreiberechte auf ein anderes ermöglicht Veröffentlichung von Informationen
+	\item \textbf{Lösung}: Dynamische Zugriffskontrolle
+	\item \textbf{Bell-LaPadula-Modell}:
+	\begin{itemize}
+		\item \textbf{Bausteine}: Subjekte $S$, Objekte $O$, Zugriffsoperationen $A = \{read, write, append, execute\}$, halbgeordnete Menge $L$ von Sicherheitsleveln mit einem eindeutigen Maximum
+		\item \textbf{Systemzustand}: $(B, M, F)$, $B$ Menge aktueller Zugriffe, $M$ Zugriffskontrollmatrix (Eintrag für Zugriff von Subjekt $i$ auf Objekt $j$), $F$ Funktionstripel
+		\item \textbf{Funktionstripel}: $(f_s, f_c, f_o)$, $f_s$ weist einem Subjekt sein maximales Sicherheitslevel zu, $f_c$ einem Subjekt sein aktuelles Sicherheitslevel und $f_o$ einem Objekt sein benötigtes Sicherheitslevel
+		\item \textbf{Eigenschaften}: Sei $(B, M, F)$ ein Systemzustand, dann gelten folgende Eigenschaften unter den zugehörigen Bedingungen:
+		\begin{itemize}
+			\item \textbf{Discretionary-Security (ds-Eigenschaft)}: $\forall (s, o, a) \in B: a \in m_{s, o}$
+			\item \textbf{Simple-Security (ss-Eigenschaft)}: $\forall (s, o, read) \in B: f_s(s) \geq f_o(o)$
+			\item \textbf{Star-Property (*-Eigenschaft)}: $\forall (s, o, \{write, append\}) \in B: f_o(o) \geq f_c(s)$
+		\end{itemize}
+		\item \textbf{Nachteile}: Aktueller Sicherheitslevel nicht reduzierbar; Subjekte dürfen auf Objekte höheren Sicherheitslevels schreibend zugreifen; auf Dauer zu unflexibel
+	\end{itemize}
+	\item \textbf{Chinese-Wall-Modell}: (hier am Beispielszenario Firmenberatung)
+	\begin{itemize}
+		\item \textbf{Bausteine}: Firmen $C$, Berater $S$, Objekte $O$, Zugriffsoperationen $A = \{read, write\}$, zwei Zuweisungsfunktionen $x, y$
+		\item \textbf{Firmen-Zuweisungsfunktion}: $y: O \rightarrow C$ weist jedem Objekt seine eindeutige Firma zu
+		\item \textbf{Konflikt-Zuweisungsfunktion}: $x: O \rightarrow P(C)$ weist jedem Objekt eine Menge an Firmen zu, mit denen es im Konflikt steht
+		\item \textbf{Eigenschaften}:
+		\begin{itemize}
+			\item \textbf{Simple-Security (ss-Eigenschaft)}: Sei $(s, o, a) \in S \times O \times A$ eine Anfrage; $\forall o' \in O$, auf die s schon Zugriff hatte, gilt:
+			$$
+				y(o) = y(o') \lor y(o) \notin x(o')
+			$$
+			\item \textbf{Star-Property (*-Eigenschaft)}: Sei $(s, o, write) \in S \times O$ eine Schreibanfrage; $\forall o' \in O$, auf die s schon lesend zugegriffen hat, gilt:
+			$$
+				y(o) = y(o') \lor x(o') = \{\}
+			$$
+		\end{itemize}
+	\end{itemize}
+\end{itemize}

@@ -18,9 +18,9 @@ Dabei wird der Inhalt auf den klausurrelevanten Stoff der von uns besuchten Vorl
 ## In Erstfassung verfügbar
 * Kognitive Systeme (kogsys)
 * Moderne Physik für Informatiker (modphys)
+* Sicherheit (compsec)
 
 ## In Arbeit
-* Sicherheit (compsec)
 * Physik für Informatiker (phys)
 
 ## Mitarbeit

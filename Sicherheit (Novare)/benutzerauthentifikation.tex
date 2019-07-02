@@ -1,2 +1,39 @@
 \section{Benutzerauthentifikation}%
 \label{benauth:sec:benutzerauthentifikation}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Sichere Authentifizierung von Benutzern
+	\item \textbf{Lösung}: Passwörter; sehr verbreitet, benötigen aber wichtige Sicherheitsmaßnahmen
+	\item \textbf{Klartext ist unsicher}, deshalb: Keine Übertragung oder serverseitige Speicherung des Klartextpassworts, stattdessen \textbf{Hashing des Passworts bei Übertragung und Speicherung}, dann aber immer noch verwundbar bzgl. Man-in-the-Middle!
+	\item \textbf{Wörterbuchangriffe}: Passwörter aus natürlichsprachlichen Worten können mit \quotestyle{Wörterbücher} durchgetestet und damit gebrochen werden
+	\item \textbf{Brute-Force-Angriffe}: Schwer gewählte Passwörter können aufwendig durch Durchtesten erraten werden; Hashtabellen aller möglichen Passwörter beschleunigen die Suche, sind aber speicherintensiv und man \textbf{benötigt die genutzte Hashfunktion}
+	\item \textbf{Kompression von Hashtabellen}:
+	\begin{itemize}
+		\item \quotestyle{Time-Memory-Tradeoff} durch Kompression der Tabelle
+		\item \textbf{Problem}: Hashwerte sind schwer zu komprimieren da nahezu zufällig
+		\item \textbf{Lösung}: Hashketten
+	\end{itemize}
+	\item \textbf{Hashketten}:
+	\begin{itemize}
+		\item \textbf{Idee}: Wähle erstes Passwort, hashe dieses, nutze \textbf{Reduktionsfunktion f} um aus dem Hash das nächste mögliche Passwort im Passwortraum zu generieren usw.
+		$$
+			pw_1 \xrightarrow{H} H(pw_1) \xrightarrow{f} pw_2 \xrightarrow{H} H(pw_2) \xrightarrow{f} pw_3 \dots
+		$$
+		\item Speichere $n$ Hashketten der Länge $m$; eine Hashkette ist durch das erste Passwort und den letzten Hashwert ausreichend definiert
+		\item Optimiere Time-Memory-Tradeoff durch Verlängerung der Kettenlänge bzw. Erhöhung der Kettenzahl
+		\item \textbf{Problem}: Ketten decken womöglich nicht den gesamten Passwortraum ab; weiter laufen Ketten womöglich zusammen
+	\end{itemize}
+	\item \textbf{Rainbow Tables}:
+	\begin{itemize}
+		\item \textbf{Idee}: Nutze $m - 1$ Reduktionsfunktionen statt einer:
+		$$
+			pw_1 \xrightarrow{H} H(pw_1) \xrightarrow{f_1} pw_2 \xrightarrow{H} H(pw_2) \xrightarrow{f_2} pw_3 \dots			
+		$$
+		\item \textbf{Vorteil}: Kein Zusammenlaufen von Ketten, solange die Kollision an verschiedenen Stellen in den Hashketten auftreten; Passwortabdeckung ist i.d.R. auch besser als bei reinen Hashketten
+	\end{itemize}
+	\item \textbf{Verteidigungsmaßnahmen}:
+	\begin{itemize}
+		\item \textbf{Salted Hashes}: Jeder Nutzer bekommt ein individuelles \quotestyle{Salz}, z.B ein Zufallsstring, der Passworthash ist dann $H(s||pw)$
+		\item \textbf{Key Strengthening}: Mehrfaches Hashing des Passworts
+	\end{itemize}
+\end{itemize}
