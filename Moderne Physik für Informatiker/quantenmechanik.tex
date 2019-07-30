@@ -25,6 +25,16 @@
 		\item \textbf{Quantenhypothese}: Energiemenge die Strahlung und Materie austauschen können ist \textbf{nicht beliebig}
 	\end{itemize}
 	\item \textbf{Teilchenwellen}: Welle-Teilchen-Dualismus gilt auch für \textbf{konventionelle Teilchen} (Elektronen)
+	\item \textbf{Operator}:
+	\begin{itemize}
+		\item Vorschrift $A$, sodass für eine quadratintegrable Funktion $\phi(\vec{x}) \in L^2$ gilt: $A\phi(\vec{x}) = \theta(\vec{x}) \in L^2$
+		\item \textbf{Linearität}: $A(c_1\phi_1 + c_2\phi_2) = c_1\theta_1 + c_2\theta_2$
+		\item \textbf{Kommutator}: $[A, B] = AB - BA$
+		\item \textbf{Skalarprodukt}: $(\phi, \theta) = \int d^3x\phi^*(x)\theta(x)$
+		\item \textbf{Adjungierter Operator}: $A^\dagger$ adj. zu $A$, wenn $(A^\dagger\phi, \theta) = (\phi, A\theta) \forall \phi, \theta$
+		\item \textbf{Selbstadjungiert/Hermitesch}: $A = A^\dagger$; dann gilt auch: $(AB)^\dagger = B^\dagger A^\dagger$
+		\item \textbf{Erwartungswert im Zustand n}: $\langle A\rangle = \langle n | A | n \rangle$
+	\end{itemize}
 \end{itemize}
 
 \subsection{Schrödinger Gleichung}
@@ -40,4 +50,56 @@
 	$$
 		H\phi(\vec{r}) = E\phi(\vec{r})
 	$$
+	\item $H$ ist der \textbf{Hamilton-Operator} und beschreibt die \textbf{Gesamtenergie des Systems}
+\end{itemize}
+
+\subsection{Eindimensionale Rechteckpotentiale}%
+\label{quant:sub:eindimensionale_rechteckpotentiale}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Untersuchung des Einflusses von Potentialen $V(x)$ (welche äußere Kräfte beschreiben) auf die Wellenfunktion $\phi(x)$
+	\item \textbf{Allgemein}: $\frac{d^2}{dx^2}\phi(x) + \frac{2m}{\hbar^2}(E - V)\phi(x) = 0$
+	\item \textbf{Fallunterscheidung}:
+	\begin{itemize}
+		\item $E > V$: $\phi(x) = Ae^{ikx} + Be^{-ikx}, A, B = const.$
+		\item $E < V$: $\phi(x) = Ce^{\rho x} + De^{-\rho x}, C, D = const.$
+		\item $E = V$: $\phi(x)$ lineare Funktion
+	\end{itemize}
+	\item \textbf{Anschlussbedingungen}: Funktionswerte der Wellenfunktion und ihrer Ableitung an Sprungstellen müssen gleich sein (nützlich zur Herleitung der Parameter)
+\end{itemize}
+
+\subsection{Dirac-Notation}%
+\label{quant:sub:dirac_notation}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Bequeme Notation eines Zustands ohne Bezug auf eine Ortsvariable; sei hierfür $H$ der \textbf{Hilbertraum}
+	\item \textbf{Definitionen: }\textbf{Ket}: $|\theta\rangle \in H$, \textbf{Bra}: $\langle\phi| \in H$, \textbf{Skalarprodukt}: $\langle \phi | \theta \rangle$
+	\item \textbf{Rechenregeln}:
+	\begin{align*}
+		\langle \phi | \theta \rangle^* &= \langle \theta | \phi \rangle\\
+		\langle \alpha | \phi + \theta \rangle &= \langle \alpha | \phi \rangle + \langle \alpha | \theta \rangle\\
+		\langle \phi | \lambda_1\theta_1 + \lambda_2\theta_2 \rangle &= \lambda_1\langle \phi | \theta_1\rangle + \lambda_2\langle \phi |\theta_2 \rangle\\
+		\langle \lambda_1\phi_1 + \lambda_2\phi_2 | \theta \rangle &= \lambda_1^*\langle \phi_1 | \theta\rangle + \lambda_2^*\langle \phi_2 |\theta \rangle\\
+	\end{align*}
+\end{itemize}
+
+\subsection{Harmonischer Oszillator}%
+\label{quant:sub:harmonischer_oszillator}
+
+\begin{itemize}
+	\item \textbf{Parabelförmiges Potential}: $V(x) = \frac{1}{2}m\omega^2x^2$
+	\item \textbf{Hamilton-Operator}: $H = \frac{p^2}{2m} + \frac{1}{2}m\omega^2x^2$
+	\item \textbf{Algebraischer Lösungsansatz}: $\hat{H}|\phi_v\rangle = \epsilon_v|\psi_v\rangle$, wobei $\hat{H} = \frac{1}{\hbar\omega}H = \frac{1}{2}(\hat{x}^2 + \hat{p}^2)$ und $\epsilon = \frac{E}{\hbar\omega}$
+	\item \textbf{Größen der algebraischen Lösung}:
+	\begin{align*}
+		\hat{x} &= \sqrt{\frac{m\omega}{\hbar}}x = \frac{1}{\sqrt{2}}(a + a^\dagger)\\
+		\hat{p} &= \frac{1}{\sqrt{m\hbar\omega}}p = \frac{i}{\sqrt{2}}(a^\dagger - a)
+	\end{align*}
+	\item \textbf{Leitoperatoren}:
+	\begin{align*}
+		a &= \frac{1}{\sqrt{2}}(\hat{x} + i\hat{p})\\
+		a^\dagger &= \frac{1}{\sqrt{2}}(\hat{x} - i\hat{p})
+	\end{align*}
+	\item $a$ ist der \textbf{Vernichtungsoperator}, der den \textbf{Energiewert} um $\hbar\omega$ erniedrigt: $a|n\rangle = \sqrt{n}|n - 1\rangle$
+	\item $a^\dagger$ ist \textbf{Erzeugungsoperator}, der den \textbf{Energiewert} um $\hbar\omega$ erhöht: $a^\dagger|n\rangle = \sqrt{n + 1}|n + 1\rangle$
 \end{itemize}
