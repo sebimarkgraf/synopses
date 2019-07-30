@@ -14,10 +14,10 @@ Dabei wird der Inhalt auf den klausurrelevanten Stoff der von uns besuchten Vorl
 * Mechano-Informatik (mechano)
 * Programmierparadigmen (propa)
 * Softwaretechnik 2 (swt2)
+* Moderne Physik für Informatiker (modphys)
 
 ## In Erstfassung verfügbar
 * Kognitive Systeme (kogsys)
-* Moderne Physik für Informatiker (modphys)
 * Sicherheit (compsec)
 
 ## In Arbeit
