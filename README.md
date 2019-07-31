@@ -21,7 +21,7 @@ Dabei wird der Inhalt auf den klausurrelevanten Stoff der von uns besuchten Vorl
 * Sicherheit (compsec)
 
 ## In Arbeit
-* Physik für Informatiker (phys)
+* Physik für Informatiker (physik)
 
 ## Mitarbeit
 Fehlerkorrekturen und Erweiterungen der bestehenden Zusammenfassungen sind gerne als Pull Request gesehen. Bitte beachtet den [Styleguide](STYLEGUIDE.md)!
