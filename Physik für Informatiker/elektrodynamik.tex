@@ -4,8 +4,130 @@
 \subsection{Elektrische Wechselwirkung}%
 \label{edyn:sub:elektrische_wechselwirkung}
 
+\begin{itemize}
+	\item \textbf{Ladung} (Einheit: \textbf{Coulomb [C]})):
+	\begin{itemize}
+		\item \textbf{Polarisiert}: Zwei Polaritäten (positiv und negativ); gleiche Ladung stößt sich ab, ungleiche zieht sich an
+		\item \textbf{Additiv}: Kann durch Übertragung addiert/subtrahiert werden
+		\item \textbf{Gequantelt}: Ganzzahliges Vielfaches einer \quotestyle{Elementarladung} $e$
+		\item \textbf{Streng erhalten}: Kann weder erzeugt noch vernichtet werden
+		\item \textbf{Beispiel}:
+	\end{itemize}
+	\begin{equation}
+		q(e^-) = -1e,\ q(e^+) = +1e,\ q(p) = +1e,\ q(n) = 0
+	\end{equation}
+	\item \textbf{Leiter}: Elektronen im Material sind frei beweglich
+	\item \textbf{Isolator}: Elektronen sind lokal im Material gebunden, können wenig verschoben werden
+	\item \textbf{Halbleiter}: Leiter ab einer gewissen Energieschwelle
+	\item \textbf{Elektrische Feldkonstante}:
+	\begin{equation}
+		\epsilon_0 = 8.85 \cdot 10^{-12} \frac{c^2}{Nm^2}
+	\end{equation}
+	\item \textbf{Coulombsches Gesetz}: Kraft zwischen zwei Ladungen $q_1, q_2$ mit Verbindungsvektor $\vec{r}_{12}$
+	\begin{equation}
+		\vec{F} = \frac{q_1q_2}{4\pi\epsilon_0r_{12}^2}\frac{\vec{r}_{12}}{|r_{12}|}
+	\end{equation}
+	\item \textbf{Elektrisches Feld} (mit Feldstärke $\vec{E}$ und einer Punktladung $q$; mehrere Punktladungen per Superposition):
+	\begin{equation}
+		\vec{E} = \frac{\vec{F}}{q}
+	\end{equation}
+	\item \textbf{Energiedichte} des elektrischen Felds:
+	\begin{equation}
+		\omega = \frac{1}{2}\epsilon_0E^2
+	\end{equation}
+	\item \textbf{Feldlinien}: Geschlossene Linien von $+$ nach $-$ geben Bewegungsrichtungen für positive Probeladung an; Liniendichte ist proportional zur Feldstärke
+	\item \textbf{Elektrischer Fluss im homogenen elektrischen Feld} (Fluss durch Fläche $\vec{A}$ senkrecht oder um $\phi$ geneigt zu Feldlinien):
+	\begin{equation}
+		\Phi_{el} = \vec{E}\vec{A}_\perp = |\vec{E}||\vec{A}|cos\phi
+	\end{equation}
+	\item \textbf{Elektrischer Fluss im inhomogenen elektrischen Feld} (Fluss durch gekrümmte Fläche $\vec{A}$):
+	\begin{equation}
+		\Phi_{el} = \int_A \vec{E}d\vec{A}
+	\end{equation}
+	\item \textbf{Gaußscher Satz}: \itquote{Der elektrische Fluss durch eine beliebige geschlossene Fläche ist gleich der eingeschlossenen Ladung $Q$ dividiert durch die Feldkonstante $\epsilon_0$}, z.B Ladung in Kugel:
+	\begin{equation}
+		\Phi_{el} = \frac{Q}{\epsilon_0}
+	\end{equation}
+	\item \textbf{Potential} (Einheit: \textbf{Volt [V]}): Spannung (= Potentialdifferenz, Einheit: \textbf{Volt [V]}) gegenüber einem festen Referenzpunkt
+	\item \textbf{Spannung im elektrischen Feld} (von einem Punkt bzgl. einem Referenzpunkt):
+	\begin{equation}
+		\phi(\vec{r}) = -\int_{\vec{r}_{ref}}^{\vec{r}} \vec{E}d\vec{r}
+	\end{equation}
+	\item \textbf{Äquipotentiallinien}: Linien zwischen Orten gleichen Potentials, d.h. keine Spannung solang auf einer Linie; stets senkrecht auf Feldlinien
+	\item \textbf{Kondensator}: Bauelement zur Speicherung elektrischer Ladung; Plattenkondensator mit Plattenflächen $A$ im Abstand $d$ hat Kapazität (Einheit: \textbf{Farad [F]}):
+	\begin{equation}
+		C = \frac{\epsilon_0 A}{d}
+	\end{equation}
+	\item \textbf{Kapazität parallel geschalteter Kondensatoren}:
+	\begin{equation}
+		C_{gs} = \sum_i C_i
+	\end{equation}
+	\item \textbf{Kapazität in Reihe geschalteter Kondensatoren}:
+	\begin{equation}
+		\frac{1}{C_{gs}} = \sum_i \frac{1}{C_{i}}
+	\end{equation}
+	\item \textbf{Kapazität einer Kugel}:
+	\begin{equation}
+		C_{Kugel} = 4\pi\epsilon_0R
+	\end{equation}
+	\item \textbf{Dielektrikum}: Schwach- oder nicht-leitende Substanz (Feststoff, Flüssigkeit, Gas)
+	\item \textbf{Dielektrika im Kondensator}: Erhöht Kapazität und beeinflusst die Durchschlagsfestigkeit; ersetze bei eingesetztem Dielektrikum im elektrischen Feld $\epsilon_0$ durch $\epsilon_0\epsilon_r$ mit der Dielektrizitätszahl $\epsilon_r$
+	\item \textbf{Elektrischer Strom} (Einheit: \textbf{Ampere [A]}): \itquote{Ladung pro Zeit}
+	\begin{equation}
+		I = \frac{dQ}{dt}
+	\end{equation}
+	\item \textbf{Stromrichtung}: Fließrichtung von negativ zu positiv, technische Stromrichtung von positiv zu negativ
+	\item \textbf{Stromdichte} (bei mittlerer Driftgeschwindigkeit der Elektronen im Metall $\vec{v}_d$):
+	\begin{equation}
+		\vec{J} = \frac{I}{A} = nq\vec{v}_d
+	\end{equation}
+	\item \textbf{Widerstand} (Einheit: \textbf{Ohm [$\mathbf{\Omega}$]}): Maßzahl für die benötigte Spannung um einen Strom durch einen Leiter fließen zu lassen
+	\item \textbf{Ohmsches Gesetz}:
+	\begin{equation}
+		U = R I
+	\end{equation}
+	\item \textbf{Parallelschaltung von Widerständen}: Strom teilt sich auf, Spannung an jedem Widerstand gleich, Gesamtwiderstand:
+	\begin{equation}
+		\frac{1}{R_{gs}} = \sum_i \frac{1}{R_i}
+	\end{equation}
+	\item \textbf{Reihenschaltung von Widerständen}: Strom an jedem Widerstand gleich, Spannung teilt sich auf, Gesamtwiderstand:
+	\begin{equation}
+		R_{gs} = \sum_i R_i
+	\end{equation}
+	\item \textbf{Kirchhoff'sche Regeln}:
+	\begin{itemize}
+		\item \textbf{Ladungserhaltung (Knotenregel)}: \itquote{In einem Knotenpunkt eines elektrischen Netzwerkes ist die Summe der zufließenden Ströme gleich der Summe der abfließenden Ströme}
+		\item \textbf{Energieerhaltung (Maschenregel)}: \itquote{Die Summe der Potentialänderungen entlang jedes geschlossenen Stromkreises ist null}
+	\end{itemize}
+	\item \textbf{Elektrische Leistung} (Einheit: \textbf{Watt [W]}):
+	\begin{equation}
+		P = U I = R I^2
+	\end{equation}
+\end{itemize}
+
+\newpage
 \subsection{Magnetische Wechselwirkung}%
 \label{edyn:sub:magnetische_wechselwirkung}
 
+\begin{itemize}
+	\item \textbf{Lorentzkraft}:
+	\item \textbf{Kraft und Drehmoment auf einen elektrischen Strom}:
+	\item \textbf{Magnetfeld eines stromdurchflossenen Leiters}:
+	\item \textbf{Magnetischer Fluß}:
+	\item \textbf{Materie im magnetischen Feld}:
+	\item \textbf{Diamagnetismus}:
+	\item \textbf{Paramagnetismus}:
+	\item \textbf{Ferromagnetismus}:
+\end{itemize}
+
 \subsection{Zeitabhängige elektromagnetische Felder}%
 \label{edyn:sub:zeitabhaengige_elektromagnetische_felder}
+
+\begin{itemize}
+	\item \textbf{Induktionsgesetz}:
+	\item \textbf{Maxwellscher Verschiebungsstrom}:
+	\item \textbf{Selbstinduktion}:
+	\item \textbf{Induktivität}:
+	\item \textbf{Spule}:
+	\item \textbf{Energie des magnetischen Feldes}:
+\end{itemize}
