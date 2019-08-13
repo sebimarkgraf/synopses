@@ -8,12 +8,25 @@
 	$$
 	\item \textbf{Sicherheitseigenschaften}:
 	\begin{itemize}
-		\item \textbf{Collision Resistance}: Zwei Urbilder mit demselben Hashwert zu finden sollte möglichst schwierig sein
-		\item \textbf{Pre-Image Resistance}: Hashfunktion darf nur in eine Richtung berechenbar sein (Urbild finden ist möglichst schwierig)
+		\item \textbf{Collision Resistance}: Zwei Urbilder mit demselben Hashwert zu finden sollte möglichst schwierig sein. Formal:
+		\begin{align*}
+			Adv^{cr}_{H,A}(k):= Pr \left[ (X, X') \leftarrow A(1^k) : X \neq X'\land H_k(X) = H_k(X')\right]
+		\end{align*}
+		für PPT-Angreifer $A$ in $k$ vernachlässigbar.
+		\item \textbf{Pre-Image Resistance}: Hashfunktion darf nur in eine Richtung berechenbar sein (Urbild finden ist möglichst schwierig). Formal:
+		\begin{align*}
+			Adv^{ow}_{H,A}(k):= Pr \left[ X' \leftarrow A(H(X), 1^k) : H(X) = H(X')\right]
+		\end{align*}
+		für PPT-Angreifer $A$ in $k$ vernachlässigbar.
 		\item \textbf{Target Collision Resistance}:
 		\begin{itemize}
 			\item Zwischenschritt zwischen Collision Resistance und Pre-Image Resistance
 			\item Es muss schwierig sein, für ein \textbf{gegebenes} Urbild $X$ ein $X' \neq X$ zu finden, für das gilt: $H(X') = H(X)$
+			\item Formal: $H$ genügt Target Collision Resistance, falls
+			\begin{align*}
+				Adv^{tcr}_{H,A}(k):= Pr \left[ X' \leftarrow A(X, 1^k) : X \neq X' \land H_k(X) = H_k(X')\right] 
+			\end{align*}
+			für PPT-Angreifer $A$ in $k$ vernachlässigbar.
 		\end{itemize}
 		\item Collision Resistance $\Rightarrow$ Target Collision Resistance $\Rightarrow$ Pre-Image Resistance
 	\end{itemize}
