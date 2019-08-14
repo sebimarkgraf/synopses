@@ -23,5 +23,11 @@
 	\end{itemize}
 	\item \textbf{Hash-then-Sign Paradigma}: Signiere Hashwert einer Nachricht statt die Nachricht selbst; Signaturverfahren signieren nur Nachrichten fester Länge, Hashing-Verfahren schaffen Abhilfe
 	\item \textbf{Pseudorandomisierte Funktionen}: MAC-Berechnung sollte keine Regelmäßigkeiten aufweisen; pseudorandomisierte Funktionen $PRF$ verteilen Funktionswerte zufällig auf Urbilder (z.B durch Hash-Funktionen); \textbf{aber}: basieren diese auf Merkle-Damgard-Konstruktionen, gibt es oft Probleme mit EUF-CMA-Sicherheit!
-	\item \textbf{Keyed-Hash MAC (HMAC)}: Basiert auf Merkle-Damgard-Konstruktion, aber erzeugt EUF-CMA-sichere pseudorandomisierte Funktionen für MACs
+	\item \textbf{Keyed-Hash MAC (HMAC)}:
+	\begin{itemize}
+		\item Basiert auf Merkle-Damgard-Konstruktion (Hashfunktion $H$), aber erzeugt EUF-CMA-sichere pseudorandomisierte Funktionen für MACs
+		\item $ipad$ und $opad$ sind das $inner$ bzw. $outer\;padding$, zwei Konstanten die bei jedem Signaturvorgang identisch bleiben
+		\item \textbf{Signatur}: $SIG(K, M) = H((K \oplus \textit{opad})||H((K \oplus \textit{ipad})|| M))$
+		\item \textbf{Verifikation}: $VER(K, M, \sigma) = 1 \Leftrightarrow \sigma = H((K \oplus \textit{opad})|| H((K \oplus \textit{ipad})|| M))$
+	\end{itemize}
 \end{itemize}

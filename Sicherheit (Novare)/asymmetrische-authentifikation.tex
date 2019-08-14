@@ -47,6 +47,16 @@
 	\begin{itemize}
 		\item Hash-Then-Sign-Paradigma + ElGamal-Signaturverfahren + kollisionsresistente Hashfunktion $H$
 		\item Zweitwichtigster Signaturalgorithmus (nach RSA)
+		\item \textbf{Signatur}: $SIG(sk, M) = (a, b)$ mit $G \subset \mathbb{Z}_p^*$
+		\begin{align*}
+			a &:= (g^e \bmod p)\mod \left|G\right|\\
+			b &:= (H(M) + a \cdot x) \cdot e^{-1} \mod \left|G\right|\text{.}
+		\end{align*}
+		\item \textbf{Probleme}:
+		\begin{itemize}
+			\item Für jede Signatur muss neue Zufallszahl gewählt werden, ein guter Zufallsgenerator ist also wichtig
+			\item DSA EUF-CMA-Sicherheit noch nicht eindeutig geklärt
+		\end{itemize}
 	\end{itemize}
 	\item \textbf{Digitale Zertifikate}:
 	\begin{itemize}
