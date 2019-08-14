@@ -44,7 +44,7 @@
 	\begin{equation}
 		\Phi_{el} = \int_A \vec{E}d\vec{A}
 	\end{equation}
-	\item \textbf{Gaußscher Satz}: \itquote{Der elektrische Fluss durch eine beliebige geschlossene Fläche ist gleich der eingeschlossenen Ladung $Q$ dividiert durch die Feldkonstante $\epsilon_0$}, z.B Ladung in Kugel:
+	\item \textbf{Gaußscher Satz}: \itquote{Der elektrische Fluss durch eine beliebige geschlossene Fläche ist gleich der eingeschlossenen Ladung $Q$ dividiert durch die Feldkonstante $\epsilon_0$.} Bspw. Ladung in Kugel:
 	\begin{equation}
 		\Phi_{el} = \frac{Q}{\epsilon_0}
 	\end{equation}
@@ -72,7 +72,7 @@
 	\end{equation}
 	\item \textbf{Dielektrikum}: Schwach- oder nicht-leitende Substanz (Feststoff, Flüssigkeit, Gas)
 	\item \textbf{Dielektrika im Kondensator}: Erhöht Kapazität und beeinflusst die Durchschlagsfestigkeit; ersetze bei eingesetztem Dielektrikum im elektrischen Feld $\epsilon_0$ durch $\epsilon_0\epsilon_r$ mit der Dielektrizitätszahl $\epsilon_r$
-	\item \textbf{Elektrischer Strom} (Einheit: \textbf{Ampere [A]}): \itquote{Ladung pro Zeit}
+	\item \textbf{Elektrischer Strom} (Einheit: \textbf{Ampere [A]}): \quotestyle{Ladung pro Zeit}
 	\begin{equation}
 		I = \frac{dQ}{dt}
 	\end{equation}
@@ -96,8 +96,8 @@
 	\end{equation}
 	\item \textbf{Kirchhoff'sche Regeln}:
 	\begin{itemize}
-		\item \textbf{Ladungserhaltung (Knotenregel)}: \itquote{In einem Knotenpunkt eines elektrischen Netzwerkes ist die Summe der zufließenden Ströme gleich der Summe der abfließenden Ströme}
-		\item \textbf{Energieerhaltung (Maschenregel)}: \itquote{Die Summe der Potentialänderungen entlang jedes geschlossenen Stromkreises ist null}
+		\item \textbf{Ladungserhaltung (Knotenregel)}: \itquote{In einem Knotenpunkt eines elektrischen Netzwerkes ist die Summe der zufließenden Ströme gleich der Summe der abfließenden Ströme.}
+		\item \textbf{Energieerhaltung (Maschenregel)}: \itquote{Die Summe der Potentialänderungen entlang jedes geschlossenen Stromkreises ist null.}
 	\end{itemize}
 	\item \textbf{Elektrische Leistung} (Einheit: \textbf{Watt [W]}):
 	\begin{equation}
@@ -110,24 +110,95 @@
 \label{edyn:sub:magnetische_wechselwirkung}
 
 \begin{itemize}
-	\item \textbf{Lorentzkraft}:
-	\item \textbf{Kraft und Drehmoment auf einen elektrischen Strom}:
-	\item \textbf{Magnetfeld eines stromdurchflossenen Leiters}:
-	\item \textbf{Magnetischer Fluß}:
-	\item \textbf{Materie im magnetischen Feld}:
-	\item \textbf{Diamagnetismus}:
-	\item \textbf{Paramagnetismus}:
-	\item \textbf{Ferromagnetismus}:
+	\item \textbf{Magnetfeld}: Nord- und Südpol, elliptische Feldlinien von Norden nach Süden
+	\item \textbf{Magnetische Feldstärke}: Abhängig vom Erzeuger des Magnetfeldes, z.B für \textbf{geraden Leiter} im Abstand $r$:
+	\begin{equation}
+		\vec{H} = \frac{I}{2\pi r}
+	\end{equation}
+	\item \textbf{Magnetische Flussdichte} (Einheit: \textbf{Tesla [T]}, Materialkonstante $\mu$):
+	\begin{equation}
+		\vec{B} = \mu\vec{H}
+	\end{equation}
+	\item \textbf{Lorentzkraft} (Kraft auf bewegte Ladungen $q$ mit Geschwindigkeit $\vec{v}$ im Magnetfeld $\vec{B}$):
+	\begin{equation}
+		\vec{F}_L = q\vec{v}\times\vec{B}
+	\end{equation}
+	\item \textbf{Kraft auf stromdurchflossenen Leiter} (Stromstärke $I$, Leiterlänge $\vec{s}$):
+	\begin{equation}
+		\vec{F}_L = I\vec{s}\times\vec{B}
+	\end{equation}
+	\item \textbf{Rechte-Hand-Regel}: Daumen in technische Stromrichtung, Zeigefinger in Richtung der Magnetfeldlinien, rechter Mittelfinger in Richtung der Lorentzkraft
+	\item \textbf{Gaußsches Gesetz für Magnetfelder}:
+	\begin{equation}
+		\int \vec{B}d\vec{A} = 0
+	\end{equation}
+	\item \textbf{Gesetz von Biot-Savart}: Stromleiter infinitesimaler Länge $d\vec{s}$ am Ort $r'$ mit Strom $I$ und Materialkonstante $\mu_0$ erzeugt am Ort $r$ die magnetische Flussdichte $d\vec{B}$
+	\begin{equation}
+		d\vec{B} = \frac{\mu_0}{4\pi}Id\vec{s}\times\frac{r - r'}{|r - r'|^3}
+	\end{equation}
+	\item \textbf{Magnetfeld bewegter Ladung}:
+	\begin{equation}
+		\vec{B} = \frac{\mu_0}{2\pi}q\frac{\vec{v}\times\vec{r}}{r^3}
+	\end{equation}
+	\item \textbf{Amperesches Gesetz}:
+	\begin{equation}
+		\int \vec{B}d\vec{s} = \mu_0 I
+	\end{equation}
+	\item \textbf{Permeabilität}: \quotestyle{Durchdringbarkeit} eines Materials durch ein Magnetfeld
+	\item \textbf{Suszeptibilität}: \quotestyle{Übernahmefähigkeit}; beschreibt den von der Materie übernommenen Anteil des magnetischen Flusses
+	\newpage
+	\item \textbf{Klassifikation}: Magnetische Materialien sind entweder \textbf{Diamagnete, Paramagnete oder Ferromagnete}
+	\item \textbf{Diamagnete}: \itquote{Ein äußeres B-Feld erzeugt gegensätzlich ausgerichtete Dipole im Material, die somit das äußere Feld schwächen.}
+	\item \textbf{Paramagnete}: \itquote{Ein äußeres B-Feld erzeugt Gleichrichtung von Dipolen im Material, die somit das äußere Feld stärken.}
+	\item \textbf{Ferromagnete}: \itquote{Bereits existierende Bereiche mit magnetischer Vorzugsrichtung werden ausgerichtet und verstärken das äußere Feld deutlich; das Material bleibt magnetisch auch ohne äußeres Feld.}
 \end{itemize}
 
 \subsection{Zeitabhängige elektromagnetische Felder}%
 \label{edyn:sub:zeitabhaengige_elektromagnetische_felder}
 
 \begin{itemize}
-	\item \textbf{Induktionsgesetz}:
-	\item \textbf{Maxwellscher Verschiebungsstrom}:
-	\item \textbf{Selbstinduktion}:
-	\item \textbf{Induktivität}:
-	\item \textbf{Spule}:
-	\item \textbf{Energie des magnetischen Feldes}:
+	\item \textbf{Spule}: Elektrisches Bauelement, kreisförmig gewickelter Leiter der Länge $s$ mit $N$ Windungen, ggf. mit Kern
+	\item \textbf{Magnetfeld einer Spule}:
+	\begin{equation}
+		B = \mu_0\frac{N}{s}I
+	\end{equation}
+	\item \textbf{Hysterese}: \quotestyle{Nachwirkung}; Änderung der Feldstärke erzeugt verzögerten, schnellen Anstieg bzw. langsamen Abfall der Magnetisierung
+	\item \textbf{Remenenz}: Restmagnetisierung nach Abschalten des Magnetfelds
+	\item \textbf{Curie-Temperatur}: Materialspezifisch, z.B $1033K$ für Eisen; wird das Material über diese Temperatur erhitzt verliert es seinen Magnetismus
+	\item \textbf{Magnetischer Fluss im homogenen magnetischen Feld} (Fluss durch Fläche $\vec{A}$ senkrecht oder um $\phi$ geneigt zu Feldlinien):
+	\begin{equation}
+		\Phi = \vec{B}\vec{A}_\perp = |\vec{B}||\vec{A}|cos\phi
+	\end{equation}
+	\item \textbf{Magnetischer Fluss im inhomogenen magnetischen Feld} (Fluss durch gekrümmte Fläche $\vec{A}$):
+	\begin{equation}
+		\Phi = \int_A \vec{B}d\vec{A}
+	\end{equation}
+	\item \textbf{Faradaysches Induktionsgesetz}:
+	\begin{equation}
+		U_{ind} = -\frac{d\Phi}{dt} = -\dot{\Phi}
+	\end{equation}
+	\item \textbf{Lenzsche Regel}: \itquote{Die von einer Zustandsänderung verursachte Induktionsspannung ist stets so gerichtet, dass sie ihrer Ursache entgegen zu wirken sucht.}
+	\item \textbf{Induktivität}: Eigenschaft elektrischer Stromkreise, insbesondere von Spulen, welche die Änderung des Stroms mit der elektrischen Spannung in Beziehung setzt
+	\item \textbf{Maxwell Gleichungen}:
+	\begin{align*}
+		&\text{Gaußsches Gesetz:}\ &
+		\vec{\nabla}\vec{E} &\ = \frac{\rho}{\epsilon_0}
+		&\ \Leftrightarrow\ & \int_{\partial V}\vec{E}d\vec{A} &\ =\ & \frac{Q}{\epsilon_0}\\
+%		
+		&\text{Gauß. Gesetz für B-Felder:}\ &
+		\vec{\nabla}\vec{B} &\ = 0
+		&\ \Leftrightarrow\ & \int_{\partial V}\vec{B}d\vec{A} &\ =\ & 0\\
+%				
+		&\text{Induktionsgesetz:}\ &
+		\vec{\nabla}\times\vec{E} &\ = -\partial_t\vec{B}
+		&\ \Leftrightarrow\ & \int_{\partial A}\vec{E}d\vec{s} &\ =\ & -\frac{d}{dt}\int_{A}\vec{B}d\vec{A}\\
+%
+		&\text{Erw. Durchflutungsgesetz:}\ &
+		\vec{\nabla}\times\vec{B} &\ = \mu_0\epsilon_0\partial_t\vec{E} + \mu_0\vec{j}
+		&\ \Leftrightarrow\ & \int_{\partial A}\vec{B}d\vec{s} &\ =\ & \mu_0\epsilon_0\frac{d}{dt}\int\vec{E}d\vec{A} + \mu_0I\\
+	\end{align*}
+	\item \textbf{Kontinuitätsgleichung}:
+	\begin{equation}
+		\partial_t\rho + \vec{\nabla}\vec{j} = 0
+	\end{equation}
 \end{itemize}
