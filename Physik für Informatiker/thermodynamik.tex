@@ -1,0 +1,72 @@
+\section{Wärmelehre \& Thermodynamik}%
+\label{sec:waermelehre_thermodynamik}
+
+\begin{itemize}
+	\item \textbf{Wärmelehre}: Beschreibung von Systemen durch makroskopische Zustandsgrößen (Temperatur, Druck, Volumen etc.)
+	\item \textbf{Temperatur}: Maß für die innere Energie bzw. Wärme eines Körpers - oder auch die mittlere kinetische Energie der Moleküle in einem System; Skalen: \textbf{Celsius [\degree C]}, \textbf{Fahrenheit [\degree F]}, \textbf{Kelvin [K] (SI-Basiseinheit, Einheit von Celsius-Temperaturdifferenzen)}
+	\item \textbf{Thermisches Gleichgewicht}: Kein Wärmefluss zwischen Systemen bei Kontakt
+	\item \textbf{Wärmeausdehnung} (Linearer Ausdehnungkoeffizient $\alpha$):
+	\begin{equation}
+		\Delta L = \alpha \Delta T L_0
+	\end{equation}
+	\item \textbf{Anomalie des Wassers}: Volumenvergrößerung bei Abkühlung (unter $4\degree C$)
+	\item \textbf{Phänomenologie idealer Gase} (Volumen $V$, Temperatur $T$, Druck $p$):
+	\begin{itemize}
+		\item \textbf{Gesetz von Gay-Lussac}: $\frac{V}{T} = const.$
+		\item \textbf{Gesetz von Boyle-Mariotte}: $pV = const.$
+		\item \textbf{Gesetz von Amontons}: $\frac{p}{T} = const.$
+	\end{itemize}
+	\item \textbf{Zustandsgleichung idealer Gase} (Stoffmenge $n$, Teilchenzahl $N$, ideale Gaskonstante $R$, Ludwig-Boltzmann-Konstante $k$):
+	\begin{equation}
+		pV = nRT = NkT
+	\end{equation}
+	\item \textbf{Wärmekapazität}:
+	\begin{equation}
+		C = \frac{dQ}{dT}
+	\end{equation}
+	\item \textbf{Spezifische Wärmekapazität}:
+	\begin{equation}
+		c = \frac{C}{m}
+	\end{equation}
+	\item \textbf{Zusammenhang der molaren Wärmekapazitäten bei konsantem Volumen und bei konstantem Druck}:
+	\begin{equation}
+		c_p = c_V + R
+	\end{equation}
+	\item \textbf{(Änderung der) inneren Energie} (Änderung der Wärme $\partial Q$, zugeführte Arbeit $\partial W$):
+	\begin{equation}
+		dU = \partial Q - pdV = \partial Q + \partial W
+	\end{equation}
+	\item \textbf{(Änderung der) Enthalpie}:
+	\begin{equation}
+		dH = d(U + \rho V) = \partial Q + Vdp = nc_pdT
+	\end{equation}
+	\item \textbf{Adiabatenkoeffizient}:
+	\begin{equation}
+		\gamma = \frac{c_p}{c_V}
+	\end{equation}
+	\item \textbf{Adiabatische Zustandsänderungen} (Zustandsänderungen ohne Wärmetransport):
+	\begin{align*}
+		\text{Grundgleichung:}\ \frac{dT}{T} &= -\frac{R}{c_V}\frac{dV}{V}\\
+		\text{Temperatur:}\ T_2 &= T_1(\frac{V_1}{V_2})^{\gamma - 1}\\
+		\text{Druck:}\ p_2 &= p_1(\frac{V_1}{V_2})^{\gamma}\\
+		\text{Temperatur alt.:}\ T_2 &= T_1(\frac{p_1}{p_2})^{\frac{1 - \gamma}{\gamma}}\\
+	\end{align*}
+	\item \textbf{(Änderung der) Entropie}:
+	\begin{equation}
+		dS = \frac{\partial Q}{T}
+	\end{equation}
+	\item \textbf{Potentialgrößen per Entropie}:
+	\begin{align*}
+		\text{Innere Energie:}\ dU &= TdS - pdV\\
+		\text{Enthalpie:}\ dH &= TdS + Vdp\\
+		\text{Freie Energien:}\ dF &= -SdT - pdV\\
+		\text{Freie Enthalpien:}\ dG &= -SdT + Vdp
+	\end{align*}
+	\item \textbf{Hauptsätze der Thermodynamik}:
+	\begin{enumerate}
+		\setcounter{enumi}{-1}
+		\item \itquote{Zwei Systeme, die jeweils mit einem dritten System in thermischem Gleichgewicht stehen, stehen auch untereinander in thermischem Gleichgewicht.}
+		\item \itquote{Die innere Energie eines Systems kann sich nur durch den Transport von Energie in Form von Arbeit und/oder Wärme über die Grenze des Systems ändern:} $dU = \delta Q + \delta W$
+		\item \itquote{In einem abgeschlossenen, isolierten System nimmt die Entropie niemals ab. Die Entropie bleibt genau dann gleich, wenn in einem solchen System nur reversible Prozesse ablaufen.}
+	\end{enumerate}
+\end{itemize}

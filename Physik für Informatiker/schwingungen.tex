@@ -1,0 +1,30 @@
+\section{Schwingungen}%
+\label{schwing:sec:schwingungen}
+
+\begin{itemize}
+	\item \textbf{Schwingung}: Sich wiederholende zeitliche Schwankung einer Zustandsgröße eines Systems
+	\item \textbf{Harmonische Schwingung}: Schwingung kann durch Sinusfunktion ausgedrückt werden
+	\item \textbf{Allgemeine Schwingungsgleichung} ($x_0, \phi, A, B$ vorgegeben durch Randbedingungen):
+	\begin{align*}
+		x(t) &= x_0 + sin(\omega t + \phi)\\
+			 &= Ae^{i\omega t} + Be^{-i\omega t}\\
+			 &= A(cos(\omega t) + isin(\omega t)) + B(cos(\omega t) - isin(\omega t))
+	\end{align*}
+	\item \textbf{Bewegungsgleichung aus Energiebilanz}:
+	\begin{equation}
+		E_{pot} + E_{kin} = \frac{1}{2}kx^2 + \frac{1}{2}m\dot{x} = const. \Rightarrow \frac{d}{dt}(\frac{1}{2}kx^2 + \frac{1}{2}m\dot{x}) = 0 \Rightarrow \dot{x}(kx + m\ddot{x}) = 0
+	\end{equation}
+	\item \textbf{Mathematisches Pendel} (Masse $m$ an Seil der Länge $l$ mit Auslenkung $\phi$):
+	\begin{equation}
+		l\ddot{\phi} + g\phi = 0
+	\end{equation}
+	\item \textbf{Gedämpfte Schwingung} (Schwingung mit Reibung, $b, k$ Parameter der dämpfenden Kraft):
+	\begin{equation}
+		\ddot{x} + \frac{b}{m}\dot{x} + \frac{k}{m}x = 0
+	\end{equation}
+	\item \textbf{Erzwungene Schwingung} (einer Masse an einer Feder, die mit einer weiteren Feder an einem Rad mit Kreisfrequenz $\omega$ befestigt ist):
+	\begin{equation}
+		\ddot{x} + \frac{b}{m}\dot{x} + \frac{k}{m}x = F_0cos(\omega t)
+	\end{equation}
+	\item \textbf{Gekoppelte Schwingung} (Pendel an Pendel): Gesamtschwingung ist Superposition der Eigenschwingungen
+\end{itemize}

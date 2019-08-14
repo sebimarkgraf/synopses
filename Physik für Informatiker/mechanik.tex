@@ -1,0 +1,336 @@
+\section{Mechanik}%
+\label{mech:sec:mechanik}
+
+\subsection{Kinematik}%
+\label{mech:sub:kinematik}
+
+\begin{itemize}
+	\item \textbf{Definition}: Geometrische Beschreibung von Bewegungen
+	\item \textbf{Geradlinige Bewegung (Translation)}:
+	\begin{itemize}
+		\item Bewegung entlang einer geraden Linie/Achse, Problem kann auf eine Dimension reduziert werden
+		\item Geschwindigkeit entweder \textbf{konstant} (gleichförmige Bewegung) oder variiert mit der Zeit
+		\item \textbf{Momentangeschwindigkeit}:
+		\begin{equation}
+			\vec{v}_M = \lim\limits_{\Delta t \rightarrow 0} \frac{\Delta \vec{x}}{\Delta t} = \frac{d\vec{x}}{dt} = \dot{\vec{x}}
+		\end{equation}
+		\item \textbf{Momentanbeschleunigung}:
+		\begin{equation}
+			\vec{v}_M = \lim\limits_{\Delta t \rightarrow 0} \frac{\Delta \vec{v}}{\Delta t} = \frac{d\vec{v}}{dt} = \dot{\vec{v}} = \ddot{\vec{x}}
+		\end{equation}
+		\item \textbf{Allgemein}: Beschleunigung ist abgeleitete Geschwindigkeit ist abgeleiteter Ort, umgedreht mit Integration
+		\item \textbf{Bewegungsgleichung gleichförmig unbeschleunigt (Weg-Zeit-Gesetz)}:
+		\begin{equation}
+			\vec{x}(t) = \vec{v}_0t + \vec{x}_0
+		\end{equation}
+		\item \textbf{Bewegungsgleichung gleichmäßig beschleunigt}:
+		\begin{equation}
+			\vec{x}(t) = \frac{1}{2}\vec{a}_0t^2 + \vec{v}_0t + \vec{x}_0
+		\end{equation}
+		\item \textbf{Bewegungsgleichung ungleichmäßig beschleunigt}: Zweifaches integrieren der Beschleunigungsfunktion ergibt Weg-Zeit-Funktion
+	\end{itemize}
+	\item \textbf{Superpositionsprinzip}:
+	\begin{itemize}
+		\item Physikalische Größen haben \textbf{Vektoreigenschaften} und können sich \textbf{überlagern} (Vektoraddition)
+		\item \textbf{Beispiel}: Gesamtgeschwindigkeit wenn man auf einem fahrenden Wagen in Fahrtrichtung läuft ist Summe der Einzelgeschwindigkeiten
+	\end{itemize}
+	\item \textbf{Erkenntnis des freien Falles}:
+	\begin{itemize}
+		\item An einem festen Ort auf der Erdoberfläche fallen alle Körper im Vakuum mit derselben Beschleunigung $g$
+		\item Fallbeschleunigung ist Vektor zum Erdmittelpunkt und variiert nach Höhe über dem Meeresspiegel, Variation meist vernachlässigbar
+		\item Im Regelfall: $g = 9.81 \frac{m}{s^2}$
+	\end{itemize}
+	\newpage
+	\item \textbf{Nichtgeradlinige Bewegung des schrägen Wurfes}:
+	\begin{itemize}
+		\item Unterteile in horizontale und vertikale Bewegung (Vektordarstellung)
+		\begin{equation}
+			\vec{r}(t) = \begin{pmatrix}
+				x(t) + x_0\\
+				y(t) + y_0
+			\end{pmatrix}
+		\end{equation}
+		\item \textbf{Allgemeine Fallzeit} (maximal bei $\ang{90}$):
+		\begin{equation}
+			t_{fall} = \frac{2v_{0z}}{g} = \frac{2v_{0}sin\phi}{g}
+		\end{equation}
+		\item \textbf{Allgemeine Reichweite} (maximal bei $\ang{45}$):
+		\begin{equation}
+			x_{weite} = \frac{v_{0}^2}{g}sin(2\phi)
+		\end{equation}
+	\end{itemize}
+	\item \textbf{Kreisbewegung (Rotation)} für einen Kreis mit Radius $R$:
+	\begin{itemize}
+		\item \textbf{Winkelgeschwindigkeit}: Zeitliche Änderung des Winkels
+		\begin{equation}
+			\omega = \lim\limits_{\Delta t \rightarrow 0} \frac{\Delta \phi}{\Delta t} = \frac{d\phi}{dt} = \dot{\phi}
+		\end{equation}
+		\item Mittlere Winkelgeschwindigkeit: $\omega = \frac{2\pi}{T}$, $T$ sei die Periodendauer
+		\item \textbf{Bahngeschwindigkeit}: (Tangentiale Geschwindigkeit):
+		\begin{equation}
+			\vec{v} = \vec{\omega} R
+		\end{equation}
+		\item \textbf{Zentripetal-/Radialbeschleunigung} (Beschleunigung zur Kreismitte):
+		\begin{equation}
+			\vec{a}_r = \frac{\vec{v}^2}{R}
+		\end{equation}
+		\item \textbf{Tangentiale Beschleunigung} (Beschleunigung entlang des Kreisrandes):
+		\begin{equation}
+			\vec{a}_{tan} = \frac{d\vec{v}}{dt}
+		\end{equation}
+		\item Kreisbewegungen sind äquivalent zu \textbf{harmonischen Bewegungen}, Projektion auf ein Koordinatensystem ergibt \textbf{harmonische Schwingung}
+		\item Ungleichmäßige Kreisbewegungen haben eine \textbf{tangentiale} und eine \textbf{radiale} Beschleunigung, die \textbf{Gesamtbeschleunigung} ergibt sich als Summe (Superposition)
+		\begin{equation}
+			\vec{a} = \vec{a}_{tan} + \vec{a}_r
+		\end{equation}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Dynamik der Teilchen}%
+\label{mech:sub:dynamik_der_teilchen}
+
+\begin{itemize}
+	\item \textbf{Newtonsche Axiome} (\textit{Achtung: Gilt nur in Inertialsystemen (d.h. bei konstanten Geschwindigkeiten)}:
+	\begin{enumerate}
+		\item \textbf{Trägheitsprinzip}: \itquote{Ein Körper bleibt in Ruhe oder bewegt sich mit konstanter Geschwindigkeit weiter, wenn keine äußere Kraft auf ihn einwirkt.}
+		\item \textbf{Aktionsprinzip}: \itquote{Die Beschleunigung eines Körpers ist umgekehrt proportional zu seiner Masse und direkt proportional zur resultierenden Kraft, die auf ihn wirkt.}
+		\item \textbf{Reaktionsprinzip}: \itquote{Kräfte treten immer paarweise auf. Wenn ein Körper A auf B eine Kraft F ausübt, dann wirkt -F von B auf A.}
+	\end{enumerate}
+	\item \textbf{Impuls} (umgangssprachlich \quotestyle{Schwung} oder \quotestyle{Wucht}):
+	\begin{equation}
+		\vec{p} = m\vec{v}
+	\end{equation}
+	\item \textbf{Kraft} (Einheit: \textbf{Newton [N]}):
+	\begin{equation}
+		\vec{F} = m\vec{a}
+	\end{equation}
+	\item \textbf{Arbeit} (Einheit: \textbf{Joule [J]}; sei $\vec{s}$ ein Wegabschnitt):
+	\begin{equation}
+		W = \int_{\vec{s}} \vec{F}d\vec{s}
+	\end{equation}
+	\item \textbf{Leistung} (Einheit: \textbf{Watt [W]}): Arbeit pro Zeit
+	\item \textbf{Konservative Kräfte} verrichten Arbeit, welche nicht wegabhängig ist (z.B Gravitation)
+	\item \textbf{Energie}: (Einheit: \textbf{Joule [J]})
+	\begin{itemize}
+		\item \textbf{Arbeit} ist die Energie, die durch Kräfte auf einen Körper übertragen wird
+		\item \textbf{Kinetische Energie} (Energie durch Bewegung):
+		\begin{equation}
+			E_{kin} = \frac{1}{2}mv^2
+		\end{equation}
+		\item \textbf{Potentielle Energie} (Energie durch Lage $h$ in einem Kraftfeld/Potential):
+		\begin{equation}
+			E_{pot} = mgh\ (= \frac{1}{2}kx^2\ \text{für eine gedehnte Feder})
+		\end{equation}
+		\item \textbf{Elektrische Energie} (Kondensator):
+		\begin{equation}
+			E_e = \frac{1}{2}CU^2
+		\end{equation}
+		\item \textbf{Magnetische Energie} (Magnetfeld einer Spule):
+		\begin{equation}
+			E_m = \frac{1}{2}LI^2
+		\end{equation}
+		\item \textbf{Gesamtenergie eines Körpers}:
+		\begin{equation}
+			E = mc^2
+		\end{equation}
+	\end{itemize}
+	\item \textbf{Impulserhaltung}: Wenn keine äußeren Kräfte auf ein System einwirken, ist der Impuls konstant
+	\item \textbf{Energieerhaltung}: In einem abgeschlossenen System bleibt die Gesamtenergie konstant
+	\item \textbf{Elastischer Stoß}: Gesamtenergie beim Stoß bleibt komplett kinetisch, Gesamtimpuls bleibt gleich
+	\item \textbf{Inelastischer Stoß}: Gesamtenergie wird z.T innere Energie (Wärme, Deformation), Gesamtimpuls bleibt gleich
+	\item \textbf{Elastizität}: Kenngröße eines Stoßes
+	\begin{equation}
+		0 \leq e = \frac{\text{relative Rückstoßgeschwindigkeit}}{\text{relative Annäherungsgeschwindigkeit}} = |\frac{v_2' - v_1'}{v_2 - v_1}| \leq 1
+	\end{equation}
+	\item \textbf{Reibung}:
+	\begin{itemize}
+		\item Reibungskraft $\vec{F}_R$ ist immer der Bewegung \textbf{entgegengesetzt}
+		\item Normalkraft $\vec{F}_N$ ist immer senkrecht zur Kontaktfläche
+		\item \textbf{Coloumb-Reibung}: Trockene Reibung auf fester Unterlage
+		\begin{itemize}
+			\item \textbf{Haftreibung} (\quotestyle{Reibung im Stillstand}):
+		\end{itemize}
+		\begin{equation}
+			\vec{F}_H = M_H * \vec{F}_N\ (M_H = \text{Materialkonstante})
+		\end{equation}
+		\begin{itemize}
+			\item \textbf{Gleitreibung} (\quotestyle{Reibung bei Bewegung}):
+		\end{itemize}
+		\begin{equation}
+			\vec{F}_G = M_G * \vec{F}_N\ (M_G = \text{Materialkonstante})
+		\end{equation}
+		\item \textbf{Stokes-Reibung}: Viskose Reibung im Fluiden (Gas oder Flüssigkeit)
+		\begin{itemize}
+			\item Für eine Kugel mit Radius $R$, Geschwindigkeit $\vec{v}$ und in einem Fluid mit Viskosität $\eta$
+		\end{itemize}
+		\begin{equation}
+			\vec{F}_R = -6\pi\eta R\vec{v}
+		\end{equation}
+		\item \textbf{Newton-Reibung}: Turbulenz im Fluiden (Luftreibung)
+		\begin{itemize}
+			\item Für einen Körper mit Geschwindigkeit $\vec{v}$, Widerstandskoeffizient $C_W$ und Querschnitt der Bewegung $A$ in einem Fluid mit Dichte $\rho$
+		\end{itemize}
+		\begin{equation}
+			\vec{F}_R = -\frac{1}{2}C_W\rho A \vec{v}^2
+		\end{equation}
+	\end{itemize}
+	\item \textbf{Drehimpuls}: Für Punktmasse am Ort $\vec{r}$ mit Impuls $\vec{p}$; steht senkrecht auf Impuls- und Ortsvektor:
+	\begin{equation}
+		\vec{L} = \vec{r} \times \vec{p}
+	\end{equation}
+	\item \textbf{Drehimpulserhaltung}: Gesamtdrehimpuls in einem abgeschlossenen System bleibt konstant!
+	\item \textbf{Drehmoment} (Änderung des Drehimpulses):
+	\begin{equation}
+		\vec{M} = \vec{r} \times \vec{F} = \dot{\vec{L}}
+	\end{equation}
+\end{itemize}
+
+\subsection{Starre Körper}%
+\label{mech:sub:starre_koerper}
+
+\begin{itemize}
+	\item \textbf{Bedeutung}: Bisher wurden Körper als Massepunkte betrachtet; jetzt: Ansammlung unendlich vieler Massepunkte $m_i$ am Ort $r_i$
+	\item \textbf{Starrheit}: Nicht verformbar; zwei beliebige Punkte haben immer gleichen Abstand
+	\item \textbf{Schwerpunkt}: Mit der Gesamtmasse aller Punkte $M$ folgt der Vektor zum Schwerpunkt $\vec{r}_S$
+	\begin{equation}
+		\vec{r}_S = \frac{1}{M}\sum m_ir_i
+	\end{equation}
+	\item \textbf{Impuls des starren Körpers}:
+	\begin{equation}
+		\vec{p} = \sum \vec{p}_i = M \dot{\vec{r}}_S
+	\end{equation}
+	\item \textbf{Kraftgesetz des starren Körpers}:
+	\begin{equation}
+		\vec{F} = M\vec{a}_S = M\ddot{\vec{r}}_S
+	\end{equation}
+	\item \textbf{Drehimpuls des starren Körpers}:
+	\begin{equation}
+		\vec{L} = \sum (\vec{r}_i - \vec{r}_S) \times p_i + \sum \vec{r}_S \times \vec{p}_i
+	\end{equation}
+	\item \textbf{Integralschreibweise von Massepunkten} (bei kontinuierlicher Massenverteilung):
+	\begin{equation}
+		\int \vec{r}dm
+	\end{equation}
+	\item \textbf{Integralschreibweise des Schwerpunktes}:
+	\begin{equation}
+		\vec{r}_S = \frac{1}{M}\int \vec{r}dm = \frac{1}{M} \int \rho(\vec{r})\vec{r}dV
+	\end{equation}
+	\item \textbf{Komponentenschreibweise des Schwerpunktes} (für die x-Komponente, y und z analog):
+	\begin{equation}
+		\vec{r}_{Sx} = \frac{1}{M} \int \rho(x, y, z)xdxdydz\ (\text{Hinweis:}\ \rho(\vec{r}) = \rho(x, y, z)))
+	\end{equation}
+	\item \textbf{Drehmoment}:
+	\begin{equation}
+		\vec{M} = \vec{r} \times \vec{F} = \frac{d\vec{L}}{dt}
+	\end{equation}
+	\item \textbf{Trägheitsmoment}: Trägheit gegenüber einer Änderung der Winkelgeschwindigkeit bei einer Drehung
+	\begin{equation}
+		J = mr^2
+	\end{equation}
+	\item \textbf{Steinerscher Satz} (\quotestyle{Parallel-Axis-Theorem}):
+	\begin{itemize}
+		\item Dient der Berechnung des Trägheitsmoments eines starren Körpers für parallel verschobene Drehachsen
+		\item Addiere Trägheitsmoment für Achse durch Schwerpunkt und Trägheitsmoment einer Punktmasse im Abstand $d$ der Achsen
+	\end{itemize}
+	\begin{equation}
+		J_{total} = J_S + J_{PM}
+	\end{equation}
+\end{itemize}
+
+\subsection{Gravitation}%
+\label{mech:sub:gravitation}
+
+\begin{itemize}
+	\item \textbf{Kepler Gesetze}:
+	\begin{enumerate}
+		\item \textbf{Bahnorbit}: \itquote{Die Planeten bewegen sich auf ellpitischen Bahnen. In einem ihrer Brennpunkte steht die Sonne.}
+		\item \textbf{Flächensatz}: \itquote{Eine von der Sonne zum Planeten gezogene Verbindungslinie überstreicht in gleichen Zeiten gleich große Flächen.}
+		\item \textbf{Umlaufzeit/Periode}: \itquote{Die Quadrate der Umlaufzeiten zweier Planeten verhalten sich wie die Kuben (dritten Potenzen) der großen Halbachse der Ellipse.}
+	\end{enumerate}
+	\item \textbf{Newtonsches Gravitationsgesetz} (Gravitationskraft zweier Massen $m_1, m_2$ mit Verbindungsvektor $\vec{r}_{12}$):
+	\begin{equation}
+		\vec{F}_{12} = -G\frac{m_1m_2}{r_{12}^2} \frac{\vec{r}}{|\vec{r}|},\ (\text{Gravitationskonstante } G = 6.67 \cdot 10^{-11}N\frac{m^2}{kg^2})
+	\end{equation}
+	\item \textbf{Gravitationsfeldstärke} (der Masse $m$ bei Radius $r$):
+	\begin{equation}
+		g = -G\frac{m}{r^2}
+	\end{equation}
+	\item \textbf{Potentielle Energie} (der Masse $m_1$ im Gravitationsfeld der Masse $m_2$ mit Abstand $r$)
+	\begin{equation}
+		E_{pot} = -G\frac{m_1m_2}{r}
+	\end{equation}
+	\item \textbf{Kreisgeschwindigkeit} (benötigte Geschwindigkeit, um antriebsfrei auf einem Orbit mit Radius $r$ um einen Körper der Masse $m$ zu bleiben)
+	\begin{equation}
+		v_K = \sqrt{G\frac{m}{r}}
+	\end{equation}
+	\item \textbf{Fluchtgeschwindigkeit} (benötigte Anfangsgeschwindigkeit, um aus dem Gravitationsfeld eines Körpers der Masse $m$ mit Radius $r$ herauszufliegen)
+	\begin{equation}
+		v_F = \sqrt{2G\frac{m}{r}} (= \sqrt{2gr}\ \text{für die Erde})
+	\end{equation}
+\end{itemize}
+
+\newpage
+\subsection{Relativitätstheorie}%
+\label{mech:sub:relativitaetstheorie}
+
+\begin{itemize}
+	\item \textbf{Einsteinsche Postulate}:
+	\begin{enumerate}
+		\item \textbf{Symmetrie zwischen Bezugssystemen}: \itquote{Physikalische Gesetze haben dieselbe Form in allen Inertialsystemen.}
+		\item \textbf{Konstanz der Lichtgeschwindigkeit}: \itquote{Lichtgeschwindigkeit im Vakuum ist in allen Inertialsystemen gleich.}
+	\end{enumerate}
+	\item \textbf{Äquivalenzprinzip für träge und schwere Masse}: \itquote{Ein homogenes Gravitationsfeld ist äquivalent zu einem gleichmäßig beschleunigten Bezugssystem.}
+	\item \textbf{Welle-Teilchen-Dualismus}: Licht verhält sich wie Teilchen (z.B beim Photoeffekt) und wie eine Welle (z.B Doppelspalt)
+	\begin{itemize}
+		\item \textbf{Photoeffekt}: Fällt Licht auf ein Metall, werden Elektronen aus der Oberfläche ausgeschlagen; Energie der gelösten Elektronen hängt von der Lichtfrequenz ab
+		\item \textbf{Doppelspalt}: Schieße Licht auf Doppelspalt, hinter dem ein Schirm in einigen Metern Entfernung steht; es bilden sich wellentypische Interferenzmuster
+	\end{itemize}
+	\item \textbf{Michelson-Morley-Experiment}: Gedankenexperiment, bei dem die Relativgeschwindigkeit der Erde zu einem theoretischen Lichtäther (Medium, in dem sich Licht bewegt) berechnet werden sollte; bewies, dass es keinen Äther gibt und das zweite Einsteinsche Postulat gilt
+	\item \textbf{Relativistische Beziehung für Energie, Masse und Impuls}:
+	\begin{equation}
+		E^2 = E_0^2 + c^2p^2,\text{wobei mit der Ruhemasse } m_0\ \text{gilt:}\ E_0 = m_0c^2
+	\end{equation}
+	\item \textbf{Lorentzfaktor}:
+	\begin{equation}
+		\gamma = \frac{1}{\sqrt{1 - \beta^2}},\ \beta = \frac{v}{c}\ (\text{\itquote{rel. Geschwindigkeit}})
+	\end{equation}
+	\item \textbf{Rel. Masse und Impuls}:
+	\begin{equation}
+		m_{rel} = \gamma m_0,\ p_{rel} = \gamma m_0v
+	\end{equation}
+	\item \textbf{Allgemein gültige Energie-Masse-Beziehung}:
+	\begin{equation}
+		E = \gamma m_0 c^2
+	\end{equation}
+	\item \textbf{Zeitdilatation} (\itquote{Bewegte Uhren gehen langsamer}):
+	\begin{equation}
+		\Delta t = \gamma \Delta t_0
+	\end{equation}
+	\item \textbf{Längenkontraktion}:
+	\begin{equation}
+		\Delta l = \frac{\Delta l_0}{\gamma}
+	\end{equation}
+	\item \textbf{Galilei-Transformation}: Klassische Transformation eines bewegten Bezugssystems in ein anderes; gilt nur bei gleichförmig geradliniger Bewegung, Drehung und/oder einer Verschiebung in Raum oder Zeit, bspw. entlang der x-Achse:
+	\begin{equation}
+		x' = x - vt,\ y' = y,\ z' = z,\ t' = t
+	\end{equation}
+	\item \textbf{Lorentz-Transformation}: Relativistische Umsetzung der Galilei-Transformation, da diese bei großen Geschwindigkeiten nicht mehr funktioniert:
+	\begin{equation}
+		x' = \gamma(x - vt),\ y' = y,\ z' = z,\ t' = \gamma(t - \frac{vx}{c^2})
+	\end{equation}
+	\item \textbf{Inverse Lorentz-Transformation}:
+	\begin{equation}
+		x = \gamma(x' + vt),\ y = y',\ z = z',\ t = \gamma(t' + \frac{vx'}{c^2})
+	\end{equation}
+	\item \textbf{Additionstheorem für relativistische Geschwindigkeiten}: Bewegt sich $S'$ relativ zu $S$ mit Geschwindigkeit $v$ und die Teilchen in $S'$ bewegen sich mit $u_x' = \frac{dx'}{dt'}$, dann gilt für $u_x$:
+	\begin{equation}
+		u_x = \frac{u_x' + v}{1 + \frac{u_x'v}{c^2}}
+	\end{equation}
+	\item \textbf{Allgemeine Relativitätstheorie}: \itquote{Schwere und träge Masse sind identisch.} (\textbf{Äquivalenzprinzip} $\rightarrow$ neue Theorie der Gravitation)
+	\begin{itemize} 
+		\item Homogenes Gravitationsfeld ist äquivalent zu einem beschleunigten Bezugssystem ($\rightarrow$ Lichtablenkung im Gravitationsfeld)
+		\item Geometrische Theorie der Raum-Zeit
+		\item Vorhersage der Existenz von schwarzen Löchern
+		\item Gravitationswellen
+	\end{itemize}
+\end{itemize}
