@@ -8,7 +8,10 @@
 		\item Es muss schwer sein, vom öffentlichen Schlüssel auf den privaten zu schließen
 		\item Der öffentliche Schlüssel eines anderen darf vor dem Erhalt nicht durch Dritte manipuliert werden
 	\end{itemize}
-	\item \textbf{Erweiterter Euklidischer Algorithmus (EEA)}: Bestimmt das inverse Element zu einem Element einer multiplikativen Gruppe
+	\item \textbf{Erweiterter Euklidischer Algorithmus (EEA)}: Bestimmt das inverse Element zu einem Element einer multiplikativen Gruppe. Für gegebene Parameter $A$, $B$ werden $ggT(A, B)$ sowie ganze Zahlen $s$, $t$ berechnet, sodass gilt:\\
+	\begin{align*}
+		ggT(A, B) = s \cdot A + t \cdot B\text{.}
+	\end{align*}
 \end{itemize}
 
 \subsection{RSA}%
@@ -55,7 +58,7 @@
 
 \begin{itemize}
 	\item \textbf{Idee}: Basiere Verschlüsselung auf DLOG-Problem (Berechnung diskreter Logarithmen in zyklischen Gruppen)
-	\item \textbf{Zyklische Gruppen}: Gruppe $G$ mit Erzeugerelement $g$, sodass jedes Gruppenelement eine (ganzzahlige) Potenz des Erzeugerelements ist
+	\item \textbf{Zyklische Gruppen}: Gruppe $G$ mit Erzeugerelement $g$, sodass jedes Gruppenelement eine (ganzzahlige) Potenz des Erzeugerelements ist. Per Definition gilt Ordnung $q = \frac{(p - 1)}{2}$
 	\item \textbf{Schlüsselerzeugung}: Wähle $x \in \{2, \dots, p - 1\}, h \equiv g^x$, damit folgt dann:
 	\begin{align*}
 		pk &= (G, g, h)\\
