@@ -1,0 +1,49 @@
+\section{Machine Learning}%
+\label{ml:sec:machine-learning}
+
+\begin{itemize}
+	\item \textbf{Hierarchical Clustering}:
+	\begin{itemize}
+		\item Algorithmus zur Gruppierung ähnlicher Objekte in \textbf{Cluster}
+	\end{itemize}
+	\item \textbf{Perceptron}:
+	\begin{itemize}
+		\item Modell, welches das Erkennungsverhalten des Gehirns simuliert
+		\item \textbf{Linear Classifier}: Trennt in zwei Kategorien linear
+		\item \textbf{Input}: Vektor aus Zahlen
+		\item \textbf{Entscheidungsfunktion}: $0$ für keine Entscheidung, $> 0$ für zugehörig, $< 0$ für nicht zugehörig
+		$$
+			g(\vec{x}) = \sum^n_{i=1}w_ix_i + w_0 = \vec{w}^T\vec{x} + w_0 = \vec{w} \cdot \vec{x} + w_0
+		$$
+		\item \textbf{Feature Vector}: $\vec{x}$
+		\item \textbf{Weight Vector}: $\vec{w}$
+		\item \textbf{Threshold Weight}: $w_0$
+		\item \textbf{Output}: Aussage über Zugehörigkeit zu einer bestimmten Klasse
+		\item \textbf{Probleme}: Werte für Learning Rate und Initial Weights
+	\end{itemize}
+	\item \textbf{Backpropagation}: Algorithmus zur Anpassung des Weight Vectors beim Training
+	\begin{itemize}
+		\item Wähle zufällige Anfangsgewichte, gebe Input, erhalte Output
+		\item Vergleiche mit gewolltem Output, berechne Beitrag jedes Gewichts zum Gesamtfehler
+		\item Passe Gewichte leicht an, um den Fehler zu reduzieren
+	\end{itemize}
+\end{itemize}
+
+\subsection{Neuronale Netze}%
+\label{ml:sub:neuronale_netze}
+
+\begin{itemize}
+	\item \textbf{Neural Networks}: Computersysteme, welche vom menschlichen Gehirn inspiriert sind
+	\item \textbf{Multi-Layer Perceptron}:
+	\begin{itemize}
+		\item Klasse von neuronalen Netzen, bestehend aus drei Layern; guter Startpunkt; nicht mehr beschränkt auf lineare Klassifikation
+		\item \textbf{Input Layer}: Erhält Signal
+		\item \textbf{Hidden Layer}: Führt Berechnungen durch
+		\item \textbf{Output Layer}: Trifft die Entscheidung
+		\item \textbf{Neuronen im Hidden Layer}: Neuronen im ersten Hidden Layer entsprechen der Anzahl an notwendigen Geraden zur Trennung der Klassen
+	\end{itemize}
+	\item \textbf{Sigmoid}: Alternative Funktion für smootheren Output als die Step-Funktion
+	$$
+		S(x) = \frac{1}{1 + e^{-x}} = \frac{e^x}{e^x + 1}
+	$$
+\end{itemize}

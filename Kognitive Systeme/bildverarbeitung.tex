@@ -1,0 +1,136 @@
+\section{Bildverarbeitung}%
+\label{bild:sec:bildverarbeitung}
+
+\begin{itemize}
+	\item \textbf{RGB-Modell}: Farbe beschrieben durch 3-Tupel aus Rot, Grün und Blau
+	\item \textbf{HSI-Modell}: Farbe beschrieben durch 3-Tupel aus Hue, Saturation und Intensity
+	\item \textbf{RGB nach HSI}:
+	\begin{align*}
+		c &= arccos \frac{2R - G - B}{2\sqrt{(R - G)^2 + (R - B)(G - B)}}\\
+		H &= \begin{cases}
+			c & B < G\\
+			360\degree - c & sonst
+		\end{cases}\\
+		S &= 1 - \frac{3}{R + G + B}min(R, G, B)\\
+		I &= \frac{1}{3}(R + G + B)
+	\end{align*}
+	\item \textbf{RGB24 zu Grauwerten}: $g = 0.299R + 0.587G + 0.114B$
+\end{itemize}
+
+\subsection{Lochkameramodell}%
+\label{bild:sub:lochkameramodell}
+
+\begin{itemize}
+	\item Einfachstes Kameramodell: Kiste mit Schirm auf einer Seite, kleinem Loch auf der anderen Seite; Bild wird durch das Loch auf dem Kopf stehend auf den Schirm geworfen
+	\item \textbf{Brennweite}: Abstand zwischen Loch und Schirm (\quotestyle{Fokalabstand})
+	\item \textbf{Projektion}: Sei der Szenenpunkt $P = (X, Y, Z)$ und der Bildpunkt $p = (u, v, w)$
+	\begin{align*}
+		p &= -\frac{f}{Z}P\\
+		X &= -\frac{uZ}{f},\ Y = -\frac{vZ}{f},\ Z = \text{geht bei Rückprojektion verloren}
+	\end{align*}
+	\item \textbf{Positivlage}: Projektionszentrum $C$ liegt hinter der Bildebene, Minuszeichen entfallen, es gibt keine Spiegelung
+\end{itemize}
+
+\subsection{Bildverarbeitung}%
+\label{bild:sub:bildverarbeitung}
+
+\begin{itemize}
+	\item \textbf{Histogramm}: Gibt Häufigkeit eines Merkmals an, z.B Grauwerthistogramm
+	\item \textbf{Homogene Punktoperatoren}: $Img'(u, v) = f(Img(u, v))$, unabhängig von Position bzw. Nachbarn des Pixels
+	\newpage
+	\item \textbf{Affine Punktoperatoren}: $f: [0\dots q] \rightarrow [0\dots q],\ x \mapsto ax + b$
+	\begin{itemize}
+		\item \textbf{Kontrasterhöhung}: $b = 0,\ a > 1$
+		\item \textbf{Kontrastverminderung}: $b = 0,\ a < 1$
+		\item \textbf{Helligkeitserhöhung}: $b > 0,\ a = 1$
+		\item \textbf{Helligkeitsverminderung}: $b < 0,\ a = 1$
+		\item \textbf{Invertierung}: $b = q,\ a = -1$
+		\item \textbf{Spreizung}: Berechne minimale und maximale Intensität, bilde $[min, max]$ auf $[0, 255]$ ab und passe die Intensitäten entsprechend an
+		$$
+			I'(u, v) = \frac{q}{max - min}I(u, v) - \frac{q \cdot min}{max - min}
+		$$
+		\item \textbf{Histogrammdehnung}: Verbesserung der Spreizung; verwende Quantile statt minimale und maximale Intensität
+	\end{itemize}
+	\item \textbf{Lokale Operatoren} berücksichtigen Nachbarumgebung des Bildpunktes; Durchführung durch Masken bzw. Fenster
+	\item \textbf{Maske}: Matrix aus Gewichten, zentraler Pixel entspricht gewichteter Summe der Nachbarpixel
+	\begin{itemize}
+		\item \textbf{Problem}: Randpixel
+		\item \textbf{Lösungsansätze}: Randpixel nicht transformieren, Bild nach außen extrapolieren oder periodisch fortsetzen, Maske einschränken
+	\end{itemize}
+	\item \textbf{Statische Glättungsfilter}:
+	\begin{itemize}
+		\item \textbf{Rechteckfilter}: $n\times n$ Maske aus konstantem Wert $\frac{1}{n^2}$, flacht extreme Punkte ab, bewirkt Verschmierung
+		\item \textbf{Gauß- bzw. Binomialfilter}: Maske mit normalverteilten Werten von innen nach außen; bewirkt bessere Ergebnisse als Rechteckfilter
+		\item \textbf{Medianfilter}: Pixel wird Median der Grauwerte in der lokalen Umgebung zugeordnet; Matrix per Histogramm; geringerer Glättungseffekt, Schärfe bleibt gut erhalten
+	\end{itemize}
+	\item \textbf{Anisotrope Glättungsfilter}: Mache Form oder Gewichtung der Maske von lokalen Bildgegebenheiten abhängig
+	\begin{itemize}
+		\item Bestehen aus Gaußfilter $G$ fester Varianz multipliziert mit einem Conductance-term $C$, der den Filter an den notwendigen Stellen abschwächt
+		\item \textbf{Beispiele}: Bilateralfilter, Mean Shift Filter
+	\end{itemize}
+	\item \textbf{Kantenfilter}:
+	\begin{itemize}
+		\item \textbf{Kantenkriterium}: Betrag des Gradienten des Grauwerts nimmt lokales Maximum an
+		\item \textbf{Prewitt Filter}: Separate Filter für horizontale und vertikale Kanten, Prewitt-Operator vereint diese zur Bestimmung des Gradientenbetrages
+		$$
+			P_x = \begin{pmatrix}-1 & 0 & 1\\ -1 & 0 & 1\\ -1 & 0 & 1\end{pmatrix},\ P_y = \begin{pmatrix}-1 & -1 & -1 \\ 0 & 0 & 0\\ 1 & 1 & 1\end{pmatrix},\ M = \sqrt{P_x^2 + P_y^2}
+		$$
+		\item \textbf{Sobel Filter}: Prewitt-Filter, aber gewichtet mit Gauß-Verteilung
+		\item \textbf{Laplace Filter}: Kanten sind Nulldurchgänge in der 2. Ableitung; definiere Laplace-Operator, ermögliche damit richtungsunabhängige Kantenverstärkung
+		$$
+			\nabla^2G(x, y) = \frac{\partial^2G(x,y)}{\partial^2x} + \frac{\partial^2G(x, y)}{\partial^2y},\ LP = \begin{pmatrix}0 & 1 & 0\\ 1 & -4 & 1\\ 0 & 1 & 0\end{pmatrix}
+		$$
+		\item \textbf{Laplace of Gaussian (LoG)}: Laplace sehr rauschempfindlich, glätte Bild mit Gaußfilter vor
+	\end{itemize}
+	\item \textbf{Bildanalyse durch Frequenzanalyse}:
+	\begin{itemize}
+		\item Bilder lassen sich als Summe verschiedenfrequenter Signale auffassen; Fourier-Transformation dieser Bilder ist nützlich für Analyse, Filterung und Kompression
+		\item \textbf{Ortsbereich vs. Frequenzbereich}: Manipulation im Ortsbereich ist z.B Manipulation der Grauwerte, Manipulation im Frequenzbereich ist z.B Frequenzfilterung
+		\item \textbf{Diskrete Fouriertransformation} eines $N\times M$ Bildes:
+		$$
+			F(u, v) = \sum^{N-1}_{y = 0}(\sum^{M - 1}_{x = 0} f[x, y]e^{-2i\pi\frac{ux}{M}})e^{-2i\pi\frac{vy}{N}}
+		$$
+	\end{itemize}
+	\item \textbf{Rauschunterdrückung}:
+	\begin{itemize}
+		\item \textbf{Mittelwertfilter}: Filter summiert gleichgewichtet alle Grauwerte in einer endlichen Umgebung
+		\item \textbf{Gauß-Filter}: Gauß-gewichteter Mittelwertfilter
+	\end{itemize}
+	\item \textbf{Canny-Kantendetektor}: Gute Kantendetektion mit minimaler Antwort (\quotestyle{dünnen Linien})
+	\begin{enumerate}
+		\item Gauß-Filter zur Rauschunterdrückung
+		\item Prewitt oder Sobel in horizontale und vertikale Richtung
+		\item Non-Maximum Suppression: Stelle sicher, dass Gradient lokales Maximum bzgl. der zwei direkten Nachbarn entlang der Gradientenrichtung ist
+		\item Hysteresen-Schwellwertverfahren: Verfolge nur Kanten innerhalb eines Schwellintervals
+	\end{enumerate}
+	\newpage
+	\item \textbf{Morphologische Operatoren}:
+	\begin{itemize}
+		\item Binäre Nachbarschaftsoperatoren zur Veränderung von Flächen mit Strukturelementen (z.B zur Entfernung dünner Linien)
+		\item Realisiert durch Masken
+		\item \textbf{Dilatation}: Aufblasen des Objektes, Vergrößerung der Pixel zu größeren Bereichen
+		\item \textbf{Erosion}: Schrumpfen des Objektes zur Entfernung schwach zusammenhängender Pixelgruppen
+		\item \textbf{Opening}: Erosion gefolgt von Dilatation, trennt dünne Verbindungen und kleine Strukturen
+		\item \textbf{Closing}: Dilatation gefolgt von Erosion, füllt Lücken in der Umrandung und verbindet dicht beieinander liegende Objekte
+	\end{itemize}
+	\item \textbf{Segmentierung}:
+	\begin{itemize}
+		\item Aufteilung eines Bildes in aussagekräftige Bestandteile (Kanten, Ecken, Löcher, Schrift etc.)
+		\item \textbf{Schwellwertfilterung}: Trenne Objekte vom Hintergrund durch Filterung nach einem Schwellwert für den Grauwert in ein binäres Bild; Schwellwert aus Histogramm oder Erfahrung
+		\item \textbf{Multilevel-Otsu-Verfahren}: Automatisches Schwellwertverfahren; berechnet $k$ optimale Schwellwerte zur Einteilung in $k + 1$ Segmentklassen
+		\item \textbf{Hough-Transformation}:
+		\begin{itemize}
+			\item \textbf{Ziel}: Erkennung beliebiger parametrisierbarer geometrischer Figuren (Geraden, Kreise etc.)
+			\item Definiere \textbf{Hough-Raum}, der für jeden Bildpunkt eines vorgefilterten Bildes (Kantenfilter) auf einer Kante alle möglichen Parameter der zu findenden Figur enthält
+			\item Werte durch Suche nach Häufungen aus; \textbf{für Kanten} entsprechen die Parameter dem Normalenvektor in Polarkoordinaten:
+				$$
+					r = xcos\phi + ysin\phi
+				$$
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Korrelationsverfahren}:
+	\begin{itemize}
+		\item \textbf{Sum of Squared Differences (SSD)}: Summiere quadratische Differenz der einzelnen Pixel zweier Bildausschnitte; je geringer, desto besser die Übereinstimmung
+		\item \textbf{Sum of Absolute Differences (SAD)}: Analog zu SSD, nur mit Betrag statt Quadrat
+	\end{itemize}
+\end{itemize}
