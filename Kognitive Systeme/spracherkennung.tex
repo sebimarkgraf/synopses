@@ -1,0 +1,54 @@
+\section{Spracherkennung}%
+\label{sprach:sec:spracherkennung}
+
+\begin{itemize}
+	\item \textbf{Markow-Ketten}:
+	\begin{itemize}
+		\item Stochastischer Prozess; kann aus begrenzter Vorgeschichte gute Zukunftsprognosen bestimmen
+		\item \textbf{Ordnung}: Bestimmt die Anzahl der benötigten vorherigen Zustände für die Prognose (hier: 1. Ordnung, d.h. nur aktueller Zustand ist wichtig)
+		\item \textbf{Homogenität}: Übergang von einem bestimmten Zustand zu einem anderen ist immer gleich wahrscheinlich
+	\end{itemize}
+	\item \textbf{Hidden-Markov-Model (HMM)}:
+	\begin{itemize}
+		\item Beobachte ein System mit einer Markov-Kette mit unbeobachteten Zuständen
+		\item \textbf{Bestandteile}:
+		\begin{itemize}
+			\item Zustandsmenge $S = \{s_1, \dots, s_N\}$
+			\item Symbolalphabet $V$ mit $M$ Symbolen \textbf{oder} kontinuierlicher Ausgaberaum
+			\item Zustandsübergangsverteilung $A = (a_{ij}),\ a_{ij} = P(q_{t+1} = S_j|q_t = S_i)$
+			\item Symbolausgabewahrscheinlichkeitsverteilungen für die Zustände (bzw. Wahrscheinlichkeitsdichte) $B = \{b_j(k)\},\ b_j(k) = P(v_k | q_t = S_j),\ 1 \leq j \leq N,\ 1 \leq k \leq M$
+			\item Initialer-Zustand-Verteilung $\Pi = \{\pi_i\},\ \pi_i = P(q_1 = S_i),\ 1 \leq i \leq N$
+		\end{itemize}
+		\item \textbf{Probleme}: Sei $\lambda$ ein HMM
+		\begin{itemize}
+			\item \textbf{Evaluierung}: Wahrscheinlichkeit $P(O|\lambda)$ für eine bestimmte Ausgabe $O$? Gelöst durch \textbf{Forward- bzw. Backward-Algorithmus}
+			\item \textbf{Dekodierung}: Zustandsfolge mit höchster Ausgabewahrscheinlichkeit für eine bestimmte Ausgabe? Gelöst durch \textbf{Viterbi-Algorithmus}
+			\item \textbf{Training}: Bessere Parameter für eine bestehende HMM ($P(O|\lambda') > P(O|\lambda)$)? Gelöst durch \textbf{Baum-Welch Regeln}
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Forward-Algorithmus}: Berechne rekursiv ($\alpha_T(j)$ ist die Wahrscheinlichkeit, $O$ zu beobachten und in Zustand $s_j$ zu enden):
+	$$
+		P(O|\lambda) = \sum^N_{j=1}P(O, q_T = s_j | \lambda),\ \alpha_T(j) := P(O, q_T = s_j|\lambda)
+	$$
+	\begin{itemize}
+		\item \textbf{Graphisch}:
+		\begin{enumerate}
+			\item Zeichne Gitter aus Blöcken, Zeilenzahl ist Zustandszahl
+			\item Erste Spalte enthält Initialer-Zustand-Wahrscheinlichkeit für jede Zelle
+			\item Zellen der nächsten Spalte errechnen sich durch die Übergänge aus vorherigen Zellen und der Ausgabewahrscheinlichkeit des zugehörigen Symbols
+			\begin{itemize}
+				\item Für jeden Übergang aus einer vorherigen Zelle multipliziere die Wahrscheinlichkeit der letzten Zelle mit ihrer Übergangswahrscheinlichkeit in die neue Zelle
+				\item Die Summe dieser Übergänge wird dann mit der Ausgabewahrscheinlichkeit multipliziert
+			\end{itemize}
+			\item Wiederhole Schritt 3. bis die Wahrscheinlichkeit des gesuchten Wortes errechnet ist
+		\end{enumerate}
+	\end{itemize}
+	\item \textbf{Backward-Algorithmus}:
+	\begin{itemize}
+		\item \textbf{Definiere}: $\beta_t(j) := P(o_{t+1}, o_{t+2}, \dots, o_T, q_t = j | \lambda)$
+		\item \textbf{Initialisiere}: $\lambda_T(i) = 1 \forall i$
+		\item \textbf{Induktion}: $\beta_t(i) = \sum^N_{j=1}a_{ij}b_jo_{t+1}\beta_{t+1}(j)$
+		\item \textbf{Zusammenfassung}: $P(O|\lambda) = \sum^N_{i=1}\beta_0(i)$
+	\end{itemize}
+	\item \textbf{Viterbi-Algorithmus}: Finde wahrscheinlichsten Pfad in grafischer Lösung des Forward-Algorithmus
+\end{itemize}

@@ -1,0 +1,67 @@
+\section{Klassifikation}%
+\label{klass:sec:klassifikation}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Einordnung von Objekten in die Welt basierend auf Wahrscheinlichkeit der Zugehörigkeit
+	\item \textbf{Schablonenanpassung (Template Matching)}: Einfache Klassifikation; Messe Übereinstimmung mit einer Schablone
+	\item Alternative Ansätze trainieren Neuronale Netze zur Klassifikation, d.h. ein Netzwerk wird so lange mit Trainingsdaten angepasst, bis es zuverlässig klassifizieren kann
+	\item \textbf{Supervised Training vs. Unsupervised Training}:
+	\begin{itemize}
+		\item \textbf{Supervised Training}: Klasse, welche erkannt werden soll, ist im Voraus bekannt
+		\item \textbf{Unsupervised Training}: Klasse, welche erkannt werden soll, ist unbekannt und muss automatisch erkannt werden
+	\end{itemize}
+	\item \textbf{Parametric vs. Non-Parametric}:
+	\begin{itemize}
+		\item Unterscheidung \textbf{nur für Supervised Learning!}
+		\item \textbf{Parametric}: Gehe im Voraus von einer bestimmten Verteilung der Trainingsdaten aus
+		\item \textbf{Non-Parametric}: Gehe nicht im Voraus von einer bestimmten Verteilung aus, schätze direkt aus den Trainingsdaten ab
+	\end{itemize}
+	\item \textbf{Linear vs. Non-Linear}:
+	\begin{itemize}
+		\item Unterscheidung \textbf{nur für Non-Parametric Learning!}
+		\item \textbf{Linear}: Klassifikator trennt Klassen durch eine lineare Hyperebene
+		\item \textbf{Non-Linear}: Klassifikator kann Klassen nicht durch eine lineare Hyperebene trennen
+	\end{itemize}
+	\item \textbf{Fehlerwahrscheinlichkeit}: Wahrscheinlichkeit von $B$, wenn man sich für $A$ entscheidet
+	\item \textbf{Satz von Bayes}:
+	\begin{itemize}
+		\item Dient der Berechnung bedingter Wahrscheinlichkeiten (\quotestyle{A wenn B}), hier für die Zugehörigkeit von $x$ zur Klasse $w_j$:
+		$$
+			P(\omega_j | x) = \frac{P(x|\omega_j)P(\omega_j)}{P(x)},\ P(x) = \sum_j P(x|\omega_j)P(\omega_j)
+		$$
+		\item \textbf{A-Priori-Wahrscheinlichkeit}: $P(\omega_j$), Wahrscheinlichkeit vor der Beobachtung von $x$
+		\item \textbf{A-Posteriori-Wahrscheinlichkeit}: $P(\omega_j | x)$, Wahrscheinlichkeit nach der Beobachtung von $x$
+		\item \textbf{Class-Conditional Probability Density}: $P(x | \omega_j)$, Wahrscheinlichkeit von $x$, wenn $\omega_j$ die Klasse ist
+	\end{itemize}
+	\item \textbf{Naiver Bayes-Klassifikator}: Weist Objekt anhand dem Satz von Bayes der wahrscheinlichsten Klasse zu
+	\newpage
+	\item \textbf{Gauss-Klassifikator}:
+	\begin{itemize}
+		\item Parametric, basierend auf Normalverteilungen
+		\item Modelliert manche Situationen nicht gut, deshalb wird auf nichtparametrische Verfahren zurückgefallen
+	\end{itemize}
+	\item \textbf{Maximum Likelihood Methode}:
+	\begin{itemize}
+		\item Methode zur Ermittlung von Erwartungswert $\mu$ und Varianz $\sigma^2$
+		$$
+			\mu = \frac{1}{n}\sum^n_{i=1}x_i,\ \sigma^2 = \frac{1}{n}\sum^n_{i=1}(x_i - \mu)^2
+		$$
+	\end{itemize}
+	\item \textbf{Parzen Windows}:
+	\begin{itemize}
+		\item Non-parametric, ermittelt Wahrscheinlichkeit durch Zählen der Samples, die in ein endliches Volumen fallen
+		\item Größe des Volumens ist entscheidend, zu große Volumen bedeuten zu geringe Auflösung, zu kleine Volumen sind sprunghaft und schätzen schlecht
+	\end{itemize}
+	\item \textbf{K-Nearest Neighbors (KNN)}:
+	\begin{itemize}
+		\item Parzen Windows, wobei das Volumen eine Funktion der Daten ist; betrachte $k$ nächste Nachbarn in der Schätzung mit $k = \sqrt{n}$
+		\item Wähle verbreitetste Klasse unter $k$ Nachbarn und gebe $x$ diese Klasse
+	\end{itemize}
+	\item \textbf{Curse of Dimensionality}: Hinzufügen von Features (Dimensionen) verschlechtert die Performance, da Trainingsdaten immer limitiert sind
+	\item \textbf{Principal Component Analysis (PCA)}:
+	\begin{itemize}
+		\item Reduziere Dimensionen mit minimalem Informationsverlust
+		\item \textbf{Varianz}: Mittlere quadratische Abweichung einer Zufallsvariablen von ihrem Erwartungswert (Streuungsquadrat)
+		\item Finde die Achse entlang der höchsten Varianz, rotiere den Raum entlang der Achse und entferne die Dimensionen mit geringer Varianz
+	\end{itemize}
+\end{itemize}

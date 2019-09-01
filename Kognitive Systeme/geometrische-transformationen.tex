@@ -130,3 +130,45 @@
 	$$y = \frac{r_{13} - r_{31}}{4s}$$
 	$$z = \frac{r_{21} - r_{12}}{4s}$$
 \end{itemize}
+\newpage
+\subsection{Kameramodell}%
+\label{gtrans:sub:kameramodell}
+
+\begin{itemize}
+	\item \textbf{Optische Achse}: Gerade durch Projektionszentrum, senkrecht zur Bildebene
+	\item \textbf{Bildhauptpunkt}: $C(c_x, c_y)$, Schnittpunkt der optischen Achse mit der Bildebene
+	\item \textbf{Bildkoordinatensystem}: Ursprung in der linken oberen Ecke des Bildes, $u, v$ jeweils positiv nach rechts unten
+	\item \textbf{Kamerakoordinatensystem}: Ursprung im Projektionszentrum, Achsen parallel zu den Achsen des Bildkoordinatensystems, $z$-Achse nach vorne
+	\item \textbf{Weltkoordinatensystem}: Basiskoordinatensystem beliebig im Raum
+	\item \textbf{Brennweite}: Pixel sind nicht zwingend quadratisch, Brennweite dargestellt als $f_x, f_y$
+	\item \textbf{Kalibriermatrix}:
+	$$
+		K = \begin{pmatrix}
+			f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1
+		\end{pmatrix}
+	$$
+	\item \textbf{Intrinsische Kamerakalibrierung} (Projektion von Kamerakoordinaten zu Bildkoordinaten):
+	$$
+		\begin{pmatrix}u\\v\end{pmatrix} = \begin{pmatrix}c_x\\c_y\end{pmatrix} + \frac{1}{Z}\begin{pmatrix}f_x \cdot X\\f_y \cdot Y\end{pmatrix}
+	$$
+	\item \textbf{Extrinsische Kamerakalibrierung} (Projektion einer Kamera, welche in der Welt bewegt wurde):
+	\begin{itemize}
+		\item Koordinatentransformation bestehend aus Rotation $R$ und Translation $t$:
+		$$
+			x_c = Rx_w + t
+		$$
+	\end{itemize}
+	\item \textbf{Epipolargeometrie}:
+	\begin{itemize}
+		\item Beschreibt \textbf{Zusammenhang zwischen Kameras}
+		\item \textbf{Epipole}: Schnittpunkte der Gerade durch die Projektionszentren mit den Bildebenen
+		\item \textbf{Epipolarebene}: Ebene aufgespannt durch Szenenpunkt $X$ sowie die Projektionszentren $C, C'$
+		\item \textbf{Fundamentalmatrix}: Mathematische Beschreibung der Epipolargeometrie
+		\item \textbf{Berechnung von F über Essentialmatrix}: Kamera $1$ habe die Identität als Transformation, Kamera $2$ habe $(R | t)$:
+		$$
+			E = \begin{pmatrix}
+				0 & -t_3 & t_2 \\ t_3 & 0 & -t_1 \\ -t_2 & t_1 & 0
+			\end{pmatrix}R,\ F = K'^{-T}EK^{-1}
+		$$
+	\end{itemize}
+\end{itemize}

@@ -1,0 +1,265 @@
+\section{Wissen \& Planung}%
+\label{sec:wissen_planung}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Definition einer Logik (Aussagen- und Prädikatenlogik), mit der Schlüsse gezogen werden können
+	\item \textbf{Logik}: Symbolmenge + Belegungsmenge + Syntax + Semantik + Folgerungsoperator ($\models$) + Elementaraussagen (\textit{wahr, falsch})
+	\item \textbf{Symbolmenge}: Symbole der Logik, denen ein gültiger Wert zugewiesen werden kann
+	\item \textbf{Belegungsmenge}: Menge aller möglichen Belegungen für Symbole
+	\item \textbf{Syntax}: Aufbauvorschriften eines Satzes, syntaktisch korrekte Sätze sind \textbf{wohlgeformt}
+	\item \textbf{Semantik}: Folgerungsvorschriften, mit denen für einen Satz mit gewählter Belegung auf einen der beiden Wahrheitswerte geschlossen werden kann
+	\item \textbf{Folgerungsoperator}: $\alpha \models \beta$ bedeutet $\beta$ ist eine Folgerung aus $\alpha$
+	\item \textbf{Wissensbasis}: Sammlung hilfreicher gültiger logischer Sätze
+	\item \textbf{Deduktion}: Folgerung einer neuen logischen Aussage aus einer bereits bekannten
+	\item \textbf{Deduktionsalgorithmus}: Algorithmus zur Bestimmung, ob ein Satz aus einem anderen (auch: Satz einer Wissensbasis) ableitbar ist
+	\begin{itemize}
+		\item \textbf{Vollständigkeit}: Algorithmus kann jede aus einer Wissensbasis folgerbare Aussage tatsächlich ableiten
+		\item \textbf{Korrektheit}: Algorithmus kann nur Aussagen ableiten, die auch wirklich aus der Wissensbasis folgen
+	\end{itemize}
+\end{itemize}
+
+\subsection{Aussagenlogik}%
+\label{wrep:sub:aussagenlogik}
+
+\begin{itemize}
+	\item \textbf{Elemente eines Satzes}: \textbf{Variablen} (P, Q, R, $\dots$), \textbf{Elementaraussagen} (\textit{wahr, falsch}), \textbf{logische Symbole} ($\neg, \land, \lor, \Rightarrow, \Leftrightarrow$)
+	\item \textbf{Literal}: Negierte oder nichtnegierte Variable
+	\item \textbf{Modell}: Beliebige Belegung aller in einem Satz enthaltenen Variablen mit einer Elementaraussage
+	\item \textbf{Syntax}:
+		\begin{align*}
+			Satz 	&\rightarrow 	&Atom\ |\ Komplex				&\\
+			Atom 	&\rightarrow 	&true\ |\ false\ |\ Symbol 		&\\
+			Symbol 	&\rightarrow 	&P\ |\ Q\ |\ R\ |\ \dots 		&\\
+			Komplex &\rightarrow 	&\neg Satz 						&\hspace*{1cm} (\text{Negation bzw. Verneinung})\\
+					& 				|\ &(Satz \land Satz) 			&\hspace*{1cm} (\text{Konjunktion bzw. Und-Operation})\\
+					& 				|\ &(Satz \lor Satz) 			&\hspace*{1cm} (\text{Disjunktion bzw. Oder-Operation})\\
+					& 				|\ &(Satz \Rightarrow Satz) 	&\hspace*{1cm} (\text{Implikation bzw. Folgerung})\\
+					& 				|\ &(Satz \Leftrightarrow Satz) &\hspace*{1cm} (\text{Äquivalenz bzw. beidseitige Implikation})
+		\end{align*}
+	\item \textbf{Disjunktive Normalform (DNF)}: Disjunktion von Konjunktionen, z.B $(P \land Q) \lor (R \land S \land T)$
+	\item \textbf{Konjunktive Normalform (KNF)}: Konjunktion von Disjunktionen, z.B $(P \lor Q) \land (R \lor S \lor T)$
+	\item \textbf{Semantik}: Für eine Belegung kann der Wahrheitswert folgendermaßen bestimmt werden:
+		\begin{align*}
+			\neg\alpha\ wahr 						&\ \mathbf{gdw.} & \alpha\ falsch\\
+			(\alpha \land \beta)\ wahr 				&\ \mathbf{gdw.} & \alpha\ wahr\ \text{und}\ \beta\ wahr\\
+			(\alpha \lor \beta)\ wahr 				&\ \mathbf{gdw.} & \alpha\ wahr\ \text{oder}\ \beta\ wahr\\
+			(\alpha\ \Rightarrow \beta)\ wahr 		&\ \mathbf{gdw.} & \alpha\ falsch\ \text{oder}\ \beta\ wahr\\
+			(\alpha \Leftrightarrow \beta)\ wahr 	&\ \mathbf{gdw.} & \alpha\ wahr\ \text{und}\ \beta\ wahr\\
+												 	& 				 &\text{oder}\ \alpha\ falsch\ \text{und}\ \beta\ falsch
+		\end{align*}
+\end{itemize}
+
+\subsubsection{Resolutionsalgorithmus}%
+\label{wrep:ssub:auss_resolutionsalgorithmus}
+
+\begin{itemize}
+	\item \textbf{Resolutionsregel}: $(X \lor P \lor Q \lor \dots) \land (\neg X \lor R \lor S \lor \dots) \Rightarrow (P \lor Q \lor \dots \lor R \lor S \lor \dots)$
+	\item \textbf{Klausel}: Menge aller in einer Disjunktion enthaltenen Literale (z.B $(P \lor Q) \land (X \lor Y)$ hat Klauselmenge $\{\{P, Q\}, \{X, Y\}\}$)
+	\item Resolutionsregel auf Klauseln anwenden: $\{X, Y, \neg Z\}$ und $\{\neg X, \neg P, Q\}$ werden zu $\{Y, \neg Z, \neg P, Q\}$ abgeleitet
+	\item Klausel (und zugrundeliegende Formel) ist \textbf{unerfüllbar}, wenn mittels Resolution die \textbf{leere Klausel} $\{\}$ ableitbar ist
+	\item \textbf{Ableitbarkeit aus Klauselmenge beweisen}: Abzuleitende Aussage \textbf{negieren}, in Klauselform bringen und mit ursprünglicher Klauselmenge zu \textbf{leerer Klausel} ableiten
+\end{itemize}
+
+\subsubsection{Horn-Klauseln}%
+\label{wrep:ssub:horn_klauseln}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Laufzeit des Resolutionsalgorithmus verbessern (von exponentiell zu quadratisch)
+	\item \textbf{Vorgehen}: Beschränkung auf \textbf{Horn-Formeln}
+	\item \textbf{Horn-Formeln}: Formeln in \textbf{KNF}. deren Disjunktionen \textbf{Horn-Klauseln} sind
+	\item \textbf{Horn-Klausel}: Klausel mit \textbf{beliebig vielen negierten} und \textbf{höchstens einem} positiven Literal
+	\item \textbf{Forward-Chaining}: Ermittlung aller möglichen Schlussfolgerungen durch \textbf{Markieren aller bekannten Fakten} als \textit{wahr} und wiederholtes \textbf{Markieren aller damit implizierten Fakten} als \textit{wahr}, bis sich nichts mehr ändert (alle nun wahren Variablen sind somit folgerbar)
+	\item \textbf{Backward-Chaining}: Prüfen einer Aussage durch Markieren \textbf{aller bekannten Fakten} als \textit{wahr} und Verfolgen der zu prüfenden Aussage über ihre \textbf{Voraussetzungen}; die Aussage ist genau dann folgerbar, wenn man auf \textbf{allen entstehenden Pfaden} zu einem \textbf{bekannten Fakt} gelangt
+\end{itemize}
+
+\subsubsection{Davis-Putnam-Logemann-Loveland-Algorithmus (DPLL)}%
+\label{wrep:ssub:davis_putnam_logemann_loveland_algorithmus}
+%%
+\begin{itemize}
+	\item \textbf{Voraussetzung}: Zu prüfende Formel muss in \textbf{KNF} vorliegen
+	\item \textbf{Vereinfachung}: Reduziere mögliche Variablenbelegungen mit folgenden Regeln:
+	\begin{itemize}
+		\item \textbf{Einheitsklauseln} enthalten nur ein Literal und sind eindeutig bestimmt, da diese zu \textit{wahr} ausgewertet werden müssen
+		\item \textbf{Reine Variablen} kommen in der ganzen Formel nur positiv bzw. nur negiert vor und können überall mit \textit{wahr} bzw. \textit{falsch} belegt werden
+		\item Ist ein Literal in einer Klausel \textit{wahr}, so ist die \textbf{ganze Klausel} \textit{wahr} und damit erledigt
+		\item Hat eine Klausel den Wert \textit{falsch}, so ist die Formel \textbf{unerfüllbar}
+	\end{itemize}
+	\item Sind alle Vereinfachungen ausgeschöpft, wird die Formel wie bisher geprüft (worst case: exponentielle Laufzeit)
+\end{itemize}
+
+\subsection{Prädikatenlogik}%
+\label{wrep:sub:praedikatenlogik}
+
+\begin{itemize}
+	\item \textbf{Erweiterung der Aussagenlogik}
+	\item \textbf{Neu}:
+	\begin{itemize}
+		\item \textbf{Universum}: Neuer Wertebereich, i.d.R. kurz bezeichnet als $\mathbf{D}$
+		\item \textbf{Funktionen}: Funktion die beliebig viele Parameter aus D auf einen anderen Wert aus D abbilden, z.B $max(x, y)$
+		\item \textbf{Prädikate}: Abbildungen von $D^k$ nach $\{true, false\}$, z.B $IsBigger(x, y)$
+		\item \textbf{Allquantor} $\forall$ (\itquote{für alle X gilt} $\dots$) und \textbf{Existenzquantor} $\exists$ (\itquote{für mindestens ein X gilt} $\dots$)
+	\end{itemize}
+	\item \textbf{Beispiel}: $\forall x\ \exists y\ IsBigger(x, y)$
+\end{itemize}
+
+\newpage
+\subsection{Planungssprachen}%
+\label{plan:sub:planungssprachen}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Zustand der \textbf{Umgebung} sowie \textbf{mögliche Handlungen} repräsentieren
+\end{itemize}
+
+\subsubsection{STRIPS}% 
+\label{plan:ssub:strips}
+
+\begin{itemize}
+	\item \textbf{Zustand}: Konjunktion positiver Literale, Prädikate dürfen \textbf{nur Konstanten} erhalten
+	\item \textbf{Geschlossene Welt-Annahme}: Jeder Zustand ist vollständig bekannt, alle nicht angegebenen Literale sind implizit \textbf{falsch}
+	\item \textbf{Aktion}: Übergang eines Zustands in einen anderen (\textbf{Zielzustand}), definiert durch \textbf{Name, Parameter, Vorbedingungen und Effekte}
+	\item \textbf{Vorbedingung}: Konjunktion positiver Literale
+	\item \textbf{Effekte}: Konjunktion positiver und negativer Literale
+	\item Ein Zustand \textbf{erfüllt einen Zielzustand}, wenn (mindestens) alle im Zielzustand angegebenen Literale auch in dem Ursprungszustand positiv sind
+	\item Eine Aktion ist \textbf{ausführbar}, wenn die Vorbedingungen erfüllt sind; die in den \textbf{Effekten} angegebenen Literale ändern dann ihren Wert entsprechend
+	\item \textbf{Beispiel}:
+	\begin{itemize}
+		\item \texttt{Startzustand}: $Durst\ \land\ IstVolleTasse(t)$
+		\item \texttt{Ziel}: $KeinDurst$
+		\item \texttt{Aktionen}: $Action(Trinke,\ (t),\ IstVolleTasse(t),\ KeinDurst\ \land\ \neg Durst)$
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{ADL}% 
+\label{plan:ssub:adl}
+
+\begin{itemize}
+	\item \textbf{Erweiterung von STRIPS}
+	\item \textbf{Offene Welt} im Gegensatz zu STRIPS, Zustände enthalten positive \textbf{und negative} Literale, ungenannte Literale sind \textbf{unbekannt}
+	\item Ziele dürfen \textbf{negative Literale} enthalten, Disjunktionen und quantifizierte Variablen sind auch erlaubt
+	\item Variablen können auf \textbf{Gleichheit} geprüft werden
+	\item \textbf{Implizite Typisierung} ist möglich (\itquote{k ist vom Typ Knopf})
+	\begin{align*}
+		Action(&Aktiviere(k: Knopf),\ Vorbed:\ Deaktiviert(k),\\ &Effekt:\ Aktiviert(k)\ \land\ \neg\ Deaktiviert(k))
+	\end{align*}
+\end{itemize}
+
+\newpage
+\subsection{Planungsalgorithmen}%
+\label{plan:sub:planungsalgorithmen}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Ermittlung einer Aktionsfolge, mit der von einem \textbf{Startzustand} zu einem \textbf{Zielzustand} gelangt werden kann
+	\item \textbf{Netzwerk von Zuständen} wird hierfür als \textbf{Baum betrachtet}
+	\item \textbf{Vorwärtssuche}: Konstruiere rekursiv alle möglichen Zustände vom Start aus, Finde alle Wege die zum Zielzustand führen
+	\begin{itemize}
+		\item Für große Instanzen \textbf{sehr ineffizient}, besser A* mit guter Heuristik
+	\end{itemize}
+	\item \textbf{Rückwärtssuche}: Konstruiere rekursiv alle möglichen Zustände vom Ziel aus, Finde alle Wege die zum Startzustand führen
+	\begin{itemize}
+		\item Besser als Vorwärtssuche, da der Suchraum auf \textbf{relevante Aktionen beschränkt wird}
+	\end{itemize}
+	\item \textbf{Partial-Order Planner (POP)}: Planungsalgorithmus, welcher \textbf{Reihenfolge} mancher Aktionen \textbf{offen lässt}
+\end{itemize}
+
+\subsubsection{A*-Algorithmus}% 
+\label{plan:ssub:a_algorithmus}
+
+\begin{itemize}
+	\item \textbf{Heuristik}: Funktion zur optimistischen Abstandsschätzung zum Zielknoten ($\leq$ dem echten Abstand)
+	\item \textbf{Vorgehen}:
+	\begin{enumerate}
+		\item Schätze Abstand zum Zielknoten über Heuristik
+		\item Wähle Knoten, bei dem \textbf{Schätzwert + bisher dorthin zurückgelegte Strecke} minimal ist
+		\item Wiederhole bis das Ziel erreicht wurde
+	\end{enumerate}
+\end{itemize}
+
+\subsubsection{Planungsgraphen}% 
+\label{plan:ssub:planungsgraphen}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Graphische Plangewinnung zur Erstellung einer \textbf{Heuristik}
+	\item \textbf{Aufbau}:
+	\begin{itemize}
+		\item Einteilung in \textbf{Abschnitte} für jeden \textbf{Zeitschritt}, sequenzieller Verlauf von links nach rechts
+		\item Links von jedem Zeitschritt sind die möglichen \textbf{vorherigen Literalzustände}
+		\item Rechts von jedem Zeitschritt sind die möglichen \textbf{resultierenden Literalzustände}
+		\item Resultierende Zustände die sich widersprechen werden mit \textbf{Mutex-Link} symbolisiert
+		\item Mutex-Links und unveränderte Literale werden in den nächsten Abschnitt \textbf{weitergetragen}
+	\end{itemize}
+	\item \textbf{Mögliche Heuristikgewinnung}: \textbf{Abschnittszahl} im Planungsgraph als Anzahl notwendiger Schritte interpretieren
+	\item \textbf{Mögliche Plangewinnung}: \textbf{Graphplan-Algorithmus}
+\end{itemize}
+
+\subsection{Objektmodellierung}%
+\label{grep:sub:objektmodellierung}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Repräsentation des geometrischen Wissens und daraus folgende Planung (\itquote{Wo ist mein Arm? Wie komme ich zu dem Objekt, was ich greifen will?})
+	\item \textbf{Sensoren} liefern benötigte Daten, die \textbf{hinreichend detailliert} aber \textbf{rechnerisch einfach strukturiert} modelliert werden müssen
+	\begin{itemize}
+		\item \textbf{Beispiel}: Hindernisse für Bahnplanung können als \textbf{einfache Polygone} auf einen Bodenplan projiziert werden
+	\end{itemize}
+	\item \textbf{Kantenmodell}: Finden markanter Punkte (meist Ecken und wichtige Zwischenpunkte), Verbinden über Geraden, Kreisbögen o.ä.
+	\item \textbf{Oberflächenmodell}: Oberfläche wird durch Ebenen oder gekrümmte Flächenelemente angenähert
+	\item \textbf{Volumenmodell/Festkörpermodell}: \itquote{Liegt ein Punkt in einem Objekt?}, verschieden repräsentierbar:
+	\begin{itemize}
+		\item \textbf{Begrenzungsflächen}: Annäherung durch die begrenzenden Flächen des Objektes
+		\item \textbf{Grundkörperdarstellung}: Annäherung durch einfache Grundkörper (Block, Zylinder, Kugel etc.), verknüpft durch \textbf{Vereinigung-, Schnitt- und Differenzoperationen}
+		\item \textbf{Volumenapproximation}: Annäherung durch eine Menge Würfel festgelegter Größe
+	\end{itemize}
+\end{itemize}
+
+\subsection{Umweltmodellierung}%
+\label{grep:sub:umweltmodellierung}
+
+\begin{itemize}
+	\item \textbf{Dimensionalität}: Zweidimensional oder dreidimensional
+	\begin{itemize}
+		\item Komplexere Probleme werden i.d.R. im 2D- oder 3D-Raum gelöst und dann übertragen 
+		\item \textbf{Beispiel}: Bewegungsplanung für Roboterarm mit mehreren Gelenken (d.h. mehrere Freiheitsgrade); löse im 3D-Raum und übertrage auf den Gelenkwinkelraum des Armes (vgl. Robotik-Kapitel, \textbf{inverse Kinematik})
+		\item \textbf{Beispiel}: Bewegungsplanung für mobile Systeme durch \textbf{zweidimensionalen Bodenplan}
+	\end{itemize}
+	\item \textbf{Freiraum und Hindernisraum}: Aufteilung in passierbaren und unpassierbaren Raum zur \textbf{Kollisionserkennung}; Roboter agiert z.B nur im Freiraum
+	\item \textbf{Konfigurationsraum}: Raum der verschiedenen Konfigurationen z.B des Roboters (Dimension ist Anzahl der Bewegungsparameter); analog eingeteilt in Freiraum und Hindernisraum
+	\begin{itemize}
+		\item \textbf{Trick}: Skaliere Hindernisse entsprechend der Größe des Roboters, behandle Roboter nun als Punkt ohne Ausmaß; dies verhindert diverse Komplikationen
+	\end{itemize}
+\end{itemize}
+
+\subsection{Überführung in Graphen}%
+\label{grep:sub:ueberfuehrung_in_graphen}
+
+\begin{itemize}
+	\item \textbf{Ziel}: Konstruktion eines ungerichteten Graphs, der Zustände im Konfigurationsraum und mögliche Übergänge widerspiegelt
+	\item \textbf{Pfadsuche} über A* oder Dijkstra im Graph, Einschränkungen wie z.B maximaler Sicherheitsabstand zu Hindernissen werden im Graph berücksichtigt
+	\item \textbf{Polygonmethode (2D)}: z.B für Bodenpläne; unterteile Freiraum in konvexe Polygone, verbinde benachbarte Polygone im Graphen
+	\begin{itemize}
+		\item \textbf{Umsetzung}: Ziehe vertikale Linien an jeder Ecke bis zur nächsten Hinderniskante nach oben und unten; verwerfe Polygone, die zu einem Hindernis gehören
+		\item \textbf{Graphgenerierung}: Konstruiere Mitte des Trennlinienabschnitts benachbarter Polygone, verbinde jeweils mit Polygonmittelpunkt; wähle z.B euklidischen Abstand als Kantengewicht
+		\item \textbf{Problem}: Beachtliche Umwege sind zu erwarten
+	\end{itemize}
+	\item \textbf{Quadtreemethode (2D, analog in 3D mit Octree)}:
+	\begin{itemize}
+		\item \textbf{Umsetzung}: Unterteile Raum rekursiv in vier gleich große Quadrate, Rekursion bricht nur dann ab, wenn Quadrat nicht sowohl Frei- als auch Hindernisraum enthält
+		\item \textbf{Graphgenerierung}: Graph mit Knoten für jedes Freiraum-Quadrat und Verbindungen zwischen Freiraum-Nachbarn, Gewichtung z.B analog zur Polygonmethode
+		\item \textbf{Problem}: Qualität der Wegfindung stark abhängig von der Auflösung der Quadrate
+	\end{itemize}
+	\item \textbf{Voronoi-Diagrammmethode (2D)}:
+	\begin{itemize}
+		\item \textbf{Umsetzung}: Unterteile Raum disjunkt in derartige Flächen, dass jedes Hindernis von genau einer Fläche eingeschlossen wird und innerhalb dieser Fläche genau die Punkte liegen, für die das eingeschlossene Hindernis das am nächsten liegende ist
+		\item \textbf{Graphgenerierung}: Knoten sind Punkte, an denen 3 oder mehr Voronoi-Linien (Kanten) aufeinandertreffen
+		\item \textbf{Problem}: Beachtliche Umwege sind zu erwarten
+	\end{itemize}
+	\item \textbf{Potentialfeldmethode}: Statt Graphgenerierung definiere Potential, welches maximal am Start und in Hindernissen ist und minimal am Ziel; dazwischen stetiger Abfall
+	\begin{itemize}
+		\item \textbf{Umsetzung}: Definiere Potenzialfunktion, bewege durchgehend in die Richtung des stärksten Potentialabfalls
+		\item \textbf{Problem}: Lokale Minima lassen Roboter feststecken und terminiert eventuell nicht; mit Hacks wie z.B Anheben der Position, falls der Roboter sich nicht mehr bewegt, manchmal kompensierbar 
+	\end{itemize}
+	\item \textbf{Sichtgraphmethode}: \itquote{Der schnellste Weg um Hindernisse ist direkt um sie herum!}
+	\begin{itemize}
+		\item \textbf{Umsetzung}: Definiere Graph der direkt zu den Hindernissen und dann um sie herum verläuft
+		\item \textbf{Graphgenerierung}: Verbinde Ecken jedes Hindernis-Polygons mit anderen sichtbaren Hindernis-Ecken; gleicher Sichtbarkeitstest für Start- und Zielpunkt, Gewichtung mit Kantenlänge
+		\item \textbf{Problem}: Kaum Sicherheitsabstand zu den Hindernissen, hohe Kollisionsgefahr
+	\end{itemize}
+\end{itemize}
